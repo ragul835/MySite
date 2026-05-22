@@ -44,6 +44,11 @@ Thumbs.db
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 
+# Java / Maven
+backend/target/
+*.class
+*.jar
+
 # Replit
 .cache/
 .local/

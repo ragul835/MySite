@@ -95,15 +95,26 @@ export default function ContactPage() {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-      // TODO: Replace with Spring Boot API call — endpoint: POST /api/v1/contact
-      console.log("Contact form submitted:", data);
-      toast.success("Message sent! We'll be in touch within 24 hours.");
+      const res = await fetch("/api/v1/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (res.status === 429) {
+        toast.error("Too many requests — please wait a minute and try again.");
+        return;
+      }
+      if (!res.ok) {
+        throw new Error(json.message ?? "Submission failed");
+      }
+      toast.success(json.message ?? "Message sent! We'll be in touch within 24 hours.");
       reset();
       setServiceValue("");
       setBudgetValue("");
-    } catch {
-      toast.error("Something went wrong. Please try again.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      toast.error(message);
     } finally {
       setIsSubmitting(false);
     }

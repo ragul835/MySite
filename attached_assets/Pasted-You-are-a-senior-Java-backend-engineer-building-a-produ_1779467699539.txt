@@ -1,0 +1,756 @@
+You are a senior Java backend engineer building a production-ready REST API backend for a Modern Digital Engineering Agency website. The backend powers a Next.js frontend and handles contact form submissions, project/service data management, authentication, and email notifications.
+
+Follow this specification precisely.
+
+---
+
+## 1. PROJECT INITIALIZATION
+
+### Tech Stack
+- **Language**: Java 17+
+- **Framework**: Spring Boot 3.2+
+- **Security**: Spring Security 6+
+- **Data Access**: Spring Data JPA + Hibernate
+- **Database**: PostgreSQL (hosted on Neon)
+- **Build Tool**: Maven
+- **API Format**: REST (JSON)
+- **Authentication**: JWT (JSON Web Tokens)
+- **Email**: Spring Boot Starter Mail (with Resend or Brevo SMTP)
+- **Validation**: Jakarta Bean Validation (Hibernate Validator)
+- **Documentation**: SpringDoc OpenAPI (Swagger UI)
+- **Testing**: JUnit 5 + Mockito + Spring Boot Test
+
+### Project Generation
+Use Spring Initializr (start.spring.io) or create manually with these dependencies:
+
+Group: com.agency
+Artifact: agency-backend
+Java Version: 17
+Packaging: Jar
+
+Dependencies:
+- spring-boot-starter-web
+- spring-boot-starter-data-jpa
+- spring-boot-starter-security
+- spring-boot-starter-validation
+- spring-boot-starter-mail
+- postgresql (runtime)
+- lombok
+- jjwt-api, jjwt-impl, jjwt-jackson (io.jsonwebtoken 0.12+)
+- springdoc-openapi-starter-webmvc-ui
+- spring-boot-starter-test
+
+### Architecture: Modular Monolith
+All modules live in one deployable Spring Boot application, organized by business domain.
+
+### Directory Structure
+src/main/java/com/agency/backend/
+│
+├── AgencyBackendApplication.java          # Main entry point
+│
+├── modules/
+│   ├── auth/
+│   │   ├── controller/AuthController.java
+│   │   ├── dto/LoginRequest.java
+│   │   ├── dto/LoginResponse.java
+│   │   ├── dto/RegisterRequest.java
+│   │   ├── service/AuthService.java
+│   │   └── service/AuthServiceImpl.java
+│   │
+│   ├── contact/
+│   │   ├── controller/ContactController.java
+│   │   ├── dto/ContactRequest.java
+│   │   ├── dto/ContactResponse.java
+│   │   ├── entity/ContactSubmission.java
+│   │   ├── repository/ContactRepository.java
+│   │   ├── service/ContactService.java
+│   │   └── service/ContactServiceImpl.java
+│   │
+│   ├── projects/
+│   │   ├── controller/ProjectController.java
+│   │   ├── dto/ProjectRequest.java
+│   │   ├── dto/ProjectResponse.java
+│   │   ├── entity/Project.java
+│   │   ├── repository/ProjectRepository.java
+│   │   ├── service/ProjectService.java
+│   │   └── service/ProjectServiceImpl.java
+│   │
+│   ├── services/
+│   │   ├── controller/ServiceController.java
+│   │   ├── dto/ServiceRequest.java
+│   │   ├── dto/ServiceResponse.java
+│   │   ├── entity/ServiceEntity.java
+│   │   ├── repository/ServiceRepository.java
+│   │   ├── service/ServiceService.java
+│   │   └── service/ServiceServiceImpl.java
+│   │
+│   └── users/
+│       ├── entity/User.java
+│       ├── entity/Role.java
+│       ├── repository/UserRepository.java
+│       ├── service/UserService.java
+│       └── service/UserServiceImpl.java
+│
+├── common/
+│   ├── dto/ApiResponse.java               # Standard API response wrapper
+│   ├── dto/PagedResponse.java             # Paginated response wrapper
+│   ├── exception/GlobalExceptionHandler.java
+│   ├── exception/ResourceNotFoundException.java
+│   ├── exception/BadRequestException.java
+│   └── exception/DuplicateResourceException.java
+│
+├── config/
+│   ├── SecurityConfig.java                # Spring Security + JWT filter chain
+│   ├── JwtAuthenticationFilter.java       # JWT token filter
+│   ├── JwtTokenProvider.java              # JWT generation + validation
+│   ├── CorsConfig.java                    # CORS configuration
+│   ├── RateLimitConfig.java               # Rate limiting configuration
+│   ├── OpenApiConfig.java                 # Swagger/OpenAPI config
+│   └── MailConfig.java                    # Email configuration
+│
+└── database/
+    └── DataSeeder.java                    # Initial data seeding (admin user, sample data)
+
+src/main/resources/
+├── application.yml                        # Main configuration
+├── application-dev.yml                    # Dev profile
+├── application-prod.yml                   # Prod profile
+└── db/migration/                          # SQL migration scripts (optional, if using Flyway)
+
+---
+
+## 2. DATABASE SCHEMA
+
+### PostgreSQL — All Tables
+
+#### users
+CREATE TABLE users (
+    id              BIGSERIAL PRIMARY KEY,
+    email           VARCHAR(255) UNIQUE NOT NULL,
+    password        VARCHAR(255) NOT NULL,
+    full_name       VARCHAR(255) NOT NULL,
+    role            VARCHAR(50) NOT NULL DEFAULT 'ADMIN',
+    is_active       BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+#### contact_submissions
+CREATE TABLE contact_submissions (
+    id              BIGSERIAL PRIMARY KEY,
+    name            VARCHAR(255) NOT NULL,
+    email           VARCHAR(255) NOT NULL,
+    company         VARCHAR(255),
+    phone           VARCHAR(50),
+    service         VARCHAR(255) NOT NULL,
+    budget          VARCHAR(100),
+    message         TEXT NOT NULL,
+    status          VARCHAR(50) DEFAULT 'NEW',
+    admin_notes     TEXT,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Status values: NEW, REVIEWED, IN_PROGRESS, RESPONDED, CLOSED
+
+#### projects
+CREATE TABLE projects (
+    id              BIGSERIAL PRIMARY KEY,
+    title           VARCHAR(255) NOT NULL,
+    description     TEXT NOT NULL,
+    category        VARCHAR(100) NOT NULL,
+    technologies    TEXT[] NOT NULL,
+    image_url       VARCHAR(500),
+    live_url        VARCHAR(500),
+    github_url      VARCHAR(500),
+    is_featured     BOOLEAN DEFAULT FALSE,
+    display_order   INT DEFAULT 0,
+    is_active       BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+#### services
+CREATE TABLE services (
+    id              BIGSERIAL PRIMARY KEY,
+    title           VARCHAR(255) NOT NULL,
+    description     TEXT NOT NULL,
+    icon            VARCHAR(100) NOT NULL,
+    features        TEXT[] NOT NULL,
+    display_order   INT DEFAULT 0,
+    is_active       BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+### JPA Entity Mapping Rules
+- Use @Entity, @Table annotations
+- Use @Id with @GeneratedValue(strategy = GenerationType.IDENTITY)
+- Use @Column for all fields with proper nullable, length constraints
+- Use @CreationTimestamp and @UpdateTimestamp from Hibernate
+- Use @Enumerated(EnumType.STRING) for enum fields
+- Use Lombok @Data, @Builder, @NoArgsConstructor, @AllArgsConstructor
+- Map PostgreSQL TEXT[] arrays with a custom converter or @ElementCollection
+
+---
+
+## 3. REST API SPECIFICATIONS
+
+All APIs must follow this base URL pattern: /api/v1/{module}
+
+### Standard Response Wrapper
+Every response must use this format:
+
+{
+    "success": true,
+    "message": "Operation description",
+    "data": { ... },
+    "timestamp": "2025-01-01T00:00:00Z"
+}
+
+For paginated lists:
+{
+    "success": true,
+    "message": "Records fetched",
+    "data": {
+        "content": [ ... ],
+        "page": 0,
+        "size": 10,
+        "totalElements": 50,
+        "totalPages": 5
+    },
+    "timestamp": "2025-01-01T00:00:00Z"
+}
+
+---
+
+### MODULE: AUTH (/api/v1/auth)
+
+#### POST /api/v1/auth/register
+Access: ADMIN only (first admin seeded via DataSeeder)
+Request Body:
+{
+    "email": "admin@agency.com",        // @Email @NotBlank
+    "password": "SecurePass123!",       // @NotBlank @Size(min=8)
+    "fullName": "Admin User"            // @NotBlank
+}
+Response: { success, message, data: { id, email, fullName, role } }
+
+#### POST /api/v1/auth/login
+Access: Public
+Request Body:
+{
+    "email": "admin@agency.com",        // @Email @NotBlank
+    "password": "SecurePass123!"        // @NotBlank
+}
+Response:
+{
+    "success": true,
+    "data": {
+        "accessToken": "eyJhbGciOi...",
+        "tokenType": "Bearer",
+        "expiresIn": 86400
+    }
+}
+
+---
+
+### MODULE: CONTACT (/api/v1/contact)
+
+#### POST /api/v1/contact
+Access: Public (rate-limited: 5 requests per IP per minute)
+Request Body:
+{
+    "name": "John Doe",                 // @NotBlank @Size(max=255)
+    "email": "john@example.com",        // @Email @NotBlank
+    "company": "Acme Inc",              // @Size(max=255), optional
+    "phone": "+1234567890",             // @Pattern(phone regex), optional
+    "service": "Full-Stack Development",// @NotBlank
+    "budget": "$10K-$25K",              // optional
+    "message": "We need a web app..."   // @NotBlank @Size(min=10, max=5000)
+}
+Response: { success: true, message: "Thank you! We'll get back to you within 24 hours." }
+Side Effect: Send email notification to agency admin
+
+#### GET /api/v1/contact
+Access: ADMIN (JWT required)
+Query Params: page, size, status, sortBy, sortDir
+Response: Paginated list of ContactSubmission
+
+#### GET /api/v1/contact/{id}
+Access: ADMIN (JWT required)
+Response: Single ContactSubmission with full details
+
+#### PATCH /api/v1/contact/{id}/status
+Access: ADMIN (JWT required)
+Request Body:
+{
+    "status": "REVIEWED",               // @NotBlank, one of: NEW, REVIEWED, IN_PROGRESS, RESPONDED, CLOSED
+    "adminNotes": "Followed up via email"  // optional
+}
+Response: Updated ContactSubmission
+
+#### DELETE /api/v1/contact/{id}
+Access: ADMIN (JWT required)
+Response: { success: true, message: "Submission deleted" }
+
+---
+
+### MODULE: PROJECTS (/api/v1/projects)
+
+#### GET /api/v1/projects
+Access: Public
+Query Params: page, size, category, featured (boolean)
+Response: Paginated list of active projects (is_active = true)
+
+#### GET /api/v1/projects/{id}
+Access: Public
+Response: Single project details
+
+#### POST /api/v1/projects
+Access: ADMIN (JWT required)
+Request Body:
+{
+    "title": "SaaS Dashboard",          // @NotBlank
+    "description": "Analytics...",       // @NotBlank
+    "category": "SaaS",                 // @NotBlank
+    "technologies": ["Next.js", "Spring Boot", "PostgreSQL"],  // @NotEmpty
+    "imageUrl": "https://...",           // optional
+    "liveUrl": "https://...",            // optional
+    "githubUrl": "https://...",          // optional
+    "isFeatured": true,                 // optional, default false
+    "displayOrder": 1                   // optional, default 0
+}
+Response: Created project
+
+#### PUT /api/v1/projects/{id}
+Access: ADMIN (JWT required)
+Request Body: Same as POST
+Response: Updated project
+
+#### DELETE /api/v1/projects/{id}
+Access: ADMIN (JWT required) — Soft delete (sets is_active = false)
+Response: { success: true, message: "Project deleted" }
+
+---
+
+### MODULE: SERVICES (/api/v1/services)
+
+#### GET /api/v1/services
+Access: Public
+Query Params: page, size
+Response: List of active services ordered by display_order
+
+#### GET /api/v1/services/{id}
+Access: Public
+Response: Single service details
+
+#### POST /api/v1/services
+Access: ADMIN (JWT required)
+Request Body:
+{
+    "title": "Full-Stack Development",   // @NotBlank
+    "description": "End-to-end...",      // @NotBlank
+    "icon": "Code",                      // @NotBlank (Lucide icon name)
+    "features": ["Frontend", "Backend", "REST APIs", "Auth", "Cloud"],  // @NotEmpty
+    "displayOrder": 1                    // optional
+}
+Response: Created service
+
+#### PUT /api/v1/services/{id}
+Access: ADMIN (JWT required)
+Response: Updated service
+
+#### DELETE /api/v1/services/{id}
+Access: ADMIN (JWT required) — Soft delete
+Response: { success: true, message: "Service deleted" }
+
+---
+
+## 4. SPRING SECURITY CONFIGURATION
+
+### SecurityConfig.java
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+public class SecurityConfig {
+
+    Configure:
+    - CSRF disabled (stateless REST API)
+    - Session management: STATELESS
+    - CORS: allow frontend origins
+    - Public endpoints:
+        POST /api/v1/auth/login
+        POST /api/v1/contact
+        GET  /api/v1/projects/**
+        GET  /api/v1/services/**
+        GET  /swagger-ui/**, /v3/api-docs/**
+    - All other endpoints: authenticated (JWT required)
+    - Add JwtAuthenticationFilter before UsernamePasswordAuthenticationFilter
+    - Use BCryptPasswordEncoder for password hashing
+}
+
+### JWT Configuration
+- Secret key: loaded from environment variable JWT_SECRET
+- Token expiry: 24 hours (configurable)
+- Token format: Bearer <token>
+- Claims: sub (user email), iat, exp, role
+- JwtTokenProvider methods:
+    - generateToken(UserDetails) → String
+    - getUserEmailFromToken(String) → String
+    - validateToken(String) → boolean
+
+### JwtAuthenticationFilter
+- Extends OncePerRequestFilter
+- Extract token from Authorization header
+- Validate token
+- Set SecurityContext with authenticated user
+- Skip for public endpoints
+
+---
+
+## 5. EMAIL NOTIFICATION SYSTEM
+
+### When to Send Emails
+1. New contact form submission → Notify agency admin
+2. Contact status changed to RESPONDED → Optionally notify the client
+
+### Email Template — New Contact Notification
+Subject: "New Contact Submission — {name} | {service}"
+To: configured admin email from environment variable
+
+Body (HTML):
+- Greeting
+- Submission details: Name, Email, Company, Phone, Service, Budget, Message
+- Direct link to admin panel to review
+- Timestamp
+
+### Configuration (application.yml)
+spring:
+  mail:
+    host: ${MAIL_HOST:smtp.resend.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+agency:
+  admin-email: ${ADMIN_EMAIL:admin@agency.com}
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+
+### Implementation
+- Create EmailService interface + EmailServiceImpl
+- Use JavaMailSender to send emails
+- Use Thymeleaf or simple HTML string templates
+- Make email sending async with @Async to avoid blocking the API response
+- Log email failures but do not fail the contact submission
+
+---
+
+## 6. ERROR HANDLING
+
+### GlobalExceptionHandler (@RestControllerAdvice)
+Handle these exceptions consistently:
+
+| Exception | HTTP Status | Message |
+|---|---|---|
+| ResourceNotFoundException | 404 | "Resource not found" |
+| BadRequestException | 400 | "Invalid request" |
+| DuplicateResourceException | 409 | "Resource already exists" |
+| MethodArgumentNotValidException | 400 | Field-level validation errors |
+| AccessDeniedException | 403 | "Access denied" |
+| AuthenticationException | 401 | "Authentication required" |
+| DataIntegrityViolationException | 409 | "Data conflict" |
+| Exception (catch-all) | 500 | "Internal server error" |
+
+### Error Response Format
+{
+    "success": false,
+    "message": "Validation failed",
+    "errors": {
+        "email": "must be a valid email address",
+        "name": "must not be blank"
+    },
+    "timestamp": "2025-01-01T00:00:00Z"
+}
+
+---
+
+## 7. SECURITY STANDARDS
+
+Implement ALL of these:
+
+1. **Password Hashing**: BCryptPasswordEncoder with strength 12
+2. **Input Validation**: Jakarta Bean Validation on ALL DTOs
+3. **SQL Injection Prevention**: Use parameterized queries via JPA (never raw SQL concatenation)
+4. **CORS Protection**:
+   - Allow origins: frontend URL only (configurable via env var)
+   - Allow methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+   - Allow headers: Authorization, Content-Type
+   - Allow credentials: true
+5. **Rate Limiting**: 
+   - Contact form: 5 requests per IP per minute
+   - Login: 10 attempts per IP per 15 minutes
+   - Use Bucket4j or a custom filter with ConcurrentHashMap
+6. **Environment Variables**: ALL secrets in env vars, never in code or committed files
+7. **Request Size Limit**: Max 10MB request body
+8. **Security Headers**: via Spring Security defaults + custom headers
+9. **Logging**: Log all authentication attempts, contact submissions, and admin actions
+   - Use SLF4J + Logback
+   - Do NOT log passwords or tokens
+
+---
+
+## 8. APPLICATION CONFIGURATION
+
+### application.yml
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: agency-backend
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/agency_db}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc.time_zone: UTC
+
+  mail:
+    host: ${MAIL_HOST:smtp.resend.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+agency:
+  jwt:
+    secret: ${JWT_SECRET:your-256-bit-secret-key-here-change-in-production}
+    expiration-ms: ${JWT_EXPIRATION:86400000}
+  admin-email: ${ADMIN_EMAIL:admin@agency.com}
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: ${SWAGGER_ENABLED:true}
+
+### application-dev.yml
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+springdoc:
+  swagger-ui:
+    enabled: true
+
+### application-prod.yml
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+springdoc:
+  swagger-ui:
+    enabled: false
+
+---
+
+## 9. DATA SEEDER
+
+### DataSeeder.java
+Implements CommandLineRunner.
+
+On startup (dev profile only):
+1. Check if admin user exists
+2. If not, create default admin:
+   - Email: admin@agency.com
+   - Password: Admin@123 (BCrypt hashed)
+   - Role: ADMIN
+   - Log: "Default admin user created"
+3. Seed sample services (the 7 services from the agency plan) if services table is empty
+4. Seed sample projects (5 showcase projects) if projects table is empty
+5. Log all seeding actions
+
+Guard with @Profile("dev") or a custom property flag.
+
+---
+
+## 10. TESTING STRATEGY
+
+### Unit Tests
+- Test all Service layer classes with Mockito
+- Test JwtTokenProvider token generation and validation
+- Test all DTO validations
+
+### Integration Tests
+- Test all Controller endpoints with @SpringBootTest + MockMvc
+- Test Repository queries with @DataJpaTest
+- Use H2 in-memory database for tests
+
+### Test Files Structure
+src/test/java/com/agency/backend/
+├── modules/
+│   ├── auth/
+│   │   ├── controller/AuthControllerTest.java
+│   │   └── service/AuthServiceTest.java
+│   ├── contact/
+│   │   ├── controller/ContactControllerTest.java
+│   │   ├── service/ContactServiceTest.java
+│   │   └── repository/ContactRepositoryTest.java
+│   ├── projects/
+│   │   └── ...
+│   └── services/
+│       └── ...
+├── config/
+│   └── JwtTokenProviderTest.java
+└── common/
+    └── GlobalExceptionHandlerTest.java
+
+### Key Test Cases
+- Contact submission with valid data → 200 + saved to DB
+- Contact submission with missing fields → 400 + validation errors
+- Contact submission rate limited → 429
+- Login with valid credentials → 200 + JWT token
+- Login with wrong password → 401
+- Access admin endpoint without token → 401
+- Access admin endpoint with valid token → 200
+- CRUD operations for projects and services
+
+---
+
+## 11. DEPLOYMENT
+
+### Build Commands
+# Clean build
+mvn clean install
+
+# Run locally
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+
+# Build production JAR
+mvn clean package -DskipTests
+java -jar target/agency-backend-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+
+### Deploy on Railway
+1. Connect GitHub repo
+2. Set build command: mvn clean package -DskipTests
+3. Set start command: java -jar target/*.jar --spring.profiles.active=prod
+4. Add environment variables:
+   - DATABASE_URL (from Neon PostgreSQL)
+   - DATABASE_USERNAME
+   - DATABASE_PASSWORD
+   - JWT_SECRET (generate a strong 256-bit key)
+   - MAIL_HOST, MAIL_USERNAME, MAIL_PASSWORD
+   - ADMIN_EMAIL
+   - FRONTEND_URL (Vercel deployment URL)
+   - SWAGGER_ENABLED=false
+   - PORT=8080
+
+### Deploy on Render (Alternative)
+1. Create Web Service, connect GitHub
+2. Build command: mvn clean package -DskipTests
+3. Start command: java -jar target/*.jar --spring.profiles.active=prod
+4. Same environment variables as Railway
+
+### Database: Neon PostgreSQL
+1. Create a Neon project
+2. Get connection string: jdbc:postgresql://<host>/<dbname>?sslmode=require
+3. Set DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD in deployment env vars
+4. JPA ddl-auto=update will create tables on first run (switch to validate after stable)
+
+---
+
+## 12. API DOCUMENTATION (SWAGGER)
+
+### OpenApiConfig.java
+Configure:
+- Title: "Agency Backend API"
+- Description: "REST API for Modern Digital Engineering Agency"
+- Version: "1.0.0"
+- Security scheme: Bearer JWT
+- Contact info
+- Server URLs: localhost (dev), production URL (prod)
+
+Access at: http://localhost:8080/swagger-ui.html (dev only)
+
+---
+
+## 13. LOGGING
+
+### Logback Configuration
+- Console output for dev
+- File output for prod: logs/agency-backend.log
+- Log levels:
+  - com.agency.backend: DEBUG (dev), INFO (prod)
+  - org.springframework.security: WARN
+  - org.hibernate.SQL: DEBUG (dev only)
+
+### What to Log
+- All incoming requests (method, path, status, duration) — use a request logging filter
+- Authentication events (login success/failure)
+- Contact form submissions (name, email — NOT message content in prod)
+- Admin actions (CRUD on projects, services, status changes)
+- Email send success/failure
+- Application startup with active profile
+
+---
+
+## 14. FRONTEND INTEGRATION CHECKLIST
+
+The Next.js frontend should connect to these endpoints:
+
+| Frontend Page | API Endpoint | Method | Auth |
+|---|---|---|---|
+| Contact Form | /api/v1/contact | POST | Public |
+| Solutions Page | /api/v1/projects?featured=true | GET | Public |
+| Services Page | /api/v1/services | GET | Public |
+| Admin Login | /api/v1/auth/login | POST | Public |
+| Admin — Contacts | /api/v1/contact | GET | JWT |
+| Admin — Projects | /api/v1/projects | POST/PUT/DELETE | JWT |
+| Admin — Services | /api/v1/services | POST/PUT/DELETE | JWT |
+
+CORS must allow the frontend origin (Vercel URL for prod, localhost:3000 for dev).
+
+---
+
+## EXECUTION INSTRUCTIONS
+
+1. Generate the Spring Boot project with all dependencies
+2. Create the directory structure exactly as specified
+3. Implement entities and repositories first (database layer)
+4. Implement DTOs with full validation annotations
+5. Implement service layer with business logic
+6. Implement controllers with proper request mapping
+7. Configure Spring Security with JWT authentication
+8. Implement the GlobalExceptionHandler
+9. Configure CORS for frontend integration
+10. Implement email notification service
+11. Create the DataSeeder for dev environment
+12. Write application.yml with all configuration
+13. Implement rate limiting on contact and auth endpoints
+14. Configure Swagger/OpenAPI documentation
+15. Write unit and integration tests
+16. Test all endpoints manually with curl or Postman
+
+Build EVERYTHING in one pass. Every endpoint must be fully functional. Use proper Java conventions — camelCase for variables, PascalCase for classes, consistent package naming. Follow SOLID principles throughout.

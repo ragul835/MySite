@@ -1,32 +1,22 @@
 kind = "api"
-previewPath = "/api" # TODO - should be excluded from preview in the first place
+previewPath = "/api/v1"
 title = "API Server"
 version = "1.0.0"
 id = "3B4_FFSkEVBkAeYMFRJ2e"
 
 [[services]]
-localPort = 8080
-name = "API Server"
-paths = ["/api"]
+localPort = 5001
+name = "Spring Boot API"
+paths = ["/api/v1"]
 
 [services.development]
-run = "pnpm --filter @workspace/api-server run dev"
-
-[services.production]
+run = "mvn -f /home/runner/workspace/backend/pom.xml spring-boot:run -Dspring-boot.run.profiles=dev -Dspring-boot.run.jvmArguments=-Dserver.port=5001"
 
 [services.production.build]
-args = ["pnpm", "--filter", "@workspace/api-server", "run", "build"]
-
-[services.production.build.env]
-NODE_ENV = "production"
+args = ["mvn", "-f", "/home/runner/workspace/backend/pom.xml", "clean", "package", "-DskipTests"]
 
 [services.production.run]
-# we don't run through pnpm to make startup faster in production
-args = ["node", "--enable-source-maps", "artifacts/api-server/dist/index.mjs"]
-
-[services.production.run.env]
-PORT = "8080"
-NODE_ENV = "production"
+args = ["java", "-jar", "/home/runner/workspace/backend/target/agency-backend-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=prod", "--server.port=5001"]
 
 [services.production.health.startup]
-path = "/api/healthz"
+path = "/api/v1/services"
