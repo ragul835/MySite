@@ -1,4 +1,4 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,8 +10,18 @@ import AboutPage from "@/pages/about";
 import ServicesPage from "@/pages/services";
 import SolutionsPage from "@/pages/solutions";
 import ContactPage from "@/pages/contact";
+import { useEffect } from "react";
+import logger from "@/lib/logger";
 
 const queryClient = new QueryClient();
+
+function RouteLogger() {
+  const [location] = useLocation();
+  useEffect(() => {
+    logger.route(location);
+  }, [location]);
+  return null;
+}
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,6 +36,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 function Router() {
   return (
     <Layout>
+      <RouteLogger />
       <Switch>
         <Route path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />

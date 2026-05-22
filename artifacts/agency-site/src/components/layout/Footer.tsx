@@ -115,27 +115,27 @@ export function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="mailto:hello@nexcore.dev"
+                  href="mailto:ragulsiva@zohomail.in"
                   data-testid="link-footer-email"
                   className="flex items-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <Mail className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                  hello@nexcore.dev
+                  ragulsiva@zohomail.in
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+15551234567"
+                  href="tel:+919080163393"
                   data-testid="link-footer-phone"
                   className="flex items-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Phone className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                  +1 (555) 123-4567
+                  +91 9080163393
                 </a>
               </li>
               <li className="flex items-start gap-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                San Francisco, CA
+                India
               </li>
             </ul>
           </div>

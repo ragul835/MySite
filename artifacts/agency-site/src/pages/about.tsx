@@ -134,8 +134,8 @@ export default function AboutPage() {
                     className="absolute inset-0 opacity-40"
                     style={{
                       backgroundImage: `
-                        linear-gradient(hsl(0 0% 15%) 1px, transparent 1px),
-                        linear-gradient(90deg, hsl(0 0% 15%) 1px, transparent 1px)
+                        linear-gradient(hsl(220 13% 88%) 1px, transparent 1px),
+                        linear-gradient(90deg, hsl(220 13% 88%) 1px, transparent 1px)
                       `,
                       backgroundSize: "40px 40px",
                     }}

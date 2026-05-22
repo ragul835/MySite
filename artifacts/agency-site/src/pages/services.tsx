@@ -170,8 +170,8 @@ export default function ServicesPage() {
                           className="absolute inset-0 opacity-30"
                           style={{
                             backgroundImage: `
-                              linear-gradient(hsl(0 0% 20%) 1px, transparent 1px),
-                              linear-gradient(90deg, hsl(0 0% 20%) 1px, transparent 1px)
+                              linear-gradient(hsl(220 13% 88%) 1px, transparent 1px),
+                              linear-gradient(90deg, hsl(220 13% 88%) 1px, transparent 1px)
                             `,
                             backgroundSize: "32px 32px",
                           }}

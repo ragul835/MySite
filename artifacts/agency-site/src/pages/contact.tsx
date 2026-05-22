@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Container } from "@/components/layout/Container";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
+import logger from "@/lib/logger";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -24,7 +25,6 @@ const contactSchema = z.object({
   company: z.string().optional(),
   phone: z.string().optional(),
   service: z.string().min(1, "Please select a service"),
-  budget: z.string().min(1, "Please select a budget range"),
   message: z.string().min(20, "Message must be at least 20 characters"),
 });
 
@@ -41,31 +41,23 @@ const services = [
   "Other",
 ];
 
-const budgets = [
-  "Under $5K",
-  "$5K - $10K",
-  "$10K - $25K",
-  "$25K - $50K",
-  "$50K+",
-];
-
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@nexcore.dev",
-    href: "mailto:hello@nexcore.dev",
+    value: "ragulsiva@zohomail.in",
+    href: "mailto:ragulsiva@zohomail.in",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    value: "+91 9080163393",
+    href: "tel:+919080163393",
   },
   {
     icon: MapPin,
     label: "Location",
-    value: "San Francisco, CA",
+    value: "India",
     href: null,
   },
 ];
@@ -79,7 +71,6 @@ const socials = [
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serviceValue, setServiceValue] = useState("");
-  const [budgetValue, setBudgetValue] = useState("");
 
   const {
     register,
@@ -94,13 +85,16 @@ export default function ContactPage() {
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
+    const start = Date.now();
     try {
+      logger.info("Submitting contact form", { service: data.service });
       const res = await fetch("/api/v1/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       const json = await res.json();
+      logger.api("POST", "/api/v1/contact", res.status, Date.now() - start);
       if (res.status === 429) {
         toast.error("Too many requests — please wait a minute and try again.");
         return;
@@ -111,9 +105,9 @@ export default function ContactPage() {
       toast.success(json.message ?? "Message sent! We'll be in touch within 24 hours.");
       reset();
       setServiceValue("");
-      setBudgetValue("");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      logger.error("Contact form submission failed", err);
       toast.error(message);
     } finally {
       setIsSubmitting(false);
@@ -123,10 +117,10 @@ export default function ContactPage() {
   return (
     <main>
       {/* Hero Banner */}
-      <section className="relative py-24 overflow-hidden border-b border-border/30">
+      <section className="relative py-24 overflow-hidden border-b border-border">
         <div
-          className="absolute inset-0 opacity-30"
-          style={{ background: "radial-gradient(ellipse at 50% 0%, hsl(217 91% 60% / 0.2) 0%, transparent 60%)" }}
+          className="absolute inset-0 opacity-20"
+          style={{ background: "radial-gradient(ellipse at 50% 0%, hsl(217 91% 60% / 0.25) 0%, transparent 60%)" }}
         />
         <Container className="relative z-10">
           <AnimateOnScroll>
@@ -151,7 +145,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
             {/* Contact Form */}
             <AnimateOnScroll className="lg:col-span-3">
-              <div className="p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
+              <div className="p-8 rounded-2xl border border-border bg-card shadow-sm">
                 <h2 className="text-2xl font-heading font-bold text-foreground mb-2">Send us a message</h2>
                 <p className="text-muted-foreground text-sm mb-8">
                   Fill out the form below and we'll come back to you with a clear plan and honest timeline.
@@ -203,61 +197,35 @@ export default function ContactPage() {
                       <Input
                         id="phone"
                         type="tel"
-                        placeholder="+1 (555) 000-0000"
+                        placeholder="+91 98765 43210"
                         data-testid="input-phone"
                         {...register("phone")}
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>Service Needed *</Label>
-                      <Select
-                        value={serviceValue}
-                        onValueChange={(val) => {
-                          setServiceValue(val);
-                          setValue("service", val);
-                          trigger("service");
-                        }}
-                      >
-                        <SelectTrigger data-testid="select-service" className={errors.service ? "border-destructive" : ""}>
-                          <SelectValue placeholder="Select a service" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {services.map((s) => (
-                            <SelectItem key={s} value={s}>{s}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.service && (
-                        <p className="text-xs text-destructive">{errors.service.message}</p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label>Budget Range *</Label>
-                      <Select
-                        value={budgetValue}
-                        onValueChange={(val) => {
-                          setBudgetValue(val);
-                          setValue("budget", val);
-                          trigger("budget");
-                        }}
-                      >
-                        <SelectTrigger data-testid="select-budget" className={errors.budget ? "border-destructive" : ""}>
-                          <SelectValue placeholder="Select budget" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {budgets.map((b) => (
-                            <SelectItem key={b} value={b}>{b}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.budget && (
-                        <p className="text-xs text-destructive">{errors.budget.message}</p>
-                      )}
-                    </div>
+                  <div className="space-y-2">
+                    <Label>Service Needed *</Label>
+                    <Select
+                      value={serviceValue}
+                      onValueChange={(val) => {
+                        setServiceValue(val);
+                        setValue("service", val);
+                        trigger("service");
+                      }}
+                    >
+                      <SelectTrigger data-testid="select-service" className={errors.service ? "border-destructive" : ""}>
+                        <SelectValue placeholder="Select a service" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {services.map((s) => (
+                          <SelectItem key={s} value={s}>{s}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.service && (
+                      <p className="text-xs text-destructive">{errors.service.message}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -317,7 +285,7 @@ export default function ContactPage() {
                     return (
                       <div
                         key={info.label}
-                        className="p-5 rounded-xl border border-border/50 bg-card/50 flex items-center gap-4"
+                        className="p-5 rounded-xl border border-border bg-card shadow-sm flex items-center gap-4"
                       >
                         <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                           <Icon className="w-5 h-5 text-primary" />
@@ -341,7 +309,7 @@ export default function ContactPage() {
                   })}
                 </div>
 
-                <div className="p-6 rounded-xl border border-border/50 bg-card/50">
+                <div className="p-6 rounded-xl border border-border bg-card shadow-sm">
                   <p className="text-sm font-semibold text-foreground mb-4">Follow us</p>
                   <div className="flex items-center gap-3">
                     {socials.map((social) => {
@@ -353,7 +321,7 @@ export default function ContactPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           data-testid={`link-social-${social.label.toLowerCase()}`}
-                          className="w-10 h-10 rounded-lg border border-border/50 bg-background/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
+                          className="w-10 h-10 rounded-lg border border-border bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
                         >
                           <Icon className="w-4 h-4" />
                         </a>
@@ -364,13 +332,13 @@ export default function ContactPage() {
 
                 {/* Decorative element */}
                 <div
-                  className="h-40 rounded-2xl border border-border/30 overflow-hidden relative"
-                  style={{ background: "linear-gradient(135deg, hsl(217 91% 60% / 0.08) 0%, hsl(221 83% 53% / 0.12) 100%)" }}
+                  className="h-40 rounded-2xl border border-border overflow-hidden relative"
+                  style={{ background: "linear-gradient(135deg, hsl(217 91% 60% / 0.06) 0%, hsl(221 83% 53% / 0.10) 100%)" }}
                 >
                   <div
-                    className="absolute inset-0 opacity-20"
+                    className="absolute inset-0 opacity-40"
                     style={{
-                      backgroundImage: "linear-gradient(hsl(0 0% 20%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 20%) 1px, transparent 1px)",
+                      backgroundImage: "linear-gradient(hsl(220 13% 88%) 1px, transparent 1px), linear-gradient(90deg, hsl(220 13% 88%) 1px, transparent 1px)",
                       backgroundSize: "24px 24px",
                     }}
                   />
