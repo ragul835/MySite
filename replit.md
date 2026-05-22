@@ -1,45 +1,51 @@
-# [Project name]
+# NexCore — Digital Engineering Agency Website
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A full 5-page marketing website for a modern digital engineering agency. Dark-themed, glassmorphism design with Framer Motion animations.
 
 ## Run & Operate
 
+- `pnpm --filter @workspace/agency-site run dev` — run the frontend (uses PORT env var)
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React + Vite, Tailwind CSS, Framer Motion, shadcn/ui, wouter
+- Fonts: Inter (body) + Poppins (headings) via Google Fonts
+- Icons: lucide-react + react-icons/si
+- Forms: react-hook-form + zod
+- Toasts: sonner
+- API: Express 5 (api-server artifact)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/agency-site/src/pages/` — page components (home, about, services, solutions, contact)
+- `artifacts/agency-site/src/components/layout/` — Navbar, Footer, Container
+- `artifacts/agency-site/src/components/shared/` — SectionHeader, GradientButton, AnimateOnScroll
+- `artifacts/agency-site/src/index.css` — all CSS variables / design tokens (dark theme)
+- `artifacts/api-server/src/routes/` — Express API routes
+
+## Pages
+
+- `/` — Home: Hero, Services grid, Tech stack tabs, Solutions showcase, CTA
+- `/about` — Mission, Engineering Philosophy, Stats with count-up
+- `/services` — 7 detailed service sections with alternating layout
+- `/solutions` — Filterable project showcase + 4-step process timeline
+- `/contact` — Contact form (react-hook-form + zod) + contact info
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
-
-## Product
-
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Presentation-only frontend — no backend needed for the agency site; contact form logs to console with TODO for future Spring Boot integration
+- CSS variables define a single dark theme applied to both `:root` and `.dark` for consistency
+- Framer Motion `useInView` drives all scroll-triggered animations
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+_Populate as you build._
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Google Fonts `@import url(...)` MUST be the very first line of `index.css` — before `@import "tailwindcss"`
+- The contact form `Select` components are controlled separately and synced to react-hook-form via `setValue`

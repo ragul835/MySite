@@ -1,0 +1,410 @@
+You are a senior full-stack engineer building a production-ready website for a Modern Digital Engineering Agency. The agency builds scalable digital products, SaaS platforms, e-commerce systems, and modern web experiences for startups and growing businesses.
+
+Follow this specification precisely.
+
+---
+
+## 1. PROJECT INITIALIZATION
+
+### Tech Stack
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS 3+
+- **UI Components**: shadcn/ui
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Fonts**: Inter (primary), Poppins (headings) — via Google Fonts
+
+### Setup Commands
+npx -y create-next-app@latest ./ --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --no-turbopack
+
+npx -y shadcn@latest init
+
+npm install framer-motion lucide-react clsx tailwind-merge
+
+### Directory Structure
+src/
+├── app/                  # Next.js App Router pages
+│   ├── layout.tsx        # Root layout with fonts, metadata
+│   ├── page.tsx          # Homepage
+│   ├── about/page.tsx
+│   ├── services/page.tsx
+│   ├── solutions/page.tsx
+│   └── contact/page.tsx
+├── components/           # Reusable UI components
+│   ├── ui/               # shadcn/ui primitives
+│   ├── layout/           # Navbar, Footer, Container
+│   └── shared/           # SectionHeader, CTAButton, ServiceCard, etc.
+├── sections/             # Page-specific sections
+│   ├── home/             # HeroSection, ServicesPreview, TechStack, Solutions, Contact
+│   ├── about/
+│   ├── services/
+│   ├── solutions/
+│   └── contact/
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions (cn, constants)
+├── services/             # API service layer
+├── types/                # TypeScript interfaces & types
+├── data/                 # Static structured data (projects.ts, services.ts, tech.ts)
+├── styles/               # Global styles
+└── public/               # Static assets (images, icons, og-images)
+
+---
+
+## 2. DESIGN SYSTEM
+
+### Color Palette (use CSS variables in globals.css)
+Primary Theme: Black + White + Blue
+
+--background: 0 0% 4%;             /* Near-black #0A0A0A */
+--foreground: 0 0% 98%;            /* Pure white #FAFAFA */
+--primary: 217 91% 60%;            /* Vibrant blue #3B82F6 */
+--primary-foreground: 0 0% 100%;   /* White */
+--secondary: 213 94% 68%;          /* Lighter blue #60A5FA */
+--accent: 221 83% 53%;             /* Deeper blue #2563EB */
+--muted: 0 0% 10%;                 /* Dark gray #1A1A1A */
+--muted-foreground: 0 0% 55%;      /* Medium gray */
+--card: 0 0% 7%;                   /* Dark card #121212 */
+--card-foreground: 0 0% 98%;       /* White */
+--border: 0 0% 15%;                /* Subtle gray border */
+--destructive: 0 84% 60%;
+--ring: 217 91% 60%;               /* Blue ring */
+
+### Typography
+- Headings: Poppins, font-weight 600–700
+- Body: Inter, font-weight 400–500
+- Font sizes: Use Tailwind scale (text-sm through text-6xl)
+
+### Design Principles
+- Modern, minimal, premium, professional aesthetic
+- Glassmorphism effects on cards (backdrop-blur, semi-transparent backgrounds)
+- Gradient accents (blue-to-light-blue linear gradients, with white highlights)
+- Subtle micro-animations on scroll and hover
+- Dark mode as the default theme
+- Generous whitespace and clean visual hierarchy
+- All interactive elements must have hover/focus states
+
+---
+
+## 3. GLOBAL LAYOUT
+
+### Navbar (components/layout/Navbar.tsx)
+- Sticky top, glassmorphism background (bg-background/80 backdrop-blur-lg)
+- Agency logo/name on the left
+- Navigation links: Home, About, Services, Solutions, Contact
+- "Get Started" CTA button with blue gradient background
+- Mobile: hamburger menu with smooth slide-in drawer
+- Active link indicator with animated underline
+- Animate on scroll: add subtle shadow when scrolled
+
+### Footer (components/layout/Footer.tsx)
+- Dark background with subtle top border gradient
+- 4-column grid layout:
+  - Col 1: Logo, tagline, brief description
+  - Col 2: Quick Links (all pages)
+  - Col 3: Services list
+  - Col 4: Contact info + social media icons (GitHub, LinkedIn, Twitter/X)
+- Bottom bar: copyright + "Built with Next.js"
+- Responsive: stacks on mobile
+
+---
+
+## 4. PAGE SPECIFICATIONS
+
+### PAGE 1: HOME (app/page.tsx)
+Build 5 distinct sections, each as a separate component in sections/home/:
+
+#### Section 1: HeroSection
+- Full viewport height (min-h-screen)
+- Large bold heading: "We Build Scalable Digital Products"
+- Subheading: "From SaaS platforms to e-commerce systems — modern web experiences for startups and growing businesses."
+- Two CTA buttons: "View Our Work" (primary gradient) + "Contact Us" (outline)
+- Animated blue gradient background orbs/blobs (CSS or Framer Motion)
+- Subtle floating particle or grid pattern effect
+- Text reveal animation on load using Framer Motion
+
+#### Section 2: ServicesSection
+- Section header: "What We Do" with subtitle
+- 6 service cards in a responsive grid (3 cols desktop, 2 tablet, 1 mobile):
+  1. Full-Stack Development
+  2. E-Commerce Development
+  3. SaaS Development
+  4. UI/UX Design
+  5. SEO Services
+  6. Shopify Development
+- Each card: icon, title, short description, hover effect (blue border glow + slight lift)
+- Glassmorphism card style
+- Staggered entrance animation on scroll
+
+#### Section 3: TechStackSection
+- Section header: "Technologies We Use"
+- Categorized horizontal tabs or pill toggles: Frontend | Backend | Database | Cloud | Tools
+- Grid of technology cards per category showing: icon/logo + name
+- Technologies:
+  - Frontend: Next.js, React, TypeScript, Tailwind CSS, Framer Motion
+  - Backend: Java, Spring Boot, Node.js, NestJS, Python, FastAPI
+  - Database: PostgreSQL, MySQL, MongoDB
+  - Cloud: Vercel, Railway, Render, Neon
+  - Tools: Git, GitHub, Postman, VS Code, Figma
+- Smooth tab transition animation
+
+#### Section 4: SolutionsSection
+- Section header: "Our Solutions"
+- Showcase 3-5 project cards:
+  1. SaaS Dashboard — "Analytics dashboard with real-time data"
+  2. E-Commerce Platform — "Full-featured online store with payments"
+  3. CRM Dashboard — "Customer relationship management system"
+  4. Booking Platform — "Service booking with scheduling engine"
+  5. Agency Landing Page — "High-converting marketing website"
+- Each card: image placeholder area (gradient/pattern), title, description, tech tags, "View Project" link
+- Hover effect: image scale + overlay with details
+- Data sourced from src/data/projects.ts
+
+#### Section 5: ContactCTASection
+- Black-to-dark-blue gradient background section
+- Compelling heading: "Ready to Build Something Great?"
+- Subtitle encouraging contact
+- Large "Get In Touch" CTA button
+- Optional: email address displayed
+
+---
+
+### PAGE 2: ABOUT (app/about/page.tsx)
+
+#### Hero Banner
+- Smaller hero with heading "About Us" and breadcrumb
+- Gradient accent background
+
+#### Mission Section
+- Two-column layout: text + decorative graphic/pattern
+- Mission statement about building lean, scalable solutions
+- Values: Build Lean, Avoid Premature Complexity, Prioritize Delivery Speed, Scale Gradually
+
+#### Engineering Philosophy Section
+- Cards or timeline layout highlighting:
+  - Focus on maintainability
+  - Separate concerns properly
+  - Modular Monolith architecture preference
+  - Budget-friendly yet professional solutions
+
+#### Why Choose Us Section
+- 4 stat/feature cards: "Projects Delivered", "Technologies", "Client Satisfaction", "Fast Delivery"
+- Icon + number + label layout with count-up animation
+
+---
+
+### PAGE 3: SERVICES (app/services/page.tsx)
+
+#### Hero Banner
+- "Our Services" heading with subtitle
+
+#### Services Grid
+Create detailed sections for each service. Each service block includes:
+- Icon, title, description paragraph
+- Feature list (bullet points with check icons)
+- Alternating layout (text-left/image-right, then swap)
+
+**Service Details:**
+
+1. **Full-Stack Development**: Frontend Development, Backend Development, REST APIs, Authentication Systems, Cloud Deployment
+2. **E-Commerce Development**: Custom E-Commerce Websites, Payment Gateway Integration, Mobile Responsive Stores, SEO-Friendly Architecture, Performance Optimization
+3. **SaaS Development**: SaaS Platforms, Subscription Systems, Dashboard Applications, Multi-Tenant Systems, API Integrations
+4. **UI/UX Design**: Responsive Design, Modern Interfaces, User Experience Optimization, Accessibility Improvements, Conversion-Focused UI
+5. **SEO Services**: Technical SEO, On-Page SEO, Off-Page SEO, Keyword Research, Core Web Vitals Optimization
+6. **Shopify Development**: Custom Shopify Stores, Theme Development, App Integrations, Mobile-First Storefronts
+7. **E-Commerce Optimization**: Speed Optimization, Conversion Optimization, Core Web Vitals Improvement, Image Optimization, Mobile Performance
+
+#### CTA Section
+- "Have a project in mind?" with contact button
+
+---
+
+### PAGE 4: SOLUTIONS (app/solutions/page.tsx)
+
+#### Hero Banner
+- "Our Solutions" heading
+
+#### Project Showcase
+- Detailed project cards from src/data/projects.ts
+- Each project: large image area, title, full description, technology tags, links
+- Filter tabs by category: All | SaaS | E-Commerce | Dashboard | Web
+- Modal or expand view for project details
+
+#### Process Section
+- 4-step process: Discovery → Design → Development → Deployment
+- Horizontal timeline with icons and descriptions
+- Animated connecting line
+
+---
+
+### PAGE 5: CONTACT (app/contact/page.tsx)
+
+#### Hero Banner
+- "Get In Touch" heading
+
+#### Two-Column Layout
+**Left Column - Contact Form** with fields:
+- Name (text, required)
+- Email (email, required)
+- Company (text, optional)
+- Phone (tel, optional)
+- Service Needed (select dropdown: Full-Stack Development, E-Commerce, SaaS, UI/UX, SEO, Shopify, Other)
+- Budget (select dropdown: <$5K, $5K-$10K, $10K-$25K, $25K-$50K, $50K+)
+- Message (textarea, required)
+- Submit button with loading state
+- Form validation with inline error messages
+- Success/error toast notifications after submission
+
+**Right Column - Contact Info:**
+- Email address with mailto link
+- Phone number
+- Location
+- Social media links (GitHub, LinkedIn, Twitter/X)
+- Small embedded map or decorative element
+
+#### Form Submission
+- Client-side validation using React Hook Form + Zod
+- POST to /api/contact (Next.js API route)
+- API route stores data and sends email notification
+- For now, implement the API route with console.log — mark with TODO for Spring Boot backend integration
+
+---
+
+## 5. STATIC DATA FILES
+
+### src/data/services.ts
+Export an array of service objects: { id, title, description, icon, features: string[] }
+
+### src/data/projects.ts
+Export an array of project objects: { id, title, description, category, technologies: string[], image, liveUrl?, githubUrl? }
+
+### src/data/techStack.ts
+Export categorized tech data: { category: string, items: { name, icon }[] }[]
+
+### src/types/index.ts
+Define TypeScript interfaces for: Service, Project, TechCategory, TechItem, ContactFormData
+
+---
+
+## 6. SEO & METADATA
+
+### Root Layout Metadata (app/layout.tsx)
+export const metadata: Metadata = {
+  title: { default: "Agency Name | Modern Digital Engineering", template: "%s | Agency Name" },
+  description: "We build scalable digital products, SaaS platforms, e-commerce systems, and modern web experiences for startups and growing businesses.",
+  keywords: ["web development", "SaaS development", "e-commerce", "digital agency", "Next.js", "Spring Boot"],
+  openGraph: { type: "website", locale: "en_US", siteName: "Agency Name" },
+  robots: { index: true, follow: true }
+}
+
+### Per-Page Metadata
+Each page exports its own metadata with unique title and description.
+
+### Additional SEO
+- Create public/robots.txt allowing all crawlers
+- Create app/sitemap.ts generating dynamic sitemap
+- Use semantic HTML (header, main, section, article, footer, nav)
+- Single h1 per page, proper heading hierarchy
+- All images must have alt text
+- All interactive elements need unique IDs
+
+---
+
+## 7. PERFORMANCE & QUALITY
+
+- Use next/image for all images with proper width/height/alt
+- Use next/font for Google Fonts (Inter + Poppins)
+- Lazy load below-fold sections
+- Use dynamic imports for heavy components
+- Ensure Lighthouse score > 90 for all categories
+- Ensure Core Web Vitals pass
+- All components must be fully responsive (mobile-first)
+- Use Framer Motion's useInView for scroll-triggered animations
+- Implement smooth scroll behavior
+
+---
+
+## 8. COMPONENT PATTERNS
+
+Every reusable component must:
+- Accept className prop for style overrides
+- Use cn() utility (clsx + tailwind-merge) for class merging
+- Be properly typed with TypeScript interfaces
+- Include JSDoc comments for complex props
+- Use forwardRef where applicable
+
+Key shared components to build:
+- SectionHeader: title + subtitle + optional alignment
+- GradientButton: primary CTA with gradient + hover effect
+- ServiceCard: icon + title + description + hover glow
+- ProjectCard: image + title + tech tags + links
+- TechBadge: small icon + name pill
+- Container: max-w-7xl centered wrapper
+- AnimateOnScroll: Framer Motion wrapper for scroll reveals
+
+---
+
+## 9. ANIMATION GUIDELINES
+
+Use Framer Motion for all animations:
+- Page transitions: fade + slight y-translate
+- Section reveals: staggered children with useInView
+- Card hovers: scale(1.02) + blue border glow + shadow elevation
+- Button hovers: subtle scale + blue gradient shift
+- Navbar: blur increase on scroll
+- Hero: text reveal with staggered word animation
+- Tech tabs: smooth content crossfade
+- Numbers: count-up animation with useInView trigger
+- Keep all animations subtle and professional (duration: 0.3-0.6s, ease: easeOut)
+- Respect prefers-reduced-motion
+
+---
+
+## 10. BACKEND INTEGRATION NOTES (Future Phase)
+
+The frontend is designed to connect to a Spring Boot backend:
+
+### Contact Form API Contract
+POST /api/v1/contact
+Content-Type: application/json
+
+Request Body:
+{
+  "name": string,
+  "email": string,
+  "company": string | null,
+  "phone": string | null,
+  "service": string,
+  "budget": string,
+  "message": string
+}
+
+Response: { "success": boolean, "message": string }
+
+### Backend Architecture (for future implementation)
+- Java + Spring Boot + Spring Security + Spring Data JPA
+- PostgreSQL database (hosted on Neon)
+- JWT Authentication for admin routes
+- Modular monolith architecture
+- Deploy on Railway or Render
+
+Mark all backend integration points with:
+// TODO: Replace with Spring Boot API call — endpoint: POST /api/v1/contact
+
+---
+
+## EXECUTION INSTRUCTIONS
+
+1. Initialize the project with the setup commands
+2. Configure Tailwind with the custom color palette in CSS variables
+3. Install and configure shadcn/ui components needed (button, input, textarea, select, card, badge, tabs, sheet, toast)
+4. Build the global layout (Navbar + Footer) first
+5. Create all shared components
+6. Build the data files
+7. Implement each page in order: Home → About → Services → Solutions → Contact
+8. Add SEO metadata to all pages
+9. Add animations throughout
+10. Test responsiveness at all breakpoints
+11. Verify all links and navigation work
+
+Build EVERYTHING in one pass. Do not use placeholder text — write real, compelling agency copy. Do not use placeholder images — use CSS gradients, patterns, or SVG illustrations instead. Every page must feel premium, modern, and production-ready.
