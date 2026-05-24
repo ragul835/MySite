@@ -78,30 +78,52 @@ export default function AboutPage() {
   return (
     <main>
       {/* Hero Banner */}
-      <section className="relative py-24 overflow-hidden border-b border-border/30">
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{ background: "radial-gradient(ellipse at 50% 0%, hsl(217 91% 60% / 0.2) 0%, transparent 60%)" }}
+      <section className="relative pt-32 pb-24 overflow-hidden border-b border-border/30">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-background" />
+        
+        {/* Premium Grid Overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
         />
+
+        {/* Animated Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute top-[-20%] right-[10%] w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
+            style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+
         <Container className="relative z-10">
           <AnimateOnScroll>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-              <ChevronRight className="w-4 h-4" />
-              <span className="text-foreground">About</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/10 backdrop-blur-sm text-primary text-sm font-medium mb-8">
+              <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">Home</Link>
+              <ChevronRight className="w-3.5 h-3.5" />
+              <span>About Us</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-heading font-bold text-foreground tracking-tight mb-6">
-              About Us
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl">
-              A small, focused engineering team that punches well above its weight class.
-            </p>
+            <div className="max-w-4xl">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground">
+                About <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary via-primary/80 to-secondary relative">
+                  Us
+                  <span className="absolute -inset-x-4 -inset-y-2 bg-primary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed border-l-4 border-primary/30 pl-6 max-w-2xl">
+                A small, focused engineering team that punches well above its weight class.
+              </p>
+            </div>
           </AnimateOnScroll>
         </Container>
       </section>
 
       {/* Mission Section */}
-      <section className="py-24">
+      <section className="py-16">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <AnimateOnScroll>
@@ -127,40 +149,82 @@ export default function AboutPage() {
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={0.2}>
-              {/* Decorative geometric pattern */}
-              <div className="relative h-80 lg:h-full min-h-72">
-                <div className="absolute inset-0 rounded-3xl border border-border/50 bg-card/30 overflow-hidden">
-                  <div
-                    className="absolute inset-0 opacity-40"
-                    style={{
-                      backgroundImage: `
-                        linear-gradient(hsl(220 13% 88%) 1px, transparent 1px),
-                        linear-gradient(90deg, hsl(220 13% 88%) 1px, transparent 1px)
-                      `,
-                      backgroundSize: "40px 40px",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 opacity-60"
-                    style={{
-                      background: "radial-gradient(ellipse at 50% 50%, hsl(217 91% 60% / 0.15) 0%, transparent 70%)",
-                    }}
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="grid grid-cols-3 gap-6 p-8">
-                      {[...Array(9)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="w-12 h-12 rounded-xl border border-border/60 bg-card/50 flex items-center justify-center"
-                          animate={{ opacity: [0.3, 1, 0.3] }}
-                          transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
-                        >
-                          <div className="w-3 h-3 rounded-full bg-primary/60" />
-                        </motion.div>
-                      ))}
+              {/* Premium Floating Architecture Visual */}
+              <div className="relative h-96 lg:h-[500px] w-full flex items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-secondary/10 rounded-full blur-3xl opacity-50" />
+                
+                {/* Main Central Card */}
+                <motion.div 
+                  className="relative z-20 w-64 h-80 rounded-2xl bg-card/80 backdrop-blur-xl border border-border/60 shadow-2xl p-6 flex flex-col justify-between overflow-hidden"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-10 -mt-10" />
+                  
+                  <div>
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 rounded-full bg-red-400/80" />
+                        <div className="w-3 h-3 rounded-full bg-amber-400/80" />
+                        <div className="w-3 h-3 rounded-full bg-green-400/80" />
+                      </div>
+                      <div className="w-6 h-6 rounded-md bg-primary/20 flex items-center justify-center">
+                        <Cpu className="w-3.5 h-3.5 text-primary" />
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="h-2 w-3/4 bg-primary/20 rounded-full" />
+                      <div className="h-2 w-full bg-border/50 rounded-full" />
+                      <div className="h-2 w-5/6 bg-border/50 rounded-full" />
+                      <div className="h-2 w-4/6 bg-border/50 rounded-full" />
                     </div>
                   </div>
-                </div>
+                  
+                  <div className="mt-auto space-y-4">
+                    <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Shield className="w-4 h-4 text-primary" />
+                        <span className="text-xs font-semibold text-primary">System Core</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-primary/20 rounded-full overflow-hidden">
+                        <div className="h-full w-3/4 bg-primary rounded-full" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Floating Left Card */}
+                <motion.div 
+                  className="absolute left-0 lg:left-4 z-10 w-48 h-56 rounded-2xl bg-card/60 backdrop-blur-md border border-border/40 shadow-xl p-5"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-secondary" />
+                    </div>
+                    <div className="h-2 w-16 bg-border/60 rounded-full" />
+                  </div>
+                  <div className="space-y-2 mt-8">
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} className={`h-1.5 rounded-full ${i % 2 === 0 ? 'bg-secondary/40 w-full' : 'bg-border/40 w-4/5'}`} />
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Floating Right Card */}
+                <motion.div 
+                  className="absolute right-0 lg:right-4 z-30 w-52 h-48 rounded-2xl bg-card/60 backdrop-blur-md border border-border/40 shadow-xl p-5"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                >
+                  <div className="w-full h-24 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/10 mb-4 flex items-center justify-center relative overflow-hidden">
+                    <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle, hsl(217 91% 60% / 0.4) 1px, transparent 1px)", backgroundSize: "10px 10px" }} />
+                    <Target className="w-8 h-8 text-primary relative z-10" />
+                  </div>
+                  <div className="h-2 w-24 bg-border/60 rounded-full mx-auto" />
+                </motion.div>
+                
               </div>
             </AnimateOnScroll>
           </div>
@@ -168,7 +232,7 @@ export default function AboutPage() {
       </section>
 
       {/* Engineering Philosophy */}
-      <section className="py-24 relative">
+      <section className="py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent pointer-events-none" />
         <Container>
           <AnimateOnScroll>
@@ -207,7 +271,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-24">
+      <section className="py-20">
         <Container>
           <AnimateOnScroll>
             <SectionHeader title="By the Numbers" subtitle="Results speak louder than promises." />
@@ -228,11 +292,36 @@ export default function AboutPage() {
               ))}
             </div>
           </AnimateOnScroll>
+        </Container>
+      </section>
 
-          <AnimateOnScroll className="text-center mt-16">
-            <GradientButton href="/contact" className="px-10 py-4">
-              Work With Us
-            </GradientButton>
+      {/* CTA Section */}
+      <section className="py-24 relative overflow-hidden border-t border-border/20">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-primary/10 to-background pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] pointer-events-none opacity-50" />
+        
+        {/* Subtle grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+
+        <Container className="relative z-10">
+          <AnimateOnScroll>
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground tracking-tight">
+                Ready to build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">extraordinary?</span>
+              </h2>
+              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+                Let's discuss how our engineering team can help bring your vision to life. No strings attached, just an honest conversation about your product.
+              </p>
+              <GradientButton href="/contact#contact-form" className="px-12 py-5 text-lg font-semibold shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all">
+                Work With Us
+              </GradientButton>
+            </div>
           </AnimateOnScroll>
         </Container>
       </section>

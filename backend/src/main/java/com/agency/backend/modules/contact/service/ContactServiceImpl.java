@@ -34,10 +34,8 @@ public class ContactServiceImpl implements ContactService {
         ContactSubmission submission = ContactSubmission.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .company(request.getCompany())
                 .phone(request.getPhone())
                 .service(request.getService())
-                .budget(request.getBudget())
                 .message(request.getMessage())
                 .build();
         ContactSubmission saved = contactRepository.save(submission);

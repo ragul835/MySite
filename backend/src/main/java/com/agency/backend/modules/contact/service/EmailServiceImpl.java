@@ -37,16 +37,31 @@ public class EmailServiceImpl implements EmailService {
             log.info("Email not configured — skipping notification for contact submission id={}", submission.getId());
             return;
         }
+
+        // Mock email if using default placeholder credentials
+        if ("your-email@gmail.com".equals(mailUsername) || mailUsername.contains("example.com")) {
+            log.info("======================================================");
+            log.info("MOCK EMAIL SENT (SMTP not configured with real credentials)");
+            log.info("To: {}", adminEmail);
+            log.info("Subject: New Contact Submission — {} | {}", submission.getName(), submission.getService());
+            log.info("Body:\nName: {}\nEmail: {}\nPhone/WhatsApp: {}\nService: {}\nMessage: {}", 
+                submission.getName(), submission.getEmail(), submission.getPhone(), 
+                submission.getService(), submission.getMessage());
+            log.info("======================================================");
+            return;
+        }
+
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setFrom(mailUsername, "NexCore Agency");
             helper.setTo(adminEmail);
             helper.setSubject("New Contact Submission — " + submission.getName() + " | " + submission.getService());
             helper.setText(buildEmailBody(submission), true);
             mailSender.send(message);
             log.info("Contact notification email sent for submission id={}", submission.getId());
         } catch (Exception e) {
-            log.error("Failed to send contact notification email for submission id={}: {}", submission.getId(), e.getMessage());
+            log.error("Failed to send contact notification email for submission id={}: {}", submission.getId(), e.getMessage(), e);
         }
     }
 
@@ -58,10 +73,8 @@ public class EmailServiceImpl implements EmailService {
                   <table style="width:100%%;border-collapse:collapse;">
                     <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">Name</td><td style="padding:8px;border-bottom:1px solid #eee;">%s</td></tr>
                     <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">Email</td><td style="padding:8px;border-bottom:1px solid #eee;">%s</td></tr>
-                    <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">Company</td><td style="padding:8px;border-bottom:1px solid #eee;">%s</td></tr>
-                    <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">Phone</td><td style="padding:8px;border-bottom:1px solid #eee;">%s</td></tr>
+                    <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">WhatsApp Number</td><td style="padding:8px;border-bottom:1px solid #eee;">%s</td></tr>
                     <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">Service</td><td style="padding:8px;border-bottom:1px solid #eee;">%s</td></tr>
-                    <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">Budget</td><td style="padding:8px;border-bottom:1px solid #eee;">%s</td></tr>
                     <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">Submitted</td><td style="padding:8px;border-bottom:1px solid #eee;">%s</td></tr>
                   </table>
                   <h3 style="margin-top:16px;">Message</h3>
@@ -70,8 +83,7 @@ public class EmailServiceImpl implements EmailService {
                 </body></html>
                 """.formatted(
                 s.getName(), s.getEmail(),
-                orEmpty(s.getCompany()), orEmpty(s.getPhone()),
-                s.getService(), orEmpty(s.getBudget()),
+                orEmpty(s.getPhone()), s.getService(),
                 ts, s.getMessage());
     }
 

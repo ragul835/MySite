@@ -25,17 +25,11 @@ public class ContactSubmission {
     @Column(nullable = false, length = 255)
     private String email;
 
-    @Column(length = 255)
-    private String company;
-
     @Column(length = 50)
     private String phone;
 
     @Column(nullable = false, length = 255)
     private String service;
-
-    @Column(length = 100)
-    private String budget;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;

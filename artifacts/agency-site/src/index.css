@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -60,7 +60,35 @@
   --font-sans: var(--app-font-sans);
   --font-serif: var(--app-font-serif);
   --font-mono: var(--app-font-mono);
-  --font-heading: 'Poppins', sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+
+  /* Globally Increased Font Sizes with Proper Line Heights */
+  --text-xs: 0.85rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.95rem;
+  --text-sm--line-height: 1.5rem;
+  --text-base: 1.1rem;
+  --text-base--line-height: 1.75rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.85rem;
+  --text-xl: 1.4rem;
+  --text-xl--line-height: 2rem;
+  --text-2xl: 1.65rem;
+  --text-2xl--line-height: 2.25rem;
+  --text-3xl: 2.1rem;
+  --text-3xl--line-height: 2.5rem;
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 3rem;
+  --text-5xl: 3.3rem;
+  --text-5xl--line-height: 3.75rem;
+  --text-6xl: 4.2rem;
+  --text-6xl--line-height: 4.5rem;
+  --text-7xl: 5.2rem;
+  --text-7xl--line-height: 5.5rem;
+  --text-8xl: 6.5rem;
+  --text-8xl--line-height: 6.5rem;
+  --text-9xl: 8.5rem;
+  --text-9xl--line-height: 8.5rem;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -81,53 +109,53 @@
   --elevate-2: rgba(0,0,0, .08);
 
   --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
-  --primary: 217 91% 60%;
+  --foreground: 240 10% 15%;
+  --primary: 262 83% 58%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 213 94% 68%;
+  --secondary: 199 89% 48%;
   --secondary-foreground: 0 0% 100%;
-  --accent: 221 83% 53%;
-  --accent-foreground: 0 0% 100%;
-  --muted: 220 14% 96%;
-  --muted-foreground: 220 9% 46%;
+  --accent: 43 96% 56%;
+  --accent-foreground: 240 10% 15%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 4% 46%;
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
-  --card-border: 220 13% 91%;
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --ring: 217 91% 60%;
+  --card-foreground: 240 10% 15%;
+  --card-border: 240 6% 90%;
+  --border: 240 6% 90%;
+  --input: 240 6% 90%;
+  --ring: 262 83% 58%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
-  --popover-border: 220 13% 91%;
-  --destructive: 0 84% 60%;
+  --popover-foreground: 240 10% 15%;
+  --popover-border: 240 6% 90%;
+  --destructive: 348 83% 58%;
   --destructive-foreground: 0 0% 100%;
-  --sidebar: 0 0% 98%;
-  --sidebar-foreground: 222 47% 11%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-primary: 217 91% 60%;
+  --sidebar: 240 5% 98%;
+  --sidebar-foreground: 240 10% 15%;
+  --sidebar-border: 240 6% 90%;
+  --sidebar-primary: 262 83% 58%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 220 14% 96%;
-  --sidebar-accent-foreground: 222 47% 11%;
-  --sidebar-ring: 217 91% 60%;
-  --chart-1: 217 91% 60%;
-  --chart-2: 213 94% 68%;
-  --chart-3: 221 83% 53%;
-  --chart-4: 210 100% 70%;
-  --chart-5: 200 100% 75%;
+  --sidebar-accent: 240 5% 96%;
+  --sidebar-accent-foreground: 240 10% 15%;
+  --sidebar-ring: 262 83% 58%;
+  --chart-1: 262 83% 58%;
+  --chart-2: 199 89% 48%;
+  --chart-3: 43 96% 56%;
+  --chart-4: 348 83% 58%;
+  --chart-5: 160 84% 39%;
 
-  --app-font-sans: 'Inter', sans-serif;
+  --app-font-sans: 'Outfit', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
-  --radius: .5rem; /* 8px */
-  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --tracking-normal: 0em;
+  --radius: 0.75rem; /* 12px rounded borders */
+  --shadow-2xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 4px 10px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 20px 40px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 40px 80px rgba(0, 0, 0, 0.1), 0 16px 32px rgba(0, 0, 0, 0.05);
+  --shadow-2xl: 0 50px 100px rgba(0, 0, 0, 0.12), 0 20px 40px rgba(0, 0, 0, 0.06);
+  --tracking-normal: -0.015em;
   --spacing: 0.25rem;
 
   /* Automatically computed borders - intensity can be controlled by the user by the --opaque-button-border-intensity setting */
@@ -223,8 +251,33 @@
     @apply border-border;
   }
 
+  ::selection {
+    background: hsl(var(--primary) / 0.2);
+    color: hsl(var(--foreground));
+  }
+
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    background-image: 
+      radial-gradient(circle at top right, hsl(var(--primary) / 0.05), transparent 600px), 
+      radial-gradient(circle at bottom left, hsl(var(--secondary) / 0.05), transparent 600px);
+    background-attachment: fixed;
+  }
+
+  /* Custom Premium Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
   }
 }
 
@@ -337,5 +390,10 @@
   .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 }

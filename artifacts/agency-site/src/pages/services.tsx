@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Code2, ShoppingCart, Layers, Palette, Search, ShoppingBag, Gauge,
@@ -97,42 +98,78 @@ const servicesList = [
 ];
 
 export default function ServicesPage() {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (window.location.hash) {
+        const id = window.location.hash.substring(1);
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <main>
       {/* Hero Banner */}
-      <section className="relative py-24 overflow-hidden border-b border-border/30">
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{ background: "radial-gradient(ellipse at 50% 0%, hsl(217 91% 60% / 0.2) 0%, transparent 60%)" }}
+      <section className="relative pt-32 pb-24 overflow-hidden border-b border-border/30">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-background" />
+        
+        {/* Premium Grid Overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
         />
+
+        {/* Animated Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute top-[-20%] right-[10%] w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
+            style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+
         <Container className="relative z-10">
           <AnimateOnScroll>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/10 backdrop-blur-sm text-primary text-sm font-medium mb-8">
               <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-              <ChevronRight className="w-4 h-4" />
-              <span className="text-foreground">Services</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+              <span>Services</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-heading font-bold text-foreground tracking-tight mb-6">
-              Our Services
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl">
-              Everything you need to build, launch, and scale a digital product — under one roof.
-            </p>
+            <div className="max-w-4xl">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground">
+                Our <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary via-primary/80 to-secondary relative">
+                  Services
+                  <span className="absolute -inset-x-4 -inset-y-2 bg-primary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed border-l-4 border-primary/30 pl-6 max-w-2xl">
+                Everything you need to build, launch, and scale a digital product — under one roof.
+              </p>
+            </div>
           </AnimateOnScroll>
         </Container>
       </section>
 
       {/* Services Detail */}
-      <section className="py-24">
+      <section className="py-16">
         <Container>
-          <div className="space-y-24">
+          <div className="space-y-20">
             {servicesList.map((service, i) => {
               const Icon = service.icon;
               const isEven = i % 2 === 0;
               return (
                 <AnimateOnScroll key={service.title}>
                   <div
-                    className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center ${
+                    id={service.title.toLowerCase().replace(/\s+/g, "-")}
+                    className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center scroll-mt-32 ${
                       isEven ? "" : "lg:[&>*:first-child]:order-2"
                     }`}
                     data-testid={`section-service-${i}`}
@@ -160,31 +197,43 @@ export default function ServicesPage() {
 
                     {/* Decorative side */}
                     <div>
-                      <div
-                        className="h-72 rounded-3xl border border-border/50 overflow-hidden relative"
-                        style={{
-                          background: `linear-gradient(135deg, hsl(217 91% 60% / ${0.05 + (i % 3) * 0.03}) 0%, hsl(221 83% 53% / ${0.08 + (i % 2) * 0.04}) 100%)`,
-                        }}
-                      >
-                        <div
-                          className="absolute inset-0 opacity-30"
-                          style={{
-                            backgroundImage: `
-                              linear-gradient(hsl(220 13% 88%) 1px, transparent 1px),
-                              linear-gradient(90deg, hsl(220 13% 88%) 1px, transparent 1px)
-                            `,
-                            backgroundSize: "32px 32px",
-                          }}
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <motion.div
-                            className="w-20 h-20 rounded-3xl bg-primary/15 border border-primary/30 flex items-center justify-center"
-                            animate={{ scale: [1, 1.05, 1] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                      <div className="h-72 w-full relative flex items-center justify-center perspective-[1000px]">
+                        {/* Background Glow */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-secondary/5 rounded-3xl blur-2xl" />
+                        
+                        {/* Interactive Stack */}
+                        <motion.div
+                          className="relative w-48 h-48"
+                          animate={{ rotateY: [-5, 5, -5], rotateX: [5, 10, 5] }}
+                          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+                          style={{ transformStyle: "preserve-3d" }}
+                        >
+                          {/* Back Card */}
+                          <div 
+                            className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/10 shadow-xl backdrop-blur-sm"
+                            style={{ transform: "translateZ(-30px) scale(0.9)", opacity: 0.6 }}
+                          />
+                          
+                          {/* Middle Card */}
+                          <div 
+                            className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/30 to-secondary/30 border border-primary/20 shadow-xl backdrop-blur-md"
+                            style={{ transform: "translateZ(0px) scale(0.95)", opacity: 0.8 }}
+                          />
+                          
+                          {/* Front Main Card */}
+                          <div 
+                            className="absolute inset-0 rounded-2xl bg-card/80 border border-primary/30 shadow-2xl backdrop-blur-xl flex flex-col items-center justify-center p-6 gap-4"
+                            style={{ transform: "translateZ(30px)" }}
                           >
-                            <Icon className="w-10 h-10 text-primary/70" />
-                          </motion.div>
-                        </div>
+                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center shadow-inner">
+                              <Icon className="w-8 h-8 text-primary" />
+                            </div>
+                            <div className="w-full space-y-2">
+                              <div className="h-1.5 w-3/4 mx-auto bg-primary/20 rounded-full" />
+                              <div className="h-1.5 w-1/2 mx-auto bg-primary/20 rounded-full" />
+                            </div>
+                          </div>
+                        </motion.div>
                       </div>
                     </div>
                   </div>
@@ -196,11 +245,8 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden border-t border-border/30">
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(221 83% 8%) 100%)" }}
-        />
+      <section className="py-20 relative overflow-hidden border-t border-border/30">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-secondary/10" />
         <Container className="relative z-10 text-center">
           <AnimateOnScroll>
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-5 tracking-tight">
@@ -209,7 +255,7 @@ export default function ServicesPage() {
             <p className="text-lg text-muted-foreground mb-10 max-w-lg mx-auto">
               Let's talk. We'll help you figure out the right approach and give you an honest estimate.
             </p>
-            <GradientButton href="/contact" className="px-12 py-4 text-base">
+            <GradientButton href="/contact#contact-form" className="px-12 py-4 text-base">
               Start a Conversation
             </GradientButton>
           </AnimateOnScroll>

@@ -16,6 +16,12 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
 
     private static final Logger log = LoggerFactory.getLogger(RequestLoggingFilter.class);
 
+    private static final String RESET = "\u001B[0m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String RED = "\u001B[31m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String CYAN = "\u001B[36m";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -32,11 +38,11 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
             String full = query != null ? uri + "?" + query : uri;
 
             if (status >= 500) {
-                log.error("{} {} → {} ({}ms)", method, full, status, ms);
+                log.error("{} {} {} → {} ({}ms){}", RED, method, full, status, ms, RESET);
             } else if (status >= 400) {
-                log.warn("{} {} → {} ({}ms)", method, full, status, ms);
+                log.warn("{} {} {} → {} ({}ms){}", YELLOW, method, full, status, ms, RESET);
             } else {
-                log.info("{} {} → {} ({}ms)", method, full, status, ms);
+                log.info("{} {} {} → {} ({}ms){}", GREEN, method, full, status, ms, RESET);
             }
         }
     }

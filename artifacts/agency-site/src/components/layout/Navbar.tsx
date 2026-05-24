@@ -37,8 +37,8 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300 bg-background/80 backdrop-blur-lg",
-        isScrolled && "shadow-md border-b border-border/50"
+        "sticky top-0 z-50 w-full transition-all duration-300 bg-background/60 backdrop-blur-2xl border-b border-transparent",
+        isScrolled && "shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-border/40 bg-background/80 backdrop-blur-3xl"
       )}
     >
       <Container>
@@ -73,7 +73,7 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <GradientButton href="/contact" className="ml-4 px-6 py-2">
+            <GradientButton href="/contact#contact-form" className="ml-4 px-6 py-2">
               Get Started
             </GradientButton>
           </nav>
@@ -104,7 +104,7 @@ export function Navbar() {
                     );
                   })}
                   <div className="mt-8">
-                    <GradientButton href="/contact" className="w-full text-center">
+                    <GradientButton href="/contact#contact-form" className="w-full text-center">
                       Get Started
                     </GradientButton>
                   </div>

@@ -23,13 +23,12 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         jdbc:
           time_zone: UTC
 
   mail:
-    host: ${MAIL_HOST:smtp.resend.com}
+    host: ${MAIL_HOST:smtp.zoho.in}
     port: ${MAIL_PORT:587}
     username: ${MAIL_USERNAME:}
     password: ${MAIL_PASSWORD:}
@@ -55,7 +54,7 @@ agency:
   jwt:
     secret: ${JWT_SECRET:VGhpcyBpcyBhIHZlcnkgbG9uZyBzZWNyZXQga2V5IGZvciBKV1QgdG9rZW5zIGluIHByb2R1Y3Rpb24=}
     expiration-ms: ${JWT_EXPIRATION:86400000}
-  admin-email: ${ADMIN_EMAIL:admin@agency.com}
+  admin-email: ${ADMIN_EMAIL:ragulsiva@zohomail.in}
   frontend-url: ${FRONTEND_URL:http://localhost:3000}
 
 springdoc:

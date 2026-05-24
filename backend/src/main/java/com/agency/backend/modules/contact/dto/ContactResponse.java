@@ -18,10 +18,8 @@ public class ContactResponse {
     private Long id;
     private String name;
     private String email;
-    private String company;
     private String phone;
     private String service;
-    private String budget;
     private String message;
     private ContactStatus status;
     private String adminNotes;
@@ -33,10 +31,8 @@ public class ContactResponse {
                 .id(submission.getId())
                 .name(submission.getName())
                 .email(submission.getEmail())
-                .company(submission.getCompany())
                 .phone(submission.getPhone())
                 .service(submission.getService())
-                .budget(submission.getBudget())
                 .message(submission.getMessage())
                 .status(submission.getStatus())
                 .adminNotes(submission.getAdminNotes())
