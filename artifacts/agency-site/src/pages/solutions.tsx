@@ -1,56 +1,12 @@
-import { useState } from "react";
 import { Link } from "wouter";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Search, PenTool, Code2, Rocket, ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
-const categories = ["All", "SaaS", "E-Commerce", "Dashboard", "Web"];
 
-const projects = [
-  {
-    title: "SaaS Analytics Dashboard",
-    description: "A comprehensive real-time analytics platform built for a B2B SaaS company. Features customizable dashboard widgets, live WebSocket data feeds, team workspaces, and an intelligent alerting engine that reduced incident response time by 60%.",
-    tags: ["React", "Node.js", "PostgreSQL", "WebSockets", "Redis"],
-    gradient: "from-blue-600/30 via-indigo-600/20 to-violet-600/10",
-    pattern: "radial-gradient(circle at 30% 40%, hsl(217 91% 60% / 0.3) 0%, transparent 60%)",
-    category: "SaaS",
-  },
-  {
-    title: "E-Commerce Platform",
-    description: "A full-featured multi-vendor marketplace with Stripe payment processing, real-time inventory management, and a blazing-fast checkout flow that improved conversion by 34%. Built to handle thousands of concurrent users.",
-    tags: ["Next.js", "Stripe", "MongoDB", "Redis", "AWS S3"],
-    gradient: "from-emerald-600/30 via-teal-600/20 to-cyan-600/10",
-    pattern: "radial-gradient(circle at 70% 60%, hsl(160 84% 39% / 0.3) 0%, transparent 60%)",
-    category: "E-Commerce",
-  },
-  {
-    title: "Enterprise CRM Dashboard",
-    description: "A powerful customer relationship management system for a 200-person sales team. Includes pipeline tracking, automated follow-up sequences, territory management, and deep CRM analytics that increased deal close rates by 28%.",
-    tags: ["React", "Spring Boot", "MySQL", "JWT", "Chart.js"],
-    gradient: "from-orange-600/30 via-amber-600/20 to-yellow-600/10",
-    pattern: "radial-gradient(circle at 50% 30%, hsl(25 95% 53% / 0.3) 0%, transparent 60%)",
-    category: "Dashboard",
-  },
-  {
-    title: "Service Booking Platform",
-    description: "An intelligent scheduling engine for a national service business. Features dynamic availability management, automated SMS/email reminders via Twilio, Google Calendar sync, and a customer self-service portal.",
-    tags: ["Next.js", "Node.js", "PostgreSQL", "Twilio", "Google API"],
-    gradient: "from-rose-600/30 via-pink-600/20 to-fuchsia-600/10",
-    pattern: "radial-gradient(circle at 40% 70%, hsl(330 81% 60% / 0.3) 0%, transparent 60%)",
-    category: "Web",
-  },
-  {
-    title: "Agency Marketing Website",
-    description: "A high-converting marketing website for a creative agency. Immersive scroll animations, 3D hero section, case study showcases, and a contact flow that improved lead capture by 45%. Scores 98/100 on Lighthouse.",
-    tags: ["React", "Tailwind CSS", "Framer Motion", "Vite", "Vercel"],
-    gradient: "from-violet-600/30 via-purple-600/20 to-indigo-600/10",
-    pattern: "radial-gradient(circle at 60% 40%, hsl(270 81% 60% / 0.3) 0%, transparent 60%)",
-    category: "Web",
-  },
-];
 
 const steps = [
   {
@@ -80,11 +36,10 @@ const steps = [
 ];
 
 export default function SolutionsPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filtered = activeCategory === "All"
-    ? projects
-    : projects.filter((p) => p.category === activeCategory);
+  useDocumentTitle(
+    "Solutions & Capabilities | NexCore",
+    "Custom digital solutions engineered for scale and performance. Discover our process: Discovery, Design, Development, and Deployment."
+  );
 
   return (
     <main>
@@ -103,11 +58,9 @@ export default function SolutionsPage() {
 
         {/* Animated Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
+          <div
             className="absolute top-[-20%] left-[10%] w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
             style={{ background: "radial-gradient(circle, hsl(270 81% 60%) 0%, transparent 70%)" }}
-            animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
 
@@ -121,134 +74,19 @@ export default function SolutionsPage() {
             <div className="max-w-4xl">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground">
                 Our <span className="text-transparent bg-clip-text bg-gradient-to-br from-secondary via-primary/80 to-primary relative">
-                  Solutions
+                  Capabilities
                   <span className="absolute -inset-x-4 -inset-y-2 bg-secondary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed border-l-4 border-secondary/30 pl-6 max-w-2xl">
-                Products we've built and shipped — with real outcomes, real technology, and real constraints.
+                Custom digital solutions engineered for scale and performance, tailored precisely to your business needs.
               </p>
             </div>
           </AnimateOnScroll>
         </Container>
       </section>
 
-      {/* Project Showcase */}
-      <section className="py-16">
-        <Container>
-          <AnimateOnScroll>
-            <SectionHeader title="Case Studies" subtitle="Every project has a story. Here's ours." />
-          </AnimateOnScroll>
 
-          {/* Filter Tabs */}
-          <AnimateOnScroll>
-            <div className="flex flex-wrap justify-center gap-3 mb-12" data-testid="filter-tabs">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  data-testid={`filter-tab-${cat.toLowerCase()}`}
-                  className={`px-6 py-2.5 rounded-full text-sm font-medium border transition-all ${
-                    activeCategory === cat
-                      ? "bg-primary text-white border-primary"
-                      : "border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40 hover:text-foreground"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </AnimateOnScroll>
-
-          {/* Project Grid */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            >
-              {filtered.map((project, i) => (
-                <div
-                  key={project.title}
-                  data-testid={`card-project-detail-${i}`}
-                  className="group rounded-2xl border border-border/50 bg-card/50 overflow-hidden"
-                >
-                  <div
-                    className="h-64 relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500"
-                    style={{ background: `linear-gradient(135deg, ${project.gradient})` }}
-                  >
-                    <div className="absolute inset-0" style={{ backgroundImage: project.pattern }} />
-                    <div
-                      className="absolute inset-0 opacity-[0.06]"
-                      style={{
-                        backgroundImage: "radial-gradient(circle, hsl(0 0% 98%) 1px, transparent 1px)",
-                        backgroundSize: "20px 20px",
-                      }}
-                    />
-                    
-                    {/* Abstract Floating UI Wireframe */}
-                    <div className="absolute inset-0 flex items-center justify-center p-6 opacity-80 transition-opacity duration-500 group-hover:opacity-100">
-                      <motion.div 
-                        className="w-full h-full max-w-[80%] max-h-[80%] rounded-xl border border-white/20 bg-background/20 backdrop-blur-md shadow-2xl p-4 flex flex-col gap-3 relative overflow-hidden"
-                        whileHover={{ y: -5, rotateX: 5 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      >
-                         <div className="flex items-center gap-2 mb-2">
-                           <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                           <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-                           <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
-                         </div>
-                         <div className="flex gap-3 h-full">
-                           <div className="w-1/3 rounded-lg bg-white/10 h-full border border-white/5" />
-                           <div className="w-2/3 flex flex-col gap-3 h-full">
-                             <div className="w-full h-1/3 rounded-lg bg-white/10 border border-white/5" />
-                             <div className="w-full h-2/3 rounded-lg bg-white/10 border border-white/5" />
-                           </div>
-                         </div>
-                         <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
-                      </motion.div>
-                    </div>
-
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="px-3 py-1.5 rounded-full text-xs font-semibold bg-background/60 backdrop-blur-md border border-white/20 shadow-sm text-foreground">
-                        {project.category}
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-4 right-4 z-10 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white text-xs font-semibold shadow-lg">
-                        View Case Study
-                        <ArrowRight className="w-3 h-3" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-8">
-                    <h3 className="text-xl font-heading font-bold text-foreground mb-3">
-                      {project.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </Container>
-      </section>
 
       {/* Process Section - Premium Redesign */}
       <section className="py-24 relative overflow-hidden">
@@ -278,12 +116,8 @@ export default function SolutionsPage() {
               const Icon = step.icon;
               const isEven = i % 2 !== 0;
               return (
-                <motion.div
+                <div
                   key={step.step}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
                   data-testid={`step-process-${i}`}
                   className="relative flex flex-col md:flex-row items-center gap-8 md:gap-16 mb-20 md:mb-32 last:mb-0"
                 >
@@ -300,8 +134,7 @@ export default function SolutionsPage() {
                         {step.step}
                       </span>
                       
-                      <motion.div 
-                        whileHover={{ scale: 1.05 }}
+                      <div
                         className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-card/60 backdrop-blur-xl border border-border/50 shadow-2xl flex items-center justify-center overflow-hidden group"
                       >
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -311,7 +144,7 @@ export default function SolutionsPage() {
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                           <div className="w-16 h-16 bg-primary/20 blur-xl rounded-full" />
                         </div>
-                      </motion.div>
+                      </div>
                     </div>
                   </div>
 
@@ -327,9 +160,60 @@ export default function SolutionsPage() {
                       {step.description}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
+          </div>
+        </Container>
+      </section>
+
+      {/* Industries Section */}
+      <section className="py-24 relative bg-muted/30 border-y border-border/30">
+        <Container>
+          <AnimateOnScroll>
+            <div className="text-center mb-16">
+              <span className="text-primary text-sm font-semibold uppercase tracking-widest mb-4 block">
+                Domain Expertise
+              </span>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold text-foreground mb-6 tracking-tight">
+                Industries We Serve
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                We apply core software engineering principles across diverse verticals, solving domain-specific challenges with universal technical excellence.
+              </p>
+            </div>
+          </AnimateOnScroll>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {[
+              {
+                name: "SaaS & Startups",
+                description: "Rapid iteration, multi-tenant architectures, and scalable billing systems built for exponential user growth.",
+              },
+              {
+                name: "E-Commerce & Retail",
+                description: "High-conversion, lightning-fast headless storefronts and custom inventory management platforms.",
+              },
+              {
+                name: "FinTech & Financial",
+                description: "Secure, high-throughput systems designed to handle financial data and transactions with zero margin for error.",
+              },
+              {
+                name: "Healthcare & MedTech",
+                description: "Data-dense applications that prioritize patient privacy, complex provider workflows, and strict compliance.",
+              }
+            ].map((industry) => (
+              <AnimateOnScroll key={industry.name}>
+                <div className="p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors group h-full">
+                  <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    {industry.name}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {industry.description}
+                  </p>
+                </div>
+              </AnimateOnScroll>
+            ))}
           </div>
         </Container>
       </section>
@@ -344,11 +228,9 @@ export default function SolutionsPage() {
             backgroundSize: "40px 40px",
           }}
         />
-        <motion.div
+        <div
           className="absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full opacity-20"
           style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <Container className="relative z-10 text-center">

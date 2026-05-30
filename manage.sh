@@ -123,11 +123,16 @@ function install_dependencies() {
 function build() {
     install_dependencies
     
-    echo_step "Building Frontend"
+    echo_step "Typechecking Frontend"
     cd "$PROJECT_DIR" || exit 1
+    if ! pnpm --filter ./artifacts/agency-site run typecheck; then
+        echo_warn "Frontend typecheck warnings found (continuing build...)"
+    fi
+
+    echo_step "Building Frontend"
     export PORT=$FRONTEND_PORT
     export BASE_PATH=${BASE_PATH:-"/"}
-    if ! pnpm run build; then
+    if ! pnpm --filter ./artifacts/agency-site run build; then
         echo_error "Frontend build failed."
         exit 1
     fi

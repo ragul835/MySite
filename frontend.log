@@ -1,49 +1,65 @@
 $ vite --config vite.config.ts --host 0.0.0.0
 
-  VITE v7.3.3  ready in 390 ms
+  VITE v7.3.3  ready in 930 ms
 
   ➜  Local:   http://localhost:3000/
-  ➜  Network: http://10.218.245.66:3000/
-11:01:21 pm [vite] (client) page reload index.html
-11:01:23 pm [vite] (client) hmr update /src/pages/contact.tsx, /src/index.css
-11:04:50 pm [vite] (client) hmr update /src/components/layout/Navbar.tsx, /src/index.css
-11:06:32 pm [vite] (client) hmr update /src/components/layout/Navbar.tsx, /src/index.css
-11:07:53 pm [vite] (client) hmr update /src/pages/contact.tsx, /src/index.css
-11:07:53 pm [vite] Internal server error: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/pages/contact.tsx: Unexpected token (456:22)
+  ➜  Network: http://10.26.186.66:3000/
+8:40:16 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+9:07:14 PM [vite] (client) hmr update /src/pages/about.tsx, /src/index.css
+9:08:02 PM [vite] (client) hmr update /src/pages/about.tsx, /src/index.css
+9:12:45 PM [vite] (client) hmr update /src/index.css
+9:13:53 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+9:14:12 PM [vite] (client) page reload index.html
+9:14:36 PM [vite] (client) hmr update /src/pages/home.tsx, /src/index.css
+9:14:49 PM [vite] (client) hmr update /src/pages/home.tsx, /src/index.css
+9:15:42 PM [vite] (client) hmr update /src/pages/about.tsx, /src/index.css
+9:15:55 PM [vite] (client) hmr update /src/pages/services.tsx, /src/index.css
+9:16:08 PM [vite] (client) hmr update /src/pages/solutions.tsx, /src/index.css
+9:16:23 PM [vite] (client) hmr update /src/pages/contact.tsx, /src/index.css
+9:16:41 PM [vite] (client) hmr update /src/components/layout/Footer.tsx, /src/index.css
+9:51:58 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+9:52:08 PM [vite] (client) hmr update /src/components/layout/Footer.tsx, /src/index.css
+9:52:22 PM [vite] (client) hmr update /src/pages/home.tsx, /src/index.css
+9:56:49 PM [vite] (client) hmr update /src/pages/home.tsx, /src/index.css
+10:02:18 PM [vite] (client) hmr update /src/pages/home.tsx, /src/index.css
+10:02:20 PM [vite] (client) hmr update /src/pages/contact.tsx, /src/index.css
+10:09:47 PM [vite] (client) hmr update /src/pages/home.tsx, /src/index.css
+10:11:30 PM [vite] (client) hmr update /src/pages/about.tsx, /src/index.css
+10:11:32 PM [vite] (client) hmr update /src/pages/home.tsx, /src/index.css
+10:13:23 PM [vite] (client) hmr update /src/pages/contact.tsx, /src/index.css
+10:19:43 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+10:19:45 PM [vite] (client) hmr update /src/components/layout/Footer.tsx, /src/index.css
+10:19:50 PM [vite] (client) hmr update /src/index.css, /src/pages/privacy.tsx
+10:19:50 PM [vite] (client) hmr update /src/index.css, /src/pages/terms.tsx
+10:27:30 PM [vite] (client) hmr update /src/components/layout/Navbar.tsx, /src/index.css
+10:27:30 PM [vite] Internal server error: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/components/layout/Navbar.tsx: Unterminated JSX contents. (127:13)
 
-  454 |                     <Button
-  455 |                       type="submit"
-> 456 |                       <Button
-      |                       ^
-  457 |                         type="submit"
-  458 |                         disabled={isSubmitting}
-  459 |                         data-testid="button-submit-contact"
+  125 |         </div>
+  126 |       </Container>
+> 127 |     </header>
+      |              ^
+  128 |   );
+  129 | }
+  130 |
   Plugin: vite:react-babel
-  File: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/pages/contact.tsx:456:22
-  454 |                      <Button
-  455 |                        type="submit"
-  456 |                        <Button
-      |                        ^
-  457 |                          type="submit"
-  458 |                          disabled={isSubmitting}
+  File: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/components/layout/Navbar.tsx:127:13
+  125 |          </div>
+  126 |        </Container>
+  127 |      </header>
+      |               ^
+  128 |    );
+  129 |  }
       at constructor (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:365:19)
       at TypeScriptParserMixin.raise (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:6616:19)
-      at TypeScriptParserMixin.unexpected (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:6636:16)
-      at TypeScriptParserMixin.jsxParseIdentifier (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4581:12)
-      at TypeScriptParserMixin.jsxParseNamespacedName (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4588:23)
-      at TypeScriptParserMixin.jsxParseAttribute (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4664:22)
-      at TypeScriptParserMixin.jsxParseOpeningElementAfterName (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4679:28)
-      at TypeScriptParserMixin.jsxParseOpeningElementAfterName (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10060:18)
-      at TypeScriptParserMixin.jsxParseOpeningElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4674:17)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4698:33)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
+      at TypeScriptParserMixin.jsxReadToken (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4460:20)
+      at TypeScriptParserMixin.getTokenFromCode (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4786:12)
+      at TypeScriptParserMixin.getTokenFromCode (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10004:11)
+      at TypeScriptParserMixin.nextToken (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:5799:10)
+      at TypeScriptParserMixin.next (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:5709:10)
+      at TypeScriptParserMixin.eat (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:5713:12)
+      at TypeScriptParserMixin.expect (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:6915:15)
+      at TypeScriptParserMixin.jsxParseClosingElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4692:10)
+      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4707:37)
       at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
       at TypeScriptParserMixin.jsxParseElement (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4761:17)
       at TypeScriptParserMixin.parseExprAtom (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4771:19)
@@ -76,58 +92,41 @@ $ vite --config vite.config.ts --host 0.0.0.0
       at TypeScriptParserMixin.parseMaybeAssign (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:9803:20)
       at TypeScriptParserMixin.parseExpressionBase (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10801:23)
       at /home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10797:39
-11:18:05 pm [vite] (client) Pre-transform error: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/pages/contact.tsx: Unexpected token (456:22)
+      at TypeScriptParserMixin.allowInAnd (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:12438:16)
+      at TypeScriptParserMixin.parseExpression (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10797:17)
+      at TypeScriptParserMixin.parseReturnStatement (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:13159:28)
+      at TypeScriptParserMixin.parseStatementContent (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:12815:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:9525:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:12784:17)
+      at TypeScriptParserMixin.parseStatementListItem (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:12764:17)
+10:27:30 PM [vite] Internal server error: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/components/layout/Navbar.tsx: Unterminated JSX contents. (127:13)
 
-  454 |                     <Button
-  455 |                       type="submit"
-> 456 |                       <Button
-      |                       ^
-  457 |                         type="submit"
-  458 |                         disabled={isSubmitting}
-  459 |                         data-testid="button-submit-contact"
+  125 |         </div>
+  126 |       </Container>
+> 127 |     </header>
+      |              ^
+  128 |   );
+  129 | }
+  130 |
   Plugin: vite:react-babel
-  File: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/pages/contact.tsx:456:22
-  454 |                      <Button
-  455 |                        type="submit"
-  456 |                        <Button
-      |                        ^
-  457 |                          type="submit"
-  458 |                          disabled={isSubmitting}
-11:18:06 pm [vite] Internal server error: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/pages/contact.tsx: Unexpected token (456:22)
-
-  454 |                     <Button
-  455 |                       type="submit"
-> 456 |                       <Button
-      |                       ^
-  457 |                         type="submit"
-  458 |                         disabled={isSubmitting}
-  459 |                         data-testid="button-submit-contact"
-  Plugin: vite:react-babel
-  File: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/pages/contact.tsx:456:22
-  454 |                      <Button
-  455 |                        type="submit"
-  456 |                        <Button
-      |                        ^
-  457 |                          type="submit"
-  458 |                          disabled={isSubmitting}
+  File: /home/dell/Pictures/Code-Companion/artifacts/agency-site/src/components/layout/Navbar.tsx:127:13
+  125 |          </div>
+  126 |        </Container>
+  127 |      </header>
+      |               ^
+  128 |    );
+  129 |  }
       at constructor (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:365:19)
       at TypeScriptParserMixin.raise (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:6616:19)
-      at TypeScriptParserMixin.unexpected (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:6636:16)
-      at TypeScriptParserMixin.jsxParseIdentifier (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4581:12)
-      at TypeScriptParserMixin.jsxParseNamespacedName (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4588:23)
-      at TypeScriptParserMixin.jsxParseAttribute (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4664:22)
-      at TypeScriptParserMixin.jsxParseOpeningElementAfterName (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4679:28)
-      at TypeScriptParserMixin.jsxParseOpeningElementAfterName (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10060:18)
-      at TypeScriptParserMixin.jsxParseOpeningElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4674:17)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4698:33)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
-      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
+      at TypeScriptParserMixin.jsxReadToken (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4460:20)
+      at TypeScriptParserMixin.getTokenFromCode (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4786:12)
+      at TypeScriptParserMixin.getTokenFromCode (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10004:11)
+      at TypeScriptParserMixin.nextToken (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:5799:10)
+      at TypeScriptParserMixin.next (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:5709:10)
+      at TypeScriptParserMixin.eat (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:5713:12)
+      at TypeScriptParserMixin.expect (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:6915:15)
+      at TypeScriptParserMixin.jsxParseClosingElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4692:10)
+      at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4707:37)
       at TypeScriptParserMixin.jsxParseElementAt (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4710:32)
       at TypeScriptParserMixin.jsxParseElement (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4761:17)
       at TypeScriptParserMixin.parseExprAtom (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:4771:19)
@@ -160,4 +159,19 @@ $ vite --config vite.config.ts --host 0.0.0.0
       at TypeScriptParserMixin.parseMaybeAssign (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:9803:20)
       at TypeScriptParserMixin.parseExpressionBase (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10801:23)
       at /home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10797:39
-11:19:24 pm [vite] (client) hmr update /src/pages/contact.tsx, /src/index.css
+      at TypeScriptParserMixin.allowInAnd (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:12438:16)
+      at TypeScriptParserMixin.parseExpression (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:10797:17)
+      at TypeScriptParserMixin.parseReturnStatement (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:13159:28)
+      at TypeScriptParserMixin.parseStatementContent (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:12815:21)
+      at TypeScriptParserMixin.parseStatementContent (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:9525:18)
+      at TypeScriptParserMixin.parseStatementLike (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:12784:17)
+      at TypeScriptParserMixin.parseStatementListItem (/home/dell/Pictures/Code-Companion/node_modules/.pnpm/@babel+parser@7.29.3/node_modules/@babel/parser/lib/index.js:12764:17)
+10:27:53 PM [vite] (client) hmr update /src/components/layout/Navbar.tsx, /src/index.css
+10:30:02 PM [vite] (client) hmr update /src/pages/solutions.tsx, /src/index.css
+10:38:07 PM [vite] (client) hmr update /src/components/layout/Navbar.tsx, /src/index.css
+10:38:09 PM [vite] (client) hmr update /src/index.css
+10:44:35 PM [vite] (client) page reload index.html
+10:51:49 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+10:52:06 PM [vite] (client) hmr update /src/App.tsx, /src/index.css
+10:54:27 PM [vite] (client) hmr update /src/components/layout/Navbar.tsx, /src/index.css
+11:06:39 PM [vite] (client) hmr update /src/index.css

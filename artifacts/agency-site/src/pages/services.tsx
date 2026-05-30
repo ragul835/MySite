@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { useEffect } from "react";
-import { motion } from "framer-motion";
 import {
   Code2, ShoppingCart, Layers, Palette, Search, ShoppingBag, Gauge,
   ChevronRight, CheckCircle
@@ -9,6 +8,7 @@ import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const servicesList = [
   {
@@ -98,6 +98,11 @@ const servicesList = [
 ];
 
 export default function ServicesPage() {
+  useDocumentTitle(
+    "Services | NexCore",
+    "Full-stack development, SaaS platforms, e-commerce stores, UI/UX design, SEO services, and Shopify development — everything under one roof."
+  );
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (window.location.hash) {
@@ -128,11 +133,9 @@ export default function ServicesPage() {
 
         {/* Animated Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
+          <div
             className="absolute top-[-20%] right-[10%] w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
             style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
-            animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
 
@@ -202,10 +205,8 @@ export default function ServicesPage() {
                         <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-secondary/5 rounded-3xl blur-2xl" />
                         
                         {/* Interactive Stack */}
-                        <motion.div
+                        <div
                           className="relative w-48 h-48"
-                          animate={{ rotateY: [-5, 5, -5], rotateX: [5, 10, 5] }}
-                          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
                           style={{ transformStyle: "preserve-3d" }}
                         >
                           {/* Back Card */}
@@ -233,7 +234,7 @@ export default function ServicesPage() {
                               <div className="h-1.5 w-1/2 mx-auto bg-primary/20 rounded-full" />
                             </div>
                           </div>
-                        </motion.div>
+                        </div>
                       </div>
                     </div>
                   </div>

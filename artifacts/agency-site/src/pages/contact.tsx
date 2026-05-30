@@ -3,7 +3,6 @@ import { Link } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import {
   Mail, Phone, MapPin, Github, Linkedin, Twitter, ChevronRight, Send, Info, Plus, Minus
@@ -19,6 +18,7 @@ import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
 import logger from "@/lib/logger";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -109,13 +109,12 @@ function ContactFAQAccordionItem({
 }) {
   return (
     <AnimatedItem>
-      <motion.div
+      <div
         className={`group rounded-2xl border transition-all duration-300 overflow-hidden ${
           isOpen
             ? "border-primary/40 bg-primary/[0.03] shadow-[0_0_30px_hsl(var(--primary)/0.08)]"
             : "border-border/50 bg-card/30 hover:border-border/80 hover:bg-card/50"
         }`}
-        layout
       >
         <button
           onClick={onToggle}
@@ -153,23 +152,20 @@ function ContactFAQAccordionItem({
           </span>
         </button>
 
-        <AnimatePresence initial={false}>
-          {isOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <div className="px-6 md:px-7 pb-6 md:pb-7 pl-[4.25rem] md:pl-[4.75rem]">
-                <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-                  {item.answer}
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+        <div
+          className={`grid transition-all duration-300 ease-in-out ${
+            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <div className="px-6 md:px-7 pb-6 md:pb-7 pl-[4.25rem] md:pl-[4.75rem]">
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+                {item.answer}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </AnimatedItem>
   );
 }
@@ -190,7 +186,7 @@ function ContactFAQSection() {
 
         <div className="max-w-4xl mx-auto">
           <AnimateOnScroll stagger>
-            <motion.div className="space-y-4" layout>
+            <div className="space-y-4">
               {contactFaqData.map((item, i) => (
                 <ContactFAQAccordionItem
                   key={item.question}
@@ -200,7 +196,7 @@ function ContactFAQSection() {
                   onToggle={() => setOpenIndex(openIndex === i ? null : i)}
                 />
               ))}
-            </motion.div>
+            </div>
           </AnimateOnScroll>
         </div>
       </Container>
@@ -211,6 +207,12 @@ function ContactFAQSection() {
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serviceValue, setServiceValue] = useState("");
+
+  useDocumentTitle(
+    "Contact Us | NexCore",
+    "Get in touch with NexCore. Tell us about your project and we'll respond within 24 hours with a clear plan and honest assessment."
+  );
+
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -282,17 +284,13 @@ export default function ContactPage() {
         
         {/* Massive Glowing Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
+          <div
             className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full opacity-20 blur-3xl"
             style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
-            animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
+          <div
             className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
             style={{ background: "radial-gradient(circle, hsl(221 83% 53%) 0%, transparent 70%)" }}
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           />
         </div>
 
@@ -317,31 +315,27 @@ export default function ContactPage() {
               
               <div className="hidden lg:flex justify-end">
                 {/* Floating Decorative Contact Visual */}
-                <motion.div 
+                <div 
                   className="relative w-80 h-80 rounded-3xl bg-card/40 border border-white/10 backdrop-blur-2xl shadow-2xl flex items-center justify-center overflow-hidden"
-                  animate={{ y: [0, -15, 0], rotate: [0, 2, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent" />
                   <div className="w-32 h-32 rounded-full bg-primary/20 blur-2xl absolute" />
                   <Mail className="w-24 h-24 text-primary relative z-10 drop-shadow-xl" />
                   
                   {/* Floating elements */}
-                  <motion.div 
+                  <div 
                     className="absolute top-12 right-12 w-12 h-12 rounded-xl bg-secondary/20 border border-secondary/30 backdrop-blur-md flex items-center justify-center"
-                    animate={{ y: [0, 10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                   >
                     <Send className="w-5 h-5 text-secondary" />
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
               </div>
             </div>
           </AnimateOnScroll>
         </Container>
       </section>
 
-      {/* Two-column layout */}
+      {/* Two-column */}
       <section id="contact-form" className="relative py-24 scroll-mt-24 overflow-hidden">
         {/* Background Gradients */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.05),transparent_50%)] pointer-events-none" />
@@ -450,7 +444,7 @@ export default function ContactPage() {
                     )}
                   </div>
 
-                  <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
+                  <div>
                     <Button
                       type="submit"
                       disabled={isSubmitting}
@@ -469,7 +463,7 @@ export default function ContactPage() {
                         </div>
                       )}
                     </Button>
-                  </motion.div>
+                  </div>
                   </form>
                 </div>
               </div>
@@ -542,28 +536,20 @@ export default function ContactPage() {
                 <div className="relative h-40 rounded-2xl overflow-hidden bg-card/60 backdrop-blur-xl border border-border/50 shadow-lg group flex items-center justify-center">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
                   
-                  {/* Animated Radar Rings */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <motion.div 
-                      className="absolute w-24 h-24 rounded-full border border-primary/30"
-                      animate={{ scale: [1, 2.5], opacity: [0.8, 0] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeOut" }}
-                    />
-                    <motion.div 
-                      className="absolute w-24 h-24 rounded-full border border-primary/30"
-                      animate={{ scale: [1, 2.5], opacity: [0.8, 0] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeOut", delay: 1.5 }}
-                    />
-                  </div>
-
-                  <div className="relative z-10 flex flex-col items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-background border border-border/50 shadow-md flex items-center justify-center relative">
-                      <div className="absolute inset-0 rounded-full bg-primary/20 blur-md animate-pulse" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-primary animate-ping absolute" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-primary relative z-10" />
+                  <div className="relative z-10 flex flex-col items-center gap-4">
+                    <div className="relative flex items-center justify-center">
+                      {/* Animated Radar Rings Centered on Dot */}
+                      <div className="absolute w-24 h-24 rounded-full border border-primary/30 animate-[ping_3s_ease-out_infinite] pointer-events-none" />
+                      <div className="absolute w-16 h-16 rounded-full border border-primary/40 animate-[ping_3s_ease-out_infinite_1s] pointer-events-none" />
+                      
+                      <div className="w-12 h-12 rounded-full bg-background border border-border/50 shadow-md flex items-center justify-center relative z-10">
+                        <div className="absolute inset-0 rounded-full bg-primary/20 blur-md animate-pulse" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-primary animate-ping absolute" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-primary relative z-10" />
+                      </div>
                     </div>
                     
-                    <div className="text-center">
+                    <div className="text-center relative z-10 bg-background/80 px-4 py-1 rounded-full backdrop-blur-md border border-border/50">
                       <p className="text-sm font-semibold text-foreground">Guaranteed Response</p>
                       <p className="text-xs text-muted-foreground mt-0.5">Within <span className="text-primary font-bold">24 Hours</span></p>
                     </div>

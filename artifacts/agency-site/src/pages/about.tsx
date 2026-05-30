@@ -1,11 +1,12 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { useInView, useSpring, useTransform, motion } from "framer-motion";
 import { Link } from "wouter";
 import { CheckCircle, ChevronRight, Shield, Zap, Target, Cpu } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const values = [
   "Build Lean — ship the simplest thing that works, then improve.",
@@ -37,44 +38,14 @@ const philosophyCards = [
   },
 ];
 
-const stats = [
-  { value: 50, suffix: "+", label: "Projects Delivered" },
-  { value: 15, suffix: "+", label: "Technologies Mastered" },
-  { value: 98, suffix: "%", label: "Client Satisfaction" },
-  { value: 2, suffix: "x", label: "Faster Delivery" },
-];
 
-function CountUp({ target, suffix }: { target: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-
-  return (
-    <span ref={ref} className="text-5xl font-heading font-bold text-foreground">
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.3 }}
-      >
-        <motion.span
-          initial={{ innerHTML: "0" } as any}
-          animate={isInView ? { innerHTML: String(target) } as any : {}}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          onUpdate={(latest: any) => {
-            if (ref.current) {
-              const val = Math.round(Number(latest.innerHTML ?? 0));
-              ref.current.textContent = String(val);
-            }
-          }}
-        >
-          0
-        </motion.span>
-      </motion.span>
-      <span className="text-primary">{suffix}</span>
-    </span>
-  );
-}
 
 export default function AboutPage() {
+  useDocumentTitle(
+    "About Us | NexCore",
+    "An elite, focused engineering team that punches above its weight class. Learn about our mission, values, and engineering philosophy."
+  );
+
   return (
     <main>
       {/* Hero Banner */}
@@ -92,11 +63,9 @@ export default function AboutPage() {
 
         {/* Animated Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
+          <div
             className="absolute top-[-20%] right-[10%] w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
             style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
-            animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
 
@@ -115,7 +84,7 @@ export default function AboutPage() {
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed border-l-4 border-primary/30 pl-6 max-w-2xl">
-                A small, focused engineering team that punches well above its weight class.
+                An elite, focused engineering team that punches well above its weight class.
               </p>
             </div>
           </AnimateOnScroll>
@@ -154,10 +123,8 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-secondary/10 rounded-full blur-3xl opacity-50" />
                 
                 {/* Main Central Card */}
-                <motion.div 
+                <div 
                   className="relative z-20 w-64 h-80 rounded-2xl bg-card/80 backdrop-blur-xl border border-border/60 shadow-2xl p-6 flex flex-col justify-between overflow-hidden"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-10 -mt-10" />
                   
@@ -191,13 +158,11 @@ export default function AboutPage() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Floating Left Card */}
-                <motion.div 
+                <div 
                   className="absolute left-0 lg:left-4 z-10 w-48 h-56 rounded-2xl bg-card/60 backdrop-blur-md border border-border/40 shadow-xl p-5"
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
@@ -210,20 +175,18 @@ export default function AboutPage() {
                       <div key={i} className={`h-1.5 rounded-full ${i % 2 === 0 ? 'bg-secondary/40 w-full' : 'bg-border/40 w-4/5'}`} />
                     ))}
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Floating Right Card */}
-                <motion.div 
+                <div 
                   className="absolute right-0 lg:right-4 z-30 w-52 h-48 rounded-2xl bg-card/60 backdrop-blur-md border border-border/40 shadow-xl p-5"
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                 >
                   <div className="w-full h-24 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/10 mb-4 flex items-center justify-center relative overflow-hidden">
                     <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle, hsl(217 91% 60% / 0.4) 1px, transparent 1px)", backgroundSize: "10px 10px" }} />
                     <Target className="w-8 h-8 text-primary relative z-10" />
                   </div>
                   <div className="h-2 w-24 bg-border/60 rounded-full mx-auto" />
-                </motion.div>
+                </div>
                 
               </div>
             </AnimateOnScroll>
@@ -270,30 +233,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20">
-        <Container>
-          <AnimateOnScroll>
-            <SectionHeader title="By the Numbers" subtitle="Results speak louder than promises." />
-          </AnimateOnScroll>
 
-          <AnimateOnScroll stagger>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              {stats.map((stat, i) => (
-                <AnimatedItem key={stat.label}>
-                  <div
-                    data-testid={`card-stat-${i}`}
-                    className="p-8 rounded-2xl border border-border/50 bg-card/50 text-center"
-                  >
-                    <CountUp target={stat.value} suffix={stat.suffix} />
-                    <p className="text-muted-foreground text-sm mt-2">{stat.label}</p>
-                  </div>
-                </AnimatedItem>
-              ))}
-            </div>
-          </AnimateOnScroll>
-        </Container>
-      </section>
 
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden border-t border-border/20">
