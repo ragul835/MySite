@@ -27,15 +27,7 @@ fi
 # Ports
 BACKEND_PORT=${BACKEND_PORT:-5001}
 FRONTEND_PORT=${PORT:-3000}
-
-# Ensure Java 21/19 is used if available
-if [ -d "/usr/lib/jvm/java-21-openjdk-amd64" ]; then
-    export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-    export PATH=$JAVA_HOME/bin:$PATH
-elif [ -d "/usr/lib/jvm/java-19-openjdk-amd64" ]; then
-    export JAVA_HOME=/usr/lib/jvm/java-19-openjdk-amd64
-    export PATH=$JAVA_HOME/bin:$PATH
-fi
+# Node.js backend requires Node 18+
 
 function echo_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 function echo_error() { echo -e "${RED}[ERROR]${NC} $1"; }
@@ -77,27 +69,7 @@ function free_port() {
 function install_dependencies() {
     echo_step "Checking System Dependencies"
     
-    # Check Java version
-    if ! javac -version 2>&1 | grep -q -E ' 21| 19'; then
-        echo_warn "Java 21/19 not found. Attempting install..."
-        if command -v apt-get &> /dev/null; then
-            sudo apt-get update && sudo apt-get install -y openjdk-21-jdk
-            sudo update-java-alternatives -s java-1.21.0-openjdk-amd64 || true
-            export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-        else
-            echo_error "Please install Java 21 manually."
-        fi
-    fi
-
-    # Check Maven
-    if ! command -v mvn &> /dev/null; then
-        echo_warn "Maven not found. Installing..."
-        if command -v apt-get &> /dev/null; then
-            sudo apt-get update && sudo apt-get install -y maven
-        else
-            echo_error "Install Maven manually."
-        fi
-    fi
+    # Java and Maven are no longer required for the Node.js backend.
     
     # Check Node / npm
     if ! command -v npm &> /dev/null; then
@@ -139,7 +111,8 @@ function build() {
 
     echo_step "Building Backend"
     cd "$BACKEND_DIR" || exit 1
-    if mvn clean package -DskipTests; then
+    npx prisma generate
+    if pnpm run build; then
         echo_info "Backend build successful."
     else
         echo_error "Backend build failed."
@@ -162,14 +135,13 @@ function start_backend() {
     fi
 
     cd "$BACKEND_DIR" || exit 1
-    local JAR_FILE=$(ls target/*.jar 2>/dev/null | grep -v original | head -n 1)
     
-    if [ -z "$JAR_FILE" ]; then
-        echo_error "No JAR file found in target/. Please run './manage.sh build' first."
+    if [ ! -f "dist/index.js" ]; then
+        echo_error "No dist/index.js found. Please run './manage.sh build' first."
         exit 1
     fi
 
-    PORT=$BACKEND_PORT nohup java -jar "$JAR_FILE" > backend.log 2>&1 &
+    PORT=$BACKEND_PORT nohup node dist/index.js > backend.log 2>&1 &
     local PID=$!
     echo $PID > "$PID_FILE"
     echo_info "Backend started on port $BACKEND_PORT (PID: $PID)."
@@ -221,7 +193,7 @@ function stop_backend() {
         fi
         rm -f "$PID_FILE"
     else
-        local PID=$(pgrep -f "java -jar.*backend/target/.*\.jar")
+        local PID=$(pgrep -f "node dist/index.js")
         if [ ! -z "$PID" ]; then
             echo_info "Found backend process without PID file. Stopping..."
             kill $PID 2>/dev/null || kill -9 $PID 2>/dev/null
@@ -264,7 +236,7 @@ function status() {
     # Backend
     if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
         echo_info "Backend:  RUNNING (PID: $(cat "$PID_FILE"), Port: $BACKEND_PORT)"
-    elif pgrep -f "java -jar.*backend/target/.*\.jar" >/dev/null; then
+    elif pgrep -f "node dist/index.js" >/dev/null; then
         echo_warn "Backend:  RUNNING (PID file missing)"
     else
         echo_info "Backend:  STOPPED"
@@ -286,7 +258,8 @@ function clean() {
     echo_info "Removing node_modules, target directories, and logs..."
     rm -rf node_modules
     rm -rf artifacts/agency-site/node_modules
-    rm -rf backend/target
+    rm -rf backend/node_modules
+    rm -rf backend/dist
     rm -f frontend.log backend/backend.log
     rm -f "$PID_FILE" "$FRONTEND_PID_FILE"
     echo_info "Clean complete."
