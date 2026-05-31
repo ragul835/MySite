@@ -1,4 +1,2 @@
-◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
 [INFO] Node backend started on port 5001
-POST /api/v1/contact
-Email notification sent successfully
