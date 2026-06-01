@@ -8,7 +8,6 @@
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKEND_DIR="$PROJECT_DIR/backend-repo"
 FRONTEND_DIR="$PROJECT_DIR/frontend-repo"
-DATABASE_DIR="$PROJECT_DIR/database-repo"
 PID_FILE="$BACKEND_DIR/.backend.pid"
 FRONTEND_PID_FILE="$FRONTEND_DIR/.frontend.pid"
 
@@ -27,8 +26,7 @@ fi
 
 # Ports
 BACKEND_PORT=${BACKEND_PORT:-5001}
-FRONTEND_PORT=${PORT:-5000}
-DB_PORT=5432
+FRONTEND_PORT=${PORT:-3000}
 
 function echo_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 function echo_error() { echo -e "${RED}[ERROR]${NC} $1"; }
@@ -86,33 +84,6 @@ function install_dependencies() {
     echo_step "Installing Frontend Dependencies"
     cd "$FRONTEND_DIR" || exit 1
     npm install
-}
-
-function start_db() {
-    echo_step "Starting Database"
-    cd "$DATABASE_DIR" || exit 1
-    if command -v docker-compose &> /dev/null; then
-        docker-compose up -d
-    elif command -v docker &> /dev/null && docker compose version &> /dev/null; then
-        docker compose up -d
-    else
-        echo_error "docker-compose or docker compose not found. Cannot start database."
-        exit 1
-    fi
-    echo_info "Database started on port $DB_PORT."
-}
-
-function stop_db() {
-    echo_step "Stopping Database"
-    cd "$DATABASE_DIR" || exit 1
-    if command -v docker-compose &> /dev/null; then
-        docker-compose down
-    elif command -v docker &> /dev/null && docker compose version &> /dev/null; then
-        docker compose down
-    else
-        echo_error "docker-compose or docker compose not found."
-    fi
-    echo_info "Database stopped."
 }
 
 function build() {
@@ -195,8 +166,6 @@ function start_frontend() {
 }
 
 function start_all() {
-    start_db
-    sleep 2
     start_backend
     sleep 2
     start_frontend
@@ -249,7 +218,6 @@ function stop_frontend() {
 function stop() {
     stop_backend
     stop_frontend
-    stop_db
 }
 
 function restart() { stop; sleep 2; start_all; }
@@ -257,13 +225,6 @@ function restart() { stop; sleep 2; start_all; }
 function status() {
     echo_step "Service Status"
     
-    # Database
-    if check_port $DB_PORT; then
-        echo_info "Database: RUNNING (Port: $DB_PORT)"
-    else
-        echo_info "Database: STOPPED"
-    fi
-
     # Backend
     if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
         echo_info "Backend:  RUNNING (PID: $(cat "$PID_FILE"), Port: $BACKEND_PORT)"
@@ -341,12 +302,10 @@ function show_help() {
     echo "  build          - Install deps and build both frontend & backend"
     echo "  start          - Start the backend only"
     echo "  start-frontend - Start the frontend only"
-    echo "  start-db       - Start the database only"
-    echo "  start-all      - Start database, backend and frontend"
-    echo "  stop           - Stop all running services (frontend, backend, db)"
+    echo "  start-all      - Start backend and frontend"
+    echo "  stop           - Stop all running services (frontend, backend)"
     echo "  stop-backend   - Stop the backend only"
     echo "  stop-frontend  - Stop the frontend only"
-    echo "  stop-db        - Stop the database only"
     echo "  restart        - Stop and restart all services"
     echo "  status         - Show status of services"
     echo "  clean          - Remove build artifacts, node_modules, and logs"
@@ -360,40 +319,36 @@ function interactive_menu() {
     while true; do
         echo -e "\n${YELLOW}=== Advanced Management Menu ===${NC}"
         echo "1) Build everything"
-        echo "2) Start Database only"
-        echo "3) Start Backend only"
-        echo "4) Start Frontend only"
-        echo "5) Start ALL services"
-        echo "6) Stop Database only"
-        echo "7) Stop Backend only"
-        echo "8) Stop Frontend only"
-        echo "9) Stop ALL services"
-        echo "10) Restart ALL services"
-        echo "11) Show Status"
-        echo "12) View combined Logs"
-        echo "13) Clean project (Danger)"
-        echo "14) Pull from Git"
-        echo "15) Push to Git"
+        echo "2) Start Backend only"
+        echo "3) Start Frontend only"
+        echo "4) Start ALL services"
+        echo "5) Stop Backend only"
+        echo "6) Stop Frontend only"
+        echo "7) Stop ALL services"
+        echo "8) Restart ALL services"
+        echo "9) Show Status"
+        echo "10) View combined Logs"
+        echo "11) Clean project (Danger)"
+        echo "12) Pull from Git"
+        echo "13) Push to Git"
         echo "0) Exit"
-        read -p "Select an option [0-15]: " OPTION
+        read -p "Select an option [0-13]: " OPTION
         echo ""
         
         case $OPTION in
             1) build ;;
-            2) start_db ;;
-            3) start_backend ;;
-            4) start_frontend ;;
-            5) start_all ;;
-            6) stop_db ;;
-            7) stop_backend ;;
-            8) stop_frontend ;;
-            9) stop ;;
-            10) restart ;;
-            11) status ;;
-            12) show_logs ;;
-            13) clean ;;
-            14) pull ;;
-            15) push ;;
+            2) start_backend ;;
+            3) start_frontend ;;
+            4) start_all ;;
+            5) stop_backend ;;
+            6) stop_frontend ;;
+            7) stop ;;
+            8) restart ;;
+            9) status ;;
+            10) show_logs ;;
+            11) clean ;;
+            12) pull ;;
+            13) push ;;
             0) echo_info "Exiting..."; break ;;
             *) echo_error "Invalid option." ;;
         esac
@@ -407,12 +362,10 @@ else
         build) build ;;
         start) start_backend ;;
         start-frontend) start_frontend ;;
-        start-db) start_db ;;
         start-all) start_all ;;
         stop) stop ;;
         stop-backend) stop_backend ;;
         stop-frontend) stop_frontend ;;
-        stop-db) stop_db ;;
         restart) restart ;;
         status) status ;;
         clean) clean ;;
