@@ -6,10 +6,11 @@
 
 # Configuration
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKEND_DIR="$PROJECT_DIR/backend"
-FRONTEND_DIR="$PROJECT_DIR"
-PID_FILE="$PROJECT_DIR/.backend.pid"
-FRONTEND_PID_FILE="$PROJECT_DIR/frontend.pid"
+BACKEND_DIR="$PROJECT_DIR/backend-repo"
+FRONTEND_DIR="$PROJECT_DIR/frontend-repo"
+DATABASE_DIR="$PROJECT_DIR/database-repo"
+PID_FILE="$BACKEND_DIR/.backend.pid"
+FRONTEND_PID_FILE="$FRONTEND_DIR/.frontend.pid"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -26,8 +27,8 @@ fi
 
 # Ports
 BACKEND_PORT=${BACKEND_PORT:-5001}
-FRONTEND_PORT=${PORT:-3000}
-# Node.js backend requires Node 18+
+FRONTEND_PORT=${PORT:-5000}
+DB_PORT=5432
 
 function echo_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 function echo_error() { echo -e "${RED}[ERROR]${NC} $1"; }
@@ -69,9 +70,6 @@ function free_port() {
 function install_dependencies() {
     echo_step "Checking System Dependencies"
     
-    # Java and Maven are no longer required for the Node.js backend.
-    
-    # Check Node / npm
     if ! command -v npm &> /dev/null; then
         echo_warn "npm not found. Installing..."
         if command -v apt-get &> /dev/null; then
@@ -81,30 +79,53 @@ function install_dependencies() {
         fi
     fi
 
-    # Check pnpm
-    if ! command -v pnpm &> /dev/null; then
-        echo_warn "pnpm not found. Installing via npm..."
-        sudo npm install -g pnpm
-    fi
+    echo_step "Installing Backend Dependencies"
+    cd "$BACKEND_DIR" || exit 1
+    npm install
 
-    echo_step "Installing Project Dependencies"
-    cd "$PROJECT_DIR" || exit 1
-    pnpm install
+    echo_step "Installing Frontend Dependencies"
+    cd "$FRONTEND_DIR" || exit 1
+    npm install
+}
+
+function start_db() {
+    echo_step "Starting Database"
+    cd "$DATABASE_DIR" || exit 1
+    if command -v docker-compose &> /dev/null; then
+        docker-compose up -d
+    elif command -v docker &> /dev/null && docker compose version &> /dev/null; then
+        docker compose up -d
+    else
+        echo_error "docker-compose or docker compose not found. Cannot start database."
+        exit 1
+    fi
+    echo_info "Database started on port $DB_PORT."
+}
+
+function stop_db() {
+    echo_step "Stopping Database"
+    cd "$DATABASE_DIR" || exit 1
+    if command -v docker-compose &> /dev/null; then
+        docker-compose down
+    elif command -v docker &> /dev/null && docker compose version &> /dev/null; then
+        docker compose down
+    else
+        echo_error "docker-compose or docker compose not found."
+    fi
+    echo_info "Database stopped."
 }
 
 function build() {
     install_dependencies
     
     echo_step "Typechecking Frontend"
-    cd "$PROJECT_DIR" || exit 1
-    if ! pnpm --filter ./artifacts/agency-site run typecheck; then
+    cd "$FRONTEND_DIR" || exit 1
+    if ! npm run typecheck; then
         echo_warn "Frontend typecheck warnings found (continuing build...)"
     fi
 
     echo_step "Building Frontend"
-    export PORT=$FRONTEND_PORT
-    export BASE_PATH=${BASE_PATH:-"/"}
-    if ! pnpm --filter ./artifacts/agency-site run build; then
+    if ! npm run build; then
         echo_error "Frontend build failed."
         exit 1
     fi
@@ -112,7 +133,7 @@ function build() {
     echo_step "Building Backend"
     cd "$BACKEND_DIR" || exit 1
     npx prisma generate
-    if pnpm run build; then
+    if npm run build; then
         echo_info "Backend build successful."
     else
         echo_error "Backend build failed."
@@ -145,7 +166,7 @@ function start_backend() {
     local PID=$!
     echo $PID > "$PID_FILE"
     echo_info "Backend started on port $BACKEND_PORT (PID: $PID)."
-    echo_info "Logs: backend/backend.log"
+    echo_info "Logs: backend-repo/backend.log"
 }
 
 function start_frontend() {
@@ -162,18 +183,20 @@ function start_frontend() {
         exit 1
     fi
 
-    cd "$PROJECT_DIR" || exit 1
+    cd "$FRONTEND_DIR" || exit 1
     export PORT=$FRONTEND_PORT
     export BASE_PATH=${BASE_PATH:-"/"}
     
-    nohup pnpm --filter ./artifacts/agency-site run dev > frontend.log 2>&1 &
+    nohup npm run dev > frontend.log 2>&1 &
     local PID=$!
     echo $PID > "$FRONTEND_PID_FILE"
     echo_info "Frontend started on port $FRONTEND_PORT (PID: $PID)."
-    echo_info "Logs: frontend.log"
+    echo_info "Logs: frontend-repo/frontend.log"
 }
 
 function start_all() {
+    start_db
+    sleep 2
     start_backend
     sleep 2
     start_frontend
@@ -226,6 +249,7 @@ function stop_frontend() {
 function stop() {
     stop_backend
     stop_frontend
+    stop_db
 }
 
 function restart() { stop; sleep 2; start_all; }
@@ -233,6 +257,13 @@ function restart() { stop; sleep 2; start_all; }
 function status() {
     echo_step "Service Status"
     
+    # Database
+    if check_port $DB_PORT; then
+        echo_info "Database: RUNNING (Port: $DB_PORT)"
+    else
+        echo_info "Database: STOPPED"
+    fi
+
     # Backend
     if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
         echo_info "Backend:  RUNNING (PID: $(cat "$PID_FILE"), Port: $BACKEND_PORT)"
@@ -254,13 +285,10 @@ function status() {
 
 function clean() {
     echo_step "Cleaning Project Files"
-    cd "$PROJECT_DIR" || exit 1
     echo_info "Removing node_modules, target directories, and logs..."
-    rm -rf node_modules
-    rm -rf artifacts/agency-site/node_modules
-    rm -rf backend/node_modules
-    rm -rf backend/dist
-    rm -f frontend.log backend/backend.log
+    rm -rf "$BACKEND_DIR/node_modules" "$BACKEND_DIR/dist"
+    rm -rf "$FRONTEND_DIR/node_modules" "$FRONTEND_DIR/dist"
+    rm -f "$FRONTEND_DIR/frontend.log" "$BACKEND_DIR/backend.log"
     rm -f "$PID_FILE" "$FRONTEND_PID_FILE"
     echo_info "Clean complete."
 }
@@ -270,7 +298,7 @@ function show_logs() {
     
     local log_files=()
     [ -f "$BACKEND_DIR/backend.log" ] && log_files+=("$BACKEND_DIR/backend.log")
-    [ -f "$PROJECT_DIR/frontend.log" ] && log_files+=("$PROJECT_DIR/frontend.log")
+    [ -f "$FRONTEND_DIR/frontend.log" ] && log_files+=("$FRONTEND_DIR/frontend.log")
     
     if [ ${#log_files[@]} -eq 0 ]; then
         echo_error "No log files found."
@@ -278,6 +306,17 @@ function show_logs() {
     fi
     
     tail -f "${log_files[@]}"
+}
+
+function pull() {
+    echo_step "Git Pull"
+    cd "$PROJECT_DIR" || exit 1
+    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    if [ -n "$branch" ]; then
+        git pull origin "$branch" && echo_info "Pulled from $branch" || echo_error "Pull failed"
+    else
+        echo_error "Not a git repo."
+    fi
 }
 
 function push() {
@@ -302,14 +341,17 @@ function show_help() {
     echo "  build          - Install deps and build both frontend & backend"
     echo "  start          - Start the backend only"
     echo "  start-frontend - Start the frontend only"
-    echo "  start-all      - Start both backend and frontend"
-    echo "  stop           - Stop all running services"
+    echo "  start-db       - Start the database only"
+    echo "  start-all      - Start database, backend and frontend"
+    echo "  stop           - Stop all running services (frontend, backend, db)"
     echo "  stop-backend   - Stop the backend only"
     echo "  stop-frontend  - Stop the frontend only"
+    echo "  stop-db        - Stop the database only"
     echo "  restart        - Stop and restart all services"
     echo "  status         - Show status of services"
     echo "  clean          - Remove build artifacts, node_modules, and logs"
     echo "  logs           - Tail frontend and backend logs simultaneously"
+    echo "  pull           - Quick git pull"
     echo "  push           - Quick git add, commit, and push"
     echo "  help           - Show this help message"
 }
@@ -318,34 +360,40 @@ function interactive_menu() {
     while true; do
         echo -e "\n${YELLOW}=== Advanced Management Menu ===${NC}"
         echo "1) Build everything"
-        echo "2) Start Backend only"
-        echo "3) Start Frontend only"
-        echo "4) Start ALL services"
-        echo "5) Stop Backend only"
-        echo "6) Stop Frontend only"
-        echo "7) Stop ALL services"
-        echo "8) Restart ALL services"
-        echo "9) Show Status"
-        echo "10) View combined Logs"
-        echo "11) Clean project (Danger)"
-        echo "12) Push to Git"
+        echo "2) Start Database only"
+        echo "3) Start Backend only"
+        echo "4) Start Frontend only"
+        echo "5) Start ALL services"
+        echo "6) Stop Database only"
+        echo "7) Stop Backend only"
+        echo "8) Stop Frontend only"
+        echo "9) Stop ALL services"
+        echo "10) Restart ALL services"
+        echo "11) Show Status"
+        echo "12) View combined Logs"
+        echo "13) Clean project (Danger)"
+        echo "14) Pull from Git"
+        echo "15) Push to Git"
         echo "0) Exit"
-        read -p "Select an option [0-12]: " OPTION
+        read -p "Select an option [0-15]: " OPTION
         echo ""
         
         case $OPTION in
             1) build ;;
-            2) start_backend ;;
-            3) start_frontend ;;
-            4) start_all ;;
-            5) stop_backend ;;
-            6) stop_frontend ;;
-            7) stop ;;
-            8) restart ;;
-            9) status ;;
-            10) show_logs ;;
-            11) clean ;;
-            12) push ;;
+            2) start_db ;;
+            3) start_backend ;;
+            4) start_frontend ;;
+            5) start_all ;;
+            6) stop_db ;;
+            7) stop_backend ;;
+            8) stop_frontend ;;
+            9) stop ;;
+            10) restart ;;
+            11) status ;;
+            12) show_logs ;;
+            13) clean ;;
+            14) pull ;;
+            15) push ;;
             0) echo_info "Exiting..."; break ;;
             *) echo_error "Invalid option." ;;
         esac
@@ -359,14 +407,17 @@ else
         build) build ;;
         start) start_backend ;;
         start-frontend) start_frontend ;;
+        start-db) start_db ;;
         start-all) start_all ;;
         stop) stop ;;
         stop-backend) stop_backend ;;
         stop-frontend) stop_frontend ;;
+        stop-db) stop_db ;;
         restart) restart ;;
         status) status ;;
         clean) clean ;;
         logs) show_logs ;;
+        pull) pull ;;
         push) push ;;
         help|--help|-h) show_help ;;
         *) show_help; exit 1 ;;
