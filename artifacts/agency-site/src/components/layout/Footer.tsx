@@ -4,9 +4,12 @@ import { Github, Linkedin, Twitter, Mail, Phone, MapPin, ArrowRight } from "luci
 
 const services = [
   "Web Development",
+  "Full Stack Development",
   "E-Commerce",
-  "SEO",
   "SaaS",
+  "UI/UX Design",
+  "SEO",
+  "Shopify",
 ];
 
 const companyLinks = [
