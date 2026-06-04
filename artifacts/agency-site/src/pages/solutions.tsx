@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ChevronRight, Search, PenTool, Code2, Rocket, ArrowRight } from "lucide-react";
+import { ChevronRight, Search, Map, PenTool, Code2, CheckCircle, Rocket, HeartHandshake, ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
@@ -16,22 +16,40 @@ const steps = [
     description: "We audit your requirements, constraints, and goals. No assumptions — just deep listening and sharp questions.",
   },
   {
-    icon: PenTool,
+    icon: Map,
     step: "02",
+    title: "Planning",
+    description: "Creating a detailed roadmap and project architecture to ensure smooth execution from start to finish.",
+  },
+  {
+    icon: PenTool,
+    step: "03",
     title: "Design",
     description: "Architecture, wireframes, and a clear technical spec. You approve before a single line of production code is written.",
   },
   {
     icon: Code2,
-    step: "03",
+    step: "04",
     title: "Development",
     description: "Iterative sprints with weekly demos. You see real progress, real software — not slide decks.",
   },
   {
+    icon: CheckCircle,
+    step: "05",
+    title: "Testing",
+    description: "Rigorous QA and automated testing to ensure everything works perfectly across all devices and scenarios.",
+  },
+  {
     icon: Rocket,
-    step: "04",
+    step: "06",
     title: "Deployment",
-    description: "Zero-downtime launches, monitoring setup, and a 30-day post-launch support window. We ship — and we stay.",
+    description: "Zero-downtime launches, monitoring setup, and a smooth transition to the live environment.",
+  },
+  {
+    icon: HeartHandshake,
+    step: "07",
+    title: "Support",
+    description: "Providing ongoing maintenance, monitoring, and updates. We ship — and we stay to support your growth.",
   },
 ];
 
@@ -252,7 +270,7 @@ export default function SolutionsPage() {
                 Start a Conversation <ArrowRight className="w-5 h-5 ml-2 inline-block" />
               </GradientButton>
               <a
-                href="mailto:ragulsiva@zohomail.in"
+                href="mailto:contact@nexcore.com"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 or email us directly →
