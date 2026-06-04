@@ -23,37 +23,37 @@ const services = [
   {
     icon: Code2,
     title: "Web Development",
-    description: "Custom business websites.",
+    description: "High-performance, secure, and scalable custom websites engineered to establish a commanding digital presence and drive measurable business growth.",
   },
   {
     icon: Layers,
     title: "Full Stack Development",
-    description: "Frontend + Backend systems.",
+    description: "End-to-end architectures utilizing modern frameworks. We build robust frontends and resilient backend systems designed for complex, high-traffic environments.",
   },
   {
     icon: ShoppingCart,
     title: "E-Commerce Development",
-    description: "Online stores and marketplaces.",
+    description: "Conversion-optimized online storefronts and custom marketplaces featuring frictionless checkout, secure payment gateways, and advanced inventory management.",
   },
   {
     icon: Zap,
     title: "SaaS Development",
-    description: "Subscription-based applications.",
+    description: "Scalable, multi-tenant software architectures built from the ground up to support subscription models, complex data structures, and rapid user acquisition.",
   },
   {
     icon: Palette,
     title: "UI/UX Design",
-    description: "Modern user experiences.",
+    description: "Intuitive, research-backed interface designs that prioritize frictionless user journeys, stunning aesthetics, and maximum conversion rates.",
   },
   {
     icon: Search,
     title: "SEO Optimization",
-    description: "Technical and on-page SEO.",
+    description: "Data-driven technical SEO and performance optimizations designed to secure top-tier organic rankings and maximize your platform's search visibility.",
   },
   {
     icon: ShoppingBag,
     title: "Shopify Development",
-    description: "Custom Shopify stores.",
+    description: "Tailored Shopify Plus solutions and custom theme architectures that deliver premium shopping experiences and turn browsers into loyal customers.",
   },
 ];
 
