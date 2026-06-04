@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useRef, useState, useEffect } from "react";
 import {
   Code2, ShoppingCart, Layers, Palette, Search, ShoppingBag,
-  ArrowRight, CheckCircle, Shield, Cpu, Zap, Plus, Minus
+  ArrowRight, CheckCircle, Shield, Cpu, Zap, Plus, Minus, Smartphone
 } from "lucide-react";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer,
@@ -22,33 +22,38 @@ import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 const services = [
   {
     icon: Code2,
-    title: "Full-Stack Development",
-    description: "End-to-end web applications built with modern frameworks and battle-tested architectures.",
+    title: "Web Development",
+    description: "Custom business websites.",
+  },
+  {
+    icon: Layers,
+    title: "Full Stack Development",
+    description: "Frontend + Backend systems.",
   },
   {
     icon: ShoppingCart,
     title: "E-Commerce Development",
-    description: "High-converting online stores with seamless payment flows and mobile-first design.",
+    description: "Online stores and marketplaces.",
   },
   {
-    icon: Layers,
+    icon: Zap,
     title: "SaaS Development",
-    description: "Multi-tenant platforms and subscription systems built to scale from day one.",
+    description: "Subscription-based applications.",
   },
   {
     icon: Palette,
     title: "UI/UX Design",
-    description: "Interfaces that are as beautiful as they are intuitive — designed to convert.",
+    description: "Modern user experiences.",
   },
   {
     icon: Search,
-    title: "SEO Services",
-    description: "Technical and on-page SEO that drives qualified traffic and measurable growth.",
+    title: "SEO Optimization",
+    description: "Technical and on-page SEO.",
   },
   {
     icon: ShoppingBag,
     title: "Shopify Development",
-    description: "Custom Shopify themes and apps that turn browsers into buyers.",
+    description: "Custom Shopify stores.",
   },
 ];
 
@@ -198,17 +203,12 @@ function HeroSection() {
         <h1
           className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground text-center"
         >
-          <span className="relative">
-            We Build <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary via-primary/90 to-secondary relative">
-              SaaS <br className="hidden md:block" />& Web Apps
-              <span className="absolute -inset-x-4 -inset-y-2 bg-primary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
-            </span>
+          <span className="relative block">
+            Premium Web Development
           </span>
-          <span className="relative block mt-2 text-foreground/90">
-             That Scale Without
-          </span>
-          <span className="relative bg-gradient-to-r from-muted-foreground to-foreground bg-clip-text text-transparent block mt-1">
-            the Overhead
+          <span className="relative bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent block mt-2">
+            & Digital Solutions
+            <span className="absolute -inset-x-4 -inset-y-2 bg-primary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
           </span>
         </h1>
 
@@ -216,7 +216,7 @@ function HeroSection() {
         <p
           className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-12"
         >
-          NexCore is a dedicated senior dev team ready to act as your end-to-end Engineering Partner. We build bulletproof digital products with zero technical debt.
+          We build modern websites, web applications, e-commerce platforms, and scalable software solutions that help businesses grow.
         </p>
 
         {/* Action Buttons */}
@@ -224,8 +224,13 @@ function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16"
         >
           <GradientButton href="/contact#contact-form" className="px-10 py-4 text-base font-semibold shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all">
-            Get a Free Project Estimate <ArrowRight className="w-5 h-5 ml-2 inline-block" />
+            Get Free Consultation <ArrowRight className="w-5 h-5 ml-2 inline-block" />
           </GradientButton>
+          <Link href="/services">
+            <span className="px-10 py-4 text-base font-semibold rounded-full border border-border/50 bg-card/40 hover:bg-card/80 transition-all cursor-pointer">
+              View Services
+            </span>
+          </Link>
         </div>
 
 
@@ -234,20 +239,143 @@ function HeroSection() {
   );
 }
 
-function PartnersSection() {
+function TrustedTechnologiesSection() {
   return (
     <section className="py-12 border-y border-border/40 bg-card/10">
       <Container>
         <AnimateOnScroll>
           <p className="text-center text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-8">
-            Built On Industry-Leading Infrastructure
+            Technologies We Work With
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-70 grayscale transition-all duration-500">
-            <FaAws className="w-10 h-10 md:w-12 md:h-12 hover:grayscale-0 hover:text-[#FF9900] transition-colors cursor-pointer" title="AWS" />
-            <SiVercel className="w-10 h-10 md:w-12 md:h-12 hover:grayscale-0 hover:text-black dark:hover:text-white transition-colors cursor-pointer" title="Vercel" />
-            <SiNextdotjs className="w-10 h-10 md:w-12 md:h-12 hover:grayscale-0 hover:text-black dark:hover:text-white transition-colors cursor-pointer" title="Next.js" />
-            <SiPostgresql className="w-10 h-10 md:w-12 md:h-12 hover:grayscale-0 hover:text-[#4169E1] transition-colors cursor-pointer" title="PostgreSQL" />
-            <SiStripe className="w-10 h-10 md:w-12 md:h-12 hover:grayscale-0 hover:text-[#008CDD] transition-colors cursor-pointer" title="Stripe" />
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-70 grayscale transition-all duration-500">
+            <SiReact className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#61DAFB] transition-colors cursor-pointer" title="React" />
+            <SiNextdotjs className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-black dark:hover:text-white transition-colors cursor-pointer" title="Next.js" />
+            <SiNodedotjs className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#339933] transition-colors cursor-pointer" title="Node.js" />
+            <SiNestjs className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#E0234E] transition-colors cursor-pointer" title="NestJS" />
+            <FaJava className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#007396] transition-colors cursor-pointer" title="Java" />
+            <SiSpringboot className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#6DB33F] transition-colors cursor-pointer" title="Spring Boot" />
+            <SiPython className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#3776AB] transition-colors cursor-pointer" title="Python" />
+            <SiFastapi className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#009688] transition-colors cursor-pointer" title="FastAPI" />
+            <SiPostgresql className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#4169E1] transition-colors cursor-pointer" title="PostgreSQL" />
+            <SiMysql className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#4479A1] transition-colors cursor-pointer" title="MySQL" />
+            <SiMongodb className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#47A248] transition-colors cursor-pointer" title="MongoDB" />
+            <SiGithub className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-black dark:hover:text-white transition-colors cursor-pointer" title="GitHub" />
+            <SiDocker className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#2496ED] transition-colors cursor-pointer" title="Docker" />
+            <FaAws className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#FF9900] transition-colors cursor-pointer" title="AWS" />
+          </div>
+        </AnimateOnScroll>
+      </Container>
+    </section>
+  );
+}
+
+const whyChooseUs = [
+  {
+    icon: Zap,
+    title: "Fast Delivery",
+    description: "Production-ready solutions delivered efficiently.",
+  },
+  {
+    icon: Layers,
+    title: "Scalable Architecture",
+    description: "Built for long-term growth.",
+  },
+  {
+    icon: Search,
+    title: "SEO Optimized",
+    description: "Better visibility on Google.",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile Responsive",
+    description: "Works perfectly on all devices.",
+  },
+  {
+    icon: Shield,
+    title: "Transparent Communication",
+    description: "Regular updates during development.",
+  },
+  {
+    icon: CheckCircle,
+    title: "Long-Term Support",
+    description: "Support after launch.",
+  },
+];
+
+function WhyChooseSection() {
+  return (
+    <section className="py-24 relative">
+      <Container>
+        <AnimateOnScroll>
+          <SectionHeader
+            title="Why Choose NexCore"
+            subtitle="We don't just write code. We build solutions that drive business growth."
+          />
+        </AnimateOnScroll>
+
+        <AnimateOnScroll stagger>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {whyChooseUs.map((feature, i) => {
+              const Icon = feature.icon;
+              return (
+                <AnimatedItem key={i}>
+                  <div className="p-8 rounded-2xl border border-border/40 bg-card/30 backdrop-blur-2xl h-full">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-heading font-semibold text-foreground mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                </AnimatedItem>
+              );
+            })}
+          </div>
+        </AnimateOnScroll>
+      </Container>
+    </section>
+  );
+}
+
+const processSteps = [
+  { step: "01", title: "Discovery", description: "Understanding your requirements and business goals." },
+  { step: "02", title: "Planning", description: "Creating a detailed roadmap and project architecture." },
+  { step: "03", title: "Design", description: "Crafting beautiful and intuitive user interfaces." },
+  { step: "04", title: "Development", description: "Building the solution using modern technologies." },
+  { step: "05", title: "Testing", description: "Ensuring everything works perfectly across devices." },
+  { step: "06", title: "Deployment", description: "Launching your project to the live environment." },
+  { step: "07", title: "Support", description: "Providing ongoing maintenance and updates." },
+];
+
+function DevelopmentProcessSection() {
+  return (
+    <section className="py-24 bg-card/5">
+      <Container>
+        <AnimateOnScroll>
+          <SectionHeader
+            title="Development Process"
+            subtitle="A transparent, proven methodology for delivering successful projects."
+          />
+        </AnimateOnScroll>
+
+        <AnimateOnScroll stagger>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {processSteps.map((process, i) => (
+              <AnimatedItem key={i}>
+                <div className="p-6 rounded-2xl border border-border/40 bg-card/30 relative">
+                  <div className="text-4xl font-extrabold text-primary/10 mb-4">{process.step}</div>
+                  <h3 className="text-xl font-heading font-semibold text-foreground mb-2">
+                    {process.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    {process.description}
+                  </p>
+                </div>
+              </AnimatedItem>
+            ))}
           </div>
         </AnimateOnScroll>
       </Container>
@@ -300,7 +428,7 @@ function ServicesSection() {
   );
 }
 
-function TechStackSection() {
+export function TechStackSection() {
   return (
     <section className="py-24">
       <Container>
@@ -436,16 +564,16 @@ function ContactCTASection() {
             Let's work together
           </span>
           <h2 className="text-4xl md:text-6xl font-heading font-bold text-foreground mb-6 tracking-tight">
-            Ready to Build Something{" "}
+            Ready To Build Your{" "}
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Great?
+              Next Project?
             </span>
           </h2>
           <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
-            Tell us about your project. We'll respond within 24 hours with a clear plan and an honest assessment.
+            Let's discuss your requirements and create a solution tailored to your business.
           </p>
           <GradientButton href="/contact#contact-form" className="px-12 py-4 text-base">
-            Get In Touch
+            Get Free Consultation
           </GradientButton>
           <p className="mt-6 text-sm text-muted-foreground">
             Or email us directly at{" "}
@@ -469,77 +597,30 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
-    category: "General",
-    question: "What does NexCore do?",
-    answer:
-      "NexCore is a senior engineering team that acts as your end-to-end technology partner. We design, build, and scale web applications, SaaS platforms, e-commerce stores, and custom software solutions — from concept to production and beyond.",
-  },
-  {
-    category: "General",
-    question: "Who is NexCore a good fit for?",
-    answer:
-      "We work best with startups, growing businesses, and enterprise teams that need high-quality engineering execution without the overhead of building an in-house team. If you have a product vision and need a reliable team to bring it to life, we're the right choice.",
-  },
-  {
-    category: "General",
-    question: "Where is your team located?",
-    answer:
-      "Our core team is based in India, and we work with clients globally. We overlap with US, European, and APAC time zones and adapt our communication schedule to your needs.",
+    category: "Pricing",
+    question: "How much does a website cost?",
+    answer: "Depends on project scope.",
   },
   {
     category: "Process",
-    question: "What does your development process look like?",
-    answer:
-      "We follow an agile, sprint-based workflow. Every project begins with a discovery phase where we define scope, architecture, and milestones. From there, we work in 1–2 week sprints with regular demos, code reviews, and transparent progress updates. You'll always know where things stand.",
+    question: "How long does development take?",
+    answer: "Typically 1–8 weeks.",
   },
   {
     category: "Process",
-    question: "How long does a typical project take?",
-    answer:
-      "It depends on scope and complexity. A marketing website or landing page typically takes 2–4 weeks. A full SaaS MVP takes 8–14 weeks. Complex enterprise platforms can be 3–6+ months. We'll give you an honest timeline estimate during our initial consultation.",
+    question: "Do you provide maintenance?",
+    answer: "Yes.",
   },
   {
-    category: "Process",
-    question: "Do you provide project management?",
-    answer:
-      "Yes. Every project gets a dedicated point of contact who handles communication, sprint planning, and progress reporting. We use modern project management tools so you have full visibility into tasks, timelines, and deliverables.",
+    category: "Services",
+    question: "Can you redesign existing websites?",
+    answer: "Yes.",
   },
   {
-    category: "Technical",
-    question: "What technologies do you work with?",
-    answer:
-      "We use a modern, battle-tested stack: React, Next.js, and TypeScript on the frontend; Node.js, NestJS, Spring Boot, Python, and FastAPI on the backend; PostgreSQL, MySQL, and MongoDB for databases; and AWS, GCP, and Vercel for cloud deployment. We pick the right tool for each project — no cargo culting.",
-  },
-  {
-    category: "Technical",
-    question: "Can you work with our existing codebase?",
-    answer:
-      "Absolutely. We regularly take over, refactor, and extend existing projects. We'll start with a thorough code audit to understand the current state, identify technical debt, and create a roadmap for improvement — all before writing a single line of code.",
-  },
-  {
-    category: "Technical",
-    question: "Do you handle deployment and DevOps?",
-    answer:
-      "Yes. We set up CI/CD pipelines, containerized deployments with Docker, infrastructure as code, monitoring, and alerting. We ensure your application runs reliably at scale with 99.99% uptime targets.",
-  },
-  {
-    category: "Pricing",
-    question: "How much does a project cost?",
-    answer:
-      "Pricing varies based on scope, complexity, and timeline. We offer both fixed-price projects for well-defined scopes and time-and-materials engagements for evolving products. Reach out for a free, no-obligation project estimate — we'll give you a transparent breakdown.",
-  },
-  {
-    category: "Pricing",
-    question: "Do you offer ongoing support and maintenance?",
-    answer:
-      "Yes. After launch, we offer flexible maintenance and support plans that include bug fixes, performance monitoring, security patches, feature updates, and on-call support. We're partners, not just contractors.",
-  },
-  {
-    category: "Pricing",
-    question: "Is there a minimum project size?",
-    answer:
-      "We evaluate projects based on scope and technical requirements rather than a strict minimum budget. We focus on engagements where we can deliver meaningful value and maintain our high quality standards. For specialized, focused tasks, we can discuss flexible consulting arrangements.",
-  },
+    category: "Services",
+    question: "Do you provide SEO?",
+    answer: "Yes.",
+  }
 ];
 
 const faqCategories = ["All", ...Array.from(new Set(faqData.map((f) => f.category)))];
@@ -700,7 +781,9 @@ export default function HomePage() {
     <main
     >
       <HeroSection />
-      <PartnersSection />
+      <TrustedTechnologiesSection />
+      <WhyChooseSection />
+      <DevelopmentProcessSection />
       <ServicesSection />
       <TechStackSection />
 

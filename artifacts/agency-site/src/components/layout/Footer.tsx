@@ -3,20 +3,28 @@ import { Container } from "./Container";
 import { Github, Linkedin, Twitter, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 
 const services = [
-  "Full-Stack Development",
-  "E-Commerce Development",
-  "SaaS Development",
-  "UI/UX Design",
-  "SEO Services",
-  "Shopify Development",
+  "Web Development",
+  "E-Commerce",
+  "SEO",
+  "SaaS",
 ];
 
-const quickLinks = [
-  { href: "/", label: "Home" },
+const companyLinks = [
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
-  { href: "/solutions", label: "Solutions" },
   { href: "/contact", label: "Contact" },
+];
+
+const techLinks = [
+  { href: "#", label: "React" },
+  { href: "#", label: "Node.js" },
+  { href: "#", label: "Java" },
+  { href: "#", label: "PostgreSQL" },
+];
+
+const legalLinks = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms & Conditions" },
 ];
 
 export function Footer() {
@@ -84,25 +92,15 @@ export function Footer() {
               >
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit our Twitter profile"
-                data-testid="link-twitter-footer"
-                className="w-9 h-9 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-all"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
             </div>
           </div>
 
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-widest mb-5">
-              Quick Links
+              Company
             </h3>
             <ul className="space-y-3">
-              {quickLinks.map((link) => (
+              {companyLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -143,33 +141,20 @@ export function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-white uppercase tracking-widest mb-5">
-              Contact
+              Technologies
             </h3>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  href="mailto:ragulsiva@zohomail.in"
-                  data-testid="link-footer-email"
-                  className="flex items-start gap-3 text-sm text-slate-400 hover:text-primary transition-colors group"
-                >
-                  <Mail className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                  ragulsiva@zohomail.in
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:+919080163393"
-                  data-testid="link-footer-phone"
-                  className="flex items-start gap-3 text-sm text-slate-400 hover:text-primary transition-colors"
-                >
-                  <Phone className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                  +91 9080163393
-                </a>
-              </li>
-              <li className="flex items-start gap-3 text-sm text-slate-400">
-                <MapPin className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                India
-              </li>
+            <ul className="space-y-3">
+              {techLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-slate-400 hover:text-primary text-sm transition-colors flex items-center gap-2 group cursor-pointer"
+                  >
+                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -177,10 +162,21 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <Container>
-          <div className="flex items-center justify-center py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between py-6 gap-4">
             <p className="text-xs text-slate-500">
               &copy; {year} NexCore. All rights reserved.
             </p>
+            <div className="flex items-center gap-6">
+              {legalLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs text-slate-500 hover:text-white transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </Container>
       </div>

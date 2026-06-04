@@ -45,8 +45,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "ragulsiva@zohomail.in",
-    href: "mailto:ragulsiva@zohomail.in",
+    value: "contact@nexcore.com",
+    href: "mailto:contact@nexcore.com",
   },
   {
     icon: Phone,

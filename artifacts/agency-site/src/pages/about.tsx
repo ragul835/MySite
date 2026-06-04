@@ -8,33 +8,35 @@ import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScro
 import { GradientButton } from "@/components/shared/GradientButton";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
-const values = [
-  "Build Lean — ship the simplest thing that works, then improve.",
-  "Avoid Premature Complexity — no abstractions without a clear use case.",
-  "Prioritize Delivery Speed — a working product beats a perfect one in planning.",
-  "Scale Gradually — design for current needs with a clear path forward.",
+import { TechStackSection } from "./home";
+
+const coreValues = [
+  "Quality in every line of code.",
+  "Transparency in communication.",
+  "Innovation in our solutions.",
+  "Reliability in delivery.",
 ];
 
-const philosophyCards = [
+const valueCards = [
   {
     icon: Shield,
-    title: "Focus on Maintainability",
+    title: "Quality",
     description: "Code is read far more often than it's written. We optimize for clarity, consistency, and long-term team velocity.",
   },
   {
     icon: Target,
-    title: "Separate Concerns Properly",
-    description: "Clean boundaries between layers — UI, business logic, and data — make systems easier to test, extend, and hand off.",
-  },
-  {
-    icon: Cpu,
-    title: "Modular Monolith First",
-    description: "We start with well-structured monoliths before reaching for microservices. The architecture earns its complexity.",
+    title: "Transparency",
+    description: "Clear communication, regular updates, and honest assessments without runaround.",
   },
   {
     icon: Zap,
-    title: "Budget-Friendly Without Compromise",
-    description: "Professional engineering doesn't require enterprise budgets. We help startups move fast without accruing crippling technical debt.",
+    title: "Innovation",
+    description: "We use modern tools and battle-tested architectures to build solutions that scale.",
+  },
+  {
+    icon: CheckCircle,
+    title: "Reliability",
+    description: "We ship working products, handle DevOps efficiently, and provide ongoing support.",
   },
 ];
 
@@ -107,7 +109,7 @@ export default function AboutPage() {
                   We believe great software is the result of clear thinking, disciplined execution, and an obsessive focus on what actually matters. We're not here to build monuments — we're here to ship products that work, products that scale, and products that your customers love.
                 </p>
                 <ul className="space-y-4">
-                  {values.map((value) => (
+                  {coreValues.map((value) => (
                     <li key={value} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                       <span className="text-muted-foreground">{value}</span>
@@ -194,26 +196,45 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Engineering Philosophy */}
+      {/* Vision Section */}
+      <section className="py-20 relative bg-card/5">
+        <Container>
+          <AnimateOnScroll>
+            <div className="max-w-4xl mx-auto text-center">
+              <span className="text-primary text-sm font-semibold uppercase tracking-widest mb-4 block">
+                Our Vision
+              </span>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold text-foreground tracking-tight mb-6">
+                To be the most trusted engineering partner globally
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
+                We envision a future where businesses of all sizes can access premium software engineering without the overhead of building massive in-house teams. By focusing on scalable architectures, stunning designs, and modern performance standards, we empower companies to turn their visions into reality smoothly and efficiently.
+              </p>
+            </div>
+          </AnimateOnScroll>
+        </Container>
+      </section>
+
+      {/* Values Section */}
       <section className="py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent pointer-events-none" />
         <Container>
           <AnimateOnScroll>
             <SectionHeader
-              title="Engineering Philosophy"
+              title="Our Values"
               subtitle="The principles that guide every line of code we write."
             />
           </AnimateOnScroll>
 
           <AnimateOnScroll stagger>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {philosophyCards.map((card) => {
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {valueCards.map((card) => {
                 const Icon = card.icon;
                 return (
                   <AnimatedItem key={card.title}>
                     <div
-                      data-testid={`card-philosophy-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm"
+                      data-testid={`card-value-${card.title.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm h-full"
                     >
                       <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-5">
                         <Icon className="w-6 h-6 text-primary" />
@@ -232,6 +253,9 @@ export default function AboutPage() {
           </AnimateOnScroll>
         </Container>
       </section>
+
+      {/* Technologies Section */}
+      <TechStackSection />
 
 
 
