@@ -204,7 +204,7 @@ function HeroSection() {
           className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground text-center"
         >
           <span className="relative block">
-            Premium Web Development
+            Premium Web, SaaS
           </span>
           <span className="relative bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent block mt-2">
             & Digital Solutions
@@ -216,7 +216,7 @@ function HeroSection() {
         <p
           className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-12"
         >
-          We build modern websites, web applications, e-commerce platforms, and scalable software solutions that help businesses grow.
+          We build modern websites, scalable SaaS applications, e-commerce platforms, and custom software solutions that help businesses grow.
         </p>
 
         {/* Action Buttons */}
