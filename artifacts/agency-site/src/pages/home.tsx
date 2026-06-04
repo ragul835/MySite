@@ -204,19 +204,19 @@ function HeroSection() {
           className="text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground text-center"
         >
           <span className="relative block">
-            Architecting High-Performance
+            Architecting Scalable
           </span>
           <span className="relative bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent block mt-2">
-            Web & SaaS Platforms
+            Web & SaaS Ecosystems
             <span className="absolute -inset-x-4 -inset-y-2 bg-primary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
           </span>
         </h1>
 
         {/* Subtitle */}
         <p
-          className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-12"
+          className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto mb-12"
         >
-          We partner with ambitious businesses to design, engineer, and scale world-class web applications, SaaS products, and custom digital solutions.
+          We transform complex business challenges into elegant, high-performance digital products. From multi-tenant SaaS architectures to blazing-fast modern web applications, our elite engineering team delivers production-ready software designed to accelerate your growth and outpace the competition.
         </p>
 
         {/* Action Buttons */}
