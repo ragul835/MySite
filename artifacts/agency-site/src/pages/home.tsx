@@ -598,28 +598,28 @@ interface FAQItem {
 const faqData: FAQItem[] = [
   {
     category: "Pricing",
-    question: "How much does a website cost?",
-    answer: "Depends on project scope.",
+    question: "How much does a custom project cost?",
+    answer: "Project costs vary based on complexity, required features, and the technology stack involved. We don't believe in one-size-fits-all pricing; instead, we conduct a thorough discovery phase to provide you with a transparent, itemized proposal tailored precisely to your business objectives and budget constraints.",
   },
   {
     category: "Process",
-    question: "How long does development take?",
-    answer: "Typically 1–8 weeks.",
+    question: "How long does development typically take?",
+    answer: "A standard corporate website can take 2–4 weeks, while complex SaaS platforms or custom e-commerce solutions typically range from 8–16 weeks. We use agile methodologies, providing you with weekly updates and continuous access to a staging environment so you can track progress in real time.",
   },
   {
     category: "Process",
-    question: "Do you provide maintenance?",
-    answer: "Yes.",
+    question: "Do you provide ongoing maintenance and support?",
+    answer: "Absolutely. We view launch day as the beginning of our partnership. We offer customized Service Level Agreements (SLAs) that include 24/7 uptime monitoring, security patching, continuous performance optimization, and dedicated hours for iterative feature development.",
   },
   {
     category: "Services",
-    question: "Can you redesign existing websites?",
-    answer: "Yes.",
+    question: "Can you redesign or scale an existing application?",
+    answer: "Yes. Our engineering team specializes in auditing legacy codebases, refactoring outdated architectures into modern, scalable frameworks, and dramatically improving UI/UX. We ensure zero-downtime migrations while significantly boosting Core Web Vitals and conversion rates.",
   },
   {
     category: "Services",
-    question: "Do you provide SEO?",
-    answer: "Yes.",
+    question: "Do you handle technical SEO and performance?",
+    answer: "Performance is a first-class metric in our development process. We implement advanced technical SEO strategies, server-side rendering (SSR), optimized asset delivery, and structured data schemas to ensure your platform passes Core Web Vitals and ranks highly on search engines.",
   }
 ];
 
