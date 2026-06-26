@@ -166,7 +166,7 @@ function HeroSection() {
         >
           <SiPostgresql className="w-16 h-16 md:w-24 md:h-24" />
         </div>
-        
+
         {/* Additional Hero Icons */}
         <div
           className="absolute top-[25%] left-[45%] text-green-600/15 blur-[2px]"
@@ -308,7 +308,7 @@ function WhyChooseSection() {
       <Container>
         <AnimateOnScroll>
           <SectionHeader
-            title="Why Choose NexCore"
+            title="Why Choose Seichox"
             subtitle="We don't just write code. We build solutions that drive business growth."
           />
         </AnimateOnScroll>
@@ -406,7 +406,7 @@ function ServicesSection() {
                     className="group p-8 rounded-2xl border border-border/40 bg-card/30 backdrop-blur-2xl relative overflow-hidden cursor-default h-full"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                    <div 
+                    <div
                       className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
                     >
                       <Icon className="w-6 h-6 text-primary" />
@@ -598,28 +598,28 @@ interface FAQItem {
 const faqData: FAQItem[] = [
   {
     category: "Pricing",
-    question: "How much does a custom project cost?",
-    answer: "Project costs vary based on complexity, required features, and the technology stack involved. We don't believe in one-size-fits-all pricing; instead, we conduct a thorough discovery phase to provide you with a transparent, itemized proposal tailored precisely to your business objectives and budget constraints.",
+    question: "How much does a website cost?",
+    answer: "Depends on project scope.",
   },
   {
     category: "Process",
-    question: "How long does development typically take?",
-    answer: "A standard corporate website can take 2–4 weeks, while complex SaaS platforms or custom e-commerce solutions typically range from 8–16 weeks. We use agile methodologies, providing you with weekly updates and continuous access to a staging environment so you can track progress in real time.",
+    question: "How long does development take?",
+    answer: "Typically 1–8 weeks.",
   },
   {
     category: "Process",
-    question: "Do you provide ongoing maintenance and support?",
-    answer: "Absolutely. We view launch day as the beginning of our partnership. We offer customized Service Level Agreements (SLAs) that include 24/7 uptime monitoring, security patching, continuous performance optimization, and dedicated hours for iterative feature development.",
+    question: "Do you provide maintenance?",
+    answer: "Yes.",
   },
   {
     category: "Services",
-    question: "Can you redesign or scale an existing application?",
-    answer: "Yes. Our engineering team specializes in auditing legacy codebases, refactoring outdated architectures into modern, scalable frameworks, and dramatically improving UI/UX. We ensure zero-downtime migrations while significantly boosting Core Web Vitals and conversion rates.",
+    question: "Can you redesign existing websites?",
+    answer: "Yes.",
   },
   {
     category: "Services",
-    question: "Do you handle technical SEO and performance?",
-    answer: "Performance is a first-class metric in our development process. We implement advanced technical SEO strategies, server-side rendering (SSR), optimized asset delivery, and structured data schemas to ensure your platform passes Core Web Vitals and ranks highly on search engines.",
+    question: "Do you provide SEO?",
+    answer: "Yes.",
   }
 ];
 
@@ -639,11 +639,10 @@ function FAQAccordionItem({
   return (
     <AnimatedItem>
       <div
-        className={`group rounded-2xl border transition-all duration-300 overflow-hidden ${
-          isOpen
+        className={`group rounded-2xl border transition-all duration-300 overflow-hidden ${isOpen
             ? "border-primary/40 bg-primary/[0.03] shadow-[0_0_30px_hsl(var(--primary)/0.08)]"
             : "border-border/50 bg-card/30 hover:border-border/80 hover:bg-card/50"
-        }`}
+          }`}
       >
         <button
           onClick={onToggle}
@@ -651,40 +650,36 @@ function FAQAccordionItem({
           className="w-full flex items-start gap-4 p-6 md:p-7 text-left cursor-pointer"
         >
           <span
-            className={`shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all duration-300 ${
-              isOpen
+            className={`shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all duration-300 ${isOpen
                 ? "bg-primary text-primary-foreground shadow-[0_0_12px_hsl(var(--primary)/0.4)]"
                 : "bg-muted/80 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
-            }`}
+              }`}
           >
             {String(index + 1).padStart(2, "0")}
           </span>
 
           <div className="flex-1 min-w-0">
             <h3
-              className={`text-base md:text-lg font-heading font-semibold transition-colors ${
-                isOpen ? "text-foreground" : "text-foreground/90"
-              }`}
+              className={`text-base md:text-lg font-heading font-semibold transition-colors ${isOpen ? "text-foreground" : "text-foreground/90"
+                }`}
             >
               {item.question}
             </h3>
           </div>
 
           <span
-            className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-              isOpen
+            className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isOpen
                 ? "bg-primary/15 text-primary rotate-0"
                 : "bg-muted/60 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
-            }`}
+              }`}
           >
             {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
           </span>
         </button>
 
         <div
-          className={`grid transition-all duration-300 ease-in-out ${
-            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-          }`}
+          className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+            }`}
         >
           <div className="overflow-hidden">
             <div className="px-6 md:px-7 pb-6 md:pb-7 pl-[4.25rem] md:pl-[4.75rem]">
@@ -715,7 +710,7 @@ function FAQSection() {
         <AnimateOnScroll>
           <SectionHeader
             title="Frequently Asked Questions"
-            subtitle="Everything you need to know about working with NexCore."
+            subtitle="Everything you need to know about working with Seichox."
           />
         </AnimateOnScroll>
 
@@ -731,11 +726,10 @@ function FAQSection() {
                     setOpenIndex(null);
                   }}
                   data-testid={`faq-filter-${cat.toLowerCase()}`}
-                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
-                    activeCategory === cat
+                  className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${activeCategory === cat
                       ? "bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
                       : "border border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40 hover:text-primary hover:bg-primary/5"
-                  }`}
+                    }`}
                 >
                   {cat}
                   {cat !== "All" && (
@@ -773,8 +767,8 @@ function FAQSection() {
 
 export default function HomePage() {
   useDocumentTitle(
-    "NexCore | Premium Software Engineering Agency",
-    "NexCore is a senior engineering team that builds scalable SaaS platforms, e-commerce stores, and custom web applications. Get a free project estimate."
+    "Seichox | Premium Software Engineering Agency",
+    "Seichox is a senior engineering team that builds scalable SaaS platforms, e-commerce stores, and custom web applications. Get a free project estimate."
   );
 
   return (

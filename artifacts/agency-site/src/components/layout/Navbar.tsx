@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
 import { GradientButton } from "../shared/GradientButton";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -35,7 +36,10 @@ export function Navbar() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className={cn(
           "sticky top-0 z-50 w-full transition-all duration-300 bg-background/60 backdrop-blur-2xl border-b border-transparent",
           isScrolled && "shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-border/40 bg-background/80 backdrop-blur-3xl"
@@ -43,14 +47,15 @@ export function Navbar() {
       >
         <Container>
           <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl font-heading font-bold text-foreground tracking-tighter">
-                NexCore<span className="text-primary">.</span>
+            <Link href="/" className="flex items-center gap-3">
+              <img src="/logo-icon.png" alt="Seichox Logo" className="h-12 w-auto" />
+              <span className="text-3xl font-heading font-black text-foreground tracking-tighter">
+                Seichox<span className="text-primary">.</span>
               </span>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-8">
               {NAV_LINKS.map((link) => {
                 const isActive = location === link.href;
                 return (
@@ -78,7 +83,7 @@ export function Navbar() {
           </nav>
 
           {/* Mobile Nav */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="text-foreground">
@@ -94,7 +99,7 @@ export function Navbar() {
                         key={link.href}
                         href={link.href}
                         className={cn(
-                          "text-2xl font-heading font-semibold transition-colors",
+                          "text-xl sm:text-2xl font-heading font-semibold transition-colors",
                           isActive ? "text-primary" : "text-foreground hover:text-primary"
                         )}
                       >
@@ -113,7 +118,7 @@ export function Navbar() {
           </div>
         </div>
       </Container>
-    </header>
+    </motion.header>
     </>
   );
 }

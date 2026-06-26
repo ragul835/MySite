@@ -55,7 +55,7 @@ const steps = [
 
 export default function SolutionsPage() {
   useDocumentTitle(
-    "Solutions & Capabilities | NexCore",
+    "Solutions & Capabilities | Seichox",
     "Custom digital solutions engineered for scale and performance. Discover our process: Discovery, Design, Development, and Deployment."
   );
 
@@ -270,7 +270,7 @@ export default function SolutionsPage() {
                 Start a Conversation <ArrowRight className="w-5 h-5 ml-2 inline-block" />
               </GradientButton>
               <a
-                href="mailto:contact@nexcore.com"
+                href="mailto:contact@seichox.com"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 or email us directly →

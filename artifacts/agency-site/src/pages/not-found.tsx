@@ -5,7 +5,7 @@ import { GradientButton } from "@/components/shared/GradientButton";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 export default function NotFound() {
-  useDocumentTitle("404 — Page Not Found | NexCore");
+  useDocumentTitle("404 — Page Not Found | Seichox");
 
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">

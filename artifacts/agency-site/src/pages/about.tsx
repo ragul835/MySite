@@ -44,7 +44,7 @@ const valueCards = [
 
 export default function AboutPage() {
   useDocumentTitle(
-    "About Us | NexCore",
+    "About Us | Seichox",
     "An elite, focused engineering team that punches above its weight class. Learn about our mission, values, and engineering philosophy."
   );
 

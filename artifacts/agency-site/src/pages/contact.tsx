@@ -45,8 +45,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "contact@nexcore.com",
-    href: "mailto:contact@nexcore.com",
+    value: "contact@seichox.com",
+    href: "mailto:contact@seichox.com",
   },
   {
     icon: Phone,
@@ -209,8 +209,8 @@ export default function ContactPage() {
   const [serviceValue, setServiceValue] = useState("");
 
   useDocumentTitle(
-    "Contact Us | NexCore",
-    "Get in touch with NexCore. Tell us about your project and we'll respond within 24 hours with a clear plan and honest assessment."
+    "Contact Us | Seichox",
+    "Get in touch with Seichox. Tell us about your project and we'll respond within 24 hours with a clear plan and honest assessment."
   );
 
 
