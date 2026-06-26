@@ -1,0 +1,9 @@
+$ vite --config vite.config.ts --host 0.0.0.0
+
+  VITE v7.3.3  ready in 233 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://10.26.186.66:3000/
+/home/dell/Pictures/Code-Companion/artifacts/agency-site:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @workspace/agency-site@0.0.0 dev: `vite --config vite.config.ts --host 0.0.0.0`
+Command failed with signal "SIGTERM"
