@@ -694,6 +694,70 @@ function FAQAccordionItem({
   );
 }
 
+function LatestInsightsSection() {
+  const featuredPosts = [
+    {
+      slug: "top-web-development-trends-2026",
+      title: "Top Web Development Trends in 2026",
+      excerpt: "AI-first experiences, edge computing, and performance-first architectures from a leading IT company.",
+      category: "Web Development",
+      readTime: "12 min",
+    },
+    {
+      slug: "scalable-saas-development-guide",
+      title: "Building Scalable SaaS Applications",
+      excerpt: "Proven multi-tenancy patterns, tech stacks, and architecture decisions used by elite engineering teams.",
+      category: "SaaS",
+      readTime: "15 min",
+    },
+    {
+      slug: "technical-seo-guide-for-it-companies",
+      title: "Technical SEO for Modern Web Apps",
+      excerpt: "Core Web Vitals, structured data, and crawlability strategies that actually move the needle.",
+      category: "SEO",
+      readTime: "14 min",
+    },
+  ];
+
+  return (
+    <section className="py-20 border-t border-border/30">
+      <Container>
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <div className="uppercase tracking-[3px] text-xs font-semibold text-primary mb-2">From the team</div>
+            <h2 className="text-4xl md:text-5xl font-heading font-black tracking-tighter">Latest Insights</h2>
+          </div>
+          <Link href="/blog" className="hidden md:flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+            View all articles <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {featuredPosts.map((post, i) => (
+            <Link key={i} href={`/blog/${post.slug}`} className="group block">
+              <div className="h-full rounded-2xl border border-border/50 bg-card/60 overflow-hidden transition hover:border-primary/30 hover:bg-card">
+                <div className="relative h-36">
+                  <img src={`/blog/${post.slug === 'top-web-development-trends-2026' ? 'web-development-trends-2026' : post.slug === 'scalable-saas-development-guide' ? 'scalable-saas-development' : 'technical-seo'}.jpg`} alt={post.title} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform" loading="lazy" decoding="async" />
+                  <div className="absolute top-3 left-3 px-2 py-0.5 text-[10px] font-medium bg-black/70 text-white rounded">{post.category}</div>
+                </div>
+                <div className="p-5">
+                  <h3 className="font-heading text-lg font-semibold leading-snug tracking-tight mb-2 group-hover:text-primary transition-colors line-clamp-2">{post.title}</h3>
+                  <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{post.excerpt}</p>
+                  <div className="text-xs text-primary font-medium inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">Read <ArrowRight className="h-3 w-3" /></div>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-8 md:hidden text-center">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-medium text-primary">Browse the full blog archive →</Link>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -780,6 +844,8 @@ export default function HomePage() {
       <DevelopmentProcessSection />
       <ServicesSection />
       <TechStackSection />
+
+      <LatestInsightsSection />
 
       <FAQSection />
       <ContactCTASection />
