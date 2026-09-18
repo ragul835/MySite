@@ -44,14 +44,14 @@ const valueCards = [
 
 export default function AboutPage() {
   useDocumentTitle(
-    "About Us | Seichox",
+    "About Us | We Raise Tech",
     "An elite, focused engineering team that punches above its weight class. Learn about our mission, values, and engineering philosophy."
   );
 
   return (
     <main>
       {/* Hero Banner */}
-      <section className="relative pt-32 pb-24 overflow-hidden border-b border-border/30">
+      <section className="relative overflow-hidden border-b border-border/30 pb-16 pt-16 sm:pb-20 sm:pt-24 lg:pb-24 lg:pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-background" />
         
         {/* Premium Grid Overlay */}

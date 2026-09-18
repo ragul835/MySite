@@ -9,7 +9,7 @@ const sections = [
   {
     id: "introduction",
     title: "1. Introduction",
-    content: `Seichox ("we," "us," or "our") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website (seichox.dev), use our services, or communicate with us.
+    content: `We Raise Tech ("we," "us," or "our") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website (weraisetech.com), use our services, or communicate with us.
 
 This policy applies to all visitors, users, and others who access the site or engage our IT services including web development, full-stack development, e-commerce solutions, SaaS platforms, UI/UX design, SEO, and Shopify development. It covers both local clients in India and international clients worldwide.`
   },
@@ -40,7 +40,7 @@ Client Project Data:
 • To respond to inquiries, prepare proposals, schedule consultations, and communicate project updates.
 • To personalize your experience and improve our website, services, and marketing.
 • To send service-related communications, project updates, and (with your consent) occasional newsletters or case studies.
-• To comply with legal obligations, enforce our agreements, prevent fraud, and protect the rights of Seichox and our clients.
+• To comply with legal obligations, enforce our agreements, prevent fraud, and protect the rights of We Raise Tech and our clients.
 • For analytics and research to understand how visitors use our site and improve offerings.
 
 We process personal data on the following legal bases (where applicable): consent, performance of a contract, legitimate interests, and legal obligations.`
@@ -113,7 +113,7 @@ To exercise any of these rights, please contact us using the details below. We w
   {
     id: "international",
     title: "9. International Data Transfers",
-    content: `Seichox is based in India. If you are located outside India, your information may be transferred to, processed, and stored in India or other countries where our service providers operate.
+    content: `We Raise Tech is based in India. If you are located outside India, your information may be transferred to, processed, and stored in India or other countries where our service providers operate.
 
 We take appropriate steps to ensure that your personal data receives an adequate level of protection in accordance with this Privacy Policy and applicable data protection laws, including through the use of Standard Contractual Clauses or equivalent safeguards where required.`
   },
@@ -134,8 +134,8 @@ We encourage you to review this page periodically. Material changes will be comm
     title: "12. Contact Us",
     content: `If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
 
-Seichox
-Email: ragulsiva@zohomail.in
+We Raise Tech
+Email: contact@weraisetech.com
 Phone / WhatsApp: +91 9080163393
 Location: India
 
@@ -145,14 +145,14 @@ We take privacy seriously and will respond promptly to all legitimate inquiries.
 
 export default function PrivacyPolicy() {
   useDocumentTitle(
-    "Privacy Policy | Seichox",
-    "Learn how Seichox collects, uses, and protects your personal data. Privacy Policy for our web development, SaaS, e-commerce, and digital services."
+    "Privacy Policy | We Raise Tech",
+    "Learn how We Raise Tech collects, uses, and protects your personal data. Privacy Policy for our web development, SaaS, e-commerce, and digital services."
   );
 
   return (
     <div className="w-full flex flex-col bg-background">
       {/* Hero Section */}
-      <section className="relative pt-28 sm:pt-36 pb-16 overflow-hidden border-b border-border/40">
+      <section className="relative overflow-hidden border-b border-border/40 pb-14 pt-16 sm:pb-16 sm:pt-24 lg:pt-28">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_30%_0%,hsl(var(--primary)/0.08),transparent)]" />
           <div
@@ -182,7 +182,7 @@ export default function PrivacyPolicy() {
               Privacy Policy
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl">
-              How we collect, use, and protect your information when you engage with Seichox.
+              How we collect, use, and protect your information when you engage with We Raise Tech.
             </p>
 
             <div className="flex items-center gap-4 mt-8 text-sm text-muted-foreground">

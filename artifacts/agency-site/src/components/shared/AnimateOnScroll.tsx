@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
-import { motion, useInView, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 interface AnimateOnScrollProps {
   children: React.ReactNode;
@@ -29,16 +29,12 @@ const itemVariants: Variants = {
 };
 
 export function AnimateOnScroll({ children, className, stagger = false, delay = 0 }: AnimateOnScrollProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   if (stagger) {
     return (
       <motion.div
-        ref={ref}
         variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        initial={false}
+        animate="visible"
         className={className}
       >
         {children}
@@ -48,10 +44,9 @@ export function AnimateOnScroll({ children, className, stagger = false, delay = 
 
   return (
     <motion.div
-      ref={ref}
       variants={itemVariants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      initial={false}
+      animate="visible"
       transition={{ delay }}
       className={className}
     >

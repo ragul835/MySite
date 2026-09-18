@@ -1,72 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://seichox.com/</loc>
+    <loc>https://weraisetech.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://seichox.com/about</loc>
+    <loc>https://weraisetech.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://seichox.com/services</loc>
+    <loc>https://weraisetech.com/services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://seichox.com/solutions</loc>
+    <loc>https://weraisetech.com/solutions</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://seichox.com/blog</loc>
+    <loc>https://weraisetech.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://seichox.com/blog/top-web-development-trends-2026</loc>
+    <loc>https://weraisetech.com/blog/top-web-development-trends-2026</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://seichox.com/blog/scalable-saas-development-guide</loc>
+    <loc>https://weraisetech.com/blog/scalable-saas-development-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://seichox.com/blog/ecommerce-development-best-practices</loc>
+    <loc>https://weraisetech.com/blog/ecommerce-development-best-practices</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://seichox.com/blog/technical-seo-guide-for-it-companies</loc>
+    <loc>https://weraisetech.com/blog/technical-seo-guide-for-it-companies</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://seichox.com/blog/ui-ux-design-for-business-growth</loc>
+    <loc>https://weraisetech.com/blog/ui-ux-design-for-business-growth</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://seichox.com/blog/shopify-development-vs-custom-solutions</loc>
+    <loc>https://weraisetech.com/blog/shopify-development-vs-custom-solutions</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://seichox.com/contact</loc>
+    <loc>https://weraisetech.com/blog/website-maintenance-support-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://seichox.com/privacy</loc>
+    <loc>https://weraisetech.com/blog/mobile-app-development-guide-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/blog/custom-software-development-when-to-build</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://seichox.com/terms</loc>
+    <loc>https://weraisetech.com/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

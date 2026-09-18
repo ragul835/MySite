@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useEffect } from "react";
 import {
   Code2, ShoppingCart, Layers, Palette, Search, ShoppingBag, Gauge,
-  ChevronRight, CheckCircle
+  ChevronRight, CheckCircle, Settings, Smartphone, Terminal
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
@@ -67,12 +67,36 @@ const servicesList = [
     technologiesUsed: "Shopify Liquid, React, Node.js",
     whoNeedsIt: "Merchants looking for customized Shopify stores.",
   },
+  {
+    icon: Settings,
+    title: "Website Maintenance & Support",
+    whatItIs: "Ongoing security monitoring, updates, backups, and performance care for your site.",
+    benefits: "Reduced downtime, stronger security, and consistent performance.",
+    technologiesUsed: "Uptime monitoring, Cloudflare, ManageWP, AWS Backup",
+    whoNeedsIt: "Businesses that want peace of mind knowing their website is maintained.",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile App Development",
+    whatItIs: "Native and cross-platform iOS and Android apps built for speed and engagement.",
+    benefits: "Reach users on their primary devices and grow retention with push and offline features.",
+    technologiesUsed: "React Native, Flutter, Swift, Kotlin, Firebase",
+    whoNeedsIt: "Startups and enterprises launching mobile-first products.",
+  },
+  {
+    icon: Terminal,
+    title: "Custom Software Development",
+    whatItIs: "Bespoke software built around your workflows, integrations, and operations.",
+    benefits: "Perfect fit for unique processes with full ownership of the source code.",
+    technologiesUsed: "Node.js, Python, Java, PostgreSQL, Docker, AWS",
+    whoNeedsIt: "Organizations that need more than off-the-shelf SaaS tools.",
+  },
 ];
 
 export default function ServicesPage() {
   useDocumentTitle(
-    "Services | Seichox",
-    "Full-stack development, SaaS platforms, e-commerce stores, UI/UX design, SEO services, and Shopify development — everything under one roof."
+    "Services | We Raise Tech",
+    "Full-stack development, SaaS platforms, mobile apps, custom software, website maintenance, e-commerce, UI/UX, SEO, and Shopify — everything under one roof."
   );
 
   useEffect(() => {
@@ -91,7 +115,7 @@ export default function ServicesPage() {
   return (
     <main>
       {/* Hero Banner */}
-      <section className="relative pt-32 pb-24 overflow-hidden border-b border-border/30">
+      <section className="relative overflow-hidden border-b border-border/30 pb-16 pt-16 sm:pb-20 sm:pt-24 lg:pb-24 lg:pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-background" />
         
         {/* Premium Grid Overlay */}

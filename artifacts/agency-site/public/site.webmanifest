@@ -1,13 +1,19 @@
 {
-  "name": "Seichox | IT Company & Software Solutions",
-  "short_name": "Seichox",
+  "name": "We Raise Tech | IT Company & Software Solutions",
+  "short_name": "We Raise Tech",
   "description": "Premium IT Company offering web development, SaaS, e-commerce and digital solutions",
   "icons": [
     {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "theme_color": "#3b82f6",

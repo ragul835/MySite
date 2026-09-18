@@ -28,7 +28,7 @@ const blogPosts: BlogPost[] = [
     readTime: "12 min",
     category: "Web Development",
     tags: ["web development", "trends 2026", "IT company"],
-    metaDescription: "Explore the top web development trends in 2026 including AI integration, edge computing, and performance optimization. Expert insights from Seichox, a premier IT company.",
+    metaDescription: "Explore the top web development trends in 2026 including AI integration, edge computing, and performance optimization. Expert insights from We Raise Tech.",
     image: "web-development-trends-2026.jpg",
   },
   {
@@ -86,14 +86,57 @@ const blogPosts: BlogPost[] = [
     metaDescription: "Shopify vs custom ecommerce development: detailed comparison by a top IT company. Find the best fit for your budget, scale, and unique business requirements.",
     image: "shopify-vs-custom.jpg",
   },
+  {
+    slug: "website-maintenance-support-guide",
+    title: "Website Maintenance & Support: Why Ongoing Care Protects Revenue",
+    excerpt: "Launches are only the start. Learn how proactive website maintenance, security patches, and support keep your site fast, secure, and converting.",
+    date: "July 12, 2026",
+    readTime: "11 min",
+    category: "Website Maintenance",
+    tags: ["website maintenance", "support", "security", "uptime"],
+    metaDescription: "Why website maintenance and support matter after launch. Security, speed, backups, and response plans from We Raise Tech.",
+    image: "technical-seo.jpg",
+  },
+  {
+    slug: "mobile-app-development-guide-2026",
+    title: "Mobile App Development in 2026: Native vs Cross-Platform Decisions",
+    excerpt: "Build the right mobile product for iOS and Android. Compare native and cross-platform approaches, costs, and when each path makes business sense.",
+    date: "July 14, 2026",
+    readTime: "13 min",
+    category: "Mobile App Development",
+    tags: ["mobile app", "React Native", "Flutter", "iOS", "Android"],
+    metaDescription: "Mobile app development guide for 2026. Native vs cross-platform, stacks, timelines, and launch strategy from We Raise Tech.",
+    image: "ui-ux-design.jpg",
+  },
+  {
+    slug: "custom-software-development-when-to-build",
+    title: "Custom Software Development: When Off-the-Shelf Tools Stop Working",
+    excerpt: "Know when to invest in custom software. We cover ROI signals, architecture choices, and how bespoke systems automate unique business workflows.",
+    date: "July 16, 2026",
+    readTime: "12 min",
+    category: "Custom Software",
+    tags: ["custom software", "enterprise", "automation", "integrations"],
+    metaDescription: "When custom software development beats SaaS tools. ROI, process automation, integrations, and ownership insights from We Raise Tech.",
+    image: "scalable-saas-development.jpg",
+  },
 ];
 
-const categories = ["All", "Web Development", "SaaS Development", "E-Commerce", "SEO", "UI/UX Design"];
+const categories = [
+  "All",
+  "Web Development",
+  "SaaS Development",
+  "E-Commerce",
+  "SEO",
+  "UI/UX Design",
+  "Website Maintenance",
+  "Mobile App Development",
+  "Custom Software",
+];
 
 export default function BlogPage() {
   useDocumentTitle(
-    "Blog | Seichox — IT Company Insights on Web Development, SaaS & SEO",
-    "Expert articles from Seichox, a leading IT company. Read in-depth guides on web development, SaaS architecture, ecommerce, technical SEO, and modern software engineering."
+    "Blog | We Raise Tech — Insights on Web, Mobile, SaaS & Custom Software",
+    "Expert articles from We Raise Tech on web development, mobile apps, custom software, website maintenance, SaaS, ecommerce, SEO, and modern engineering."
   );
 
   const [activeCategory, setActiveCategory] = useState("All");
@@ -280,7 +323,7 @@ export default function BlogPage() {
           <div className="mt-16 text-center bg-muted/30 border border-border/40 rounded-3xl py-14 px-6">
             <h3 className="text-3xl md:text-4xl font-heading font-bold mb-3 tracking-tight">Ready to build something that lasts?</h3>
             <p className="text-muted-foreground max-w-md mx-auto mb-8 text-[15px]">
-              Let’s discuss how Seichox can help you apply these patterns to your next web, SaaS, or ecommerce project.
+              Let’s discuss how We Raise Tech can help you apply these patterns to your next web, SaaS, or ecommerce project.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <GradientButton href="/contact#contact-form">Start a conversation</GradientButton>

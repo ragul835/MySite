@@ -24,11 +24,11 @@ const postMetas: Record<string, PostMeta> = {
     date: "July 8, 2026",
     readTime: "12 min",
     category: "Web Development",
-    metaDescription: "Explore the top web development trends in 2026 including AI integration, edge computing, and performance optimization. Expert insights from Seichox, a premier IT company.",
+    metaDescription: "Explore the top web development trends in 2026 including AI integration, edge computing, and performance optimization. Expert insights from We Raise Tech.",
     tags: ["web development", "trends 2026", "AI", "IT company"],
     image: "web-development-trends-2026.jpg",
     intro: "2026 marks a turning point. The gap between “good enough” websites and truly intelligent, high-performance digital experiences has never been wider. Companies that treat web development as a strategic advantage are pulling ahead—fast.",
-    author: { name: "Seichox Engineering", role: "Team" },
+    author: { name: "We Raise Tech Engineering", role: "Team" },
     toc: [
       { id: "ai-native", label: "AI-Native Interfaces Are Becoming Standard" },
       { id: "edge", label: "Edge-First Architectures Deliver Measurable Wins" },
@@ -47,7 +47,7 @@ const postMetas: Record<string, PostMeta> = {
     tags: ["SaaS", "scalability", "architecture", "full stack"],
     image: "scalable-saas-development.jpg",
     intro: "Most SaaS products don’t fail because the idea was bad. They fail because the architecture couldn’t keep up when the first real customers arrived.",
-    author: { name: "Seichox Engineering", role: "Team" },
+    author: { name: "We Raise Tech Engineering", role: "Team" },
     toc: [
       { id: "multi-tenancy", label: "Choose Your Multi-Tenancy Model Deliberately" },
       { id: "horizontal", label: "Build for Horizontal Scale From Day One" },
@@ -65,7 +65,7 @@ const postMetas: Record<string, PostMeta> = {
     tags: ["ecommerce", "conversion", "shopify", "web development"],
     image: "ecommerce-development.jpg",
     intro: "The stores winning in 2026 aren’t just pretty. They remove every possible reason for a customer to leave before completing a purchase.",
-    author: { name: "Seichox Engineering", role: "Team" },
+    author: { name: "We Raise Tech Engineering", role: "Team" },
     toc: [
       { id: "performance", label: "Performance Directly Impacts Revenue" },
       { id: "checkout", label: "Checkout Should Feel Effortless" },
@@ -83,7 +83,7 @@ const postMetas: Record<string, PostMeta> = {
     tags: ["technical SEO", "Core Web Vitals", "performance", "IT services"],
     image: "technical-seo.jpg",
     intro: "Beautiful websites that no one can find are a very expensive form of art.",
-    author: { name: "Seichox Engineering", role: "Team" },
+    author: { name: "We Raise Tech Engineering", role: "Team" },
     toc: [
       { id: "vitals", label: "Core Web Vitals Are Still Table Stakes" },
       { id: "foundations", label: "Foundational Technical Work That Actually Moves Needles" },
@@ -100,7 +100,7 @@ const postMetas: Record<string, PostMeta> = {
     tags: ["UI/UX", "design", "conversion rate optimization"],
     image: "ui-ux-design.jpg",
     intro: "Good design is not about making things pretty. It’s about making the right action obvious and removing every reason not to take it.",
-    author: { name: "Seichox Engineering", role: "Team" },
+    author: { name: "We Raise Tech Engineering", role: "Team" },
     toc: [
       { id: "business", label: "The Business Case Is Undeniable" },
       { id: "needle", label: "What Actually Moves the Needle" },
@@ -117,7 +117,7 @@ const postMetas: Record<string, PostMeta> = {
     tags: ["shopify", "custom development", "ecommerce"],
     image: "shopify-vs-custom.jpg",
     intro: "The “Shopify vs custom” debate is usually framed the wrong way. The right question is: what does your business actually need in the next 18–36 months?",
-    author: { name: "Seichox Engineering", role: "Team" },
+    author: { name: "We Raise Tech Engineering", role: "Team" },
     toc: [
       { id: "shopify", label: "When Shopify Is the Smart Choice" },
       { id: "custom", label: "When Custom Development Makes Sense" },
@@ -125,18 +125,69 @@ const postMetas: Record<string, PostMeta> = {
       { id: "decide", label: "How We Help Clients Decide" },
     ],
   },
+  "website-maintenance-support-guide": {
+    title: "Website Maintenance & Support: Why Ongoing Care Protects Revenue",
+    date: "July 12, 2026",
+    readTime: "11 min",
+    category: "Website Maintenance",
+    metaDescription: "Why website maintenance and support matter after launch. Security, speed, backups, and response plans from We Raise Tech.",
+    tags: ["website maintenance", "support", "security", "uptime"],
+    image: "technical-seo.jpg",
+    intro: "A website is an operating system for part of your business. Treating launch day as the finish line leaves revenue, security, and customer trust exposed.",
+    author: { name: "We Raise Tech Engineering", role: "Team" },
+    toc: [
+      { id: "maintenance-risk", label: "The Cost of Reactive Maintenance" },
+      { id: "maintenance-plan", label: "What a Strong Care Plan Covers" },
+      { id: "maintenance-response", label: "Define Response Before an Incident" },
+      { id: "maintenance-measure", label: "Measure Business Outcomes" },
+    ],
+  },
+  "mobile-app-development-guide-2026": {
+    title: "Mobile App Development in 2026: Native vs Cross-Platform Decisions",
+    date: "July 14, 2026",
+    readTime: "13 min",
+    category: "Mobile App Development",
+    metaDescription: "Mobile app development guide for 2026. Native vs cross-platform, stacks, timelines, and launch strategy from We Raise Tech.",
+    tags: ["mobile app", "React Native", "Flutter", "iOS", "Android"],
+    image: "ui-ux-design.jpg",
+    intro: "The best mobile stack is not the newest one. It is the approach that fits your product experience, team, release cadence, and long-term operating budget.",
+    author: { name: "We Raise Tech Engineering", role: "Team" },
+    toc: [
+      { id: "mobile-native", label: "Choose Native for Platform Depth" },
+      { id: "mobile-cross-platform", label: "Choose Cross-Platform for Shared Delivery" },
+      { id: "mobile-cost", label: "Model the Full Cost" },
+      { id: "mobile-launch", label: "Plan Operations Before Launch" },
+    ],
+  },
+  "custom-software-development-when-to-build": {
+    title: "Custom Software Development: When Off-the-Shelf Tools Stop Working",
+    date: "July 16, 2026",
+    readTime: "12 min",
+    category: "Custom Software",
+    metaDescription: "When custom software development beats SaaS tools. ROI, process automation, integrations, and ownership insights from We Raise Tech.",
+    tags: ["custom software", "enterprise", "automation", "integrations"],
+    image: "scalable-saas-development.jpg",
+    intro: "Custom software is justified when the cost of forcing the business into generic tools becomes greater than the cost of owning a system built around the real workflow.",
+    author: { name: "We Raise Tech Engineering", role: "Team" },
+    toc: [
+      { id: "custom-signals", label: "Signals It Is Time to Build" },
+      { id: "custom-roi", label: "Calculate ROI Honestly" },
+      { id: "custom-scope", label: "Start With a Bounded Workflow" },
+      { id: "custom-ownership", label: "Design for Long-Term Ownership" },
+    ],
+  },
 };
 
 const defaultMeta: PostMeta = {
-  title: "Blog Post | Seichox",
+  title: "Blog Post | We Raise Tech",
   date: "July 2026",
   readTime: "10 min",
   category: "Insights",
-  metaDescription: "Expert insights from Seichox, a premier IT company specializing in web development, SaaS, and digital solutions.",
+  metaDescription: "Expert insights from We Raise Tech on web development, SaaS, and digital solutions.",
   tags: ["IT company", "software development"],
   image: "web-development-trends-2026.jpg",
-  intro: "Expert insights from the Seichox team.",
-  author: { name: "Seichox Engineering", role: "Team" },
+  intro: "Expert insights from the We Raise Tech team.",
+  author: { name: "We Raise Tech Engineering", role: "Team" },
   toc: [],
 };
 
@@ -145,7 +196,7 @@ export default function BlogPostPage() {
   const slug = params.slug || "";
   const meta = postMetas[slug] || defaultMeta;
 
-  useDocumentTitle(`${meta.title} | Seichox`, meta.metaDescription);
+  useDocumentTitle(`${meta.title} | We Raise Tech`, meta.metaDescription);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -161,7 +212,7 @@ export default function BlogPostPage() {
               2026 marks a turning point. The gap between “good enough” websites and truly intelligent, high-performance digital experiences has never been wider. Companies that treat web development as a strategic advantage are pulling ahead—fast.
             </p>
 
-            <p>At Seichox, we build and maintain production systems for ambitious organizations. Here are the trends we’re seeing shape the most successful platforms this year.</p>
+            <p>At We Raise Tech, we build and maintain production systems for ambitious organizations. Here are the trends we’re seeing shape the most successful platforms this year.</p>
 
             <h2 id="ai-native">AI-Native Interfaces Are Becoming Standard</h2>
             <p>Users no longer expect static pages. They expect interfaces that anticipate needs.</p>
@@ -227,7 +278,7 @@ export default function BlogPostPage() {
 
             <p>Over the past two years we’ve helped multiple teams move from “works for 50 users” to reliable, multi-tenant platforms serving thousands. Here’s what actually matters.</p>
 
-            <h2>Choose Your Multi-Tenancy Model Deliberately</h2>
+            <h2 id="multi-tenancy">Choose Your Multi-Tenancy Model Deliberately</h2>
             <p>This single decision will impact everything from cost to compliance to how fast you can ship features.</p>
 
             <ul>
@@ -238,12 +289,12 @@ export default function BlogPostPage() {
 
             <p>Most successful early-stage SaaS companies start with shared schema and evolve when customer requirements demand it.</p>
 
-            <h2>Build for Horizontal Scale From Day One</h2>
+            <h2 id="horizontal">Build for Horizontal Scale From Day One</h2>
             <p>Stateless services, idempotent operations, and background job queues are not optimizations—they are foundational.</p>
             
             <p>Use managed platforms (Fly, Railway, ECS, or Kubernetes) that let you scale individual services independently. Queue everything that doesn’t need to happen synchronously.</p>
 
-            <h2>Modern 2026 SaaS Stack That Actually Works</h2>
+            <h2 id="stack">Modern 2026 SaaS Stack That Actually Works</h2>
             <ul>
               <li><strong>Frontend:</strong> Next.js 15 + React Server Components + Tailwind + well-designed component library</li>
               <li><strong>API layer:</strong> tRPC or NestJS for complex domains</li>
@@ -252,7 +303,7 @@ export default function BlogPostPage() {
               <li><strong>Observability:</strong> OpenTelemetry + Sentry + product analytics (PostHog, Mixpanel)</li>
             </ul>
 
-            <h2>Patterns That Separate Mature Platforms From MVPs</h2>
+            <h2 id="patterns">Patterns That Separate Mature Platforms From MVPs</h2>
             <ul>
               <li>Event-driven communication instead of direct service calls</li>
               <li>Feature flags so you can release safely to subsets of tenants</li>
@@ -261,7 +312,7 @@ export default function BlogPostPage() {
               <li>Audit logging that satisfies enterprise customers</li>
             </ul>
 
-            <h2>Where Most Teams Break</h2>
+            <h2 id="break">Where Most Teams Break</h2>
             <p>The 5k–25k user range is where technical debt becomes visible.</p>
             <p>Common failure points include missing database indexes, background jobs that don’t scale, and lack of visibility into real usage and costs. These are solvable—but only if you design for them early.</p>
 
@@ -279,7 +330,7 @@ export default function BlogPostPage() {
               The stores winning in 2026 aren’t just pretty. They remove every possible reason for a customer to leave before completing a purchase.
             </p>
 
-            <h2>Performance Directly Impacts Revenue</h2>
+            <h2 id="performance">Performance Directly Impacts Revenue</h2>
             <p>Google has been clear for years: speed is a ranking and conversion factor. In practice we see that every 100ms of improvement on product and checkout pages moves the needle.</p>
             
             <ul>
@@ -289,7 +340,7 @@ export default function BlogPostPage() {
               <li>Enforce performance budgets in your deployment pipeline</li>
             </ul>
 
-            <h2>Checkout Should Feel Effortless</h2>
+            <h2 id="checkout">Checkout Should Feel Effortless</h2>
             <p>Most abandoned carts aren’t about price. They’re about friction.</p>
             <ul>
               <li>Make guest checkout the default path</li>
@@ -298,7 +349,7 @@ export default function BlogPostPage() {
               <li>Show real-time stock and delivery estimates</li>
             </ul>
 
-            <h2>SEO Is Still One of the Highest-ROI Channels</h2>
+            <h2 id="seo">SEO Is Still One of the Highest-ROI Channels</h2>
             <p>Technical excellence on the storefront pays dividends for years:</p>
             <ul>
               <li>Server-rendered product and category pages with clean URLs</li>
@@ -307,12 +358,12 @@ export default function BlogPostPage() {
               <li>Thoughtful internal linking that helps both users and crawlers</li>
             </ul>
 
-            <h2>Choose Your Platform With Eyes Wide Open</h2>
+            <h2 id="platform">Choose Your Platform With Eyes Wide Open</h2>
             <p>There is no universally “best” solution.</p>
             <p>Shopify (especially with Hydrogen) wins for speed to market and ecosystem. Custom or headless builds win when you have complex pricing, B2B logic, deep ERP integration, or very specific UX requirements.</p>
             <p>We help clients choose based on their actual growth trajectory and operational complexity, not trends.</p>
 
-            <h2>Post-Purchase Is Where Loyalty Is Won or Lost</h2>
+            <h2 id="post-purchase">Post-Purchase Is Where Loyalty Is Won or Lost</h2>
             <p>The transaction is just the beginning. Great stores obsess over:</p>
             <ul>
               <li>Transparent order tracking</li>
@@ -337,7 +388,7 @@ export default function BlogPostPage() {
 
             <p>Technical SEO is the difference between a site that looks good in Figma and one that actually drives qualified traffic year after year.</p>
 
-            <h2>Core Web Vitals Are Still Table Stakes</h2>
+            <h2 id="vitals">Core Web Vitals Are Still Table Stakes</h2>
             <p>Google continues to use real-user metrics as ranking signals:</p>
             <ul>
               <li><strong>LCP</strong> — Keep it under 2.5 seconds. Edge rendering and smart image optimization are your best friends.</li>
@@ -345,7 +396,7 @@ export default function BlogPostPage() {
               <li><strong>CLS</strong> — Reserve space for everything that loads after initial render.</li>
             </ul>
 
-            <h2>Foundational Technical Work That Actually Moves Needles</h2>
+            <h2 id="foundations">Foundational Technical Work That Actually Moves Needles</h2>
             <ul>
               <li>Accurate, up-to-date XML sitemaps submitted to Search Console</li>
               <li>Clean robots.txt that doesn’t accidentally block important assets</li>
@@ -353,11 +404,11 @@ export default function BlogPostPage() {
               <li>Rich structured data that enables rich results</li>
             </ul>
 
-            <h2>The Hardest Part: Modern Application SEO</h2>
+            <h2 id="challenges">The Hardest Part: Modern Application SEO</h2>
             <p>Heavy client-side apps are notoriously difficult for search engines to understand.</p>
             <p>The winning approach in 2026 is hybrid: server-render or statically generate the pages that matter most for discovery, use incremental regeneration for freshness, and make sure client-side navigation still produces crawlable URLs and proper responses.</p>
 
-            <h2>What Elite Teams Do Differently</h2>
+            <h2 id="elite">What Elite Teams Do Differently</h2>
             <ul>
               <li>They look at actual crawler logs instead of guessing</li>
               <li>They treat internal linking as an architectural decision, not an afterthought</li>
@@ -377,10 +428,10 @@ export default function BlogPostPage() {
               Good design is not about making things pretty. It’s about making the right action obvious and removing every reason not to take it.
             </p>
 
-            <h2>The Business Case Is Undeniable</h2>
+            <h2 id="business">The Business Case Is Undeniable</h2>
             <p>Organizations that invest seriously in UX see outsized returns because design affects every metric that matters: acquisition, activation, retention, and revenue.</p>
 
-            <h2>What Actually Moves the Needle</h2>
+            <h2 id="needle">What Actually Moves the Needle</h2>
             <p>Great interfaces share a few consistent traits:</p>
             <ul>
               <li><strong>Radical clarity</strong> — Users understand what the product does and what to do next within seconds.</li>
@@ -389,11 +440,11 @@ export default function BlogPostPage() {
               <li><strong>Fast feedback</strong> — Instant validation, clear error states, and visible system status.</li>
             </ul>
 
-            <h2>Design Systems Are a Force Multiplier</h2>
+            <h2 id="systems">Design Systems Are a Force Multiplier</h2>
             <p>High-performing teams don’t redesign the same button 47 times. They invest early in a design system that lets product and engineering move faster while staying consistent.</p>
             <p>The payoff shows up in both velocity and brand perception.</p>
 
-            <h2>The Mistakes We See Most Often</h2>
+            <h2 id="mistakes">The Mistakes We See Most Often</h2>
             <ul>
               <li>Hero sections that look impressive but bury the actual value proposition</li>
               <li>Navigation that hides the most important actions</li>
@@ -412,7 +463,7 @@ export default function BlogPostPage() {
               The “Shopify vs custom” debate is usually framed the wrong way. The right question is: what does your business actually need in the next 18–36 months?
             </p>
 
-            <h2>When Shopify Is the Smart Choice</h2>
+            <h2 id="shopify">When Shopify Is the Smart Choice</h2>
             <ul>
               <li>You need to launch or significantly improve your store quickly</li>
               <li>Your product catalog and pricing are relatively standard</li>
@@ -422,7 +473,7 @@ export default function BlogPostPage() {
 
             <p>With the right theme and selective custom development (especially using Hydrogen), many businesses get 80–90% of what they need without the full cost of a custom build.</p>
 
-            <h2>When Custom Development Makes Sense</h2>
+            <h2 id="custom">When Custom Development Makes Sense</h2>
             <ul>
               <li>Complex B2B pricing, quoting, or tiered catalogs that apps can’t handle cleanly</li>
               <li>Deep integrations with existing ERP, PIM, or warehouse systems</li>
@@ -431,11 +482,11 @@ export default function BlogPostPage() {
               <li>You want a true headless architecture with complete frontend freedom</li>
             </ul>
 
-            <h2>Cost Reality Check</h2>
+            <h2 id="cost">Cost Reality Check</h2>
             <p>Shopify Plus becomes expensive at scale. Custom builds have higher upfront cost but can be more cost-effective past a certain volume and complexity.</p>
             <p>The real cost usually isn’t the platform fee — it’s the ongoing custom development work required to make a platform fit when it wasn’t designed for your use case.</p>
 
-            <h2>How We Help Clients Decide</h2>
+            <h2 id="decide">How We Help Clients Decide</h2>
             <p>We run a structured evaluation covering catalog complexity, expected volume, required custom logic, integration needs, and long-term ownership model.</p>
             <p>Many of our clients start on Shopify and migrate when growth or requirements justify the move. Others go custom from the beginning because their business model demands it.</p>
 
@@ -443,12 +494,88 @@ export default function BlogPostPage() {
           </div>
         );
 
-      default:
+      case "website-maintenance-support-guide":
         return (
           <div>
-            <p>Content coming soon. Please return to the <Link href="/blog" className="text-primary">blog index</Link>.</p>
+            <p className="lead text-[17px] text-foreground/90">
+              A website is an operating system for part of your business. Treating launch day as the finish line leaves revenue, security, and customer trust exposed.
+            </p>
+
+            <h2 id="maintenance-risk">The Cost of Reactive Maintenance</h2>
+            <p>Unpatched dependencies, expired certificates, failing forms, and slow pages rarely announce themselves before they affect customers. Reactive support turns each issue into an emergency and makes recovery more expensive.</p>
+            <p>A reliable maintenance plan reduces that uncertainty with scheduled updates, automated monitoring, and a clear owner for every alert.</p>
+
+            <h2 id="maintenance-plan">What a Strong Care Plan Covers</h2>
+            <ul>
+              <li>Dependency and security updates tested in a staging environment</li>
+              <li>Uptime, certificate, domain, form, and error monitoring</li>
+              <li>Encrypted backups with routine restore tests</li>
+              <li>Performance checks using real-user and synthetic measurements</li>
+              <li>A change log that records releases, incidents, and follow-up actions</li>
+            </ul>
+
+            <h2 id="maintenance-response">Define Response Before an Incident</h2>
+            <p>Agree on severity levels, response targets, escalation contacts, and recovery steps before something breaks. A payment outage and a cosmetic defect should not enter the same queue or receive the same response.</p>
+
+            <h2 id="maintenance-measure">Measure Business Outcomes</h2>
+            <p>Track availability, conversion-critical journeys, page speed, recurring incidents, and time to recovery. Good maintenance is visible in fewer disruptions and more predictable delivery—not a monthly list of technical chores.</p>
           </div>
         );
+
+      case "mobile-app-development-guide-2026":
+        return (
+          <div>
+            <p className="lead text-[17px] text-foreground/90">
+              The best mobile stack is not the newest one. It is the approach that fits your product experience, team, release cadence, and long-term operating budget.
+            </p>
+
+            <h2 id="mobile-native">Choose Native for Platform Depth</h2>
+            <p>Swift and Kotlin remain strong choices when the product depends on advanced camera, media, background processing, accessibility, or platform-specific interaction. Native development offers the earliest access to operating-system capabilities and the most direct performance tuning.</p>
+
+            <h2 id="mobile-cross-platform">Choose Cross-Platform for Shared Delivery</h2>
+            <p>React Native and Flutter can shorten delivery when iOS and Android share the same product behavior. They work best when teams keep native escape hatches available and avoid forcing every platform detail into a single abstraction.</p>
+            <ul>
+              <li>Prototype the hardest device integration before choosing the stack</li>
+              <li>Budget for platform-specific design and quality assurance</li>
+              <li>Keep business logic separate from framework and UI code</li>
+            </ul>
+
+            <h2 id="mobile-cost">Model the Full Cost</h2>
+            <p>Compare more than initial development. Include app-store operations, device testing, analytics, crash monitoring, accessibility, backend capacity, and mandatory operating-system upgrades.</p>
+
+            <h2 id="mobile-launch">Plan Operations Before Launch</h2>
+            <p>Set up staged rollouts, feature flags, observability, privacy disclosures, and support workflows before submitting to the stores. A mobile launch is the start of an operating cycle, not the end of the project.</p>
+          </div>
+        );
+
+      case "custom-software-development-when-to-build":
+        return (
+          <div>
+            <p className="lead text-[17px] text-foreground/90">
+              Custom software is justified when the cost of forcing the business into generic tools becomes greater than the cost of owning a system built around the real workflow.
+            </p>
+
+            <h2 id="custom-signals">Signals It Is Time to Build</h2>
+            <ul>
+              <li>Teams repeatedly export, reconcile, and re-enter the same data</li>
+              <li>Critical workflows rely on spreadsheets or fragile manual handoffs</li>
+              <li>Off-the-shelf tools require costly workarounds but still miss core needs</li>
+              <li>A proprietary workflow creates a meaningful competitive advantage</li>
+            </ul>
+
+            <h2 id="custom-roi">Calculate ROI Honestly</h2>
+            <p>Measure current license costs, manual hours, error rates, delays, and lost opportunities. Compare those costs with development, migration, support, hosting, and security over several years—not just the first release.</p>
+
+            <h2 id="custom-scope">Start With a Bounded Workflow</h2>
+            <p>Choose one high-value process, map its exceptions, and deliver an end-to-end improvement. A focused first release creates evidence and feedback without committing the organization to a multi-year replacement program.</p>
+
+            <h2 id="custom-ownership">Design for Long-Term Ownership</h2>
+            <p>Insist on documented architecture, automated tests, deployment pipelines, exportable data, and clear intellectual-property terms. The system should reduce dependency on individual vendors or developers, not create a new bottleneck.</p>
+          </div>
+        );
+
+      default:
+        return null;
     }
   };
 
@@ -481,7 +608,7 @@ export default function BlogPostPage() {
         </h1>
 
         <p className="max-w-3xl text-lg text-slate-600 mb-8 leading-relaxed">
-          {meta.intro || "Expert insights from the Seichox team."}
+          {meta.intro || "Expert insights from the We Raise Tech team."}
         </p>
 
         {/* Author + Share */}
@@ -491,7 +618,7 @@ export default function BlogPostPage() {
               SE
             </div>
             <div>
-              <div className="font-semibold text-sm">{meta.author?.name || "Seichox Engineering"}</div>
+              <div className="font-semibold text-sm">{meta.author?.name || "We Raise Tech Engineering"}</div>
               <div className="text-xs text-slate-500 flex items-center gap-2">
                 {meta.date} <span>•</span> {meta.readTime} read
               </div>

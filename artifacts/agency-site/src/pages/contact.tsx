@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import {
-  Mail, Phone, MapPin, Github, Linkedin, Twitter, ChevronRight, Send, Info, Plus, Minus
+  Mail, Phone, MapPin, Send, Info, Plus, Minus
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,11 +21,12 @@ import logger from "@/lib/logger";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(10, "Please enter a valid WhatsApp number"),
-  service: z.string().min(1, "Please select a service"),
-  message: z.string().min(1, "Please enter a message"),
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(120),
+  email: z.string().trim().email("Please enter a valid email address").max(320),
+  phone: z.string().trim().min(10, "Please enter a valid WhatsApp number").max(30),
+  service: z.string().trim().min(1, "Please select a service").max(100),
+  message: z.string().trim().min(10, "Please provide a little more detail").max(5000),
+  website: z.string().max(200).optional(),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -38,6 +39,9 @@ const services = [
   "SEO Services",
   "Shopify Development",
   "E-Commerce Optimization",
+  "Website Maintenance & Support",
+  "Mobile App Development",
+  "Custom Software Development",
   "Other",
 ];
 
@@ -45,8 +49,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "contact@seichox.com",
-    href: "mailto:contact@seichox.com",
+    value: "contact@weraisetech.com",
+    href: "mailto:contact@weraisetech.com",
   },
   {
     icon: Phone,
@@ -62,17 +66,11 @@ const contactInfo = [
   },
 ];
 
-const socials = [
-  { icon: Github, label: "GitHub", href: "https://github.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
-];
-
 const contactFaqData = [
   {
     question: "How quickly will I hear back after submitting the form?",
     answer:
-      "We guarantee a response within 24 hours on business days. Most inquiries get a reply within 4–6 hours. You'll receive a confirmation email immediately after submitting.",
+      "We aim to respond within 24 hours on business days. Your message is securely recorded as soon as the form confirms submission.",
   },
   {
     question: "What happens after I send a message?",
@@ -87,7 +85,7 @@ const contactFaqData = [
   {
     question: "Can I reach you outside of business hours?",
     answer:
-      "We monitor our inbox around the clock. While detailed responses may come during business hours, urgent inquiries submitted evenings or weekends will still get a prompt acknowledgment.",
+      "You can send an inquiry at any time. Messages received outside business hours are reviewed on the next business day.",
   },
   {
     question: "What information should I include in my message?",
@@ -209,8 +207,8 @@ export default function ContactPage() {
   const [serviceValue, setServiceValue] = useState("");
 
   useDocumentTitle(
-    "Contact Us | Seichox",
-    "Get in touch with Seichox. Tell us about your project and we'll respond within 24 hours with a clear plan and honest assessment."
+    "Contact Us | We Raise Tech",
+    "Get in touch with We Raise Tech. Tell us about your project and we'll respond within 24 hours with a clear plan and honest assessment."
   );
 
 
@@ -247,6 +245,7 @@ export default function ContactPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        signal: AbortSignal.timeout(15_000),
       });
       logger.api("POST", "/api/v1/contact", res.status, Date.now() - start);
 
@@ -354,6 +353,14 @@ export default function ContactPage() {
                   </p>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" data-testid="form-contact">
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute -left-[9999px] h-px w-px opacity-0"
+                    {...register("website")}
+                  />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name <span className="text-destructive">*</span></Label>
@@ -509,27 +516,6 @@ export default function ContactPage() {
                       </div>
                     );
                   })}
-                </div>
-
-                <div className="p-8 rounded-2xl border border-border/40 bg-card/20 backdrop-blur-sm shadow-sm">
-                  <p className="text-sm font-bold tracking-widest uppercase text-muted-foreground mb-6">Follow our journey</p>
-                  <div className="flex items-center gap-4">
-                    {socials.map((social) => {
-                      const Icon = social.icon;
-                      return (
-                        <a
-                          key={social.label}
-                          href={social.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          data-testid={`link-social-${social.label.toLowerCase()}`}
-                          className="w-10 h-10 rounded-lg border border-border bg-muted flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
-                        >
-                          <Icon className="w-4 h-4" />
-                        </a>
-                      );
-                    })}
-                  </div>
                 </div>
 
                 {/* Premium Animated Response Widget */}

@@ -55,14 +55,14 @@ const steps = [
 
 export default function SolutionsPage() {
   useDocumentTitle(
-    "Solutions & Capabilities | Seichox",
+    "Solutions & Capabilities | We Raise Tech",
     "Custom digital solutions engineered for scale and performance. Discover our process: Discovery, Design, Development, and Deployment."
   );
 
   return (
     <main>
       {/* Hero Banner */}
-      <section className="relative pt-32 pb-24 overflow-hidden border-b border-border/30">
+      <section className="relative overflow-hidden border-b border-border/30 pb-16 pt-16 sm:pb-20 sm:pt-24 lg:pb-24 lg:pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 via-transparent to-background" />
         
         {/* Premium Grid Overlay */}
@@ -270,7 +270,7 @@ export default function SolutionsPage() {
                 Start a Conversation <ArrowRight className="w-5 h-5 ml-2 inline-block" />
               </GradientButton>
               <a
-                href="mailto:contact@seichox.com"
+                href="mailto:contact@weraisetech.com"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 or email us directly →

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
-import { Github, Linkedin, Twitter, Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 
 const services = [
   "Web Development",
@@ -10,6 +10,9 @@ const services = [
   "UI/UX Design",
   "SEO",
   "Shopify",
+  "Website Maintenance & Support",
+  "Mobile App Development",
+  "Custom Software Development",
 ];
 
 const companyLinks = [
@@ -18,13 +21,6 @@ const companyLinks = [
   { href: "/solutions", label: "Solutions" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
-];
-
-const techLinks = [
-  { href: "#", label: "React" },
-  { href: "#", label: "Node.js" },
-  { href: "#", label: "Java" },
-  { href: "#", label: "PostgreSQL" },
 ];
 
 const legalLinks = [
@@ -68,37 +64,28 @@ export function Footer() {
       <Container className="relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16">
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-3 mb-4">
-              <img src="/logo-icon.png" alt="Seichox Logo" className="h-12 w-auto" />
-              <span className="text-3xl font-heading font-black tracking-tighter text-white">
-                Seichox<span className="text-primary">.</span>
+            <Link
+              href="/"
+              aria-label="We Raise Tech home"
+              className="group mb-4 inline-flex items-center gap-3"
+            >
+              <span className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[1.35rem] bg-white/5 shadow-[0_8px_28px_rgba(37,99,235,0.3)] ring-1 ring-white/15 transition duration-300 group-hover:scale-105 group-hover:ring-cyan-300/40">
+                <img
+                  src="/we-raise-tech-logo.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={64}
+                  height={64}
+                  className="h-full w-full scale-[1.08] object-contain drop-shadow-[0_2px_10px_rgba(56,189,248,0.5)]"
+                />
+              </span>
+              <span className="whitespace-nowrap text-2xl font-extrabold tracking-[-0.04em] text-white">
+                We <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">Raise</span> Tech
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               Building reliable digital solutions with modern technology, clean engineering practices, and a commitment to long-term success.
             </p>
-            <div className="flex items-center gap-3">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit our GitHub profile"
-                data-testid="link-github-footer"
-                className="w-9 h-9 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-all"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit our LinkedIn profile"
-                data-testid="link-linkedin-footer"
-                className="w-9 h-9 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary/50 hover:bg-primary/10 transition-all"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-            </div>
           </div>
 
           <div>
@@ -152,8 +139,8 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <a href="mailto:ragulsiva@zohomail.in" className="hover:text-primary transition-colors">
-                  ragulsiva@zohomail.in
+                <a href="mailto:contact@weraisetech.com" className="hover:text-primary transition-colors">
+                  contact@weraisetech.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -181,7 +168,7 @@ export function Footer() {
         <Container>
           <div className="flex flex-col md:flex-row items-center justify-between py-6 gap-4">
             <p className="text-xs text-slate-500">
-              &copy; {year} Seichox. All rights reserved.
+              &copy; {year} We Raise Tech. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
               {legalLinks.map((link) => (

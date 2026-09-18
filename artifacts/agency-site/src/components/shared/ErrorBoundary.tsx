@@ -36,7 +36,7 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             <h1 className="text-3xl font-heading font-bold mb-4">Something went wrong</h1>
             <p className="text-muted-foreground mb-8">
-              An unexpected error occurred. We have been notified and are looking into it.
+              An unexpected error occurred. Refresh the page, or contact us if the problem continues.
             </p>
             <GradientButton 
               onClick={() => window.location.reload()}

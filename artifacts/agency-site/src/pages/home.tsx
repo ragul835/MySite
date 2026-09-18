@@ -2,7 +2,8 @@ import { Link } from "wouter";
 import { useRef, useState, useEffect } from "react";
 import {
   Code2, ShoppingCart, Layers, Palette, Search, ShoppingBag,
-  ArrowRight, CheckCircle, Shield, Cpu, Zap, Plus, Minus, Smartphone
+  ArrowRight, CheckCircle, Shield, Cpu, Zap, Plus, Minus, Smartphone,
+  Settings, Terminal
 } from "lucide-react";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer,
@@ -54,6 +55,21 @@ const services = [
     icon: ShoppingBag,
     title: "Shopify Development",
     description: "Tailored Shopify Plus solutions and custom theme architectures that deliver premium shopping experiences and turn browsers into loyal customers.",
+  },
+  {
+    icon: Settings,
+    title: "Website Maintenance & Support",
+    description: "Proactive monitoring, security updates, backups, and expert support so your website stays fast, secure, and always available.",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile App Development",
+    description: "High-performance iOS and Android applications built with modern frameworks for engagement, reliability, and long-term scale.",
+  },
+  {
+    icon: Terminal,
+    title: "Custom Software Development",
+    description: "Bespoke systems that automate workflows, connect tools, and encode your unique business processes into software you own.",
   },
 ];
 
@@ -115,7 +131,7 @@ const techCategories = [
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden pt-28 lg:pt-36 pb-16 lg:pb-24 flex flex-col items-center text-center">
+    <section className="relative flex flex-col items-center overflow-hidden pb-14 pt-16 text-center sm:pt-20 lg:pb-24 lg:pt-28">
       {/* Dynamic Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
         {/* Massive glow */}
@@ -308,7 +324,7 @@ function WhyChooseSection() {
       <Container>
         <AnimateOnScroll>
           <SectionHeader
-            title="Why Choose Seichox"
+            title="Why Choose We Raise Tech"
             subtitle="We don't just write code. We build solutions that drive business growth."
           />
         </AnimateOnScroll>
@@ -577,8 +593,8 @@ function ContactCTASection() {
           </GradientButton>
           <p className="mt-6 text-sm text-muted-foreground">
             Or email us directly at{" "}
-            <a href="mailto:ragulsiva@zohomail.in" className="text-primary hover:underline">
-              ragulsiva@zohomail.in
+            <a href="mailto:contact@weraisetech.com" className="text-primary hover:underline">
+              contact@weraisetech.com
             </a>
           </p>
         </AnimateOnScroll>
@@ -774,7 +790,7 @@ function FAQSection() {
         <AnimateOnScroll>
           <SectionHeader
             title="Frequently Asked Questions"
-            subtitle="Everything you need to know about working with Seichox."
+            subtitle="Everything you need to know about working with We Raise Tech."
           />
         </AnimateOnScroll>
 
@@ -831,8 +847,8 @@ function FAQSection() {
 
 export default function HomePage() {
   useDocumentTitle(
-    "Seichox | Premium Software Engineering Agency",
-    "Seichox is a senior engineering team that builds scalable SaaS platforms, e-commerce stores, and custom web applications. Get a free project estimate."
+    "We Raise Tech | Premium Software Engineering Agency",
+    "We Raise Tech is a senior engineering team that builds scalable SaaS platforms, e-commerce stores, and custom web applications. Get a free project estimate."
   );
 
   return (

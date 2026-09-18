@@ -9,16 +9,16 @@ const sections = [
   {
     id: "acceptance",
     title: "1. Acceptance of Terms",
-    content: `By accessing or using the Seichox website (seichox.dev), submitting inquiries, or engaging our services, you agree to be bound by these Terms & Conditions ("Terms"). If you do not agree to these Terms, please do not use our website or services.
+    content: `By accessing or using the We Raise Tech website (weraisetech.com), submitting inquiries, or engaging our services, you agree to be bound by these Terms & Conditions ("Terms"). If you do not agree to these Terms, please do not use our website or services.
 
-These Terms constitute a legally binding agreement between you (the "Client") and Seichox ("we," "us," or "our"). They govern your use of our website and all professional services we provide, including but not limited to:
+These Terms constitute a legally binding agreement between you (the "Client") and We Raise Tech ("we," "us," or "our"). They govern your use of our website and all professional services we provide, including but not limited to:
 
-Web Development, Full-Stack Development, E-Commerce Solutions, SaaS Platform Development, UI/UX Design, SEO Services, Shopify Development, and related consulting.`
+Web Development, Full-Stack Development, E-Commerce Solutions, SaaS Platform Development, UI/UX Design, SEO Services, Shopify Development, Website Maintenance & Support, Mobile App Development, Custom Software Development, and related consulting.`
   },
   {
     id: "services",
     title: "2. Description of Services",
-    content: `Seichox provides custom software development and digital services for businesses worldwide. Our offerings include:
+    content: `We Raise Tech provides custom software development and digital services for businesses worldwide. Our offerings include:
 
 • Custom website and web application development using modern frameworks (React, Next.js, Node.js, etc.)
 • Full-stack development and scalable backend systems
@@ -49,10 +49,10 @@ You are solely responsible for the accuracy of information supplied to us and fo
     content: `Upon full payment of all applicable fees:
 
 • You will own the custom deliverables specifically created for your project (final designs, source code written exclusively for your project, and compiled assets).
-• Seichox retains all rights, title, and interest in any pre-existing materials, frameworks, libraries, code snippets, design systems, tools, methodologies, and general components developed independently or used across multiple clients ("Background IP").
+• We Raise Tech retains all rights, title, and interest in any pre-existing materials, frameworks, libraries, code snippets, design systems, tools, methodologies, and general components developed independently or used across multiple clients ("Background IP").
 • You receive a perpetual, non-exclusive, non-transferable (unless otherwise agreed) license to use any Background IP incorporated into your deliverables.
 
-You grant Seichox a non-exclusive license to use anonymized project outcomes, screenshots, and case studies for marketing and portfolio purposes unless you explicitly request otherwise in writing.
+You grant We Raise Tech a non-exclusive license to use anonymized project outcomes, screenshots, and case studies for marketing and portfolio purposes unless you explicitly request otherwise in writing.
 
 Third-party libraries, open-source components, and platform services (Shopify, Stripe, etc.) remain subject to their respective license terms.`
   },
@@ -61,7 +61,7 @@ Third-party libraries, open-source components, and platform services (Shopify, S
     title: "5. Confidentiality",
     content: `Both parties agree to keep confidential all non-public information disclosed during the engagement ("Confidential Information").
 
-Seichox will:
+We Raise Tech will:
 • Use reasonable care to protect your Confidential Information.
 • Use it solely for performing the agreed services.
 • Not disclose it to third parties without your prior written consent, except to employees/contractors with a need to know who are bound by confidentiality obligations.
@@ -87,7 +87,7 @@ Scope changes requested after project kickoff will be documented and may result 
   {
     id: "warranties",
     title: "7. Warranties, Disclaimers & Limitations",
-    content: `Seichox represents that services will be performed in a professional and workmanlike manner consistent with industry standards.
+    content: `We Raise Tech represents that services will be performed in a professional and workmanlike manner consistent with industry standards.
 
 EXCEPT AS EXPRESSLY SET FORTH IN A WRITTEN AGREEMENT, ALL SERVICES AND THE WEBSITE ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.
 
@@ -96,7 +96,7 @@ Specific disclaimers:
 • Third-party platforms (Shopify, payment gateways, hosting): We are not responsible for outages, policy changes, or limitations imposed by those providers.
 • Security: While we implement industry-standard protections, we cannot guarantee that your systems will be completely immune to all threats.
 
-Limitation of Liability: To the maximum extent permitted by law, Seichox's total liability arising out of or related to any engagement shall not exceed the total fees actually paid by you to Seichox for the specific project giving rise to the claim. In no event shall we be liable for indirect, incidental, special, consequential, or punitive damages, including lost profits, data loss, or business interruption, regardless of the cause.`
+Limitation of Liability: To the maximum extent permitted by law, We Raise Tech's total liability arising out of or related to any engagement shall not exceed the total fees actually paid by you to We Raise Tech for the specific project giving rise to the claim. In no event shall we be liable for indirect, incidental, special, consequential, or punitive damages, including lost profits, data loss, or business interruption, regardless of the cause.`
   },
   {
     id: "project-delivery",
@@ -120,7 +120,7 @@ For long-term maintenance, performance monitoring, or feature development, we of
 
 Upon termination:
 • You will receive all deliverables for which payment has been made.
-• Seichox may retain copies of work product as required for legal or archival purposes.
+• We Raise Tech may retain copies of work product as required for legal or archival purposes.
 • Provisions that by their nature should survive (IP, confidentiality, limitation of liability, governing law) shall survive termination.`
   },
   {
@@ -135,7 +135,7 @@ For international clients, we are willing to discuss alternative dispute resolut
   {
     id: "indemnification",
     title: "11. Indemnification",
-    content: `You agree to indemnify, defend, and hold harmless Seichox and its team from and against any claims, damages, losses, liabilities, and expenses (including reasonable attorneys' fees) arising out of or related to:
+    content: `You agree to indemnify, defend, and hold harmless We Raise Tech and its team from and against any claims, damages, losses, liabilities, and expenses (including reasonable attorneys' fees) arising out of or related to:
 
 • Your use of the deliverables or website
 • Content or materials you provided
@@ -159,8 +159,8 @@ If any conflict exists between these website Terms and a signed client agreement
     title: "13. Contact Information",
     content: `For questions about these Terms & Conditions, proposals, or existing engagements:
 
-Seichox
-Email: ragulsiva@zohomail.in
+We Raise Tech
+Email: contact@weraisetech.com
 Phone / WhatsApp: +91 9080163393
 Location: India
 
@@ -170,14 +170,14 @@ We are committed to clear communication and fair dealings with all our clients, 
 
 export default function TermsAndConditions() {
   useDocumentTitle(
-    "Terms & Conditions | Seichox",
-    "Read the Terms & Conditions for Seichox IT services — web development, full-stack, e-commerce, SaaS, UI/UX, SEO, and Shopify development."
+    "Terms & Conditions | We Raise Tech",
+    "Read the Terms & Conditions for We Raise Tech services — web development, full-stack, e-commerce, SaaS, UI/UX, SEO, and Shopify development."
   );
 
   return (
     <div className="w-full flex flex-col bg-background">
       {/* Hero Section */}
-      <section className="relative pt-28 sm:pt-36 pb-16 overflow-hidden border-b border-border/40">
+      <section className="relative overflow-hidden border-b border-border/40 pb-14 pt-16 sm:pb-16 sm:pt-24 lg:pt-28">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_30%_0%,hsl(var(--primary)/0.08),transparent)]" />
           <div

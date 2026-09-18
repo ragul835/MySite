@@ -2,27 +2,34 @@ import { useEffect } from 'react';
 
 export function useDocumentTitle(title: string, description?: string) {
   useEffect(() => {
-    // Update the document title
     document.title = title;
 
-    // Update the meta description if provided
-    if (description) {
-      let metaDescription = document.querySelector('meta[name="description"]');
-      if (!metaDescription) {
-        metaDescription = document.createElement('meta');
-        metaDescription.setAttribute('name', 'description');
-        document.head.appendChild(metaDescription);
-      }
-      metaDescription.setAttribute('content', description);
+    const canonicalUrl = new URL(window.location.pathname, window.location.origin).toString();
 
-      // Update OG description
-      let ogDescription = document.querySelector('meta[property="og:description"]');
-      if (!ogDescription) {
-        ogDescription = document.createElement('meta');
-        ogDescription.setAttribute('property', 'og:description');
-        document.head.appendChild(ogDescription);
+    const upsertMeta = (selector: string, attribute: string, name: string, content: string) => {
+      let element = document.querySelector<HTMLMetaElement>(selector);
+      if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute(attribute, name);
+        document.head.appendChild(element);
       }
-      ogDescription.setAttribute('content', description);
+      element.setAttribute('content', content);
+    };
+
+    upsertMeta('meta[property="og:title"]', 'property', 'og:title', title);
+    upsertMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
+
+    if (description) {
+      upsertMeta('meta[name="description"]', 'name', 'description', description);
+      upsertMeta('meta[property="og:description"]', 'property', 'og:description', description);
     }
+
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalUrl;
   }, [title, description]);
 }

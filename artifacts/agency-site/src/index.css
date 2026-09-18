@@ -247,6 +247,13 @@
 }
 
 @layer base {
+  html {
+    min-width: 320px;
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
   * {
     @apply border-border;
   }
@@ -258,10 +265,45 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    min-width: 320px;
+    min-height: 100%;
+    overflow-x: clip;
     background-image: 
       radial-gradient(circle at top right, hsl(var(--primary) / 0.05), transparent 600px), 
       radial-gradient(circle at bottom left, hsl(var(--secondary) / 0.05), transparent 600px);
     background-attachment: fixed;
+  }
+
+  #root {
+    min-height: 100svh;
+    overflow-x: clip;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 767px) {
+    body {
+      background-attachment: scroll;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   /* Custom Premium Scrollbar */

@@ -47,11 +47,20 @@ export function Navbar() {
         )}
       >
         <Container>
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center gap-3">
-              <img src="/logo-icon.png" alt="Seichox Logo" className="h-12 w-auto" />
-              <span className="text-3xl font-heading font-black text-foreground tracking-tighter">
-                Seichox<span className="text-primary">.</span>
+          <div className="flex h-20 items-center justify-between lg:h-24">
+            <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3.5" aria-label="We Raise Tech home">
+              <span className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-[1.2rem] bg-gradient-to-br from-cyan-400/15 via-blue-500/10 to-violet-500/20 shadow-[0_8px_24px_rgba(59,130,246,0.2)] ring-1 ring-primary/20 transition duration-300 group-hover:scale-105 group-hover:shadow-[0_10px_30px_rgba(99,102,241,0.32)] sm:h-16 sm:w-16 sm:rounded-[1.35rem]">
+                <img
+                  src="/we-raise-tech-logo.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={64}
+                  height={64}
+                  className="h-full w-full scale-[1.08] object-contain drop-shadow-[0_2px_8px_rgba(59,130,246,0.4)]"
+                />
+              </span>
+              <span className="whitespace-nowrap text-lg font-extrabold tracking-[-0.04em] text-foreground sm:text-2xl">
+                We <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500 bg-clip-text text-transparent">Raise</span> Tech
               </span>
             </Link>
 
@@ -87,11 +96,11 @@ export function Navbar() {
           <div className="lg:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-foreground">
+                <Button variant="ghost" size="icon" className="h-11 w-11 text-foreground" aria-label="Open navigation menu">
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] bg-background/95 backdrop-blur-xl border-l-border/50 flex flex-col pt-20">
+              <SheetContent side="right" className="flex w-[90vw] flex-col border-l-border/50 bg-background/95 pt-16 backdrop-blur-xl sm:w-[360px] sm:pt-20">
                 <nav className="flex flex-col gap-6">
                   {NAV_LINKS.map((link) => {
                     const isActive = location === link.href;

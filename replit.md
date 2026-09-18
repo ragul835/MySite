@@ -1,4 +1,4 @@
-# NexCore — Digital Engineering Agency Website
+# We Raise Tech — Digital Engineering Agency Website
 
 A full 5-page marketing website for a modern digital engineering agency, backed by a production-ready Spring Boot REST API.
 
