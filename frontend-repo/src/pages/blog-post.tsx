@@ -25,7 +25,7 @@ const postMetas: Record<string, PostMeta> = {
     date: "July 8, 2026",
     readTime: "12 min",
     category: "Web Development",
-    metaDescription: "Explore the top web development trends in 2026 including AI integration, edge computing, and performance optimization. Expert insights from We Raise Tech, a premier IT company.",
+    metaDescription: "Explore 2026 web development trends, including AI integration, edge computing, and performance optimization, with insights from We Raise Tech.",
     tags: ["web development", "trends 2026", "AI", "IT company"],
     image: "web-development-trends-2026.jpg",
     intro: "2026 marks a turning point. The gap between “good enough” websites and truly intelligent, high-performance digital experiences has never been wider. Companies that treat web development as a strategic advantage are pulling ahead—fast.",

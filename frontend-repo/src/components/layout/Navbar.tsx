@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, ChevronDown, ChevronRight, Layers, ShoppingCart, Layout, Search, Cloud, PenTool, ShoppingBag, Zap, Rocket, ArrowRight, Code, Info, Briefcase, Lightbulb, Grid, FileText, Settings, Smartphone, Terminal } from "lucide-react";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu, ChevronDown, Layers, ShoppingCart, Layout, Search, Cloud, PenTool, ShoppingBag, Zap, Rocket, ArrowRight, Code, Settings, Smartphone, Terminal, PanelLeftClose } from "lucide-react";
 import { GradientButton } from "../shared/GradientButton";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -88,8 +88,6 @@ export function Navbar() {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
-  const [isMobileCompanyOpen, setIsMobileCompanyOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
 
   useEffect(() => {
@@ -103,8 +101,6 @@ export function Navbar() {
   // Close mobile menu and dropdowns on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
-    setIsMobileServicesOpen(false);
-    setIsMobileCompanyOpen(false);
     setHoveredMenu(null);
   }, [location]);
 
@@ -289,112 +285,81 @@ export function Navbar() {
                       <Menu className="h-6 w-6" />
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="right" className="flex w-[90vw] flex-col border-l-0 bg-background/95 px-5 pt-10 shadow-2xl backdrop-blur-3xl sm:w-[400px] sm:px-8 sm:pt-16">
-                    <div className="flex flex-1 flex-col gap-8 overflow-y-auto pb-8 sm:gap-12 [&::-webkit-scrollbar]:hidden">
-                      {/* Brand Header */}
-                      <Link href="/" className="group mb-2 flex items-center gap-3" aria-label="We Raise Tech home">
-                        <span className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-cyan-400/15 via-blue-500/10 to-violet-500/20 shadow-[0_8px_24px_rgba(59,130,246,0.2)] ring-1 ring-primary/20">
-                          <img
-                            src="/we-raise-tech-logo.png"
-                            alt=""
-                            aria-hidden="true"
-                            width={64}
-                            height={64}
-                            className="h-full w-full scale-[1.08] object-contain drop-shadow-[0_2px_8px_rgba(59,130,246,0.4)]"
-                          />
+                  <SheetContent
+                    side="left"
+                    className="flex w-[76vw] min-w-[264px] max-w-[304px] flex-col gap-0 border-r border-slate-200 bg-white p-0 text-slate-900 shadow-2xl [&>button]:-right-11 [&>button]:top-4 [&>button]:h-9 [&>button]:w-9 [&>button]:rounded-full [&>button]:bg-black/20 [&>button]:text-white [&>button]:opacity-100 [&>button]:ring-offset-0"
+                  >
+                    <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-100 px-4">
+                      <Link href="/" className="flex min-w-0 items-center gap-2" aria-label="We Raise Tech home">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-cyan-400/15 via-blue-500/10 to-violet-500/20 ring-1 ring-primary/15">
+                          <img src="/we-raise-tech-logo.png" alt="" aria-hidden="true" width={40} height={40} className="h-full w-full scale-105 object-contain" />
                         </span>
-                        <span className="whitespace-nowrap text-2xl font-extrabold tracking-[-0.04em] text-foreground">
-                          We <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500 bg-clip-text text-transparent">Raise</span> Tech
+                        <span className="truncate text-base font-extrabold tracking-[-0.04em]">
+                          We <span className="text-primary">Raise</span> Tech
                         </span>
                       </Link>
+                      <SheetClose asChild>
+                        <button type="button" className="ml-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900" aria-label="Close navigation menu">
+                          <PanelLeftClose className="h-5 w-5" />
+                        </button>
+                      </SheetClose>
+                    </div>
 
-                      {/* Navigation Links */}
-                      <nav className="flex flex-col gap-6">
-                        {NAV_LINKS.map((link) => {
-                          const isActive = location === link.href || (link.href === '/services' && location.startsWith('/services'));
-                          
-                          if (link.label === "Company") {
-                             return (
-                               <div key={link.href} className="flex flex-col">
-                                 <button
-                                   onClick={() => setIsMobileCompanyOpen(!isMobileCompanyOpen)}
-                                   className={cn(
-                                     "flex items-center justify-between text-2xl font-heading font-bold transition-colors text-left",
-                                     (location === "/about" || location === "/blog") ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                                   )}
-                                 >
-                                   {link.label}
-                                   <ChevronDown className={cn("w-6 h-6 transition-transform duration-300", isMobileCompanyOpen ? "rotate-180" : "")} />
-                                 </button>
-                                 
-                                 <div className={cn(
-                                   "grid transition-all duration-300 ease-in-out",
-                                   isMobileCompanyOpen ? "grid-rows-[1fr] mt-6 opacity-100" : "grid-rows-[0fr] opacity-0"
-                                 )}>
-                                   <div className="overflow-hidden flex flex-col gap-5 pl-4 border-l-2 border-border/50">
-                                      <Link href="/about" className="text-base text-muted-foreground hover:text-foreground transition-colors font-medium">About Us</Link>
-                                      <Link href="/blog" className="text-base text-muted-foreground hover:text-foreground transition-colors font-medium">Our Blog</Link>
-                                   </div>
-                                 </div>
-                               </div>
-                             );
-                          }
+                    <nav className="min-h-0 flex-1 overflow-y-auto px-4 pb-36 pt-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Mobile navigation">
+                      <div className="flex items-center justify-between px-1">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">Services</p>
+                        <Link href="/services" className="inline-flex min-h-10 items-center gap-1 text-xs font-semibold text-primary">
+                          View all <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
 
-                          if (link.label === "Services") {
-                             return (
-                               <div key={link.href} className="flex flex-col">
-                                 <button
-                                   onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                                   className={cn(
-                                     "flex items-center justify-between text-2xl font-heading font-bold transition-colors text-left",
-                                     isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                                   )}
-                                 >
-                                   {link.label}
-                                   <ChevronDown className={cn("w-6 h-6 transition-transform duration-300", isMobileServicesOpen ? "rotate-180" : "")} />
-                                 </button>
-                                 
-                                 {/* Expanded Services Sub-menu */}
-                                 <div className={cn(
-                                   "grid transition-all duration-300 ease-in-out",
-                                   isMobileServicesOpen ? "grid-rows-[1fr] mt-6 opacity-100" : "grid-rows-[0fr] opacity-0"
-                                 )}>
-                                   <div className="overflow-hidden flex flex-col gap-5 pl-4 border-l-2 border-border/50">
-                                      {SERVICES_MENU.map((srv, idx) => (
-                                        <Link key={idx} href={`/services/${srv.slug}`} className="text-base text-muted-foreground hover:text-foreground transition-colors font-medium">
-                                          {srv.title}
-                                        </Link>
-                                      ))}
-                                      <Link href="/services" className="text-base text-primary font-bold hover:underline mt-2 flex items-center gap-2">
-                                        View All Services <ArrowRight className="w-4 h-4" />
-                                      </Link>
-                                   </div>
-                                 </div>
-                               </div>
-                             );
-                          }
-
+                      <div className="mt-2 space-y-0.5">
+                        {SERVICES_MENU.slice(0, 8).map((service) => {
+                          const IconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+                            ShoppingCart, Layout, Search, Cloud, PenTool, ShoppingBag, Zap, Rocket, Code, Settings, Smartphone, Terminal
+                          };
+                          const Icon = IconMap[service.icon] ?? Code;
                           return (
-                            <Link
-                              key={link.href}
-                              href={link.href}
-                              className={cn(
-                                "text-2xl font-heading font-bold transition-colors",
-                                isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                              )}
-                            >
-                              {link.label}
+                            <Link key={service.slug} href={`/services/${service.slug}`} className="group flex min-h-14 items-center gap-3 rounded-xl px-2 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-primary">
+                              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500 transition group-hover:bg-primary/10 group-hover:text-primary">
+                                <Icon className="h-4 w-4" />
+                              </span>
+                              <span className="leading-5">{service.title}</span>
                             </Link>
                           );
                         })}
-                      </nav>
-                      
-                      {/* Footer Actions */}
-                      <div className="mt-auto pt-8 flex flex-col gap-5 border-t border-border/20">
-                        <GradientButton href="/contact#contact-form" className="w-full text-center py-6 text-lg font-bold shadow-xl shadow-primary/20 rounded-2xl">
-                          Start Your Project
-                        </GradientButton>
                       </div>
+
+                      <div className="my-4 h-px bg-slate-100" />
+                      <p className="px-1 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">Company</p>
+                      <div className="mt-2 space-y-1">
+                        {[
+                          { href: "/about", label: "About Us", description: "Our story, values, and approach" },
+                          { href: "/portfolio", label: "Portfolio", description: "Selected work and case studies" },
+                          { href: "/blog", label: "Insights", description: "Engineering guides and updates" },
+                          { href: "/solutions", label: "Solutions", description: "How we solve product challenges" },
+                        ].map((link) => (
+                          <Link key={link.href} href={link.href} className="group flex min-h-16 items-center gap-3 rounded-xl px-2 py-2 transition hover:bg-slate-50">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500 group-hover:bg-primary/10 group-hover:text-primary">
+                              <Code className="h-4 w-4" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block text-sm font-medium text-slate-700 group-hover:text-primary">{link.label}</span>
+                              <span className="mt-0.5 block truncate text-[11px] text-slate-400">{link.description}</span>
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </nav>
+
+                    <div className="absolute inset-x-0 bottom-0 border-t border-slate-100 bg-white/95 p-4 shadow-[0_-12px_30px_rgba(15,23,42,0.06)] backdrop-blur">
+                      <GradientButton href="/contact#contact-form" onClick={() => setIsMobileMenuOpen(false)} className="min-h-11 w-full rounded-xl py-2.5 text-sm">
+                        Start a Project <ArrowRight className="h-4 w-4" />
+                      </GradientButton>
+                      <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="mt-2 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm">
+                        Book a Free Call <ArrowRight className="h-4 w-4" />
+                      </Link>
+                      <p className="mt-3 text-center text-[10px] text-slate-400">Free consultation · Response within 24 hours</p>
                     </div>
                   </SheetContent>
                 </Sheet>

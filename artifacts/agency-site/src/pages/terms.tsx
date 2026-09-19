@@ -251,7 +251,7 @@ export default function TermsAndConditions() {
                   <a
                     key={section.id}
                     href={`#${section.id}`}
-                    className="text-muted-foreground hover:text-primary transition-colors py-0.5"
+                    className="flex min-h-11 items-center py-2 text-muted-foreground transition-colors hover:text-primary sm:min-h-0 sm:py-0.5"
                   >
                     {section.title}
                   </a>

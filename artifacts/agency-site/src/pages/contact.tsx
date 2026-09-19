@@ -278,7 +278,7 @@ export default function ContactPage() {
   return (
     <main>
       {/* Hero Banner */}
-      <section className="relative py-32 overflow-hidden border-b border-border/30">
+      <section className="relative overflow-hidden border-b border-border/30 py-20 sm:py-24 lg:py-32">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
         
         {/* Massive Glowing Orbs */}
@@ -335,7 +335,7 @@ export default function ContactPage() {
       </section>
 
       {/* Two-column */}
-      <section id="contact-form" className="relative py-24 scroll-mt-24 overflow-hidden">
+      <section id="contact-form" className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24">
         {/* Background Gradients */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.05),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--secondary)/0.05),transparent_50%)] pointer-events-none" />
@@ -344,7 +344,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24">
             {/* Contact Form */}
             <AnimateOnScroll className="lg:col-span-3">
-              <div className="relative p-8 md:p-10 rounded-3xl border border-border/40 bg-card/40 backdrop-blur-xl shadow-2xl overflow-hidden">
+              <div className="relative overflow-hidden rounded-3xl border border-border/40 bg-card/40 p-6 shadow-2xl backdrop-blur-xl sm:p-8 md:p-10">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none" />
                 <div className="relative z-10">
                   <h2 className="text-3xl font-heading font-extrabold text-foreground mb-3 tracking-tight">Send us a message</h2>
@@ -505,7 +505,7 @@ export default function ContactPage() {
                             <a
                               href={info.href}
                               data-testid={`link-contact-${info.label.toLowerCase()}`}
-                              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                              className="inline-flex min-h-11 items-center text-sm font-medium text-foreground transition-colors hover:text-primary"
                             >
                               {info.value}
                             </a>

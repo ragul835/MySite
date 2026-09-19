@@ -41,6 +41,10 @@ function setMeta(
   el.setAttribute("content", content);
 }
 
+function removeMeta(attr: "name" | "property", key: string) {
+  document.head.querySelectorAll(`meta[${attr}="${key}"]`).forEach((node) => node.remove());
+}
+
 function setLink(rel: string, href: string, extra?: Record<string, string>) {
   let el = document.head.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement | null;
   // Prefer canonical singleton; for alternates keep single primary
@@ -67,8 +71,10 @@ function setLink(rel: string, href: string, extra?: Record<string, string>) {
 const JSON_LD_ATTR = "data-seo-jsonld";
 
 function applyJsonLd(data: SEOConfig["jsonLd"]) {
-  // Remove previous route JSON-LD injected by this hook
-  document.head.querySelectorAll(`script[${JSON_LD_ATTR}="true"]`).forEach((n) => n.remove());
+  // Replace both build-time and previous client-side route JSON-LD.
+  document.head
+    .querySelectorAll(`script[${JSON_LD_ATTR}="true"], script[data-static-route-jsonld="true"]`)
+    .forEach((n) => n.remove());
 
   if (!data) return;
   const list = (Array.isArray(data) ? data : [data]).filter(
@@ -124,6 +130,7 @@ export function useSEO(config: SEOConfig) {
     setMeta("name", "robots", noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
     setMeta("name", "googlebot", noindex ? "noindex, nofollow" : "index, follow");
     if (kw) setMeta("name", "keywords", kw);
+    else removeMeta("name", "keywords");
     setMeta("name", "author", author || SITE_NAME);
     setMeta("name", "publisher", SITE_NAME);
     setMeta("name", "theme-color", "#3b82f6");
@@ -155,6 +162,10 @@ export function useSEO(config: SEOConfig) {
         setMeta("property", "article:modified_time", modifiedTime || publishedTime || "");
       }
       if (author) setMeta("property", "article:author", author);
+    } else {
+      removeMeta("property", "article:published_time");
+      removeMeta("property", "article:modified_time");
+      removeMeta("property", "article:author");
     }
 
     applyJsonLd(jsonLdKey ? (JSON.parse(jsonLdKey) as SEOConfig["jsonLd"]) : undefined);

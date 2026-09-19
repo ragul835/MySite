@@ -42,6 +42,7 @@ const TermsPage = lazyImport(() => import("@/pages/terms"));
 const BlogPage = lazyImport(() => import("@/pages/blog"));
 const BlogPostPage = lazyImport(() => import("@/pages/blog-post"));
 const PortfolioPage = lazyImport(() => import("@/pages/portfolio"));
+const SamosaSheetCaseStudyPage = lazyImport(() => import("@/pages/samosasheet-case-study"));
 const NotFound = lazyImport(() => import("@/pages/not-found"));
 
 const queryClient = new QueryClient();
@@ -100,6 +101,7 @@ function Router() {
               <Switch>
                 <Route path="/" component={HomePage} />
                 <Route path="/about" component={AboutPage} />
+                <Route path="/portfolio/samosasheet" component={SamosaSheetCaseStudyPage} />
                 <Route path="/portfolio" component={PortfolioPage} />
                 <Route path="/services" component={ServicesPage} />
                 <Route path="/services/:slug" component={ServiceDetailPage} />

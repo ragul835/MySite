@@ -74,10 +74,44 @@ interface CaseStudy {
   bgAccent: string;
   icon: LucideIcon;
   featured: boolean;
+  href?: string;
+  liveUrl?: string;
 }
 
 /* ─── Case Studies Data: one unique project per service ─── */
 const caseStudies: CaseStudy[] = [
+  {
+    id: "samosasheet-food-catalog",
+    title: "SamosaSheet — Product & Wholesale Website",
+    client: "Karpagam Foods",
+    industry: "Food Manufacturing",
+    category: "Web Development",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Search Architecture", "Schema.org", "Responsive UX"],
+    description:
+      "A responsive product catalog and enquiry website for ready-made samosa sheets, built for household, restaurant, catering, retail, and wholesale buyers.",
+    challenge:
+      "Explain multiple sheet sizes, pack details, preparation, delivery areas, and wholesale ordering clearly to buyers with very different needs.",
+    solution:
+      "We created a product-first journey with strong visuals, comparison details, folding guidance, trust content, and direct WhatsApp, phone, and bulk-order actions.",
+    result: "Retail + Bulk",
+    resultLabel: "Product Enquiry Website",
+    metrics: [
+      { label: "Product Sizes", value: "3" },
+      { label: "Sheets / Pack", value: "100" },
+      { label: "Core Journeys", value: "Retail + Bulk" },
+    ],
+    duration: "Production launch",
+    teamSize: "Design + Build",
+    year: "2026",
+    image: "/portfolio/samosasheet/site-homepage.png",
+    coverGradient: "from-orange-600/25 via-amber-500/15 to-green-500/5",
+    accentColor: "text-orange-400",
+    bgAccent: "bg-orange-500/10",
+    icon: ShoppingCart,
+    featured: true,
+    href: "/portfolio/samosasheet",
+    liveUrl: "https://samosasheet.com/",
+  },
   {
     id: "apex-corporate-site",
     title: "Apex — Law Firm Website",
@@ -606,6 +640,34 @@ function CardFooter({ cs }: { cs: CaseStudy }) {
   );
 }
 
+function CaseStudyActions({ cs }: { cs: CaseStudy }) {
+  if (!cs.href && !cs.liveUrl) return null;
+  return (
+    <div className={`mb-4 grid gap-2 ${cs.href && cs.liveUrl ? "sm:grid-cols-2" : "grid-cols-1"}`}>
+      {cs.href && (
+        <Link
+          href={cs.href}
+          className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-primary/25 bg-primary/5 px-4 py-2 text-sm font-semibold text-primary transition hover:border-primary/50 hover:bg-primary/10"
+          aria-label={`View the full ${cs.title} case study`}
+        >
+          View case study <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      )}
+      {cs.liveUrl && (
+        <a
+          href={cs.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:brightness-110"
+          aria-label={`View the live ${cs.title} website in a new tab`}
+        >
+          View live site <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </a>
+      )}
+    </div>
+  );
+}
+
 function FeaturedCard({ cs }: { cs: CaseStudy }) {
   const Icon = cs.icon;
   return (
@@ -684,6 +746,7 @@ function FeaturedCard({ cs }: { cs: CaseStudy }) {
           ))}
         </div>
 
+        <CaseStudyActions cs={cs} />
         <CardFooter cs={cs} />
       </div>
     </div>
@@ -751,6 +814,7 @@ function RegularCard({ cs }: { cs: CaseStudy }) {
           ))}
         </div>
 
+        <CaseStudyActions cs={cs} />
         <CardFooter cs={cs} />
       </div>
     </div>
@@ -997,6 +1061,7 @@ export default function PortfolioPage() {
       "web development case studies",
       "mobile app portfolio",
       "SaaS case study",
+      "SamosaSheet website case study",
       "We Raise Tech projects",
     ],
     jsonLd: [
@@ -1008,7 +1073,7 @@ export default function PortfolioPage() {
         "We Raise Tech Client Case Studies",
         caseStudies.map((cs) => ({
           name: cs.title,
-          path: "/portfolio",
+          path: cs.href || "/portfolio",
           description: cs.description,
         }))
       ),

@@ -30,7 +30,7 @@ const blogPosts: BlogPost[] = [
     readTime: "12 min",
     category: "Web Development",
     tags: ["web development", "trends 2026", "IT company"],
-    metaDescription: "Explore the top web development trends in 2026 including AI integration, edge computing, and performance optimization. Expert insights from We Raise Tech.",
+    metaDescription: "Explore 2026 web development trends, including AI integration, edge computing, and performance optimization, with insights from We Raise Tech.",
     image: "web-development-trends-2026.jpg",
   },
   {

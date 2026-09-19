@@ -2,26 +2,8 @@
 User-agent: *
 Allow: /
 
-# Prefer clean indexable routes
+# Keep private API endpoints out of search results. Tracking parameters are
+# consolidated by each page's canonical URL rather than blocked from crawling.
 Disallow: /api/
-Disallow: /*?*utm_
-Disallow: /*?*fbclid=
-Disallow: /*?*gclid=
-
-# AI / research crawlers (allowed for discovery)
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
 
 Sitemap: https://weraisetech.com/sitemap.xml

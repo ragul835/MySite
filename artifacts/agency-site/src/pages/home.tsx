@@ -131,7 +131,7 @@ const techCategories = [
 
 function HeroSection() {
   return (
-    <section className="relative flex flex-col items-center overflow-hidden pb-14 pt-16 text-center sm:pt-20 lg:pb-24 lg:pt-28">
+    <section className="relative hidden flex-col items-center overflow-hidden pb-14 pt-16 text-center md:flex md:pt-20 lg:pb-24 lg:pt-28">
       {/* Dynamic Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
         {/* Massive glow */}
@@ -242,10 +242,11 @@ function HeroSection() {
           <GradientButton href="/contact#contact-form" className="px-10 py-4 text-base font-semibold shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all">
             Get Free Consultation <ArrowRight className="w-5 h-5 ml-2 inline-block" />
           </GradientButton>
-          <Link href="/services">
-            <span className="px-10 py-4 text-base font-semibold rounded-full border border-border/50 bg-card/40 hover:bg-card/80 transition-all cursor-pointer">
-              View Services
-            </span>
+          <Link
+            href="/services"
+            className="inline-flex min-h-12 items-center justify-center rounded-full border border-border/50 bg-card/40 px-10 py-3 text-base font-semibold transition-all hover:bg-card/80"
+          >
+            View Services
           </Link>
         </div>
 
@@ -255,15 +256,108 @@ function HeroSection() {
   );
 }
 
+const mobileProofPoints = [
+  { icon: Layers, label: "Architecture before development" },
+  { icon: Code2, label: "Design, frontend, backend, and cloud" },
+  { icon: Shield, label: "Accountable beyond launch" },
+];
+
+function MobileHeroSection() {
+  return (
+    <section className="relative overflow-hidden border-b border-border/50 bg-slate-50 md:hidden">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.55)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.55)_1px,transparent_1px)] bg-[size:64px_64px] opacity-55" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-80 bg-gradient-to-t from-cyan-50/90 via-blue-50/40 to-transparent" />
+
+      <Container className="relative py-8">
+        <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-primary/20 bg-white/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-primary shadow-sm backdrop-blur">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+          Full-stack product engineering
+        </div>
+
+        <h1 className="mt-4 font-heading text-[2.55rem] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950">
+          Your product.
+          <span className="mt-1 block bg-gradient-to-r from-violet-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent">
+            Engineered to scale.
+          </span>
+        </h1>
+
+        <p className="mt-5 max-w-sm text-base leading-7 text-slate-600">
+          We turn ambitious ideas into reliable digital products — from technical direction and UX to production deployment and long-term support.
+        </p>
+
+        <div className="mt-6 flex flex-col items-start gap-3">
+          <GradientButton href="/contact#contact-form" className="min-h-12 rounded-full px-6 py-3 text-sm shadow-[0_10px_30px_hsl(var(--primary)/0.25)]">
+            Start Your Project <ArrowRight className="h-4 w-4" />
+          </GradientButton>
+          <Link
+            href="/services"
+            className="inline-flex min-h-11 items-center gap-3 rounded-full border border-slate-300 bg-white/70 px-5 py-2.5 text-sm font-semibold text-slate-900"
+          >
+            Explore Services <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="my-7 h-px bg-slate-200/80" />
+
+        <div className="space-y-4">
+          {mobileProofPoints.map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-3 text-sm font-medium text-slate-700">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
+                <Icon className="h-4 w-4" />
+              </span>
+              {label}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 overflow-hidden rounded-[1.5rem] border border-slate-800 bg-slate-950 text-white shadow-2xl shadow-slate-900/20">
+          <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 text-xs">
+            <div className="flex items-center gap-2 text-slate-300">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+              We Raise Tech · Delivery Team
+            </div>
+            <span className="font-semibold uppercase tracking-wider text-emerald-400">Active</span>
+          </div>
+
+          <div className="p-5">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+              What we own, so you can grow
+            </p>
+            <div className="mt-5 space-y-4">
+              {["Product architecture & roadmap", "End-to-end engineering", "Security, deployment & support"].map((item, index) => (
+                <div key={item} className={index === 0 ? "flex items-start gap-3" : "flex items-start gap-3 text-slate-400"}>
+                  <CheckCircle className={index === 0 ? "mt-0.5 h-4 w-4 shrink-0 text-emerald-400" : "mt-0.5 h-4 w-4 shrink-0 text-slate-600"} />
+                  <span className="text-sm leading-5">{item}</span>
+                  {index === 0 && <span className="ml-auto shrink-0 text-[10px] font-bold uppercase text-emerald-400">Before build</span>}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Your focus</p>
+              <div className="mt-2 flex items-center justify-between">
+                <p className="font-semibold text-slate-100">Growing the business.</p>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 function TrustedTechnologiesSection() {
   return (
-    <section className="py-12 border-y border-border/40 bg-card/10">
+    <section className="border-y border-border/40 bg-card/10 py-9 md:py-12">
       <Container>
         <AnimateOnScroll>
-          <p className="text-center text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-8">
-            Technologies We Work With
+          <p className="mb-7 text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground md:mb-8 md:text-sm">
+            Trusted technology stack
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-70 grayscale transition-all duration-500">
+          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-6 opacity-70 grayscale transition-all duration-500 md:gap-12">
             <SiReact className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#61DAFB] transition-colors cursor-pointer" title="React" />
             <SiNextdotjs className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-black dark:hover:text-white transition-colors cursor-pointer" title="Next.js" />
             <SiNodedotjs className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#339933] transition-colors cursor-pointer" title="Node.js" />
@@ -280,6 +374,34 @@ function TrustedTechnologiesSection() {
             <FaAws className="w-8 h-8 md:w-10 md:h-10 hover:grayscale-0 hover:text-[#FF9900] transition-colors cursor-pointer" title="AWS" />
           </div>
         </AnimateOnScroll>
+      </Container>
+    </section>
+  );
+}
+
+const mobileMetrics = [
+  { value: "10+", label: "Engineering services", detail: "From product design to cloud delivery" },
+  { value: "7", label: "Delivery stages", detail: "A clear path from discovery to support" },
+  { value: "24h", label: "Response window", detail: "Every project inquiry is reviewed promptly" },
+  { value: "360°", label: "Product ownership", detail: "Strategy, build, deployment, and care" },
+];
+
+function MobileMetricsSection() {
+  return (
+    <section className="border-b border-border/50 bg-slate-50 py-10 md:hidden">
+      <Container>
+        <div className="grid grid-cols-2">
+          {mobileMetrics.map((metric, index) => (
+            <div
+              key={metric.label}
+              className={`min-h-40 py-5 ${index % 2 === 0 ? "border-r border-slate-200 pr-4" : "pl-4"} ${index < 2 ? "border-b border-slate-200" : ""}`}
+            >
+              <p className="text-3xl font-extrabold tracking-tight text-primary">{metric.value}</p>
+              <h2 className="mt-2 text-sm font-semibold text-slate-950">{metric.label}</h2>
+              <p className="mt-1 text-xs leading-5 text-slate-500">{metric.detail}</p>
+            </div>
+          ))}
+        </div>
       </Container>
     </section>
   );
@@ -855,7 +977,9 @@ export default function HomePage() {
     <main
     >
       <HeroSection />
+      <MobileHeroSection />
       <TrustedTechnologiesSection />
+      <MobileMetricsSection />
       <WhyChooseSection />
       <DevelopmentProcessSection />
       <ServicesSection />

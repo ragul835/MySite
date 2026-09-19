@@ -7,7 +7,7 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph.png`;
 export const TWITTER_HANDLE = "@weraisetech";
 export const CONTACT_EMAIL = "ragulsiva@zohomail.in";
 export const CONTACT_PHONE = "+919080163393";
-export const LOCALE = "en_IN";
+export const LOCALE = "en_US";
 
 export const DEFAULT_KEYWORDS = [
   "web development company",
@@ -65,11 +65,6 @@ export function organizationJsonLd() {
       addressCountry: "IN",
     },
     areaServed: "Worldwide",
-    sameAs: [
-      "https://github.com",
-      "https://linkedin.com",
-      "https://twitter.com",
-    ],
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -77,6 +72,7 @@ export function organizationJsonLd() {
         email: CONTACT_EMAIL,
         telephone: CONTACT_PHONE,
         availableLanguage: ["English"],
+        areaServed: "Worldwide",
       },
     ],
   };
@@ -93,15 +89,12 @@ export function websiteJsonLd() {
       "Web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance by We Raise Tech.",
     publisher: { "@id": `${SITE_URL}/#organization` },
     inLanguage: "en",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/blog?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
+}
+
+export function serviceMetaDescription(name: string, description: string) {
+  const serviceName = name.replace(/\s+(developers|experts|designers)$/i, "");
+  return `${description} We Raise Tech delivers ${serviceName.toLowerCase()} services for startups and businesses worldwide.`;
 }
 
 export function professionalServiceJsonLd() {
@@ -157,6 +150,34 @@ export function serviceJsonLd(input: {
     provider: { "@id": `${SITE_URL}/#organization` },
     areaServed: "Worldwide",
     serviceType: input.name,
+  };
+}
+
+export function caseStudyJsonLd(input: {
+  name: string;
+  description: string;
+  path: string;
+  image: string;
+  clientName: string;
+  clientUrl?: string;
+  dateCreated?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${absoluteUrl(input.path)}#case-study`,
+    name: input.name,
+    description: input.description,
+    url: absoluteUrl(input.path),
+    image: absoluteImageUrl(input.image),
+    creator: { "@id": `${SITE_URL}/#organization` },
+    about: {
+      "@type": "Organization",
+      name: input.clientName,
+      url: input.clientUrl,
+    },
+    dateCreated: input.dateCreated,
+    inLanguage: "en",
   };
 }
 
@@ -239,7 +260,7 @@ export const PAGE_SEO = {
   home: {
     title: "We Raise Tech | Web, Mobile App & Custom Software Development Agency",
     description:
-      "We Raise Tech designs and builds high-performance websites, mobile apps, SaaS platforms, e-commerce stores, and custom software — plus SEO, UI/UX, and website maintenance. Free discovery call.",
+      "We Raise Tech builds high-performance websites, mobile apps, SaaS platforms, e-commerce stores, and custom software for businesses worldwide.",
     path: "/",
     keywords: DEFAULT_KEYWORDS,
   },
@@ -252,7 +273,7 @@ export const PAGE_SEO = {
   services: {
     title: "Software Development Services | Web, Mobile, SaaS & More | We Raise Tech",
     description:
-      "Explore We Raise Tech services: web development, full-stack apps, e-commerce, SaaS, Shopify, SEO, UI/UX, CRO, website maintenance, mobile apps, and custom software.",
+      "Explore web, mobile app, SaaS, e-commerce, Shopify, SEO, UI/UX, maintenance, and custom software development services from We Raise Tech.",
     path: "/services",
   },
   solutions: {
@@ -264,13 +285,13 @@ export const PAGE_SEO = {
   portfolio: {
     title: "Portfolio & Case Studies | We Raise Tech Client Projects",
     description:
-      "Browse unique case studies for every We Raise Tech service — web, full-stack, ecommerce, SaaS, SEO, UI/UX, Shopify, CRO, maintenance, mobile apps, and custom software.",
+      "Explore We Raise Tech case studies across web, mobile, SaaS, e-commerce, SEO, UI/UX, Shopify, maintenance, and custom software.",
     path: "/portfolio",
   },
   blog: {
     title: "Blog | Web, Mobile, SaaS & Software Insights | We Raise Tech",
     description:
-      "Expert guides from We Raise Tech on web development, full-stack engineering, ecommerce, SaaS, SEO, UI/UX, Shopify, CRO, maintenance, mobile apps, and custom software.",
+      "Expert guides from We Raise Tech on web and mobile development, SaaS, e-commerce, technical SEO, UI/UX, maintenance, and custom software.",
     path: "/blog",
   },
   contact: {

@@ -18,6 +18,7 @@ import {
   breadcrumbJsonLd,
   serviceJsonLd,
   faqJsonLd,
+  serviceMetaDescription,
 } from "@/lib/seo";
 import {
   Accordion,
@@ -43,7 +44,7 @@ export default function ServiceDetailPage() {
     service
       ? {
           title: `${service.title} | We Raise Tech Services`,
-          description: `${service.description} ${service.longDescription.slice(0, 120).trim()}…`.slice(0, 160),
+          description: serviceMetaDescription(service.title, service.description),
           path: `/services/${service.slug}`,
           brandTitle: false,
           keywords: [

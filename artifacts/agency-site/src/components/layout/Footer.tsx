@@ -98,7 +98,7 @@ export function Footer() {
                   <Link
                     href={link.href}
                     data-testid={`link-footer-${link.label.toLowerCase()}`}
-                    className="text-slate-400 hover:text-primary text-sm transition-colors flex items-center gap-2 group"
+                    className="flex min-h-11 items-center gap-2 text-sm text-slate-400 transition-colors hover:text-primary md:min-h-0 group"
                   >
                     <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     {link.label}
@@ -121,7 +121,7 @@ export function Footer() {
                       href={href}
                       onClick={(e) => handleHashLink(e, href)}
                       data-testid={`link-footer-service-${service.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="text-slate-400 hover:text-primary text-sm transition-colors flex items-center gap-2 group cursor-pointer"
+                      className="flex min-h-11 cursor-pointer items-center gap-2 text-sm text-slate-400 transition-colors hover:text-primary md:min-h-0 group"
                     >
                       <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {service}
@@ -139,13 +139,13 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <a href="mailto:contact@weraisetech.com" className="hover:text-primary transition-colors">
+                <a href="mailto:contact@weraisetech.com" className="inline-flex min-h-11 items-center transition-colors hover:text-primary md:min-h-0">
                   contact@weraisetech.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <a href="tel:+919080163393" className="hover:text-primary transition-colors">
+                <a href="tel:+919080163393" className="inline-flex min-h-11 items-center transition-colors hover:text-primary md:min-h-0">
                   +91 9080163393
                 </a>
               </li>
@@ -175,7 +175,7 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-xs text-slate-500 hover:text-white transition-colors"
+                  className="inline-flex min-h-11 items-center text-xs text-slate-500 transition-colors hover:text-white md:min-h-0"
                 >
                   {link.label}
                 </Link>
