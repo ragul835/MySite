@@ -103,7 +103,7 @@ const caseStudies: CaseStudy[] = [
     duration: "Production launch",
     teamSize: "Design + Build",
     year: "2026",
-    image: "/portfolio/samosasheet/site-homepage.png",
+    image: "/portfolio/samosasheet/screenshots/homepage-thumb.webp",
     coverGradient: "from-orange-600/25 via-amber-500/15 to-green-500/5",
     accentColor: "text-orange-400",
     bgAccent: "bg-orange-500/10",

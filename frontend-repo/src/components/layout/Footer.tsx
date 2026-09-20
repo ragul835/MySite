@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
-import { Github, Linkedin, Mail, Phone, MapPin, ArrowRight, Sparkles, Instagram, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight, Sparkles } from "lucide-react";
 
 import { SERVICES } from "@/data/services";
 
@@ -23,20 +23,6 @@ const techLinks = [
 const legalLinks = [
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms & Conditions" },
-];
-
-const XIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-
-const footerSocials = [
-  { icon: Github, label: "GitHub", href: "https://github.com", hoverClass: "hover:text-primary hover:border-primary/50 hover:bg-primary/10" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com", hoverClass: "hover:text-primary hover:border-primary/50 hover:bg-primary/10" },
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com", hoverClass: "hover:text-[#1877F2] hover:border-[#1877F2]/50 hover:bg-[#1877F2]/10" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com", hoverClass: "hover:text-[#E4405F] hover:border-[#E4405F]/50 hover:bg-[#E4405F]/10" },
-  { icon: XIcon, label: "X", href: "https://twitter.com", hoverClass: "hover:text-white hover:border-white/50 hover:bg-white/10" },
 ];
 
 export function Footer() {
@@ -97,24 +83,6 @@ export function Footer() {
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               We Raise Tech is a software engineering agency for web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance.
             </p>
-            <div className="flex items-center gap-3">
-              {footerSocials.map((s) => {
-                const Icon = s.icon;
-                return (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit our ${s.label} profile`}
-                    data-testid={`link-${s.label.toLowerCase()}-footer`}
-                    className={`w-9 h-9 rounded-lg border border-white/10 bg-white/5 flex items-center justify-center text-slate-400 transition-all ${s.hoverClass}`}
-                  >
-                    <Icon className="w-4 h-4" />
-                  </a>
-                );
-              })}
-            </div>
           </div>
 
           <div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "wouter";
 import {
   ArrowLeft,
@@ -11,60 +11,84 @@ import {
   ShieldCheck,
   ShoppingBag,
   Smartphone,
-  X,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useSEO } from "@/hooks/useDocumentTitle";
 import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/seo";
 
 const PROJECT_PATH = "/portfolio/samosasheet";
 const PROJECT_IMAGE = "/portfolio/samosasheet/samosa-sheets-rectangular-premium-hero-v3.webp";
-const SITE_SCREENSHOT = "/portfolio/samosasheet/site-homepage.png";
+const SCREENSHOT_PATH = "/portfolio/samosasheet/screenshots";
+const SITE_SCREENSHOT = `${SCREENSHOT_PATH}/homepage-thumb.webp`;
 
 type GalleryImage = {
   src: string;
+  thumbnail: string;
   title: string;
   alt: string;
-  contain?: boolean;
+  width: number;
+  height: number;
 };
 
 const gallery: GalleryImage[] = [
   {
-    src: SITE_SCREENSHOT,
+    src: `${SCREENSHOT_PATH}/homepage-full.webp`,
+    thumbnail: SITE_SCREENSHOT,
     title: "Homepage",
-    alt: "Desktop screenshot of the live SamosaSheet homepage",
+    alt: "Full-page desktop screenshot of the live SamosaSheet homepage",
+    width: 1600,
+    height: 8673,
   },
   {
-    src: "/portfolio/samosasheet/site-products.png",
+    src: `${SCREENSHOT_PATH}/products-full.webp`,
+    thumbnail: `${SCREENSHOT_PATH}/products-thumb.webp`,
     title: "Products",
-    alt: "Desktop screenshot of the SamosaSheet products page",
+    alt: "Full-page desktop screenshot of the SamosaSheet products page",
+    width: 1600,
+    height: 1588,
   },
   {
-    src: "/portfolio/samosasheet/site-how-to-use.png",
+    src: `${SCREENSHOT_PATH}/how-to-use-full.webp`,
+    thumbnail: `${SCREENSHOT_PATH}/how-to-use-thumb.webp`,
     title: "How to Use",
-    alt: "Desktop screenshot of the SamosaSheet preparation guide",
+    alt: "Full-page desktop screenshot of the SamosaSheet preparation guide",
+    width: 1600,
+    height: 1954,
   },
   {
-    src: "/portfolio/samosasheet/site-about.png",
+    src: `${SCREENSHOT_PATH}/about-full.webp`,
+    thumbnail: `${SCREENSHOT_PATH}/about-thumb.webp`,
     title: "About",
-    alt: "Desktop screenshot of the SamosaSheet about page",
+    alt: "Full-page desktop screenshot of the SamosaSheet about page",
+    width: 1600,
+    height: 2052,
   },
   {
-    src: "/portfolio/samosasheet/site-wholesale.png",
+    src: `${SCREENSHOT_PATH}/bulk-orders-full.webp`,
+    thumbnail: `${SCREENSHOT_PATH}/bulk-orders-thumb.webp`,
     title: "Bulk Orders",
-    alt: "Desktop screenshot of the SamosaSheet wholesale enquiries page",
+    alt: "Full-page desktop screenshot of the SamosaSheet wholesale enquiries page",
+    width: 1600,
+    height: 1345,
   },
   {
-    src: "/portfolio/samosasheet/site-contact.png",
+    src: `${SCREENSHOT_PATH}/contact-full.webp`,
+    thumbnail: `${SCREENSHOT_PATH}/contact-thumb.webp`,
     title: "Contact",
-    alt: "Desktop screenshot of the SamosaSheet contact page",
+    alt: "Full-page desktop screenshot of the SamosaSheet contact and FAQ page",
+    width: 1600,
+    height: 2862,
   },
   {
-    src: "/portfolio/samosasheet/site-faq.png",
-    title: "Frequently Asked Questions",
-    alt: "Desktop screenshot of the SamosaSheet frequently asked questions page",
+    src: `${SCREENSHOT_PATH}/whatsapp-order-flow-full.webp`,
+    thumbnail: `${SCREENSHOT_PATH}/whatsapp-order-flow-thumb.webp`,
+    title: "WhatsApp Order Flow",
+    alt: "Desktop screenshot of the SamosaSheet delivery details modal for WhatsApp ordering",
+    width: 1600,
+    height: 814,
   },
 ];
 
@@ -110,6 +134,9 @@ export default function SamosaSheetCaseStudyPage() {
       "See how We Raise Tech built SamosaSheet, a responsive, search-ready product catalog and enquiry website for Karpagam Foods in Chennai.",
     path: PROJECT_PATH,
     image: PROJECT_IMAGE,
+    imageWidth: 1672,
+    imageHeight: 941,
+    imageType: "image/webp",
     brandTitle: false,
     keywords: [
       "SamosaSheet case study",
@@ -136,19 +163,6 @@ export default function SamosaSheetCaseStudyPage() {
       }),
     ],
   });
-
-  useEffect(() => {
-    if (!selectedImage) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedImage(null);
-    };
-    document.addEventListener("keydown", closeOnEscape);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", closeOnEscape);
-      document.body.style.overflow = "";
-    };
-  }, [selectedImage]);
 
   return (
     <div className="w-full overflow-hidden">
@@ -200,8 +214,8 @@ export default function SamosaSheetCaseStudyPage() {
                 <img
                   src={SITE_SCREENSHOT}
                   alt="Desktop screenshot of the live SamosaSheet homepage"
-                  width={1440}
-                  height={1200}
+                  width={960}
+                  height={720}
                   fetchPriority="high"
                   className="aspect-[6/5] w-full rounded-[1.55rem] object-cover object-top"
                 />
@@ -274,7 +288,7 @@ export default function SamosaSheetCaseStudyPage() {
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Project gallery</span>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">The live website, page by page.</h2>
             <p className="mt-4 leading-7 text-muted-foreground">
-              Browse the production homepage, product catalog, preparation guide, company story, bulk-order journey, contact page, and buyer FAQs.
+              Browse the supplied full-page captures of the production homepage, product catalog, preparation guide, company story, bulk-order journey, contact page, and WhatsApp ordering flow.
             </p>
           </AnimateOnScroll>
 
@@ -287,16 +301,24 @@ export default function SamosaSheetCaseStudyPage() {
                   className="group block w-full overflow-hidden rounded-2xl border border-border/50 bg-card text-left transition hover:-translate-y-1 hover:border-primary/35 hover:shadow-xl hover:shadow-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   aria-label={`Open ${image.title}`}
                 >
-                  <span className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-white/95">
+                  <span className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-white/95">
                     <img
-                      src={image.src}
+                      src={image.thumbnail}
                       alt={image.alt}
                       loading={index < 3 ? "eager" : "lazy"}
                       decoding="async"
-                      className={`h-full w-full transition duration-500 group-hover:scale-[1.025] ${image.contain ? "object-contain p-8" : "object-cover"}`}
+                      width={960}
+                      height={720}
+                      className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.025]"
                     />
+                    <span className="absolute right-3 top-3 rounded-full border border-black/10 bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-slate-900 shadow-sm backdrop-blur">
+                      View capture
+                    </span>
                   </span>
-                  <span className="block px-4 py-3 text-sm font-semibold">{image.title}</span>
+                  <span className="flex items-center justify-between gap-3 px-4 py-3">
+                    <span className="text-sm font-semibold">{image.title}</span>
+                    <span className="text-xs text-muted-foreground">{image.width} × {image.height}</span>
+                  </span>
                 </button>
               </AnimateOnScroll>
             ))}
@@ -327,35 +349,27 @@ export default function SamosaSheetCaseStudyPage() {
         </Container>
       </section>
 
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-label={selectedImage.title}
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) setSelectedImage(null);
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => setSelectedImage(null)}
-            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white transition hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            aria-label="Close image preview"
-            autoFocus
-          >
-            <X className="h-5 w-5" aria-hidden="true" />
-          </button>
-          <figure className="max-h-[90vh] max-w-6xl overflow-auto rounded-2xl bg-white p-2 shadow-2xl">
-            <img
-              src={selectedImage.src}
-              alt={selectedImage.alt}
-              className={`max-h-[82vh] w-auto max-w-full rounded-xl ${selectedImage.contain ? "object-contain p-6" : "object-contain"}`}
-            />
-            <figcaption className="px-3 py-2 text-center text-sm font-semibold text-slate-900">{selectedImage.title}</figcaption>
-          </figure>
-        </div>
-      )}
+      <Dialog open={selectedImage !== null} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        {selectedImage && (
+          <DialogContent className="block max-h-[90vh] max-w-6xl overflow-y-auto overscroll-contain border-white bg-white p-2 text-slate-900 shadow-2xl [&>button]:z-10 [&>button]:rounded-full [&>button]:bg-white [&>button]:p-2 [&>button]:opacity-100">
+            <DialogTitle className="sr-only">{selectedImage.title} website screenshot</DialogTitle>
+            <figure>
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                width={selectedImage.width}
+                height={selectedImage.height}
+                decoding="async"
+                className="h-auto w-full rounded-xl"
+              />
+              <figcaption className="sticky bottom-0 mx-2 flex items-center justify-between gap-4 rounded-xl bg-white/95 px-4 py-3 text-sm text-slate-900 shadow-sm backdrop-blur">
+                <span className="font-semibold">{selectedImage.title}</span>
+                <span className="text-xs text-slate-500">Full-page capture · {selectedImage.width} × {selectedImage.height}</span>
+              </figcaption>
+            </figure>
+          </DialogContent>
+        )}
+      </Dialog>
     </div>
   );
 }

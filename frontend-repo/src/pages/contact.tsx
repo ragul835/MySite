@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import {
-  Mail, Phone, MapPin, Github, Linkedin,
-  ChevronRight, Send, Info, Plus, Minus, Sparkles, ArrowRight, Clock, MessageSquare, Facebook, Instagram
+  Mail, Phone, MapPin,
+  ChevronRight, Send, Info, Plus, Minus, Sparkles, ArrowRight, Clock, MessageSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,20 +39,6 @@ const contactInfo = [
   { icon: Phone, label: "WhatsApp", value: "+91 9080163393", href: "tel:+919080163393" },
   { icon: MapPin, label: "Location", value: "India", href: null },
   { icon: Clock, label: "Response Time", value: "Within 24 hours", href: null },
-];
-
-const XIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-
-const socials = [
-  { icon: Github, label: "GitHub", href: "https://github.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-  { icon: Facebook, label: "Facebook", href: "https://facebook.com" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com" },
-  { icon: XIcon, label: "X", href: "https://twitter.com" },
 ];
 
 const faqData = [
@@ -292,21 +278,13 @@ export default function ContactPage() {
 
             {/* Right column */}
             <AnimateOnScroll delay={0.2} className="lg:col-span-2 space-y-6">
-              {/* Social links */}
+              {/* Direct contact */}
               <div className="premium-card p-6">
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Follow our journey</p>
-                <div className="flex items-center gap-3">
-                  {socials.map((s) => {
-                    const Icon = s.icon;
-                    return (
-                      <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                        data-testid={`link-social-${s.label.toLowerCase()}`}
-                        className="w-10 h-10 rounded-xl border border-border/50 bg-muted/30 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all">
-                        <Icon className="w-4 h-4" />
-                      </a>
-                    );
-                  })}
-                </div>
+                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Prefer direct contact?</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">Email our team with your goals, timeline, and preferred technology stack.</p>
+                <a href="mailto:ragulsiva@zohomail.in" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+                  <Mail className="h-4 w-4" aria-hidden="true" /> ragulsiva@zohomail.in
+                </a>
               </div>
 
               {/* Response widget */}

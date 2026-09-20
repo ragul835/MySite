@@ -4,7 +4,9 @@ export const SITE_URL = "https://weraisetech.com";
 export const SITE_NAME = "We Raise Tech";
 export const SITE_LEGAL_NAME = "We Raise Tech";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph.png`;
-export const TWITTER_HANDLE = "@weraisetech";
+export const DEFAULT_OG_IMAGE_WIDTH = 1730;
+export const DEFAULT_OG_IMAGE_HEIGHT = 909;
+export const DEFAULT_OG_IMAGE_TYPE = "image/png";
 export const CONTACT_EMAIL = "ragulsiva@zohomail.in";
 export const CONTACT_PHONE = "+919080163393";
 export const LOCALE = "en_US";
@@ -54,6 +56,9 @@ export function organizationJsonLd() {
     logo: {
       "@type": "ImageObject",
       url: absoluteUrl("/we-raise-tech-logo.png"),
+      contentUrl: absoluteUrl("/we-raise-tech-logo.png"),
+      width: 1254,
+      height: 1254,
     },
     image: DEFAULT_OG_IMAGE,
     description:
@@ -85,6 +90,7 @@ export function websiteJsonLd() {
     "@id": `${SITE_URL}/#website`,
     url: SITE_URL,
     name: SITE_NAME,
+    alternateName: "WeRaiseTech",
     description:
       "Web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance by We Raise Tech.",
     publisher: { "@id": `${SITE_URL}/#organization` },
@@ -258,9 +264,9 @@ export function itemListJsonLd(
 /** Static SEO copy for top-level routes */
 export const PAGE_SEO = {
   home: {
-    title: "We Raise Tech | Web, Mobile App & Custom Software Development Agency",
+    title: "Software Development Agency | We Raise Tech",
     description:
-      "We Raise Tech builds high-performance websites, mobile apps, SaaS platforms, e-commerce stores, and custom software for businesses worldwide.",
+      "We Raise Tech designs and builds websites, mobile apps, SaaS platforms, e-commerce stores, and custom software for businesses worldwide.",
     path: "/",
     keywords: DEFAULT_KEYWORDS,
   },
@@ -271,7 +277,7 @@ export const PAGE_SEO = {
     path: "/about",
   },
   services: {
-    title: "Software Development Services | Web, Mobile, SaaS & More | We Raise Tech",
+    title: "Software Development Services | We Raise Tech",
     description:
       "Explore web, mobile app, SaaS, e-commerce, Shopify, SEO, UI/UX, maintenance, and custom software development services from We Raise Tech.",
     path: "/services",
@@ -289,7 +295,7 @@ export const PAGE_SEO = {
     path: "/portfolio",
   },
   blog: {
-    title: "Blog | Web, Mobile, SaaS & Software Insights | We Raise Tech",
+    title: "Software Development Blog & Guides | We Raise Tech",
     description:
       "Expert guides from We Raise Tech on web and mobile development, SaaS, e-commerce, technical SEO, UI/UX, maintenance, and custom software.",
     path: "/blog",

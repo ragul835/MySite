@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import {
   SITE_NAME,
   LOCALE,
+  DEFAULT_OG_IMAGE_WIDTH,
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_TYPE,
   absoluteUrl,
   absoluteImageUrl,
   titleWithBrand,
@@ -14,6 +17,9 @@ export type SEOConfig = {
   path?: string;
   /** Absolute or site-relative image */
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageType?: string;
   type?: "website" | "article" | "profile";
   noindex?: boolean;
   keywords?: string[] | string;
@@ -68,6 +74,19 @@ function setLink(rel: string, href: string, extra?: Record<string, string>) {
   }
 }
 
+function setAlternate(hreflang: string, href: string) {
+  let el = document.head.querySelector(
+    `link[rel="alternate"][hreflang="${hreflang}"]`
+  ) as HTMLLinkElement | null;
+  if (!el) {
+    el = document.createElement("link");
+    el.rel = "alternate";
+    el.hreflang = hreflang;
+    document.head.appendChild(el);
+  }
+  el.href = href;
+}
+
 const JSON_LD_ATTR = "data-seo-jsonld";
 
 function applyJsonLd(data: SEOConfig["jsonLd"]) {
@@ -100,9 +119,11 @@ export function useSEO(config: SEOConfig) {
     description,
     path,
     image,
+    imageWidth = DEFAULT_OG_IMAGE_WIDTH,
+    imageHeight = DEFAULT_OG_IMAGE_HEIGHT,
+    imageType = DEFAULT_OG_IMAGE_TYPE,
     type = "website",
     noindex = false,
-    keywords,
     jsonLd,
     publishedTime,
     modifiedTime,
@@ -110,14 +131,12 @@ export function useSEO(config: SEOConfig) {
     brandTitle = true,
   } = config;
 
-  const keywordsKey = Array.isArray(keywords) ? keywords.join(",") : keywords || "";
   const jsonLdKey = jsonLd ? JSON.stringify(jsonLd) : "";
 
   useEffect(() => {
     const finalTitle = brandTitle ? titleWithBrand(title) : title;
     const canonical = absoluteUrl(path || window.location.pathname || "/");
     const ogImage = absoluteImageUrl(image);
-    const kw = keywordsKey || undefined;
 
     document.title = finalTitle;
 
@@ -125,17 +144,22 @@ export function useSEO(config: SEOConfig) {
       setMeta("name", "description", description);
       setMeta("property", "og:description", description);
       setMeta("name", "twitter:description", description);
+    } else {
+      removeMeta("name", "description");
+      removeMeta("property", "og:description");
+      removeMeta("name", "twitter:description");
     }
 
-    setMeta("name", "robots", noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
-    setMeta("name", "googlebot", noindex ? "noindex, nofollow" : "index, follow");
-    if (kw) setMeta("name", "keywords", kw);
-    else removeMeta("name", "keywords");
+    setMeta("name", "robots", noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+    setMeta("name", "googlebot", noindex ? "noindex, follow" : "index, follow");
+    removeMeta("name", "keywords");
     setMeta("name", "author", author || SITE_NAME);
     setMeta("name", "publisher", SITE_NAME);
     setMeta("name", "theme-color", "#3b82f6");
 
     setLink("canonical", canonical);
+    setAlternate("en", canonical);
+    setAlternate("x-default", canonical);
 
     // Open Graph
     setMeta("property", "og:title", finalTitle);
@@ -145,8 +169,9 @@ export function useSEO(config: SEOConfig) {
     setMeta("property", "og:locale", LOCALE);
     setMeta("property", "og:image", ogImage);
     setMeta("property", "og:image:secure_url", ogImage);
-    setMeta("property", "og:image:width", "1200");
-    setMeta("property", "og:image:height", "630");
+    setMeta("property", "og:image:type", imageType);
+    setMeta("property", "og:image:width", String(imageWidth));
+    setMeta("property", "og:image:height", String(imageHeight));
     setMeta("property", "og:image:alt", finalTitle);
 
     // Twitter
@@ -174,9 +199,11 @@ export function useSEO(config: SEOConfig) {
     description,
     path,
     image,
+    imageWidth,
+    imageHeight,
+    imageType,
     type,
     noindex,
-    keywordsKey,
     jsonLdKey,
     publishedTime,
     modifiedTime,

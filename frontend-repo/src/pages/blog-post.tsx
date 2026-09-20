@@ -213,6 +213,20 @@ const postMetas: Record<string, PostMeta> = {
   },
 };
 
+const seoTitles: Record<string, string> = {
+  "top-web-development-trends-2026": "Web Development Trends for 2026",
+  "full-stack-development-playbook": "Full-Stack Development Playbook",
+  "ecommerce-development-best-practices": "Ecommerce Development Best Practices",
+  "scalable-saas-development-guide": "Scalable SaaS Development Guide",
+  "technical-seo-guide-for-it-companies": "Technical SEO Guide for Modern Websites",
+  "ui-ux-design-for-business-growth": "UI/UX Design for Business Growth",
+  "shopify-development-vs-custom-solutions": "Shopify vs Custom Ecommerce Development",
+  "ecommerce-optimization-cro-guide": "E-Commerce CRO & Optimization Guide",
+  "website-maintenance-support-guide": "Website Maintenance & Support Guide",
+  "mobile-app-development-guide-2026": "Mobile App Development Guide 2026",
+  "custom-software-development-when-to-build": "When to Build Custom Software",
+};
+
 const defaultMeta: PostMeta = {
   title: "Blog Post | We Raise Tech",
   date: "July 2026",
@@ -247,10 +261,13 @@ export default function BlogPostPage() {
   })();
 
   useSEO({
-    title: `${meta.title} | We Raise Tech`,
+    title: `${seoTitles[slug] || meta.title} | We Raise Tech`,
     description: meta.metaDescription,
     path: articlePath,
     image: articleImage,
+    imageWidth: 1280,
+    imageHeight: 720,
+    imageType: "image/jpeg",
     type: "article",
     brandTitle: false,
     noindex: !isKnownPost,

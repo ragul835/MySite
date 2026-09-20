@@ -1,195 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Core pages -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://weraisetech.com/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/about</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/solutions</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/portfolio</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/portfolio/samosasheet</loc>
+    <lastmod>2026-09-20</lastmod>
+    <image:image>
+      <image:loc>https://weraisetech.com/portfolio/samosasheet/samosa-sheets-rectangular-premium-hero-v3.webp</image:loc>
+      <image:title>SamosaSheet Website Case Study</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/contact</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/privacy</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/terms</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
-  <!-- Service detail pages -->
-  <url>
-    <loc>https://weraisetech.com/services/web-development</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://weraisetech.com/services/full-stack</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services/e-commerce</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
-    <loc>https://weraisetech.com/services/saas</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://weraisetech.com/services/full-stack</loc>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services/seo</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/services/saas</loc>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services/ui-ux</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services/shopify</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services/ecommerce-optimization</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/services/web-development</loc>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services/maintenance-support</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services/mobile-app-development</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/services/custom-software-development</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-20</lastmod>
   </url>
-
-  <!-- Blog posts -->
   <url>
     <loc>https://weraisetech.com/blog/top-web-development-trends-2026</loc>
     <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/web-development-trends-2026.jpg</image:loc>
+      <image:title>Top Web Development Trends in 2026: What Leading IT Companies Are Building</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/full-stack-development-playbook</loc>
     <lastmod>2026-07-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/full-stack-development.jpg</image:loc>
+      <image:title>Full-Stack Development Playbook: Frontend, Backend, and Everything Between</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/ecommerce-development-best-practices</loc>
     <lastmod>2026-07-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/ecommerce-development.jpg</image:loc>
+      <image:title>Ecommerce Development Best Practices to Maximize Conversions in 2026</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/scalable-saas-development-guide</loc>
     <lastmod>2026-07-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/scalable-saas-development.jpg</image:loc>
+      <image:title>Scalable SaaS Development Guide: Build Products That Grow With Your Business</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/technical-seo-guide-for-it-companies</loc>
     <lastmod>2026-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/technical-seo.jpg</image:loc>
+      <image:title>Technical SEO Guide for Modern Websites: An IT Company Perspective</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/ui-ux-design-for-business-growth</loc>
     <lastmod>2026-06-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/ui-ux-design.jpg</image:loc>
+      <image:title>How Professional UI/UX Design Drives 3x Business Growth and Conversions</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/shopify-development-vs-custom-solutions</loc>
     <lastmod>2026-06-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/shopify-vs-custom.jpg</image:loc>
+      <image:title>Shopify Development vs Custom Ecommerce: Choosing the Right Solution</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/ecommerce-optimization-cro-guide</loc>
     <lastmod>2026-07-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/ecommerce-optimization.jpg</image:loc>
+      <image:title>E-Commerce Optimization Guide: CRO, Speed, and Revenue Experiments</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/website-maintenance-support-guide</loc>
     <lastmod>2026-07-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/website-maintenance-support.jpg</image:loc>
+      <image:title>Website Maintenance &amp; Support: Why Ongoing Care Protects Revenue</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/mobile-app-development-guide-2026</loc>
     <lastmod>2026-07-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/mobile-app-development.jpg</image:loc>
+      <image:title>Mobile App Development in 2026: Native vs Cross-Platform Decisions</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://weraisetech.com/blog/custom-software-development-when-to-build</loc>
     <lastmod>2026-07-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://weraisetech.com/blog/custom-software-development.jpg</image:loc>
+      <image:title>Custom Software Development: When Off-the-Shelf Tools Stop Working</image:title>
+    </image:image>
   </url>
 </urlset>
