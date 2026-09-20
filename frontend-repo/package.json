@@ -1,5 +1,5 @@
 {
-  "name": "@workspace/agency-site",
+  "name": "@workspace/weraisetech-site",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,11 +9,10 @@
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "seo:validate": "node scripts/validate-seo.mjs",
-    "deploy": "npm run build && wrangler deploy",
-    "preview": "npm run build && wrangler dev"
+    "deploy": "npm run build && wrangler deploy --config wrangler.jsonc",
+    "preview": "npm run build && wrangler dev --config wrangler.jsonc"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.56.0",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.4",
     "@radix-ui/react-alert-dialog": "^1.1.7",

@@ -12,10 +12,16 @@
       "migrations_dir": "migrations"
     }
   ],
+  "send_email": [
+    { "name": "EMAIL" }
+  ],
   "vars": {
     "FRONTEND_ORIGINS": "https://weraisetech.com,https://www.weraisetech.com,https://weraisetech-web.ragulrs369.workers.dev",
-    "ADMIN_EMAIL": "contact@weraisetech.com",
+    "ADMIN_EMAIL": "weraisetech@gmail.com",
     "CONTACT_FROM_EMAIL": "We Raise Tech <contact@weraisetech.com>"
+  },
+  "triggers": {
+    "crons": ["*/2 * * * *"]
   },
   "routes": [
     { "pattern": "api.weraisetech.com", "custom_domain": true }

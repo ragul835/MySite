@@ -9,11 +9,14 @@ export const DEFAULT_OG_IMAGE_HEIGHT = 909;
 export const DEFAULT_OG_IMAGE_TYPE = "image/png";
 export const CONTACT_EMAIL = "contact@weraisetech.com";
 export const CONTACT_PHONE = "+919080163393";
+export const INSTAGRAM_URL = "https://www.instagram.com/weraisetech/";
 export const LOCALE = "en_US";
 
 export const DEFAULT_KEYWORDS = [
+  "software development company",
   "web development company",
   "custom software development",
+  "web application development",
   "mobile app development",
   "SaaS development",
   "e-commerce development",
@@ -22,8 +25,11 @@ export const DEFAULT_KEYWORDS = [
   "technical SEO",
   "website maintenance",
   "full stack development",
+  "product development company",
+  "startup software development",
+  "scalable software architecture",
   "We Raise Tech",
-  "India software agency",
+  "India software development company",
 ];
 
 export function absoluteUrl(path = "/"): string {
@@ -62,9 +68,12 @@ export function organizationJsonLd() {
     },
     image: DEFAULT_OG_IMAGE,
     description:
-      "We Raise Tech is a software engineering agency building websites, mobile apps, SaaS platforms, e-commerce stores, and custom software with ongoing maintenance and support.",
+      "We Raise Tech is a custom software development company building scalable web applications, mobile apps, SaaS platforms, e-commerce systems, and tailored business software.",
+    slogan: "Custom software built to scale.",
+    knowsAbout: DEFAULT_KEYWORDS,
     email: CONTACT_EMAIL,
     telephone: CONTACT_PHONE,
+    sameAs: [INSTAGRAM_URL],
     address: {
       "@type": "PostalAddress",
       addressCountry: "IN",
@@ -92,7 +101,7 @@ export function websiteJsonLd() {
     name: SITE_NAME,
     alternateName: "WeRaiseTech",
     description:
-      "Web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance by We Raise Tech.",
+      "Custom software development for scalable web applications, mobile apps, SaaS platforms, e-commerce systems, and digital products by We Raise Tech.",
     publisher: { "@id": `${SITE_URL}/#organization` },
     inLanguage: "en",
   };
@@ -264,14 +273,14 @@ export function itemListJsonLd(
 /** Static SEO copy for top-level routes */
 export const PAGE_SEO = {
   home: {
-    title: "Software Development Agency | We Raise Tech",
+    title: "Custom Software Development Company | We Raise Tech",
     description:
-      "We Raise Tech designs and builds websites, mobile apps, SaaS platforms, e-commerce stores, and custom software for businesses worldwide.",
+      "We Raise Tech builds scalable custom software, web and mobile apps, SaaS platforms, and e-commerce solutions for startups and growing businesses worldwide.",
     path: "/",
     keywords: DEFAULT_KEYWORDS,
   },
   about: {
-    title: "About We Raise Tech | Software Engineering Agency",
+    title: "About We Raise Tech | Software Engineering Company",
     description:
       "Learn about We Raise Tech — a product-focused engineering team delivering web, mobile, SaaS, and custom software with transparent process and long-term support.",
     path: "/about",

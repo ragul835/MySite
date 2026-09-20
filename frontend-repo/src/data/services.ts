@@ -167,7 +167,7 @@ export const SERVICES = [
     technologies: ["Ahrefs", "SEMrush", "Google Analytics 4", "Search Console", "Screaming Frog", "SurferSEO"],
     faqs: [
       { question: "How long does it take to see SEO results?", answer: "SEO is a long-term strategy. Noticeable improvements typically occur between 3 to 6 months." },
-      { question: "Do you guarantee first-page rankings?", answer: "No reputable agency guarantees specific rankings due to Google's algorithm. We guarantee best-in-class implementation." },
+      { question: "Do you guarantee first-page rankings?", answer: "No reputable SEO provider guarantees specific rankings due to Google's algorithm. We guarantee best-in-class implementation." },
       { question: "Do I need to rewrite my entire website?", answer: "Not always. We usually optimize existing content first, and add new pages strategically." }
     ]
   },

@@ -3,8 +3,6 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
-import { cloudflare } from "@cloudflare/vite-plugin";
-
 const rawPort = process.env.PORT || "5000";
 const port = Number(rawPort);
 
@@ -16,7 +14,7 @@ const basePath = process.env.BASE_PATH || "/";
 
 export default defineConfig({
   base: basePath,
-  plugins: [react(), tailwindcss(), cloudflare()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

@@ -1,8 +1,9 @@
 import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
-import { Mail, Phone, MapPin, ArrowRight, Sparkles } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight, Sparkles, Instagram } from "lucide-react";
 
 import { SERVICES } from "@/data/services";
+import { INSTAGRAM_URL } from "@/lib/seo";
 
 const companyLinks = [
   { href: "/about", label: "About" },
@@ -81,8 +82,19 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              We Raise Tech is a software engineering agency for web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance.
+              We Raise Tech is a software engineering company for web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance.
             </p>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow We Raise Tech on Instagram"
+              data-testid="link-footer-instagram"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-primary/50 hover:text-primary"
+            >
+              <Instagram className="h-4 w-4" aria-hidden="true" />
+              @weraisetech
+            </a>
           </div>
 
           <div>

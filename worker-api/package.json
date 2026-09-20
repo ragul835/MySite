@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.mjs",
     "types": "wrangler types"
   },
   "devDependencies": {

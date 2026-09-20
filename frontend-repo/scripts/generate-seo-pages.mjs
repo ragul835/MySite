@@ -14,13 +14,13 @@ const DEFAULT_IMAGE_TYPE = "image/png";
 const coreRoutes = [
   {
     path: "/",
-    title: "Software Development Agency | We Raise Tech",
+    title: "Custom Software Development Company | We Raise Tech",
     description:
-      "We Raise Tech designs and builds websites, mobile apps, SaaS platforms, e-commerce stores, and custom software for businesses worldwide.",
+      "We Raise Tech builds scalable custom software, web and mobile apps, SaaS platforms, and e-commerce solutions for startups and growing businesses worldwide.",
   },
   {
     path: "/about",
-    title: "About We Raise Tech | Software Engineering Agency",
+    title: "About We Raise Tech | Software Engineering Company",
     description:
       "Learn about We Raise Tech — a product-focused engineering team delivering web, mobile, SaaS, and custom software with transparent process and long-term support.",
   },

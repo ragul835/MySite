@@ -138,7 +138,7 @@ export default function AboutPage() {
                       <div className="ml-auto text-xs text-muted-foreground/60 font-mono">weraisetech.tsx</div>
                     </div>
                     <div className="space-y-3 font-mono text-sm">
-                      <div className="text-muted-foreground/60"><span className="text-blue-400">const</span> <span className="text-green-400">agency</span> = {'{'}</div>
+                      <div className="text-muted-foreground/60"><span className="text-blue-400">const</span> <span className="text-green-400">company</span> = {'{'}</div>
                       <div className="pl-4 text-muted-foreground"><span className="text-orange-400">name</span>: <span className="text-green-300">"We Raise Tech"</span>,</div>
                       <div className="pl-4 text-muted-foreground"><span className="text-orange-400">focus</span>: <span className="text-green-300">"Digital Products"</span>,</div>
                       <div className="pl-4 text-muted-foreground"><span className="text-orange-400">services</span>: [<span className="text-green-300">"Web"</span>, <span className="text-green-300">"Mobile"</span>, <span className="text-green-300">"Custom"</span>, <span className="text-green-300">"Support"</span>],</div>

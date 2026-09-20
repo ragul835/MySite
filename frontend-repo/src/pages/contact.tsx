@@ -85,6 +85,8 @@ export default function ContactPage() {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     const start = Date.now();
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 15_000);
     try {
       logger.info("Submitting contact form", { service: data.service });
       const API_BASE = import.meta.env.VITE_API_URL || "";
@@ -92,6 +94,7 @@ export default function ContactPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        signal: controller.signal,
       });
       logger.api("POST", "/api/v1/contact", res.status, Date.now() - start);
       let json: Record<string, unknown> = {};
@@ -104,8 +107,15 @@ export default function ContactPage() {
       setServiceValue("");
     } catch (err: unknown) {
       logger.error("Contact form submission failed", err);
-      toast.error(err instanceof Error ? err.message : "Something went wrong.");
+      if (err instanceof DOMException && err.name === "AbortError") {
+        toast.error("The request timed out. Please try again or email contact@weraisetech.com.");
+      } else if (err instanceof TypeError) {
+        toast.error("We couldn't reach the contact service. Please try again or email contact@weraisetech.com.");
+      } else {
+        toast.error(err instanceof Error ? err.message : "Something went wrong.");
+      }
     } finally {
+      window.clearTimeout(timeout);
       setIsSubmitting(false);
     }
   };

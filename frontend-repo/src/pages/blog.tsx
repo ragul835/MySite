@@ -91,7 +91,7 @@ const blogPosts: BlogPost[] = [
   {
     slug: "shopify-development-vs-custom-solutions",
     title: "Shopify Development vs Custom Ecommerce: Choosing the Right Solution",
-    excerpt: "Confused between Shopify and custom development? We break down the pros, cons, costs, and when to choose each option for your store from an expert agency.",
+    excerpt: "Confused between Shopify and custom development? We break down the pros, cons, costs, and when to choose each option for your store with guidance from an experienced development team.",
     date: "June 25, 2026",
     readTime: "13 min",
     category: "Shopify Development",
