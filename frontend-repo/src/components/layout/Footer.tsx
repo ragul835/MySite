@@ -133,8 +133,8 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-primary shrink-0 mt-0.5" aria-hidden="true" />
-                <a href="mailto:ragulsiva@zohomail.in" className="hover:text-primary transition-colors">
-                  ragulsiva@zohomail.in
+                <a href="mailto:contact@weraisetech.com" className="hover:text-primary transition-colors">
+                  contact@weraisetech.com
                 </a>
               </li>
               <li className="flex items-start gap-3">

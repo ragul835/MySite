@@ -7,7 +7,7 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph.png`;
 export const DEFAULT_OG_IMAGE_WIDTH = 1730;
 export const DEFAULT_OG_IMAGE_HEIGHT = 909;
 export const DEFAULT_OG_IMAGE_TYPE = "image/png";
-export const CONTACT_EMAIL = "ragulsiva@zohomail.in";
+export const CONTACT_EMAIL = "contact@weraisetech.com";
 export const CONTACT_PHONE = "+919080163393";
 export const LOCALE = "en_US";
 

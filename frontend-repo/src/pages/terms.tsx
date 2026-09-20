@@ -163,7 +163,7 @@ If any conflict exists between these website Terms and a signed client agreement
     content: `For questions about these Terms & Conditions, proposals, or existing engagements:
 
 We Raise Tech
-Email: ragulsiva@zohomail.in
+Email: contact@weraisetech.com
 Phone / WhatsApp: +91 9080163393
 Location: India
 

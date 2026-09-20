@@ -594,10 +594,10 @@ function CTASection() {
               Start Your Project <ArrowRight className="w-5 h-5 ml-2 inline" />
             </GradientButton>
             <a
-              href="mailto:ragulsiva@zohomail.in"
+              href="mailto:contact@weraisetech.com"
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              or email ragulsiva@zohomail.in →
+              or email contact@weraisetech.com →
             </a>
           </div>
         </AnimateOnScroll>

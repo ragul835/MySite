@@ -6,3 +6,8 @@ dist/
 .replit-artifact
 .frontend.pid
 frontend.log
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

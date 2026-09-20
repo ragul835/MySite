@@ -136,7 +136,7 @@ We encourage you to review this page periodically. Material changes will be comm
     content: `If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
 
 We Raise Tech
-Email: ragulsiva@zohomail.in
+Email: contact@weraisetech.com
 Phone / WhatsApp: +91 9080163393
 Location: India
 

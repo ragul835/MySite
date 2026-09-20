@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "weraisetech-api",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-09-20",
+  "observability": { "enabled": true },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "weraisetech-production",
+      "database_id": "960a8ded-622e-44f1-a528-9df915cdd3df",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "FRONTEND_ORIGINS": "https://weraisetech.com,https://www.weraisetech.com,https://weraisetech-web.ragulrs369.workers.dev",
+    "ADMIN_EMAIL": "contact@weraisetech.com",
+    "CONTACT_FROM_EMAIL": "We Raise Tech <contact@weraisetech.com>"
+  },
+  "routes": [
+    { "pattern": "api.weraisetech.com", "custom_domain": true }
+  ]
+}

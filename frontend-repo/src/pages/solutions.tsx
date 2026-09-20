@@ -363,7 +363,7 @@ export default function SolutionsPage() {
               <GradientButton id="solutions-cta-start-project" href="/contact#contact-form" className="px-10 py-4 text-base font-semibold animate-glow-pulse">
                 Start a Conversation <ArrowRight className="w-4 h-4 ml-2 inline" />
               </GradientButton>
-              <a href="mailto:ragulsiva@zohomail.in" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:contact@weraisetech.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 or email us directly →
               </a>
             </div>

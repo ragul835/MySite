@@ -35,7 +35,7 @@ const services = [
 ];
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "ragulsiva@zohomail.in", href: "mailto:ragulsiva@zohomail.in" },
+  { icon: Mail, label: "Email", value: "contact@weraisetech.com", href: "mailto:contact@weraisetech.com" },
   { icon: Phone, label: "WhatsApp", value: "+91 9080163393", href: "tel:+919080163393" },
   { icon: MapPin, label: "Location", value: "India", href: null },
   { icon: Clock, label: "Response Time", value: "Within 24 hours", href: null },
@@ -282,8 +282,8 @@ export default function ContactPage() {
               <div className="premium-card p-6">
                 <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Prefer direct contact?</p>
                 <p className="text-sm leading-relaxed text-muted-foreground">Email our team with your goals, timeline, and preferred technology stack.</p>
-                <a href="mailto:ragulsiva@zohomail.in" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
-                  <Mail className="h-4 w-4" aria-hidden="true" /> ragulsiva@zohomail.in
+                <a href="mailto:contact@weraisetech.com" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+                  <Mail className="h-4 w-4" aria-hidden="true" /> contact@weraisetech.com
                 </a>
               </div>
 
