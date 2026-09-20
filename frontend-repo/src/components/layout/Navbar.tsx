@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, ChevronDown, Layers, ShoppingCart, Layout, Search, Cloud, PenTool, ShoppingBag, Zap, Rocket, ArrowRight, Code, Settings, Smartphone, Terminal, PanelLeftClose } from "lucide-react";
 import { GradientButton } from "../shared/GradientButton";
 import { cn } from "@/lib/utils";
@@ -287,9 +287,12 @@ export function Navbar() {
                   </SheetTrigger>
                   <SheetContent
                     side="left"
-                    className="flex w-[76vw] min-w-[264px] max-w-[304px] flex-col gap-0 border-r border-slate-200 bg-white p-0 text-slate-900 shadow-2xl [&>button]:-right-11 [&>button]:top-4 [&>button]:h-9 [&>button]:w-9 [&>button]:rounded-full [&>button]:bg-black/20 [&>button]:text-white [&>button]:opacity-100 [&>button]:ring-offset-0"
+                    showCloseButton={false}
+                    className="flex w-[76vw] min-w-[264px] max-w-[304px] flex-col gap-0 border-r border-slate-200 bg-white p-0 text-slate-900 shadow-2xl"
                   >
                     <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-100 px-4">
+                      <SheetTitle className="sr-only">Mobile navigation</SheetTitle>
+                      <SheetDescription className="sr-only">Browse services, company pages, and contact options.</SheetDescription>
                       <Link href="/" className="flex min-w-0 items-center gap-2" aria-label="We Raise Tech home">
                         <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-cyan-400/15 via-blue-500/10 to-violet-500/20 ring-1 ring-primary/15">
                           <img src="/we-raise-tech-logo.png" alt="" aria-hidden="true" width={40} height={40} className="h-full w-full scale-105 object-contain" />
