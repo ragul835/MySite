@@ -54,7 +54,9 @@ for (const url of pageUrls) {
   check(/<meta\s+property=["']og:image:width["']/.test(html), `${url}: missing Open Graph image width`);
   check(/<meta\s+property=["']og:image:height["']/.test(html), `${url}: missing Open Graph image height`);
   check(/<meta\s+name=["']twitter:card["']/.test(html), `${url}: missing Twitter card`);
+  check(html.includes('id="app-loading-shell"'), `${url}: missing branded loading shell`);
   check(html.includes('id="static-seo-content"'), `${url}: missing crawlable static route content`);
+  check(/<noscript>[\s\S]*id="static-seo-content"[\s\S]*<\/noscript>/i.test(html), `${url}: static route content must be inside noscript`);
   check(/<h1>[^<]+<\/h1>/.test(html), `${url}: static route content has no H1`);
 
   const jsonLdBlocks = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];

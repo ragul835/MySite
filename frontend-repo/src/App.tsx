@@ -1,8 +1,5 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { AnimatePresence, motion, LazyMotion, domAnimation } from "framer-motion";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
@@ -44,8 +41,6 @@ const BlogPostPage = lazyImport(() => import("@/pages/blog-post"));
 const PortfolioPage = lazyImport(() => import("@/pages/portfolio"));
 const SamosaSheetCaseStudyPage = lazyImport(() => import("@/pages/samosasheet-case-study"));
 const NotFound = lazyImport(() => import("@/pages/not-found"));
-
-const queryClient = new QueryClient();
 
 function RouteLogger() {
   const [location] = useLocation();
@@ -124,14 +119,9 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <Router />
-          </WouterRouter>
-          <Toaster richColors position="top-right" />
-        </TooltipProvider>
-      </QueryClientProvider>
+      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <Router />
+      </WouterRouter>
     </ErrorBoundary>
   );
 }

@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 import {
   Mail, Phone, MapPin,
   ChevronRight, Send, Info, Plus, Minus, Sparkles, ArrowRight, Clock, MessageSquare
@@ -122,6 +122,7 @@ export default function ContactPage() {
 
   return (
     <div className="w-full flex flex-col">
+      <Toaster richColors position="top-right" />
       {/* ── Hero ── */}
       <section className="relative overflow-hidden pb-14 pt-16 sm:pb-16 sm:pt-24 lg:pt-28">
         <div className="absolute inset-0 -z-10">

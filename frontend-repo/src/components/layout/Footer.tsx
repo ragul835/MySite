@@ -76,7 +76,7 @@ export function Footer() {
             >
               <span className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-[1.35rem] bg-white/5 shadow-[0_8px_28px_rgba(37,99,235,0.3)] ring-1 ring-white/15 transition duration-300 group-hover:scale-105 group-hover:ring-cyan-300/40">
                 <img
-                  src="/we-raise-tech-logo.png"
+                  src="/we-raise-tech-logo-128.webp"
                   alt=""
                   aria-hidden="true"
                   width={64}

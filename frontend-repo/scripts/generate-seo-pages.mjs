@@ -14,9 +14,9 @@ const DEFAULT_IMAGE_TYPE = "image/png";
 const coreRoutes = [
   {
     path: "/",
-    title: "Custom Software Development Company | We Raise Tech",
+    title: "Web & Custom Software Development Company | We Raise Tech",
     description:
-      "We Raise Tech builds scalable custom software, web and mobile apps, SaaS platforms, and e-commerce solutions for startups and growing businesses worldwide.",
+      "We Raise Tech builds high-performance websites, custom web applications, scalable software, SaaS platforms, mobile apps, and e-commerce solutions.",
   },
   {
     path: "/about",
@@ -279,13 +279,51 @@ function staticRouteContent(route) {
     ? `<p><time datetime="${route.published}">Published ${route.published}</time></p>`
     : "";
 
-  return `<main id="static-seo-content" style="max-width:72rem;margin:0 auto;padding:4rem 1.5rem;font-family:system-ui,sans-serif;line-height:1.6">
-      <nav aria-label="Breadcrumb">${breadcrumbs}</nav>
-      <h1>${escapeHtml(heading)}</h1>
-      <p>${escapeHtml(route.description)}</p>
-      ${articleDate}
-      <p><a href="/services">Explore our services</a> · <a href="/portfolio">View our portfolio</a> · <a href="/contact">Start a project</a></p>
-    </main>`;
+  const noScriptContent = `<main id="static-seo-content" style="max-width:72rem;margin:0 auto;padding:4rem 1.5rem;font-family:system-ui,sans-serif;line-height:1.6">
+        <nav aria-label="Breadcrumb">${breadcrumbs}</nav>
+        <h1>${escapeHtml(heading)}</h1>
+        <p>${escapeHtml(route.description)}</p>
+        ${articleDate}
+        <p><a href="/services">Explore our services</a> · <a href="/portfolio">View our portfolio</a> · <a href="/contact">Start a project</a></p>
+      </main>`;
+
+  return `<style>
+      @keyframes static-loader-spin { to { transform: rotate(360deg); } }
+      #app-loading-shell {
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        background: #fff;
+        color: #0f172a;
+        font-family: Outfit, system-ui, sans-serif;
+      }
+      #app-loading-shell img { width: 5rem; height: 5rem; object-fit: contain; }
+      #app-loading-shell .loader-ring {
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 2px solid rgba(59, 130, 246, 0.18);
+        border-top-color: #3b82f6;
+        border-radius: 9999px;
+        animation: static-loader-spin 0.75s linear infinite;
+      }
+      @media (prefers-color-scheme: dark) {
+        #app-loading-shell { background: #080b12; color: #f8fafc; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #app-loading-shell .loader-ring { animation-duration: 1.5s; }
+      }
+    </style>
+    <div id="app-loading-shell" role="status" aria-label="Loading We Raise Tech">
+      <img src="/we-raise-tech-logo-128.webp" alt="" width="80" height="80" fetchpriority="high" />
+      <span class="loader-ring" aria-hidden="true"></span>
+    </div>
+    <noscript>
+      <style>#app-loading-shell { display: none !important; }</style>
+      ${noScriptContent}
+    </noscript>`;
 }
 
 function renderRoute(shell, route, { noindex = false } = {}) {

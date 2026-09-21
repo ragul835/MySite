@@ -186,24 +186,24 @@ function HeroSection() {
           <div className="absolute transition-all duration-1000 opacity-30 -inset-px bg-gradient-to-r from-primary via-blue-400 to-secondary rounded-full blur-md group-hover:opacity-60 group-hover:-inset-1 group-hover:duration-200"></div>
           <div className="relative inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-card px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-foreground backdrop-blur-xl transition-all duration-200 sm:gap-2 sm:px-5 sm:text-sm sm:tracking-widest">
             <Sparkles className="w-3.5 h-3.5 text-primary" />
-            Custom Software Development
+            Web &amp; Custom Software Development
           </div>
         </div>
 
         {/* Headline */}
         <h1 className="mb-6 max-w-5xl text-4xl font-heading font-extrabold leading-[1.02] tracking-tighter sm:text-6xl md:text-7xl xl:text-8xl">
-          <span className="text-foreground">We Build Custom</span>
+          <span className="text-foreground">We Build Websites &amp;</span>
           <br />
           <span className="relative">
             <span className="bg-gradient-to-r from-primary via-blue-400 to-secondary bg-clip-text text-transparent animate-gradient">
-              Software That Scales
+              Custom Software That Scales
             </span>
           </span>
         </h1>
 
         <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10">
-          From SaaS platforms and web applications to mobile apps and e-commerce systems,
-          we engineer secure, scalable software that moves your business forward.
+          From high-performance websites and custom web applications to SaaS, mobile, and
+          e-commerce platforms, we build secure digital products that grow with your business.
         </p>
 
         {/* CTAs */}

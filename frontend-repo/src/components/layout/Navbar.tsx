@@ -122,11 +122,12 @@ export function Navbar() {
               <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3.5" aria-label="We Raise Tech home">
                 <span className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-[1.2rem] bg-gradient-to-br from-cyan-400/15 via-blue-500/10 to-violet-500/20 shadow-[0_8px_24px_rgba(59,130,246,0.2)] ring-1 ring-primary/20 transition duration-300 group-hover:scale-105 group-hover:shadow-[0_10px_30px_rgba(99,102,241,0.32)] sm:h-16 sm:w-16 sm:rounded-[1.35rem]">
                   <img
-                    src="/we-raise-tech-logo.png"
+                    src="/we-raise-tech-logo-128.webp"
                     alt=""
                     aria-hidden="true"
                     width={64}
                     height={64}
+                    fetchPriority="high"
                     className="h-full w-full scale-[1.08] object-contain drop-shadow-[0_2px_8px_rgba(59,130,246,0.4)]"
                   />
                 </span>
@@ -295,7 +296,7 @@ export function Navbar() {
                       <SheetDescription className="sr-only">Browse services, company pages, and contact options.</SheetDescription>
                       <Link href="/" className="flex min-w-0 items-center gap-2" aria-label="We Raise Tech home">
                         <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-cyan-400/15 via-blue-500/10 to-violet-500/20 ring-1 ring-primary/15">
-                          <img src="/we-raise-tech-logo.png" alt="" aria-hidden="true" width={40} height={40} className="h-full w-full scale-105 object-contain" />
+                          <img src="/we-raise-tech-logo-128.webp" alt="" aria-hidden="true" width={40} height={40} className="h-full w-full scale-105 object-contain" />
                         </span>
                         <span className="truncate text-base font-extrabold tracking-[-0.04em]">
                           We <span className="text-primary">Raise</span> Tech

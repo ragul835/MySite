@@ -276,9 +276,9 @@ export function itemListJsonLd(
 /** Static SEO copy for top-level routes */
 export const PAGE_SEO = {
   home: {
-    title: "Custom Software Development Company | We Raise Tech",
+    title: "Web & Custom Software Development Company | We Raise Tech",
     description:
-      "We Raise Tech builds scalable custom software, web and mobile apps, SaaS platforms, and e-commerce solutions for startups and growing businesses worldwide.",
+      "We Raise Tech builds high-performance websites, custom web applications, scalable software, SaaS platforms, mobile apps, and e-commerce solutions.",
     path: "/",
     keywords: DEFAULT_KEYWORDS,
   },
