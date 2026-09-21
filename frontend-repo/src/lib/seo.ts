@@ -9,7 +9,10 @@ export const DEFAULT_OG_IMAGE_HEIGHT = 909;
 export const DEFAULT_OG_IMAGE_TYPE = "image/png";
 export const CONTACT_EMAIL = "contact@weraisetech.com";
 export const CONTACT_PHONE = "+919080163393";
-export const INSTAGRAM_URL = "https://www.instagram.com/weraisetech/";
+export const X_URL = "https://x.com/weraisetech";
+export const FACEBOOK_URL = "https://www.facebook.com/share/1CfrkFgdDi/";
+export const INSTAGRAM_URL = "https://www.instagram.com/weraisetech?stkn=bDJla3YxanN2Mmhhand";
+export const SOCIAL_URLS = [X_URL, FACEBOOK_URL, INSTAGRAM_URL];
 export const LOCALE = "en_US";
 
 export const DEFAULT_KEYWORDS = [
@@ -73,7 +76,7 @@ export function organizationJsonLd() {
     knowsAbout: DEFAULT_KEYWORDS,
     email: CONTACT_EMAIL,
     telephone: CONTACT_PHONE,
-    sameAs: [INSTAGRAM_URL],
+    sameAs: SOCIAL_URLS,
     address: {
       "@type": "PostalAddress",
       addressCountry: "IN",
