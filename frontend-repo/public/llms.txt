@@ -1,0 +1,49 @@
+# We Raise Tech
+
+> We Raise Tech is a custom software development company that builds high-performance websites, custom web applications, scalable software, SaaS platforms, mobile apps, and e-commerce solutions for startups and growing businesses.
+
+We Raise Tech specializes in React/Next.js frontends, Node.js/NestJS/Java/Python backends, and cloud-native deployments (AWS, Vercel, Docker). Typical engagements include new product builds, SaaS platforms, e-commerce storefronts, mobile apps, UI/UX design, and technical SEO. Projects are generally delivered in 2-8 weeks depending on scope, and clients retain full ownership of the source code once paid in full.
+
+## Company
+
+- [About Us](https://weraisetech.com/about): Company story, values, and approach to client work.
+- [Contact](https://weraisetech.com/contact): Start a project or book a free consultation call.
+- [Portfolio](https://weraisetech.com/portfolio): Case studies and selected client work.
+- [SamosaSheet Case Study](https://weraisetech.com/portfolio/samosasheet): Detailed case study of the SamosaSheet website project.
+
+## Services
+
+- [All Services](https://weraisetech.com/services): Overview of every service We Raise Tech offers.
+- [Web Development](https://weraisetech.com/services/web-development): Custom websites engineered for performance, responsiveness, and SEO.
+- [Full-Stack Development](https://weraisetech.com/services/full-stack): Modern frontend and backend systems built for scalability and maintainability.
+- [E-Commerce Development](https://weraisetech.com/services/e-commerce): Scalable online stores designed to improve conversions.
+- [SaaS Development](https://weraisetech.com/services/saas): Subscription-based software platforms for long-term growth.
+- [UI/UX Design](https://weraisetech.com/services/ui-ux): User-focused digital experiences that improve engagement and conversions.
+- [SEO Services](https://weraisetech.com/services/seo): Technical and on-page optimization that improves search visibility.
+- [Shopify Development](https://weraisetech.com/services/shopify): Custom, fast, and scalable Shopify stores.
+- [E-Commerce Optimization](https://weraisetech.com/services/ecommerce-optimization): Speed, performance, and conversion-rate improvements.
+- [Website Maintenance & Support](https://weraisetech.com/services/maintenance-support): Ongoing monitoring, updates, and technical support.
+- [Mobile App Development](https://weraisetech.com/services/mobile-app-development): High-performance iOS and Android applications.
+- [Custom Software Development](https://weraisetech.com/services/custom-software-development): Tailor-made software that automates workflows and solves complex problems.
+- [Solutions](https://weraisetech.com/solutions): Industry and use-case focused solution overviews.
+
+## Blog
+
+- [Blog Home](https://weraisetech.com/blog): Engineering guides, SEO, and product-development insights.
+- [Top Web Development Trends in 2026](https://weraisetech.com/blog/top-web-development-trends-2026)
+- [Full-Stack Development Playbook](https://weraisetech.com/blog/full-stack-development-playbook)
+- [Ecommerce Development Best Practices](https://weraisetech.com/blog/ecommerce-development-best-practices)
+- [Scalable SaaS Development Guide](https://weraisetech.com/blog/scalable-saas-development-guide)
+- [Technical SEO Guide for IT Companies](https://weraisetech.com/blog/technical-seo-guide-for-it-companies)
+- [UI/UX Design for Business Growth](https://weraisetech.com/blog/ui-ux-design-for-business-growth)
+- [Shopify Development vs Custom Solutions](https://weraisetech.com/blog/shopify-development-vs-custom-solutions)
+- [E-Commerce Optimization & CRO Guide](https://weraisetech.com/blog/ecommerce-optimization-cro-guide)
+- [Website Maintenance & Support Guide](https://weraisetech.com/blog/website-maintenance-support-guide)
+- [Mobile App Development Guide 2026](https://weraisetech.com/blog/mobile-app-development-guide-2026)
+- [Custom Software Development: When to Build](https://weraisetech.com/blog/custom-software-development-when-to-build)
+
+## Optional
+
+- [Privacy Policy](https://weraisetech.com/privacy)
+- [Terms of Service](https://weraisetech.com/terms)
+- [Sitemap](https://weraisetech.com/sitemap.xml): Full machine-readable list of indexable pages.

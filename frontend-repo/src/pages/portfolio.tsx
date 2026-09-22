@@ -567,7 +567,7 @@ function HeroSection() {
         </p>
 
         {/* Sub-note */}
-        <p className="text-sm text-muted-foreground/60 mb-10 italic">
+        <p className="text-sm text-muted-foreground mb-10 italic">
           Each project below shows the real problem, what we built, and what changed after launch.
         </p>
 
@@ -635,7 +635,7 @@ function CardFooter({ cs }: { cs: CaseStudy }) {
         <Users className="w-3 h-3 shrink-0" aria-hidden="true" />
         <span className="truncate">{cs.teamSize}</span>
       </span>
-      <span className="ml-auto font-semibold text-foreground/40 shrink-0 tabular-nums">{cs.year}</span>
+      <span className="ml-auto font-semibold text-muted-foreground shrink-0 tabular-nums">{cs.year}</span>
     </div>
   );
 }

@@ -135,15 +135,15 @@ export default function AboutPage() {
                       <div className="w-3 h-3 rounded-full bg-red-400/80" />
                       <div className="w-3 h-3 rounded-full bg-amber-400/80" />
                       <div className="w-3 h-3 rounded-full bg-green-400/80" />
-                      <div className="ml-auto text-xs text-muted-foreground/60 font-mono">weraisetech.tsx</div>
+                      <div className="ml-auto text-xs text-muted-foreground font-mono">weraisetech.tsx</div>
                     </div>
                     <div className="space-y-3 font-mono text-sm">
-                      <div className="text-muted-foreground/60"><span className="text-blue-400">const</span> <span className="text-green-400">company</span> = {'{'}</div>
+                      <div className="text-muted-foreground"><span className="text-blue-400">const</span> <span className="text-green-400">company</span> = {'{'}</div>
                       <div className="pl-4 text-muted-foreground"><span className="text-orange-400">name</span>: <span className="text-green-300">"We Raise Tech"</span>,</div>
                       <div className="pl-4 text-muted-foreground"><span className="text-orange-400">focus</span>: <span className="text-green-300">"Digital Products"</span>,</div>
                       <div className="pl-4 text-muted-foreground"><span className="text-orange-400">services</span>: [<span className="text-green-300">"Web"</span>, <span className="text-green-300">"Mobile"</span>, <span className="text-green-300">"Custom"</span>, <span className="text-green-300">"Support"</span>],</div>
                       <div className="pl-4 text-muted-foreground"><span className="text-orange-400">support</span>: <span className="text-green-300">"24/7"</span>,</div>
-                      <div className="text-muted-foreground/60">{'}'}</div>
+                      <div className="text-muted-foreground">{'}'}</div>
                     </div>
                   </div>
                 </div>
@@ -344,7 +344,7 @@ export default function AboutPage() {
             {approachSteps.map((item, i) => (
               <AnimateOnScroll key={item.step} delay={i * 0.1}>
                 <div className="premium-card p-7 group h-full overflow-hidden">
-                  <div className="text-[5rem] font-heading font-black text-primary/5 absolute -top-4 -right-2 select-none leading-none group-hover:text-primary/10 transition-colors">
+                  <div className="text-[5rem] font-heading font-black text-primary/5 absolute -top-4 -right-2 select-none leading-none group-hover:text-primary/10 transition-colors" aria-hidden="true">
                     {item.step}
                   </div>
                   <div className="relative z-10">

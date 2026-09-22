@@ -24,6 +24,8 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
+    target: "es2022",
+    cssTarget: "es2022",
     rollupOptions: {
       output: {
         manualChunks(id) {

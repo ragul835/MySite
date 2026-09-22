@@ -129,7 +129,7 @@ function HeroSection() {
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-secondary/10 blur-[120px] pointer-events-none -z-10 animate-orb-drift delay-700" />
 
       {/* ── Decorative Floating Elements ── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10" aria-hidden="true">
         {/* Top Left Floating Code Block */}
         <div className="absolute top-[15%] left-[5%] md:left-[10%] animate-float-slow hidden md:block">
           <div className="premium-card p-4 rounded-xl rotate-[-6deg] opacity-70 scale-90">
@@ -374,7 +374,7 @@ function ProcessSection() {
             {processSteps.map((step, i) => (
               <AnimatedItem key={step.num}>
                 <div className="premium-card p-6 h-full group-hover:border-primary/40 group-hover:shadow-[0_16px_40px_hsl(var(--primary)/0.08)]">
-                  <div className="text-5xl font-heading font-black text-primary/8 mb-4 select-none leading-none">
+                  <div className="text-5xl font-heading font-black text-primary/8 mb-4 select-none leading-none" aria-hidden="true">
                     {step.num}
                   </div>
                   <h3 className="text-base font-heading font-bold text-foreground mb-2">{step.title}</h3>
