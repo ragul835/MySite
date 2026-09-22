@@ -5,6 +5,11 @@ import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import { useEffect, lazy, Suspense } from "react";
 import logger from "@/lib/logger";
+// Eagerly bundled (not lazy): this is the landing route most visits hit first.
+// Loading it through Suspense meant the tiny fallback spinner got replaced by
+// ~10,000px of real content in one frame once the chunk arrived, moving the
+// footer by that same distance and accounting for the entire CLS score.
+import HomePage from "@/pages/home";
 
 // Helper to automatically retry loading a chunk if it fails due to a new deployment
 const lazyImport = (importFunc: () => Promise<any>) => {
@@ -28,7 +33,6 @@ const lazyImport = (importFunc: () => Promise<any>) => {
   });
 };
 
-const HomePage = lazyImport(() => import("@/pages/home"));
 const AboutPage = lazyImport(() => import("@/pages/about"));
 const ServicesPage = lazyImport(() => import("@/pages/services"));
 const ServiceDetailPage = lazyImport(() => import("@/pages/service-detail"));

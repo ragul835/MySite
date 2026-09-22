@@ -30,10 +30,16 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (!id.includes("node_modules")) return;
+          // @radix-ui packages are intentionally left unassigned here: grouping
+          // them into a shared vendor chunk (or letting the "react" match below
+          // catch "@radix-ui/react-*" package names) forced every route to
+          // download every radix primitive (accordion, select, dialog, ...)
+          // even though a given page only uses one or two. Returning undefined
+          // lets Rollup split each one into the route chunk(s) that actually
+          // import it.
+          if (id.includes("@radix-ui")) return;
           if (id.includes("framer-motion")) return "motion-vendor";
           if (id.includes("lucide-react") || id.includes("react-icons")) return "icons-vendor";
-          if (id.includes("@radix-ui")) return "ui-vendor";
-          if (id.includes("@tanstack")) return "query-vendor";
           if (id.includes("react") || id.includes("scheduler")) return "react-vendor";
         },
       },

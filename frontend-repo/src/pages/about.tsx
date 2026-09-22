@@ -344,9 +344,6 @@ export default function AboutPage() {
             {approachSteps.map((item, i) => (
               <AnimateOnScroll key={item.step} delay={i * 0.1}>
                 <div className="premium-card p-7 group h-full overflow-hidden">
-                  <div className="text-[5rem] font-heading font-black text-primary/5 absolute -top-4 -right-2 select-none leading-none group-hover:text-primary/10 transition-colors" aria-hidden="true">
-                    {item.step}
-                  </div>
                   <div className="relative z-10">
                     <div className="w-9 h-9 rounded-lg border border-primary/20 bg-primary/5 flex items-center justify-center mb-5">
                       <span className="text-xs font-bold text-primary">{item.step}</span>
