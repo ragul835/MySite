@@ -97,7 +97,7 @@ function TechMarquee() {
     <div className="relative overflow-hidden py-10 border-y border-border/30 bg-card/5">
       <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-      <div className="flex gap-10 animate-[marquee_30s_linear_infinite] w-max">
+      <div className="flex gap-10 animate-[marquee_30s_linear_infinite] w-max" aria-hidden="true">
         {[...allTechIcons, ...allTechIcons].map((Icon, i) => (
           <div key={i} className="w-10 h-10 flex items-center justify-center opacity-40 hover:opacity-80 transition-opacity">
             <Icon className="w-8 h-8 text-foreground" />
@@ -129,7 +129,7 @@ function HeroSection() {
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-secondary/10 blur-[120px] pointer-events-none -z-10 animate-orb-drift delay-700" />
 
       {/* ── Decorative Floating Elements ── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10" aria-hidden="true">
         {/* Top Left Floating Code Block */}
         <div className="absolute top-[15%] left-[5%] md:left-[10%] animate-float-slow hidden md:block">
           <div className="premium-card p-4 rounded-xl rotate-[-6deg] opacity-70 scale-90">
@@ -374,7 +374,7 @@ function ProcessSection() {
             {processSteps.map((step, i) => (
               <AnimatedItem key={step.num}>
                 <div className="premium-card p-6 h-full group-hover:border-primary/40 group-hover:shadow-[0_16px_40px_hsl(var(--primary)/0.08)]">
-                  <div className="text-5xl font-heading font-black text-primary/8 mb-4 select-none leading-none">
+                  <div className="text-xs font-bold text-primary mb-4 tracking-widest">
                     {step.num}
                   </div>
                   <h3 className="text-base font-heading font-bold text-foreground mb-2">{step.title}</h3>
@@ -431,7 +431,7 @@ function TechStackSection() {
                         key={tech.name}
                         className="flex items-center gap-2.5 px-5 py-3 rounded-xl border border-border/50 bg-card/40 backdrop-blur-md hover:border-primary/40 hover:bg-primary/5 transition-all group cursor-default"
                       >
-                        <TechIcon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <TechIcon aria-hidden="true" className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                         <span className="text-sm font-medium text-foreground">{tech.name}</span>
                       </div>
                     );

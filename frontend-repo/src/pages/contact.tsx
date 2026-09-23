@@ -184,7 +184,7 @@ export default function ContactPage() {
                       <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/15 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
                         <Icon className="w-4 h-4 text-primary" />
                       </div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 mb-1">{info.label}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">{info.label}</p>
                       {info.href ? (
                         <a href={info.href} data-testid={`link-contact-${info.label.toLowerCase()}`} className="break-words text-sm font-medium text-foreground transition-colors hover:text-primary">
                           {info.value}
@@ -257,7 +257,7 @@ export default function ContactPage() {
                     <div className="space-y-1.5">
                       <Label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-muted-foreground inline-flex items-center gap-1.5">
                         Message <span className="text-destructive">*</span>
-                        <span title="A brief description of your project helps us prepare a better response" className="text-muted-foreground/60">
+                        <span title="A brief description of your project helps us prepare a better response" className="text-muted-foreground">
                           <Info className="w-3 h-3" />
                         </span>
                       </Label>

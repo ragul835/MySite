@@ -196,7 +196,7 @@ export default function ServicesPage() {
         <div className="absolute top-0 right-1/4 w-72 h-72 rounded-full bg-secondary/10 blur-[100px] -z-10 animate-orb-drift delay-500" />
 
         {/* ── Decorative Floating Elements ── */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10" aria-hidden="true">
           {/* Top Right Design Card */}
           <div className="absolute top-[20%] right-[8%] animate-float-slow hidden lg:block">
             <div className="premium-card p-4 rounded-xl rotate-[12deg] opacity-80 flex gap-3 items-center w-48">
@@ -304,7 +304,7 @@ export default function ServicesPage() {
                             { label: "Ideal For", value: service.whoNeedsIt },
                           ].map((item) => (
                             <div key={item.label}>
-                              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 mb-1">{item.label}</p>
+                              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">{item.label}</p>
                               <p className="text-sm text-muted-foreground leading-relaxed">{item.value}</p>
                             </div>
                           ))}
@@ -316,7 +316,7 @@ export default function ServicesPage() {
                               Get started <ArrowRight className="w-3.5 h-3.5" />
                             </span>
                           </Link>
-                          <span className="text-[10px] text-muted-foreground/40 font-mono">
+                          <span className="text-[10px] text-muted-foreground font-mono">
                             {String(i + 1).padStart(2, "0")} / {String(servicesList.length).padStart(2, "0")}
                           </span>
                         </div>

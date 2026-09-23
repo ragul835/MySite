@@ -138,7 +138,7 @@ export function Navbar() {
             </div>
 
             {/* Center Panel: Desktop Nav */}
-            <nav className="hidden flex-none items-center justify-center gap-5 lg:flex xl:gap-8">
+            <nav aria-label="Primary" className="hidden flex-none items-center justify-center gap-5 lg:flex xl:gap-8">
               {NAV_LINKS.map((link) => {
                 const isActive = location === link.href;
 

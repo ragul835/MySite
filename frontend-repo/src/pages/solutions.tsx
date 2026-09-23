@@ -242,7 +242,7 @@ export default function SolutionsPage() {
                   Average project timeline: <span className="text-foreground font-semibold">2 – 8 weeks</span>
                 </span>
               </div>
-              <div className="text-xs text-muted-foreground/60 font-mono tracking-wider">
+              <div className="text-xs text-muted-foreground font-mono tracking-wider">
                 {steps.length} phases · 100% transparent
               </div>
             </div>
