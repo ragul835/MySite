@@ -211,7 +211,7 @@ function HeroSection() {
           <GradientButton href="/contact#contact-form" className="w-full max-w-xs px-8 py-3.5 text-sm font-semibold sm:w-auto">
             Start Your Project <ArrowRight className="w-4 h-4 ml-2 inline" />
           </GradientButton>
-          <Link href="/services" className="w-full max-w-xs sm:w-auto">
+          <Link href="/portfolio" className="w-full max-w-xs sm:w-auto">
             <span className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border/60 bg-card/40 px-8 py-3.5 text-sm font-semibold text-foreground transition-all hover:bg-card/80 sm:w-auto">
               View Our Work <ArrowUpRight className="w-4 h-4" />
             </span>
