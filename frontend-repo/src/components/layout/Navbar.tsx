@@ -7,6 +7,7 @@ import { Menu, ChevronDown, Layers, ShoppingCart, Layout, Search, Cloud, PenTool
 import { GradientButton } from "../shared/GradientButton";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { PopupModal } from "react-calendly";
 
 const NAV_LINKS = [
   { href: "#company", label: "Company", icon: "Building" },
@@ -89,6 +90,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -270,9 +272,9 @@ export function Navbar() {
             <div className="flex items-center justify-end">
               {/* Desktop CTA */}
               <div className="hidden items-center gap-3 lg:flex xl:gap-6">
-                <Link href="/contact" className="text-sm font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1 whitespace-nowrap">
+                <button onClick={() => setIsCalendlyOpen(true)} className="text-sm font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1 whitespace-nowrap cursor-pointer">
                   Book a Free Call <ArrowRight className="h-4 w-4" />
-                </Link>
+                </button>
                 <GradientButton href="/contact#contact-form" className="px-6 py-2 flex items-center gap-1 whitespace-nowrap">
                   Get a Free Estimate <ArrowRight className="h-4 w-4" />
                 </GradientButton>
@@ -360,9 +362,9 @@ export function Navbar() {
                       <GradientButton href="/contact#contact-form" onClick={() => setIsMobileMenuOpen(false)} className="min-h-11 w-full rounded-xl py-2.5 text-sm">
                         Start a Project <ArrowRight className="h-4 w-4" />
                       </GradientButton>
-                      <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="mt-2 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm">
+                      <button onClick={() => { setIsMobileMenuOpen(false); setIsCalendlyOpen(true); }} className="mt-2 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm cursor-pointer">
                         Book a Free Call <ArrowRight className="h-4 w-4" />
-                      </Link>
+                      </button>
                       <p className="mt-3 text-center text-[10px] text-slate-400">Free consultation · Response within 24 hours</p>
                     </div>
                   </SheetContent>
@@ -372,6 +374,15 @@ export function Navbar() {
           </div>
         </Container>
       </motion.header>
+      
+      {isCalendlyOpen && (
+        <PopupModal
+          url="https://calendly.com/weraisetech"
+          onModalClose={() => setIsCalendlyOpen(false)}
+          open={isCalendlyOpen}
+          rootElement={document.getElementById("root") || document.body}
+        />
+      )}
     </>
   );
 }

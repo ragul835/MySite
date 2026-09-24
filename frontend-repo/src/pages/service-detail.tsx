@@ -1,4 +1,6 @@
 import { useParams, Link } from "wouter";
+import { useState } from "react";
+import { PopupModal } from "react-calendly";
 import {
   ChevronRight, ShoppingCart, Layout, Search, Cloud, PenTool,
   ShoppingBag, Zap, Rocket, Code, ArrowRight, CheckCircle,
@@ -37,6 +39,7 @@ const IconMap: Record<string, any> = {
 export default function ServiceDetailPage() {
   const params = useParams();
   const slug = params.slug;
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   const service = SERVICES.find(s => s.slug === slug);
 
@@ -131,9 +134,9 @@ export default function ServiceDetailPage() {
                 <GradientButton href="/contact#contact-form" className="px-8 py-3.5 text-sm font-semibold rounded-full shadow-lg shadow-primary/20">
                   Start Your Project Today
                 </GradientButton>
-                <Link href="/contact" className="px-6 py-3.5 rounded-full text-foreground hover:text-primary transition-colors text-sm font-semibold flex items-center gap-2 group">
+                <button onClick={() => setIsCalendlyOpen(true)} className="px-6 py-3.5 rounded-full text-foreground hover:text-primary transition-colors text-sm font-semibold flex items-center gap-2 group cursor-pointer">
                   Book a Free Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                </button>
               </div>
 
 
@@ -220,9 +223,9 @@ export default function ServiceDetailPage() {
                   <GradientButton href="/contact" className="px-6 py-2.5 text-sm font-semibold rounded-lg shadow-md">
                     Let's Build It <ArrowRight className="w-4 h-4 ml-1 inline" />
                   </GradientButton>
-                  <Link href="/contact" className="text-foreground hover:text-primary transition-colors text-sm font-semibold flex items-center gap-2 group">
+                  <button onClick={() => setIsCalendlyOpen(true)} className="text-foreground hover:text-primary transition-colors text-sm font-semibold flex items-center gap-2 group cursor-pointer">
                     Book a Free Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  </button>
                 </div>
               </div>
             </AnimateOnScroll>
@@ -455,6 +458,15 @@ export default function ServiceDetailPage() {
           </AnimateOnScroll>
         </Container>
       </section>
+
+      {isCalendlyOpen && (
+        <PopupModal
+          url="https://calendly.com/weraisetech"
+          onModalClose={() => setIsCalendlyOpen(false)}
+          open={isCalendlyOpen}
+          rootElement={document.getElementById("root") || document.body}
+        />
+      )}
     </div>
   );
 }

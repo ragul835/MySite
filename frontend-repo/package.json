@@ -76,5 +76,8 @@
     "wouter": "^3.3.5",
     "wrangler": "^4.135.0",
     "zod": "^3.25.76"
+  },
+  "dependencies": {
+    "react-calendly": "^4.4.0"
   }
 }
