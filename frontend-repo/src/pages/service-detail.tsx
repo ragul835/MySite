@@ -461,7 +461,7 @@ export default function ServiceDetailPage() {
 
       {isCalendlyOpen && (
         <PopupModal
-          url="https://calendly.com/weraisetech"
+          url="https://calendly.com/weraisetech/30min"
           onModalClose={() => setIsCalendlyOpen(false)}
           open={isCalendlyOpen}
           rootElement={document.getElementById("root") || document.body}
