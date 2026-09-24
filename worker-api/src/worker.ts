@@ -127,6 +127,76 @@ function notificationContent(input: ContactInput) {
   return { html, text };
 }
 
+function userThankYouContent(input: ContactInput) {
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px;">
+      <h2 style="color: #2563eb;">Thank You for Reaching Out!</h2>
+      <p>Hi ${escapeHtml(input.name)},</p>
+      <p>We've received your message regarding <strong>${escapeHtml(input.service)}</strong> and want to thank you for contacting We Raise Tech.</p>
+      <p>Our team is reviewing your inquiry and will get back to you shortly (usually within 24 hours).</p>
+      <p>Here is a copy of your message:</p>
+      <blockquote style="border-left: 4px solid #e5e7eb; padding-left: 15px; color: #4b5563; margin-left: 0; font-style: italic;">
+        ${escapeHtml(input.message).replace(/\n/g, "<br>")}
+      </blockquote>
+      <br/>
+      <p>Best regards,<br/><strong>The We Raise Tech Team</strong></p>
+    </div>
+  `;
+  const text = `Hi ${input.name},\n\nWe've received your message regarding ${input.service} and want to thank you for contacting We Raise Tech.\nOur team is reviewing your inquiry and will get back to you shortly (usually within 24 hours).\n\nHere is a copy of your message:\n${input.message}\n\nBest regards,\nThe We Raise Tech Team`;
+  return { html, text };
+}
+
+async function sendThankYouEmail(input: ContactInput, env: Env, submissionId: string) {
+  const { html, text } = userThankYouContent(input);
+
+  if (env.EMAIL) {
+    try {
+      await env.EMAIL.send({
+        to: input.email,
+        from: { email: "contact@weraisetech.com", name: "We Raise Tech" },
+        replyTo: env.ADMIN_EMAIL ?? "contact@weraisetech.com",
+        subject: "Thank you for contacting We Raise Tech",
+        html,
+        text,
+      });
+      return;
+    } catch (error) {
+      console.error("Cloudflare thank you email failed; using Resend fallback", {
+        submissionId,
+        error: error instanceof Error ? error.message : "Unknown provider error",
+      });
+    }
+  }
+
+  if (env.RESEND_API_KEY && env.CONTACT_FROM_EMAIL) {
+    const payload = JSON.stringify({
+      from: env.CONTACT_FROM_EMAIL,
+      to: [input.email],
+      subject: "Thank you for contacting We Raise Tech",
+      html,
+      text,
+    });
+
+    try {
+      await fetch(RESEND_URL, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+          "Idempotency-Key": `contact-thankyou/${submissionId}`,
+        },
+        body: payload,
+        signal: AbortSignal.timeout(RESEND_TIMEOUT_MS),
+      });
+    } catch (error) {
+      console.error("Resend thank you email failed", {
+        submissionId,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  }
+}
+
 export async function sendNotification(input: ContactInput, env: Env, submissionId: string) {
   if (!env.RESEND_API_KEY || !env.ADMIN_EMAIL || !env.CONTACT_FROM_EMAIL) {
     throw new Error("Contact email configuration is incomplete");
@@ -182,6 +252,9 @@ export async function sendNotification(input: ContactInput, env: Env, submission
 }
 
 export async function deliverContactNotification(input: ContactInput, env: Env, submissionId: string) {
+  // Await the "Thank you" email to ensure Cloudflare doesn't terminate the worker prematurely
+  await sendThankYouEmail(input, env, submissionId).catch((err) => console.error("Thank you email failed", err));
+
   if (env.EMAIL) {
     try {
       const { html, text } = notificationContent(input);
