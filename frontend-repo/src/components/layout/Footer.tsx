@@ -197,11 +197,11 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <Container>
-          <div className="flex flex-col md:flex-row items-center justify-between py-6 gap-4">
+          <div className="flex flex-col items-center justify-between gap-4 py-6 text-center sm:flex-row sm:text-left">
             <p className="text-xs text-slate-500">
               &copy; {year} We Raise Tech. All rights reserved.
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:justify-end">
               {legalLinks.map((link) => (
                 <Link
                   key={link.href}

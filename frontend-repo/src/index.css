@@ -344,10 +344,28 @@
     overflow-x: clip;
   }
 
+  main,
+  section,
+  article,
+  aside {
+    min-width: 0;
+  }
+
   img,
   video {
     max-width: 100%;
     height: auto;
+  }
+
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+  }
+
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
   }
 
   @media (max-width: 767px) {
@@ -386,6 +404,18 @@
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.8);
   }
+}
+
+.prose {
+  overflow-wrap: anywhere;
+}
+
+.prose table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /**
@@ -591,26 +621,143 @@
     66% { transform: translate(-20px, 15px) scale(0.98); }
   }
 
-  /* ── Hero delivery workflow ── */
-  @keyframes delivery-stage-focus {
-    0%, 100% { opacity: 0.48; transform: translateY(0); }
-    8%, 24% { opacity: 1; transform: translateY(-3px); }
-    34% { opacity: 0.62; transform: translateY(0); }
+  /* ── Delivery workspace micro-interactions ── */
+  @keyframes delivery-label-reveal {
+    from { opacity: 0; transform: translateY(5px); letter-spacing: 0.12em; }
+    to { opacity: 1; transform: translateY(0); letter-spacing: 0.22em; }
   }
-  @keyframes delivery-dot-focus {
-    0%, 100% { background: rgb(15 23 42); border-color: rgb(255 255 255 / 0.2); box-shadow: 0 0 0 rgb(34 211 238 / 0); color: rgb(203 213 225); }
-    8%, 24% { background: rgb(34 211 238); border-color: rgb(103 232 249); box-shadow: 0 0 22px rgb(34 211 238 / 0.5); color: rgb(8 47 73); }
-    34% { background: rgb(15 23 42); border-color: rgb(255 255 255 / 0.2); box-shadow: 0 0 0 rgb(34 211 238 / 0); color: rgb(203 213 225); }
+  @keyframes delivery-title-reveal {
+    from { opacity: 0; transform: translateY(7px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  @keyframes delivery-rail-fill {
-    0% { width: 0; opacity: 0.2; }
-    75%, 92% { width: 100%; opacity: 0.9; }
-    100% { width: 100%; opacity: 0; }
+  @keyframes delivery-status-float {
+    0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgb(52 211 153 / 0); }
+    50% { transform: translateY(-2px); box-shadow: 0 0 18px rgb(52 211 153 / 0.14); }
   }
-  @keyframes delivery-progress-fill {
-    0% { width: 12%; }
-    75%, 92% { width: 88%; }
-    100% { width: 12%; }
+  @keyframes delivery-quality-shine {
+    0%, 78% { transform: translateX(-140%); }
+    96%, 100% { transform: translateX(340%); }
+  }
+  @keyframes delivery-shell-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @keyframes delivery-glow-breathe {
+    0%, 100% { opacity: 0.65; transform: scale(0.98); }
+    50% { opacity: 1; transform: scale(1.04); }
+  }
+  @keyframes delivery-icon-float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-2px) rotate(2deg); }
+  }
+  @keyframes delivery-roadmap-cycle {
+    0%, 100% {
+      opacity: 0.9;
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 0 0 rgb(124 58 237 / 0));
+    }
+    3%, 15% {
+      opacity: 1;
+      transform: translateY(-3px) scale(1.025);
+      filter: drop-shadow(0 5px 10px rgb(124 58 237 / 0.16));
+    }
+    22% {
+      opacity: 0.9;
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 0 0 rgb(124 58 237 / 0));
+    }
+  }
+  @keyframes delivery-roadmap-icon-cycle {
+    0%, 100% {
+      color: rgb(148 163 184);
+      border-color: transparent;
+      background: rgb(30 41 59);
+      box-shadow: 0 0 0 rgb(124 58 237 / 0);
+    }
+    3%, 15% {
+      color: rgb(255 255 255);
+      border-color: transparent;
+      background: linear-gradient(135deg, rgb(124 58 237), rgb(13 148 136));
+      box-shadow: 0 0 0 4px rgb(124 58 237 / 0.08), 0 0 18px rgb(124 58 237 / 0.22);
+    }
+    22% {
+      color: rgb(148 163 184);
+      border-color: transparent;
+      background: rgb(30 41 59);
+      box-shadow: 0 0 0 rgb(124 58 237 / 0);
+    }
+  }
+  @keyframes delivery-connector-cycle {
+    0%, 8% { transform: scaleX(0); }
+    20%, 27% { transform: scaleX(0.33); }
+    39%, 46% { transform: scaleX(0.66); }
+    58%, 95% { transform: scaleX(1); }
+    100% { transform: scaleX(0); }
+  }
+  @keyframes delivery-progress-cycle {
+    0%, 8% { transform: scaleX(0.08); }
+    20%, 27% { transform: scaleX(0.25); }
+    39%, 46% { transform: scaleX(0.5); }
+    58%, 65% { transform: scaleX(0.75); }
+    78%, 96% { transform: scaleX(1); }
+    100% { transform: scaleX(0.08); }
+  }
+  @keyframes delivery-assurance-reveal {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes delivery-text-shimmer {
+    0%, 15% { background-position: 180% 50%; }
+    65%, 100% { background-position: -80% 50%; }
+  }
+  @keyframes delivery-title-glow {
+    0%, 100% { text-shadow: 0 0 0 rgb(125 211 252 / 0); }
+    50% { text-shadow: 0 0 18px rgb(125 211 252 / 0.16); }
+  }
+  @keyframes delivery-subtitle-breathe {
+    0%, 100% { opacity: 0.72; }
+    50% { opacity: 1; }
+  }
+  @keyframes delivery-build-phase-cycle {
+    0%, 38%, 60%, 100% {
+      border-color: transparent;
+      background-color: rgb(167 139 250 / 0.1);
+      box-shadow: 0 0 0 rgb(124 58 237 / 0);
+      transform: translateY(0);
+    }
+    42%, 55% {
+      border-color: transparent;
+      background-color: rgb(167 139 250 / 0.2);
+      box-shadow: 0 0 18px rgb(124 58 237 / 0.22);
+      transform: translateY(-1px);
+    }
+  }
+  @keyframes delivery-roadmap-flow {
+    from { background-position: 180% 50%; }
+    to { background-position: -80% 50%; }
+  }
+  @keyframes delivery-quality-cycle {
+    0%, 76%, 100% {
+      border-color: transparent;
+      box-shadow: 0 0 0 rgb(124 58 237 / 0);
+    }
+    80%, 96% {
+      border-color: transparent;
+      box-shadow: 0 0 22px rgb(124 58 237 / 0.14);
+    }
+  }
+  @keyframes delivery-quality-copy-cycle {
+    0%, 76%, 100% { color: rgb(226 232 240); text-shadow: 0 0 0 rgb(103 232 249 / 0); }
+    80%, 96% { color: rgb(255 255 255); text-shadow: 0 0 12px rgb(103 232 249 / 0.2); }
+  }
+  @keyframes delivery-aurora-orbit {
+    from { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.04); }
+    to { transform: rotate(360deg) scale(1); }
+  }
+  @keyframes delivery-scanline {
+    0%, 100% { opacity: 0.25; transform: scaleX(0.3); }
+    50% { opacity: 0.9; transform: scaleX(1); }
   }
 
   /* ── Rail flowing light ── */
@@ -656,11 +803,50 @@
   .animate-spin-reverse { animation: spin-reverse 16s linear infinite; }
   .animate-blink { animation: blink 1.1s step-end infinite; }
   .animate-orb-drift { animation: orb-drift 12s ease-in-out infinite; }
-  .delivery-stage { animation: delivery-stage-focus 4.6s ease-in-out infinite; }
-  .delivery-stage-dot { animation: delivery-dot-focus 4.6s ease-in-out infinite; animation-delay: inherit; }
-  .delivery-rail { animation: delivery-rail-fill 4.6s ease-in-out infinite; }
-  .delivery-progress { animation: delivery-progress-fill 4.6s ease-in-out infinite; }
-
+  .delivery-workspace-label,
+  .delivery-roadmap-label {
+    color: transparent;
+    background-image: linear-gradient(90deg, rgb(196 181 253), rgb(255 255 255), rgb(103 232 249), rgb(196 181 253));
+    background-size: 250% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+  .delivery-workspace-label {
+    background-position: 0 50%;
+    animation: none;
+  }
+  .delivery-workspace-title {
+    animation: none;
+  }
+  .delivery-workspace-status { animation: delivery-status-float 3.6s ease-in-out 0.8s infinite; }
+  .delivery-workspace-shell { animation: none; }
+  .delivery-workspace-glow { animation: delivery-glow-breathe 5s ease-in-out infinite; }
+  .delivery-workspace-aurora { animation: delivery-aurora-orbit 18s linear infinite; will-change: transform; }
+  .delivery-workspace-scanline { animation: delivery-scanline 4.8s ease-in-out infinite; }
+  .delivery-workspace-icon { animation: delivery-icon-float 4s ease-in-out 0.7s infinite; }
+  .delivery-roadmap-header { animation: delivery-title-reveal 0.6s ease-out 0.35s both; }
+  .delivery-roadmap-label { animation: delivery-text-shimmer 7.2s ease-in-out 0.2s infinite reverse; }
+  .delivery-roadmap-subtitle { animation: delivery-subtitle-breathe 7.2s ease-in-out 0.2s infinite; }
+  .delivery-build-phase { animation: delivery-build-phase-cycle 7.2s ease-in-out infinite; }
+  .delivery-roadmap-progress {
+    background-size: 260% 100%;
+    animation: delivery-connector-cycle 7.2s ease-in-out infinite, delivery-roadmap-flow 7.2s linear infinite;
+  }
+  .delivery-roadmap-step {
+    animation: delivery-roadmap-cycle 7.2s ease-in-out infinite;
+    transform-origin: center top;
+    will-change: transform, opacity, filter;
+  }
+  .delivery-roadmap-icon {
+    animation: delivery-roadmap-icon-cycle 7.2s ease-in-out infinite;
+    will-change: color, border-color, background, box-shadow;
+  }
+  .delivery-assurance-item { animation: delivery-assurance-reveal 0.45s ease-out both; }
+  .delivery-quality-panel { animation: delivery-quality-cycle 7.2s ease-in-out infinite; }
+  .delivery-quality-title { animation: delivery-quality-copy-cycle 7.2s ease-in-out infinite; }
+  .delivery-quality-meta { animation: delivery-quality-copy-cycle 7.2s ease-in-out infinite; }
+  .delivery-quality-progress { animation: delivery-progress-cycle 7.2s ease-in-out infinite; }
+  .delivery-quality-shine { animation: delivery-quality-shine 7.2s ease-in-out infinite; }
   /* Delay utilities */
   .delay-100 { animation-delay: 100ms; }
   .delay-200 { animation-delay: 200ms; }

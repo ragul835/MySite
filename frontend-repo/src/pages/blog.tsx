@@ -234,7 +234,7 @@ export default function BlogPage() {
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+                  className={`min-h-11 rounded-full border px-4 py-2 text-xs font-medium transition-all ${
                     activeCategory === category
                       ? "bg-primary text-primary-foreground border-primary"
                       : "border-border/50 text-muted-foreground hover:border-primary/40 hover:text-primary"
@@ -251,7 +251,7 @@ export default function BlogPage() {
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-border/50 bg-card/40 text-sm focus:outline-none focus:border-primary/50"
+                className="min-h-11 w-full rounded-xl border border-border/50 bg-card/40 py-2 pl-9 pr-3 text-sm focus:border-primary/50 focus:outline-none"
               />
             </div>
           </div>

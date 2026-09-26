@@ -6,6 +6,27 @@ import {
   Smartphone, Target, TrendingUp, Globe, Users, Star,
   ArrowUpRight, Sparkles, MousePointer2, BarChart3, Settings, Terminal
 } from "lucide-react";
+import {
+  SiDocker,
+  SiFastapi,
+  SiFramer,
+  SiGithub,
+  SiJavascript,
+  SiMongodb,
+  SiMysql,
+  SiNestjs,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPython,
+  SiReact,
+  SiSpringboot,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+} from "react-icons/si";
+import { FaAws, FaJava } from "react-icons/fa";
+import type { IconType } from "react-icons";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
@@ -29,22 +50,57 @@ const services = [
   { icon: Terminal, slug: "custom-software-development", title: "Custom Software Development", description: "Tailor-made software solutions that automate workflows and solve complex business problems.", tag: "" },
 ];
 
-const techCategories = [
+type Technology = {
+  name: string;
+  Icon: IconType;
+  color?: string;
+};
+
+type TechnologyCategory = {
+  id: string;
+  label: string;
+  items: Technology[];
+};
+
+const techCategories: TechnologyCategory[] = [
   {
     id: "frontend", label: "Frontend",
-    items: ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion"],
+    items: [
+      { name: "React.js", Icon: SiReact, color: "#149ECA" },
+      { name: "Next.js", Icon: SiNextdotjs },
+      { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
+      { name: "JavaScript", Icon: SiJavascript, color: "#C9A700" },
+      { name: "Tailwind CSS", Icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "Framer Motion", Icon: SiFramer, color: "#0055FF" },
+    ],
   },
   {
     id: "backend", label: "Backend",
-    items: ["Node.js", "NestJS", "Java", "Spring Boot", "Python", "FastAPI"],
+    items: [
+      { name: "Node.js", Icon: SiNodedotjs, color: "#339933" },
+      { name: "NestJS", Icon: SiNestjs, color: "#E0234E" },
+      { name: "Java", Icon: FaJava, color: "#E76F00" },
+      { name: "Spring Boot", Icon: SiSpringboot, color: "#6DB33F" },
+      { name: "Python", Icon: SiPython, color: "#3776AB" },
+      { name: "FastAPI", Icon: SiFastapi, color: "#009688" },
+    ],
   },
   {
     id: "database", label: "Database",
-    items: ["PostgreSQL", "MySQL", "MongoDB"],
+    items: [
+      { name: "PostgreSQL", Icon: SiPostgresql, color: "#4169E1" },
+      { name: "MySQL", Icon: SiMysql, color: "#4479A1" },
+      { name: "MongoDB", Icon: SiMongodb, color: "#47A248" },
+    ],
   },
   {
     id: "cloud", label: "Cloud & DevOps",
-    items: ["AWS", "Vercel", "Docker", "GitHub"],
+    items: [
+      { name: "AWS", Icon: FaAws, color: "#FF9900" },
+      { name: "Vercel", Icon: SiVercel },
+      { name: "Docker", Icon: SiDocker, color: "#2496ED" },
+      { name: "GitHub", Icon: SiGithub },
+    ],
   },
 ];
 
@@ -59,87 +115,151 @@ const faqData = [
   { question: "Will I own the source code?", answer: "Yes. Once fully paid, you retain 100% ownership of all source code and intellectual property." },
 ];
 
-const allTechNames = techCategories.flatMap((category) => category.items);
+const allTechnologies = techCategories.flatMap((category) => category.items);
 
-/* ─── Marquee ─── */
-function TechMarquee() {
+function TechnologyBadge({ technology }: { technology: Technology }) {
+  const { name, Icon, color } = technology;
+
   return (
-    <div className="relative overflow-hidden py-10 border-y border-border/30 bg-card/5">
-      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-      <div className="flex gap-10 animate-[marquee_30s_linear_infinite] w-max" aria-hidden="true">
-        {[...allTechNames, ...allTechNames].map((name, i) => (
-          <div key={`${name}-${i}`} className="flex h-10 items-center justify-center rounded-lg border border-border/40 bg-card/40 px-4 text-xs font-bold text-muted-foreground opacity-70">
-            {name}
-          </div>
-        ))}
-      </div>
+    <div className="group flex h-11 shrink-0 items-center gap-2.5 rounded-xl border border-border/60 bg-card/80 px-4 text-sm font-semibold text-foreground shadow-sm backdrop-blur-sm transition-colors hover:border-primary/35 hover:bg-card">
+      <Icon
+        className="h-[1.125rem] w-[1.125rem] shrink-0 transition-transform duration-200 group-hover:scale-110"
+        style={color ? { color } : undefined}
+        aria-hidden="true"
+      />
+      <span className="whitespace-nowrap">{name}</span>
     </div>
   );
 }
 
+/* ─── Marquee ─── */
+function TechMarquee() {
+  return (
+    <section
+      className="relative overflow-hidden border-y border-border/40 bg-card/10 py-8"
+      aria-label="Technologies and tools we work with"
+    >
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-background to-transparent sm:w-24" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent sm:w-24" />
+      <div className="flex w-max will-change-transform motion-safe:animate-[marquee_36s_linear_infinite] motion-reduce:transform-none hover:[animation-play-state:paused]">
+        {[0, 1].map((copy) => (
+          <div
+            key={copy}
+            className="flex gap-4 pr-4"
+            aria-hidden={copy === 1 ? "true" : undefined}
+          >
+            {allTechnologies.map((technology) => (
+              <TechnologyBadge key={`${copy}-${technology.name}`} technology={technology} />
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 const deliverySteps = [
-  { label: "Discover", detail: "Goals & scope" },
-  { label: "Design", detail: "UX & architecture" },
-  { label: "Build", detail: "Code & quality" },
-  { label: "Launch", detail: "Release & grow" },
+  { label: "Discover", detail: "Goals & scope", Icon: Search },
+  { label: "Design", detail: "UX & architecture", Icon: Palette },
+  { label: "Build", detail: "Code & quality", Icon: Code2 },
+  { label: "Launch", detail: "Release & grow", Icon: Globe },
 ];
 
 function DeliveryWorkspaceCard() {
   return (
-    <div className="relative mx-auto w-full max-w-[31rem] animate-slide-in-right lg:ml-auto">
-      <div className="absolute -inset-5 rounded-[2.5rem] bg-gradient-to-br from-violet-500/15 via-blue-400/10 to-cyan-400/15 blur-2xl" />
-      <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-800 bg-slate-950 p-3 text-white shadow-[0_28px_80px_rgba(15,23,42,0.24)] sm:p-4">
-        <div className="pointer-events-none absolute -left-20 top-0 h-48 w-48 rounded-full bg-violet-600/20 blur-[70px]" />
-        <div className="pointer-events-none absolute -right-20 bottom-0 h-44 w-44 rounded-full bg-cyan-400/15 blur-[70px]" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:32px_32px]" />
+    <div className="relative mx-auto w-full max-w-[32rem] lg:ml-auto">
+      <div className="delivery-workspace-glow absolute -inset-6 rounded-[2.75rem] bg-gradient-to-br from-violet-500/25 via-blue-500/10 to-cyan-400/20 blur-3xl" />
 
-        <div className="relative rounded-[1.25rem] border border-white/10 bg-slate-900/90 p-5 sm:p-6">
-          <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-violet-300">Delivery workspace</p>
-              <h2 className="mt-1.5 text-lg font-bold text-white">Your product, always in view</h2>
-            </div>
-            <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-2.5 py-1 text-[9px] font-bold text-cyan-200">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-300" />
-              Live
-            </div>
-          </div>
+      <div className="delivery-workspace-shell relative overflow-hidden rounded-[2rem] bg-slate-950 text-white shadow-[0_32px_90px_rgba(15,23,42,0.38)]">
+        <div className="delivery-workspace-aurora pointer-events-none absolute -inset-[55%] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0deg,rgba(124,58,237,0.52)_70deg,transparent_135deg,rgba(34,211,238,0.35)_230deg,transparent_305deg)] opacity-30" />
+        <div className="pointer-events-none absolute -left-24 -top-20 h-64 w-64 rounded-full bg-violet-500/15 blur-[80px]" />
+        <div className="pointer-events-none absolute -bottom-28 -right-20 h-64 w-64 rounded-full bg-cyan-400/10 blur-[80px]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:28px_28px]" />
 
-          <div className="relative mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div className="absolute left-[12.5%] right-[12.5%] top-3 hidden h-px bg-white/10 sm:block" aria-hidden="true">
-              <span className="delivery-rail block h-full bg-gradient-to-r from-cyan-300 via-violet-400 to-cyan-300" />
-            </div>
-            {deliverySteps.map((step, index) => (
-              <div
-                key={step.label}
-                className="delivery-stage relative rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5 sm:border-0 sm:bg-transparent sm:p-0"
-                style={{ animationDelay: `${index * 1.15}s` }}
-              >
-                <span className="delivery-stage-dot relative z-10 flex h-6 w-6 items-center justify-center rounded-full border border-white/20 bg-slate-900 text-[9px] font-extrabold text-slate-300">
-                  <CheckCircle className="h-3.5 w-3.5" aria-hidden="true" />
-                </span>
-                <p className="mt-2 text-[11px] font-bold text-white">{step.label}</p>
-                <p className="mt-0.5 text-[9px] leading-3.5 text-slate-400">{step.detail}</p>
+        <div className="relative rounded-[2rem] bg-gradient-to-br from-slate-900/95 via-slate-950/90 to-indigo-950/90 p-5 backdrop-blur-xl sm:p-6">
+          <div className="delivery-workspace-scanline pointer-events-none absolute inset-x-8 top-0 h-px origin-center bg-gradient-to-r from-transparent via-cyan-300/70 to-transparent" aria-hidden="true" />
+          <div className="flex flex-col items-start justify-between gap-3 min-[390px]:flex-row min-[390px]:gap-4">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="delivery-workspace-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-400/10 text-violet-300 shadow-[0_8px_22px_rgba(124,58,237,0.18)] ring-1 ring-inset ring-violet-300/15">
+                <Layers className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <p className="delivery-workspace-label text-[9px] font-bold uppercase tracking-[0.22em] text-violet-700">Delivery workspace</p>
+                <h2 className="delivery-workspace-title mt-1 text-base font-bold leading-snug text-white sm:text-lg">Your product, always in view</h2>
               </div>
-            ))}
-          </div>
-
-          <div className="mt-5 rounded-xl border border-white/10 bg-black/20 p-3.5">
-            <div className="flex items-center justify-between gap-3 text-[10px]">
-              <span className="font-semibold text-slate-200">Quality checks</span>
-              <span className="text-right text-slate-400">Performance · SEO · Security</span>
             </div>
-            <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-white/10">
-              <div className="delivery-progress h-full rounded-full bg-gradient-to-r from-violet-500 via-blue-400 to-cyan-300" />
+            <div className="delivery-workspace-status flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-400/10 px-2.5 py-1.5 text-[9px] font-bold text-emerald-300 ring-1 ring-inset ring-emerald-300/20">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" aria-hidden="true" />
+              On track
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            {["Weekly demos", "Clean handoff", "Launch support"].map((item) => (
-              <div key={item} className="flex min-h-12 items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.035] px-2.5 text-[9px] font-semibold text-slate-300">
-                <CheckCircle className="h-3 w-3 shrink-0 text-cyan-300" />
-                {item}
+          <div className="mt-5 overflow-hidden rounded-2xl bg-white/[0.055] shadow-[0_14px_36px_rgba(0,0,0,0.14)] ring-1 ring-inset ring-white/[0.07]">
+            <div className="delivery-roadmap-header flex items-center justify-between gap-3 bg-white/[0.035] px-4 py-3">
+              <div>
+                <p className="delivery-roadmap-label text-[9px] font-bold uppercase tracking-[0.18em] text-violet-700">Product roadmap</p>
+                <p className="delivery-roadmap-subtitle mt-0.5 text-xs font-semibold text-slate-300">A clear path from idea to launch</p>
+              </div>
+              <span className="delivery-build-phase flex shrink-0 items-center gap-1.5 rounded-full bg-violet-400/10 px-2.5 py-1 text-[9px] font-bold text-violet-200 ring-1 ring-inset ring-violet-300/15">
+                <Code2 className="h-3 w-3" aria-hidden="true" />
+                Build phase
+              </span>
+            </div>
+
+            <div className="relative">
+              <div className="absolute left-[12.5%] right-[12.5%] top-[2rem] hidden h-px bg-white/10 min-[440px]:block" aria-hidden="true">
+                <span className="delivery-roadmap-progress block h-full w-full origin-left bg-gradient-to-r from-emerald-400 via-violet-400 to-cyan-300" />
+              </div>
+              <ol className="relative grid grid-cols-2 gap-x-3 gap-y-5 px-4 py-4 min-[440px]:grid-cols-4 min-[440px]:gap-2">
+                {deliverySteps.map((step, index) => {
+                  const Icon = step.Icon;
+                  const animationDelay = `${0.2 + index * 1.4}s`;
+
+                  return (
+                    <li
+                      key={step.label}
+                      className="delivery-roadmap-step relative min-w-0"
+                      style={{ animationDelay }}
+                    >
+                      <div className="flex items-center justify-between min-[440px]:justify-start">
+                        <span
+                          className="delivery-roadmap-icon relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-slate-400 shadow-sm"
+                          style={{ animationDelay }}
+                        >
+                          <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                        </span>
+                        <span className="text-[9px] font-bold tabular-nums text-slate-500 min-[440px]:hidden">0{index + 1}</span>
+                      </div>
+                      <p className="mt-2 text-xs font-bold text-white">{step.label}</p>
+                      <p className="mt-0.5 text-[9px] font-medium leading-4 text-slate-400 sm:text-[10px]">{step.detail}</p>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          </div>
+
+          <div className="delivery-quality-panel mt-3 rounded-xl bg-black/20 px-4 py-3.5 shadow-[0_14px_30px_rgba(0,0,0,0.12)] ring-1 ring-inset ring-white/[0.06]">
+            <div className="flex flex-col gap-1 min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between">
+              <span className="delivery-quality-title text-[10px] font-semibold text-slate-200">Quality built into every release</span>
+              <span className="delivery-quality-meta text-[9px] font-medium text-slate-400">Performance · SEO · Security</span>
+            </div>
+            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+              <div className="delivery-quality-progress relative h-full w-full origin-left overflow-hidden rounded-full bg-gradient-to-r from-teal-400 via-violet-400 to-fuchsia-400">
+                <span className="delivery-quality-shine absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 pt-2">
+            {["Weekly demos", "Clean handoff", "Launch support"].map((item, index) => (
+              <div
+                key={item}
+                className="delivery-assurance-item flex min-h-7 items-center gap-1.5 rounded-full bg-white/[0.055] px-2.5 text-[9px] font-semibold text-slate-300 shadow-[0_6px_18px_rgba(0,0,0,0.1)] ring-1 ring-inset ring-white/[0.06]"
+                style={{ animationDelay: `${0.95 + index * 0.1}s` }}
+              >
+                <CheckCircle className="h-3 w-3 shrink-0 text-cyan-300" aria-hidden="true" />
+                <span>{item}</span>
               </div>
             ))}
           </div>
@@ -152,7 +272,7 @@ function DeliveryWorkspaceCard() {
 /* ─── Hero ─── */
 function HeroSection() {
   return (
-    <section className="relative flex min-h-[calc(100svh-5rem)] items-center overflow-hidden py-12 sm:py-16 lg:py-14">
+    <section className="relative flex items-center overflow-hidden py-10 sm:py-14 lg:min-h-[calc(100svh-5rem)] lg:py-14">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_-10%,hsl(var(--primary)/0.15),transparent)]" />
         <div
@@ -166,7 +286,7 @@ function HeroSection() {
       <div className="pointer-events-none absolute -left-32 top-1/4 -z-10 h-96 w-96 rounded-full bg-primary/10 blur-[120px] animate-orb-drift" />
       <div className="pointer-events-none absolute -right-32 bottom-1/4 -z-10 h-96 w-96 rounded-full bg-secondary/10 blur-[120px] animate-orb-drift delay-700" />
 
-      <Container className="relative z-10 grid w-full items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(27rem,0.92fr)] lg:gap-10 xl:gap-16">
+      <Container className="relative z-10 grid w-full items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(24rem,0.92fr)] lg:gap-8 xl:grid-cols-[minmax(0,1.08fr)_minmax(27rem,0.92fr)] xl:gap-16">
         <div className="text-center lg:text-left">
           <div className="relative mb-7 inline-flex animate-fade-in cursor-default group">
             <div className="absolute -inset-px rounded-full bg-gradient-to-r from-primary via-blue-400 to-secondary opacity-30 blur-md transition-all duration-1000 group-hover:-inset-1 group-hover:opacity-60" />
@@ -176,7 +296,7 @@ function HeroSection() {
             </div>
           </div>
 
-          <h1 className="font-heading text-4xl font-extrabold leading-[1.02] tracking-tighter sm:text-6xl lg:text-[4rem] xl:text-[4.65rem]">
+          <h1 className="font-heading text-4xl font-extrabold leading-[1.04] tracking-tighter sm:text-6xl lg:text-[3.5rem] xl:text-[4.65rem]">
             <span className="text-foreground">Digital Products That Help</span>{" "}
             <span className="bg-gradient-to-r from-primary via-blue-400 to-secondary bg-clip-text text-transparent animate-gradient">
               Your Business Grow
@@ -403,21 +523,26 @@ function TechStackSection() {
                   aria-selected={activeTech === cat.id}
                   key={cat.id}
                   onClick={() => setActiveTech(cat.id)}
-                  className={`px-5 py-2 rounded-full border transition-all text-sm font-medium ${activeTech === cat.id ? "bg-primary text-white border-primary" : "border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40"}`}
+                  className={`min-h-11 rounded-full border px-5 py-2 text-sm font-medium transition-all ${activeTech === cat.id ? "bg-primary text-white border-primary" : "border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40"}`}
                 >
                   {cat.label}
                 </button>
               ))}
             </div>
             <div role="tabpanel" className="flex flex-wrap justify-center gap-3">
-              {activeCategory.items.map((tech) => {
+              {activeCategory.items.map((technology) => {
+                const { name, Icon, color } = technology;
                 return (
                   <div
-                    key={tech}
+                    key={name}
                     className="flex items-center gap-2.5 px-5 py-3 rounded-xl border border-border/50 bg-card/40 backdrop-blur-md hover:border-primary/40 hover:bg-primary/5 transition-all group cursor-default"
                   >
-                    <span className="h-2 w-2 rounded-full bg-primary/70" aria-hidden="true" />
-                    <span className="text-sm font-medium text-foreground">{tech}</span>
+                    <Icon
+                      className="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:scale-110"
+                      style={color ? { color } : undefined}
+                      aria-hidden="true"
+                    />
+                    <span className="text-sm font-medium text-foreground">{name}</span>
                   </div>
                 );
               })}

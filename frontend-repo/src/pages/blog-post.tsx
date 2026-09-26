@@ -359,7 +359,7 @@ export default function BlogPostPage() {
             <p>Technology is table stakes. What separates average implementations from exceptional ones is depth of understanding.</p>
             <p>Businesses that partner with teams who have actually shipped these patterns at scale see dramatically better outcomes—in both user experience and long-term maintainability.</p>
 
-            <div className="not-prose my-10 p-8 bg-muted/40 rounded-2xl border border-border/50">
+            <div className="not-prose my-10 rounded-2xl border border-border/50 bg-muted/40 p-5 sm:p-8">
               <h3 className="font-heading text-2xl font-bold mb-3">Building for 2026 and beyond?</h3>
               <p className="mb-5 text-muted-foreground">Let’s talk about the right architecture and team for your next project.</p>
               <GradientButton href="/contact#contact-form">Get in touch</GradientButton>
@@ -829,7 +829,7 @@ export default function BlogPostPage() {
 
       {/* Main two-column layout matching the reference */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
           {/* Main content column */}
           <div className="lg:col-span-8">
             {/* Featured image */}

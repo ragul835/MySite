@@ -831,7 +831,7 @@ function CaseStudiesSection() {
                 aria-selected={isActive}
                 aria-pressed={isActive}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 sm:px-5 py-2 rounded-full border text-sm font-medium transition-all cursor-pointer whitespace-nowrap ${
+                className={`min-h-11 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-all cursor-pointer sm:px-5 ${
                   isActive
                     ? "bg-primary text-white border-primary shadow-sm shadow-primary/20"
                     : "border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40 hover:text-foreground"
@@ -907,7 +907,7 @@ function TechnologiesSection() {
                   aria-selected={activeTech === cat.id}
                   key={cat.id}
                   onClick={() => setActiveTech(cat.id)}
-                  className={`px-4 sm:px-5 py-2 rounded-full border transition-all text-sm font-medium ${activeTech === cat.id ? "bg-primary text-white border-primary" : "border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40"}`}
+                  className={`min-h-11 rounded-full border px-4 py-2 text-sm font-medium transition-all sm:px-5 ${activeTech === cat.id ? "bg-primary text-white border-primary" : "border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40"}`}
                 >
                   {cat.label}
                 </button>

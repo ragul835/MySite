@@ -176,7 +176,7 @@ export default function ContactPage() {
             <span className="text-foreground font-medium">Contact</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16">
             <AnimateOnScroll>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />

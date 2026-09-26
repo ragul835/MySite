@@ -1,4 +1,5 @@
-import React, { lazy, Suspense, useState, useEffect } from "react";
+import React, { lazy, Suspense, useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
 import { Menu, ChevronDown, Layers, ShoppingCart, ShoppingBag, Search, Cloud, PenTool, Rocket, ArrowRight, Code, Settings, Smartphone, Terminal, PanelLeftClose } from "lucide-react";
@@ -78,6 +79,9 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuCloseButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuDialogRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -97,13 +101,36 @@ export function Navbar() {
     if (!isMobileMenuOpen) return;
     const previousOverflow = document.body.style.overflow;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsMobileMenuOpen(false);
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const focusable = Array.from(
+        mobileMenuDialogRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      ).filter((element) => element.offsetParent !== null);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", closeOnEscape);
+    const focusFrame = window.requestAnimationFrame(() => mobileMenuCloseButtonRef.current?.focus());
     return () => {
+      window.cancelAnimationFrame(focusFrame);
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", closeOnEscape);
+      mobileMenuButtonRef.current?.focus();
     };
   }, [isMobileMenuOpen]);
 
@@ -199,7 +226,7 @@ export function Navbar() {
                         "absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-300 transform",
                         hoveredMenu === link.label ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"
                       )}>
-                        <div className="w-[850px] max-h-[450px] bg-background border border-border/50 rounded-2xl shadow-2xl flex overflow-hidden">
+                        <div className="flex max-h-[min(450px,calc(100vh-7rem))] w-[min(850px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-border/50 bg-background shadow-2xl">
                           {/* Left Panel */}
                           <div className="w-[320px] bg-[#0F172A] p-8 text-white flex flex-col">
                             <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary mb-6">
@@ -280,13 +307,13 @@ export function Navbar() {
 
               {/* Mobile Nav Trigger */}
               <div className="lg:hidden">
-                <button type="button" onClick={() => setIsMobileMenuOpen(true)} className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground transition hover:bg-muted" aria-label="Open navigation menu" aria-expanded={isMobileMenuOpen}>
+                <button ref={mobileMenuButtonRef} type="button" onClick={() => setIsMobileMenuOpen(true)} className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground transition hover:bg-muted" aria-label="Open navigation menu" aria-expanded={isMobileMenuOpen} aria-controls="mobile-navigation-dialog">
                   <Menu className="h-6 w-6" />
                 </button>
-                {isMobileMenuOpen && (
-                  <div className="fixed inset-0 z-[70] lg:hidden">
+                {isMobileMenuOpen && createPortal(
+                  <div className="fixed inset-0 z-[70] h-dvh w-screen lg:hidden">
                     <button type="button" className="absolute inset-0 bg-black/45" onClick={() => setIsMobileMenuOpen(false)} aria-label="Close navigation menu" />
-                    <aside role="dialog" aria-modal="true" aria-labelledby="mobile-nav-title" aria-describedby="mobile-nav-description" className="absolute inset-y-0 left-0 flex w-[76vw] min-w-[264px] max-w-[304px] flex-col gap-0 border-r border-slate-200 bg-white p-0 text-slate-900 shadow-2xl">
+                    <aside ref={mobileMenuDialogRef} id="mobile-navigation-dialog" role="dialog" aria-modal="true" aria-labelledby="mobile-nav-title" aria-describedby="mobile-nav-description" className="animate-slide-in-left absolute inset-y-0 left-0 flex h-dvh w-[min(86vw,22rem)] max-w-[calc(100vw-3rem)] flex-col gap-0 overflow-hidden border-r border-slate-200 bg-white p-0 text-slate-900 shadow-2xl">
                     <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-100 px-4">
                       <span id="mobile-nav-title" className="sr-only">Mobile navigation</span>
                       <span id="mobile-nav-description" className="sr-only">Browse services, company pages, and contact options.</span>
@@ -298,12 +325,12 @@ export function Navbar() {
                           We <span className="text-primary">Raise</span> Tech
                         </span>
                       </Link>
-                      <button type="button" onClick={() => setIsMobileMenuOpen(false)} className="ml-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900" aria-label="Close navigation menu">
+                      <button ref={mobileMenuCloseButtonRef} type="button" onClick={() => setIsMobileMenuOpen(false)} className="ml-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900" aria-label="Close navigation menu">
                         <PanelLeftClose className="h-5 w-5" />
                       </button>
                     </div>
 
-                    <nav className="min-h-0 flex-1 overflow-y-auto px-4 pb-36 pt-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Mobile navigation">
+                    <nav className="min-h-0 flex-1 overscroll-contain overflow-y-auto px-4 pb-36 pt-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Mobile navigation">
                       <div className="flex items-center justify-between px-1">
                         <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">Services</p>
                         <Link href="/services" className="inline-flex min-h-10 items-center gap-1 text-xs font-semibold text-primary">
@@ -360,7 +387,8 @@ export function Navbar() {
                       <p className="mt-3 text-center text-[10px] text-slate-400">Free consultation · Response within 24 hours</p>
                     </div>
                     </aside>
-                  </div>
+                  </div>,
+                  document.body
                 )}
               </div>
             </div>

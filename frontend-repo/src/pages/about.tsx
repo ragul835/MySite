@@ -79,89 +79,127 @@ export default function AboutPage() {
   return (
     <div className="w-full flex flex-col">
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden pb-16 pt-16 sm:pb-20 sm:pt-24 lg:pt-28">
+      <section className="relative isolate overflow-hidden pb-16 pt-12 sm:pb-20 sm:pt-20 lg:min-h-[calc(100svh-5rem)] lg:pt-24">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_30%_0%,hsl(var(--primary)/0.1),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_20%_10%,hsl(var(--primary)/0.13),transparent_65%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_45%_at_90%_65%,hsl(var(--secondary)/0.1),transparent_70%)]" />
           <div
-            className="absolute inset-0 opacity-[0.025]"
+            className="absolute inset-0 opacity-[0.03] [mask-image:linear-gradient(to_bottom,black,transparent_90%)]"
             style={{
               backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground)) 1px,transparent 1px)",
               backgroundSize: "64px 64px",
             }}
           />
         </div>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/8 blur-[120px] -z-10 animate-orb-drift" />
+        <div className="absolute -right-32 top-4 -z-10 h-[34rem] w-[34rem] rounded-full bg-primary/10 blur-[130px] animate-orb-drift" />
+        <div className="absolute -left-40 bottom-0 -z-10 h-80 w-80 rounded-full bg-secondary/10 blur-[110px]" />
 
         <Container>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/40 bg-card/30 text-xs text-muted-foreground mb-10 backdrop-blur-sm">
+          <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-border/40 bg-background/65 px-3 py-1.5 text-xs text-muted-foreground shadow-sm backdrop-blur-md sm:mb-12">
             <Link id="about-breadcrumb-home" href="/" className="hover:text-primary transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-foreground font-medium">About Us</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 xl:gap-24">
             <AnimateOnScroll>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-bold uppercase tracking-widest mb-6">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-primary shadow-[0_8px_30px_hsl(var(--primary)/0.08)]">
                 <Sparkles className="w-3.5 h-3.5" /> Our Story
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-6 text-foreground">
+              <h1 className="mb-6 max-w-2xl font-heading text-4xl font-extrabold leading-[1.02] tracking-tighter text-foreground sm:text-5xl md:text-6xl lg:text-[4.2rem]">
                 Building the{" "}
-                <span className="bg-gradient-to-r from-primary via-blue-400 to-secondary bg-clip-text text-transparent animate-gradient">
+                <span className="bg-gradient-to-r from-primary via-blue-500 to-secondary bg-clip-text text-transparent animate-gradient">
                   Digital Future
                 </span>
               </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
+              <p className="mb-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
                 Your technology partner for building reliable, scalable digital solutions — from startups to growing enterprises.
               </p>
-              <ul className="space-y-3">
+              <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 {coreValues.map((v) => (
-                  <li key={v} className="flex items-start gap-3">
-                    <CheckCircle className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-muted-foreground">{v}</span>
+                  <li key={v} className="flex items-start gap-2.5 rounded-xl bg-card/45 px-3 py-2.5 shadow-[inset_0_0_0_1px_hsl(var(--border)/0.35)] backdrop-blur-sm">
+                    <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span className="text-xs leading-5 text-muted-foreground sm:text-sm">{v}</span>
                   </li>
                 ))}
               </ul>
             </AnimateOnScroll>
 
-            {/* Visual card */}
+            {/* Product delivery dashboard */}
             <AnimateOnScroll delay={0.2}>
-              <div className="relative">
-                {/* Main card */}
-                <div className="relative rounded-3xl border border-border/40 bg-card/60 backdrop-blur-xl p-8 shadow-2xl overflow-hidden">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-bl-full blur-2xl pointer-events-none" />
+              <div className="relative mx-auto w-full max-w-[38rem] pb-2 sm:px-8 sm:py-7 lg:px-0">
+                <div className="absolute inset-8 -z-10 rounded-[2.5rem] bg-gradient-to-br from-primary/30 via-blue-400/20 to-secondary/30 blur-3xl" />
+
+                <div className="relative overflow-hidden rounded-[1.75rem] bg-slate-950 p-5 text-white shadow-[0_35px_90px_rgba(30,41,59,0.3)] sm:p-7">
+                  <div className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full bg-violet-500/25 blur-[80px]" />
+                  <div className="pointer-events-none absolute -bottom-32 -left-24 h-64 w-64 rounded-full bg-cyan-400/15 blur-[80px]" />
+                  <div className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
+
                   <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-3 h-3 rounded-full bg-red-400/80" />
-                      <div className="w-3 h-3 rounded-full bg-amber-400/80" />
-                      <div className="w-3 h-3 rounded-full bg-green-400/80" />
-                      <div className="ml-auto text-xs text-muted-foreground font-mono">weraisetech.tsx</div>
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-950/40">
+                          <Cpu className="h-5 w-5" aria-hidden="true" />
+                        </span>
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-violet-300">Product studio</p>
+                          <p className="mt-0.5 text-sm font-bold text-white sm:text-base">Delivery control center</p>
+                        </div>
+                      </div>
+                      <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-400/10 px-2.5 py-1.5 text-[9px] font-bold text-emerald-300 ring-1 ring-inset ring-emerald-300/20">
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" /> Live
+                      </span>
                     </div>
-                    <div className="space-y-3 font-mono text-sm">
-                      <div className="text-muted-foreground"><span className="text-blue-400">const</span> <span className="text-green-400">company</span> = {'{'}</div>
-                      <div className="pl-4 text-muted-foreground"><span className="text-orange-400">name</span>: <span className="text-green-300">"We Raise Tech"</span>,</div>
-                      <div className="pl-4 text-muted-foreground"><span className="text-orange-400">focus</span>: <span className="text-green-300">"Digital Products"</span>,</div>
-                      <div className="pl-4 text-muted-foreground"><span className="text-orange-400">services</span>: [<span className="text-green-300">"Web"</span>, <span className="text-green-300">"Mobile"</span>, <span className="text-green-300">"Custom"</span>, <span className="text-green-300">"Support"</span>],</div>
-                      <div className="pl-4 text-muted-foreground"><span className="text-orange-400">support</span>: <span className="text-green-300">"24/7"</span>,</div>
-                      <div className="text-muted-foreground">{'}'}</div>
+
+                    <div className="mt-7 rounded-2xl bg-white/[0.06] p-4 ring-1 ring-inset ring-white/10 sm:p-5">
+                      <div className="flex items-end justify-between gap-4">
+                        <div>
+                          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Current sprint</p>
+                          <h2 className="mt-1 text-lg font-bold text-white sm:text-xl">From brief to scalable build</h2>
+                        </div>
+                        <span className="rounded-lg bg-violet-400/10 px-2 py-1 text-[10px] font-bold text-violet-200">03 / 04</span>
+                      </div>
+
+                      <div className="mt-6 grid grid-cols-4 gap-2" aria-label="Project delivery phases">
+                        {["Discover", "Design", "Build", "Launch"].map((phase, index) => (
+                          <div key={phase} className="min-w-0">
+                            <div className={`h-1.5 rounded-full ${index < 3 ? "bg-gradient-to-r from-violet-400 to-cyan-400" : "bg-white/10"}`} />
+                            <p className={`mt-2 truncate text-[9px] font-semibold sm:text-[10px] ${index < 3 ? "text-white" : "text-slate-500"}`}>{phase}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-3 grid grid-cols-2 gap-3">
+                      <div className="rounded-2xl bg-white/[0.06] p-4 ring-1 ring-inset ring-white/10">
+                        <Globe className="h-4 w-4 text-cyan-300" aria-hidden="true" />
+                        <p className="mt-3 text-xl font-extrabold text-white sm:text-2xl">24/7</p>
+                        <p className="mt-0.5 text-[10px] font-medium text-slate-400 sm:text-xs">Global collaboration</p>
+                      </div>
+                      <div className="rounded-2xl bg-white/[0.06] p-4 ring-1 ring-inset ring-white/10">
+                        <Zap className="h-4 w-4 text-violet-300" aria-hidden="true" />
+                        <p className="mt-3 text-xl font-extrabold text-white sm:text-2xl">2–8 wks</p>
+                        <p className="mt-0.5 text-[10px] font-medium text-slate-400 sm:text-xs">Average delivery</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Floating availability card */}
-                <div className="absolute -bottom-6 -left-6 w-40 bg-card/90 border border-border/60 rounded-2xl p-4 backdrop-blur-xl shadow-xl">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                    <span className="text-xs font-bold text-foreground">Available Now</span>
+                <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-0">
+                  <div className="rounded-2xl bg-card/95 p-3.5 shadow-xl ring-1 ring-inset ring-border/50 backdrop-blur-xl sm:absolute sm:-bottom-1 sm:left-0 sm:w-44">
+                    <div className="mb-1.5 flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,.7)] animate-pulse" />
+                      <span className="text-xs font-bold text-foreground">Available now</span>
+                    </div>
+                    <div className="text-[10px] text-muted-foreground sm:text-xs">Taking new projects</div>
                   </div>
-                  <div className="text-xs text-muted-foreground">Taking new projects</div>
-                </div>
-
-                <div className="absolute -top-6 -right-6 w-36 bg-card/90 border border-primary/20 rounded-2xl p-4 backdrop-blur-xl shadow-xl">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-2">
-                    <Zap className="w-4 h-4 text-primary" />
+                  <div className="rounded-2xl bg-card/95 p-3.5 shadow-xl ring-1 ring-inset ring-primary/15 backdrop-blur-xl sm:absolute sm:-right-1 sm:-top-1 sm:w-40">
+                    <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <Shield className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                    <div className="text-xs font-bold text-foreground">Built for scale</div>
+                    <div className="mt-0.5 text-[10px] text-muted-foreground">Secure by design</div>
                   </div>
-                  <div className="text-xs font-bold text-foreground">Fast Delivery</div>
-                  <div className="text-[10px] text-muted-foreground mt-0.5">2–8 weeks avg.</div>
                 </div>
               </div>
             </AnimateOnScroll>
@@ -257,7 +295,7 @@ export default function AboutPage() {
             </div>
 
             {/* Right Graphic - Cascading Core Pillars */}
-            <div className="lg:w-1/2 w-full mt-12 lg:mt-0 relative flex flex-col items-center justify-center min-h-[400px]">
+            <div className="relative mt-8 flex min-h-[340px] w-full flex-col items-center justify-center sm:min-h-[400px] lg:mt-0 lg:w-1/2">
               <AnimateOnScroll delay={0.2} className="w-full max-w-md relative">
                 
                 {/* Background glow */}

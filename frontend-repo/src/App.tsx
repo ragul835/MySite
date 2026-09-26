@@ -124,7 +124,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex flex-col bg-background text-foreground relative">
       <div className="fixed inset-0 bg-dot-grid opacity-[0.15] pointer-events-none" />
       <Navbar />
-      <main id="main-content" className="flex-1 relative z-10 outline-none" tabIndex={-1} role="main">
+      <main id="main-content" className="relative z-10 min-w-0 flex-1 overflow-x-clip outline-none" tabIndex={-1} role="main">
         {children}
       </main>
       <Footer />

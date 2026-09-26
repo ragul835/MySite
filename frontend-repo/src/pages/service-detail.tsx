@@ -109,12 +109,12 @@ export default function ServiceDetailPage() {
   return (
     <div className="w-full flex flex-col">
       {/* ── Hero ── */}
-      <section className="relative pt-32 sm:pt-40 pb-20 lg:pb-32 overflow-hidden bg-slate-50/50 dark:bg-background">
+      <section className="relative overflow-hidden bg-slate-50/50 pb-16 pt-16 dark:bg-background sm:pb-20 sm:pt-24 lg:pb-32 lg:pt-32">
         {/* Dot pattern background */}
         <div className="absolute inset-0 z-0 opacity-[0.15] dark:opacity-10 bg-[radial-gradient(hsl(var(--primary))_1px,transparent_1px)] [background-size:24px_24px]"></div>
 
         <Container className="relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
             {/* Left */}
             <AnimateOnScroll>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/50 bg-background/80 text-xs font-medium text-muted-foreground mb-8">
@@ -124,7 +124,7 @@ export default function ServiceDetailPage() {
                 Service Details
               </div>
 
-              <h1 className="text-5xl lg:text-6xl font-heading font-extrabold tracking-tight leading-[1.1] mb-6 text-foreground">
+              <h1 className="mb-6 font-heading text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
                 {mainTitle} <span className="text-primary">{highlightTitle}</span>
               </h1>
 
@@ -257,7 +257,7 @@ export default function ServiceDetailPage() {
 
               return (
                 <AnimateOnScroll key={idx} delay={idx * 0.1}>
-                  <div className="bg-background rounded-[1.5rem] border border-border/50 p-8 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all h-full flex flex-col group relative overflow-hidden">
+                  <div className="group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-border/50 bg-background p-6 shadow-sm transition-all hover:shadow-xl hover:shadow-primary/5 sm:p-8">
                     <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
