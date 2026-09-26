@@ -1,6 +1,5 @@
 import { Link } from "wouter";
-import { useState, useEffect, useMemo, type ComponentType } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useMemo } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -23,28 +22,6 @@ import {
   Terminal,
   type LucideIcon,
 } from "lucide-react";
-import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-  SiFramer,
-  SiNodedotjs,
-  SiSpringboot,
-  SiPython,
-  SiFastapi,
-  SiNestjs,
-  SiPostgresql,
-  SiMysql,
-  SiMongodb,
-  SiVercel,
-  SiGithub,
-  SiDocker,
-  SiJavascript,
-  SiStripe,
-} from "react-icons/si";
-import { FaAws, FaJava } from "react-icons/fa";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Container } from "@/components/layout/Container";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
@@ -463,46 +440,22 @@ const techCategories = [
   {
     id: "frontend",
     label: "Frontend",
-    items: [
-      { name: "React.js", Icon: SiReact },
-      { name: "Next.js", Icon: SiNextdotjs },
-      { name: "TypeScript", Icon: SiTypescript },
-      { name: "JavaScript", Icon: SiJavascript },
-      { name: "Tailwind CSS", Icon: SiTailwindcss },
-      { name: "Framer Motion", Icon: SiFramer },
-    ],
+    items: ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion"],
   },
   {
     id: "backend",
     label: "Backend",
-    items: [
-      { name: "Node.js", Icon: SiNodedotjs },
-      { name: "NestJS", Icon: SiNestjs },
-      { name: "Java", Icon: FaJava },
-      { name: "Spring Boot", Icon: SiSpringboot },
-      { name: "Python", Icon: SiPython },
-      { name: "FastAPI", Icon: SiFastapi },
-    ],
+    items: ["Node.js", "NestJS", "Java", "Spring Boot", "Python", "FastAPI"],
   },
   {
     id: "database",
     label: "Database",
-    items: [
-      { name: "PostgreSQL", Icon: SiPostgresql },
-      { name: "MySQL", Icon: SiMysql },
-      { name: "MongoDB", Icon: SiMongodb },
-    ],
+    items: ["PostgreSQL", "MySQL", "MongoDB"],
   },
   {
     id: "cloud",
     label: "Cloud & DevOps",
-    items: [
-      { name: "AWS", Icon: FaAws },
-      { name: "Vercel", Icon: SiVercel },
-      { name: "Docker", Icon: SiDocker },
-      { name: "GitHub", Icon: SiGithub },
-      { name: "Stripe", Icon: SiStripe },
-    ],
+    items: ["AWS", "Vercel", "Docker", "GitHub", "Stripe"],
   },
 ];
 
@@ -893,42 +846,22 @@ function CaseStudiesSection() {
         {/* Featured — full width, stacked cleanly */}
         {featured.length > 0 && (
           <div className="flex flex-col gap-5 mb-5">
-            <AnimatePresence mode="popLayout">
-              {featured.map((cs) => (
-                <motion.div
-                  key={cs.id}
-                  layout
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
-                  className="w-full"
-                >
-                  <FeaturedCard cs={cs} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            {featured.map((cs) => (
+              <div key={cs.id} className="w-full">
+                <FeaturedCard cs={cs} />
+              </div>
+            ))}
           </div>
         )}
 
         {/* Regular grid — equal columns */}
         {regular.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 items-stretch">
-            <AnimatePresence mode="popLayout">
-              {regular.map((cs) => (
-                <motion.div
-                  key={cs.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.25 }}
-                  className="h-full min-h-0"
-                >
-                  <RegularCard cs={cs} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            {regular.map((cs) => (
+              <div key={cs.id} className="h-full min-h-0">
+                <RegularCard cs={cs} />
+              </div>
+            ))}
           </div>
         )}
 
@@ -944,6 +877,9 @@ function CaseStudiesSection() {
 
 /* ─── Technologies ─── */
 function TechnologiesSection() {
+  const [activeTech, setActiveTech] = useState(techCategories[0].id);
+  const activeCategory = techCategories.find((category) => category.id === activeTech) ?? techCategories[0];
+
   return (
     <section className="py-20 md:py-28">
       <Container>
@@ -962,42 +898,37 @@ function TechnologiesSection() {
         </AnimateOnScroll>
 
         <AnimateOnScroll>
-          <Tabs defaultValue="frontend" className="w-full">
-            <TabsList className="flex flex-wrap justify-center gap-2 h-auto bg-transparent mb-8 md:mb-10 p-0">
+          <div className="w-full">
+            <div role="tablist" aria-label="Technology categories" className="flex flex-wrap justify-center gap-2 h-auto bg-transparent mb-8 md:mb-10 p-0">
               {techCategories.map((cat) => (
-                <TabsTrigger
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={activeTech === cat.id}
                   key={cat.id}
-                  value={cat.id}
-                  className="px-4 sm:px-5 py-2 rounded-full border border-border/50 bg-card/30 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:border-primary transition-all text-sm font-medium"
+                  onClick={() => setActiveTech(cat.id)}
+                  className={`px-4 sm:px-5 py-2 rounded-full border transition-all text-sm font-medium ${activeTech === cat.id ? "bg-primary text-white border-primary" : "border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40"}`}
                 >
                   {cat.label}
-                </TabsTrigger>
+                </button>
               ))}
-            </TabsList>
-            {techCategories.map((cat) => (
-              <TabsContent key={cat.id} value={cat.id} className="mt-0">
-                <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 max-w-4xl mx-auto">
-                  {cat.items.map((tech) => {
-                    const TechIcon = tech.Icon as ComponentType<{ className?: string }>;
-                    return (
-                      <div
-                        key={tech.name}
-                        className="flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl border border-border/50 bg-card/40 backdrop-blur-md hover:border-primary/40 hover:bg-primary/5 transition-all group cursor-default"
-                      >
-                        <TechIcon
-                          className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0"
-                          aria-hidden="true"
-                        />
-                        <span className="text-sm font-medium text-foreground whitespace-nowrap">
-                          {tech.name}
-                        </span>
-                      </div>
-                    );
-                  })}
+            </div>
+            <div role="tabpanel" className="flex flex-wrap justify-center gap-2.5 sm:gap-3 max-w-4xl mx-auto">
+              {activeCategory.items.map((tech) => {
+                return (
+                  <div
+                    key={tech}
+                    className="flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl border border-border/50 bg-card/40 backdrop-blur-md hover:border-primary/40 hover:bg-primary/5 transition-all group cursor-default"
+                  >
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-primary/70" aria-hidden="true" />
+                    <span className="text-sm font-medium text-foreground whitespace-nowrap">
+                      {tech}
+                    </span>
+                  </div>
+                );
+              })}
                 </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+          </div>
         </AnimateOnScroll>
       </Container>
     </section>

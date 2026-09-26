@@ -10,6 +10,31 @@ const DEFAULT_IMAGE = "/opengraph.png";
 const DEFAULT_IMAGE_WIDTH = 1730;
 const DEFAULT_IMAGE_HEIGHT = 909;
 const DEFAULT_IMAGE_TYPE = "image/png";
+const manifest = JSON.parse(await readFile(new URL(".vite/manifest.json", DIST_DIR), "utf8"));
+
+function routeModulePath(path) {
+  if (path === "/") return "src/pages/home.tsx";
+  if (path === "/about") return "src/pages/about.tsx";
+  if (path === "/services") return "src/pages/services.tsx";
+  if (path.startsWith("/services/")) return "src/pages/service-detail.tsx";
+  if (path === "/solutions") return "src/pages/solutions.tsx";
+  if (path === "/contact") return "src/pages/contact.tsx";
+  if (path === "/thank-you") return "src/pages/thank-you.tsx";
+  if (path === "/privacy") return "src/pages/privacy.tsx";
+  if (path === "/terms") return "src/pages/terms.tsx";
+  if (path === "/blog") return "src/pages/blog.tsx";
+  if (path.startsWith("/blog/")) return "src/pages/blog-post.tsx";
+  if (path === "/portfolio/samosasheet") return "src/pages/samosasheet-case-study.tsx";
+  if (path === "/portfolio") return "src/pages/portfolio.tsx";
+  return "src/pages/not-found.tsx";
+}
+
+function routeModulePreload(path) {
+  const entry = manifest[routeModulePath(path)];
+  return entry?.file
+    ? `<link rel="modulepreload" crossorigin href="/${entry.file}">`
+    : "";
+}
 
 const coreRoutes = [
   {
@@ -303,6 +328,14 @@ function staticRouteContent(route) {
         55% { transform: translateX(-15%); }
         100% { transform: translateX(100%); }
       }
+      #app-preload-root {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        overflow: auto;
+        background: #fafbff;
+      }
+      #app-preload-root + #root { visibility: hidden; }
       #app-loading-shell {
         min-height: 100svh;
         overflow: hidden;
@@ -377,6 +410,8 @@ function renderRoute(shell, route, { noindex = false } = {}) {
   const canonical = absoluteUrl(route.path);
   const image = `${SITE_URL}${route.image || DEFAULT_IMAGE}`;
   let html = shell.replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtml(route.title)}</title>`);
+  const routePreload = routeModulePreload(route.path);
+  if (routePreload) html = html.replace("</head>", `    ${routePreload}\n  </head>`);
 
   html = replaceMeta(html, "name", "description", route.description);
   html = replaceMeta(html, "name", "robots", noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
@@ -412,7 +447,10 @@ function renderRoute(shell, route, { noindex = false } = {}) {
     html = html.replace("</head>", `    <script type="application/ld+json" data-static-route-jsonld="true">${jsonLd}</script>\n  </head>`);
   }
 
-  html = html.replace('<div id="root"></div>', `<div id="root">${staticRouteContent(route)}</div>`);
+  html = html.replace(
+    '<div id="root"></div>',
+    `<div id="app-preload-root">${staticRouteContent(route)}</div><div id="root"></div>`,
+  );
 
   return html;
 }

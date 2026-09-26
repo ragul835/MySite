@@ -1,7 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
 import { Mail, Phone, MapPin, ArrowRight, Sparkles } from "lucide-react";
-import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 import { FACEBOOK_URL, INSTAGRAM_URL, X_URL } from "@/lib/seo";
 
@@ -39,9 +38,9 @@ const legalLinks = [
 ];
 
 const socialLinks = [
-  { href: X_URL, label: "X", icon: FaXTwitter, testId: "link-footer-x" },
-  { href: FACEBOOK_URL, label: "Facebook", icon: FaFacebookF, testId: "link-footer-facebook" },
-  { href: INSTAGRAM_URL, label: "Instagram", icon: FaInstagram, testId: "link-footer-instagram" },
+  { href: X_URL, label: "X", testId: "link-footer-x" },
+  { href: FACEBOOK_URL, label: "Facebook", testId: "link-footer-facebook" },
+  { href: INSTAGRAM_URL, label: "Instagram", testId: "link-footer-instagram" },
 ];
 
 export function Footer() {
@@ -103,7 +102,7 @@ export function Footer() {
               We Raise Tech is a software engineering company for web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance.
             </p>
             <div className="flex flex-wrap gap-2" aria-label="We Raise Tech social media links">
-              {socialLinks.map(({ href, label, icon: Icon, testId }) => (
+              {socialLinks.map(({ href, label, testId }) => (
                 <a
                   key={label}
                   href={href}
@@ -113,7 +112,6 @@ export function Footer() {
                   data-testid={testId}
                   className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:border-primary/50 hover:text-primary"
                 >
-                  <Icon className="h-4 w-4" aria-hidden="true" />
                   {label}
                 </a>
               ))}

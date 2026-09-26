@@ -55,8 +55,9 @@ for (const url of pageUrls) {
   check(/<meta\s+property=["']og:image:height["']/.test(html), `${url}: missing Open Graph image height`);
   check(/<meta\s+name=["']twitter:card["']/.test(html), `${url}: missing Twitter card`);
   check(html.includes('id="app-loading-shell"'), `${url}: missing branded loading shell`);
+  check(html.includes('id="app-preload-root"'), `${url}: missing persistent pre-rendered loading content`);
   check(html.includes('id="static-seo-content"'), `${url}: missing crawlable static route content`);
-  check(/<div id="root">[\s\S]*id="static-seo-content"[\s\S]*<\/div>/i.test(html), `${url}: static route content must be rendered inside the app root`);
+  check(/<div id="app-preload-root">[\s\S]*id="static-seo-content"[\s\S]*<div id="root"><\/div>/i.test(html), `${url}: static route content must remain visible beside the app root until hydration completes`);
   check(!/<noscript>[\s\S]*id="static-seo-content"[\s\S]*<\/noscript>/i.test(html), `${url}: crawlable route content must not be limited to noscript`);
   check(/<h1>[^<]+<\/h1>/.test(html), `${url}: static route content has no H1`);
 

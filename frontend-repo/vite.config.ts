@@ -24,6 +24,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
+    manifest: true,
     target: "es2022",
     cssTarget: "es2022",
     rollupOptions: {
@@ -39,8 +40,7 @@ export default defineConfig({
           // import it.
           if (id.includes("@radix-ui")) return;
           if (id.includes("framer-motion")) return "motion-vendor";
-          if (id.includes("lucide-react") || id.includes("react-icons")) return "icons-vendor";
-          if (id.includes("react") || id.includes("scheduler")) return "react-vendor";
+          if (/[/\\]node_modules[/\\](react|react-dom|scheduler)[/\\]/.test(id)) return "react-vendor";
         },
       },
     },

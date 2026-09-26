@@ -6,15 +6,6 @@ import {
   Smartphone, Target, TrendingUp, Globe, Users, Star,
   ArrowUpRight, Sparkles, MousePointer2, BarChart3, Settings, Terminal
 } from "lucide-react";
-import {
-  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer,
-  SiNodedotjs, SiSpringboot, SiPython, SiFastapi, SiNestjs,
-  SiPostgresql, SiMysql, SiMongodb,
-  SiVercel, SiGit, SiGithub, SiFigma, SiGooglecloud, SiDocker,
-  SiJavascript, SiStripe
-} from "react-icons/si";
-import { FaAws, FaJava } from "react-icons/fa";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
@@ -41,33 +32,19 @@ const services = [
 const techCategories = [
   {
     id: "frontend", label: "Frontend",
-    items: [
-      { name: "React.js", Icon: SiReact }, { name: "Next.js", Icon: SiNextdotjs },
-      { name: "TypeScript", Icon: SiTypescript }, { name: "JavaScript", Icon: SiJavascript },
-      { name: "Tailwind CSS", Icon: SiTailwindcss }, { name: "Framer Motion", Icon: SiFramer },
-    ],
+    items: ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion"],
   },
   {
     id: "backend", label: "Backend",
-    items: [
-      { name: "Node.js", Icon: SiNodedotjs }, { name: "NestJS", Icon: SiNestjs },
-      { name: "Java", Icon: FaJava }, { name: "Spring Boot", Icon: SiSpringboot },
-      { name: "Python", Icon: SiPython }, { name: "FastAPI", Icon: SiFastapi },
-    ],
+    items: ["Node.js", "NestJS", "Java", "Spring Boot", "Python", "FastAPI"],
   },
   {
     id: "database", label: "Database",
-    items: [
-      { name: "PostgreSQL", Icon: SiPostgresql }, { name: "MySQL", Icon: SiMysql },
-      { name: "MongoDB", Icon: SiMongodb },
-    ],
+    items: ["PostgreSQL", "MySQL", "MongoDB"],
   },
   {
     id: "cloud", label: "Cloud & DevOps",
-    items: [
-      { name: "AWS", Icon: FaAws }, { name: "Vercel", Icon: SiVercel },
-      { name: "Docker", Icon: SiDocker }, { name: "GitHub", Icon: SiGithub },
-    ],
+    items: ["AWS", "Vercel", "Docker", "GitHub"],
   },
 ];
 
@@ -82,11 +59,7 @@ const faqData = [
   { question: "Will I own the source code?", answer: "Yes. Once fully paid, you retain 100% ownership of all source code and intellectual property." },
 ];
 
-const allTechIcons = [
-  SiReact, SiNextdotjs, SiTypescript, SiNodedotjs, SiNestjs, SiPython,
-  SiFastapi, SiPostgresql, SiMysql, SiMongodb, SiDocker, FaAws,
-  SiGithub, SiVercel, SiTailwindcss, SiFramer, SiFigma, SiStripe,
-];
+const allTechNames = techCategories.flatMap((category) => category.items);
 
 /* ─── Marquee ─── */
 function TechMarquee() {
@@ -95,9 +68,9 @@ function TechMarquee() {
       <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
       <div className="flex gap-10 animate-[marquee_30s_linear_infinite] w-max" aria-hidden="true">
-        {[...allTechIcons, ...allTechIcons].map((Icon, i) => (
-          <div key={i} className="w-10 h-10 flex items-center justify-center opacity-40 hover:opacity-80 transition-opacity">
-            <Icon className="w-8 h-8 text-foreground" />
+        {[...allTechNames, ...allTechNames].map((name, i) => (
+          <div key={`${name}-${i}`} className="flex h-10 items-center justify-center rounded-lg border border-border/40 bg-card/40 px-4 text-xs font-bold text-muted-foreground opacity-70">
+            {name}
           </div>
         ))}
       </div>
@@ -399,6 +372,9 @@ function ProcessSection() {
 
 /* ─── Tech Stack ─── */
 function TechStackSection() {
+  const [activeTech, setActiveTech] = useState(techCategories[0].id);
+  const activeCategory = techCategories.find((category) => category.id === activeTech) ?? techCategories[0];
+
   return (
     <section className="py-20 md:py-32 bg-card/5 border-y border-border/30">
       <Container>
@@ -412,37 +388,35 @@ function TechStackSection() {
         </AnimateOnScroll>
 
         <AnimateOnScroll>
-          <Tabs defaultValue="frontend" className="w-full">
-            <TabsList className="flex flex-wrap justify-center gap-2 h-auto bg-transparent mb-10 p-0">
+          <div className="w-full">
+            <div role="tablist" aria-label="Technology categories" className="flex flex-wrap justify-center gap-2 h-auto bg-transparent mb-10 p-0">
               {techCategories.map((cat) => (
-                <TabsTrigger
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={activeTech === cat.id}
                   key={cat.id}
-                  value={cat.id}
-                  className="px-5 py-2 rounded-full border border-border/50 bg-card/30 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:border-primary transition-all text-sm font-medium"
+                  onClick={() => setActiveTech(cat.id)}
+                  className={`px-5 py-2 rounded-full border transition-all text-sm font-medium ${activeTech === cat.id ? "bg-primary text-white border-primary" : "border-border/50 bg-card/30 text-muted-foreground hover:border-primary/40"}`}
                 >
                   {cat.label}
-                </TabsTrigger>
+                </button>
               ))}
-            </TabsList>
-            {techCategories.map((cat) => (
-              <TabsContent key={cat.id} value={cat.id}>
-                <div className="flex flex-wrap justify-center gap-3">
-                  {cat.items.map((tech) => {
-                    const TechIcon = tech.Icon;
-                    return (
-                      <div
-                        key={tech.name}
-                        className="flex items-center gap-2.5 px-5 py-3 rounded-xl border border-border/50 bg-card/40 backdrop-blur-md hover:border-primary/40 hover:bg-primary/5 transition-all group cursor-default"
-                      >
-                        <TechIcon aria-hidden="true" className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                        <span className="text-sm font-medium text-foreground">{tech.name}</span>
-                      </div>
-                    );
-                  })}
+            </div>
+            <div role="tabpanel" className="flex flex-wrap justify-center gap-3">
+              {activeCategory.items.map((tech) => {
+                return (
+                  <div
+                    key={tech}
+                    className="flex items-center gap-2.5 px-5 py-3 rounded-xl border border-border/50 bg-card/40 backdrop-blur-md hover:border-primary/40 hover:bg-primary/5 transition-all group cursor-default"
+                  >
+                    <span className="h-2 w-2 rounded-full bg-primary/70" aria-hidden="true" />
+                    <span className="text-sm font-medium text-foreground">{tech}</span>
+                  </div>
+                );
+              })}
                 </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+          </div>
         </AnimateOnScroll>
       </Container>
     </section>

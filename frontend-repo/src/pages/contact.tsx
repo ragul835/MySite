@@ -1,9 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { Link, useLocation } from "wouter";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Toaster, toast } from "sonner";
 import {
   Mail, Phone, MapPin,
   ChevronRight, Send, Info, Plus, Minus, Sparkles, ArrowRight, Clock, MessageSquare
@@ -11,8 +7,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Container } from "@/components/layout/Container";
 import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
 import logger from "@/lib/logger";
@@ -20,20 +14,26 @@ import { useSEO } from "@/hooks/useDocumentTitle";
 import { PAGE_SEO, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { trackEvent, trackLead } from "@/lib/analytics";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().trim().refine(
-    (value) => {
-      const digits = value.replace(/\D/g, "");
-      return digits.length >= 10 && digits.length <= 15;
-    },
-    "Please enter a valid WhatsApp number",
-  ),
-  service: z.string().min(1, "Please select a service"),
-  message: z.string().min(10, "Please add at least 10 characters"),
-});
-type ContactFormData = z.infer<typeof contactSchema>;
+type ContactFormData = {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  message: string;
+};
+
+type ContactErrors = Partial<Record<keyof ContactFormData, string>>;
+
+function validateContact(data: ContactFormData): ContactErrors {
+  const errors: ContactErrors = {};
+  if (data.name.length < 2) errors.name = "Name must be at least 2 characters";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = "Please enter a valid email address";
+  const phoneDigits = data.phone.replace(/\D/g, "");
+  if (phoneDigits.length < 10 || phoneDigits.length > 15) errors.phone = "Please enter a valid WhatsApp number";
+  if (!data.service) errors.service = "Please select a service";
+  if (data.message.length < 10) errors.message = "Please add at least 10 characters";
+  return errors;
+}
 
 const services = [
   "Full-Stack Web Development",
@@ -68,6 +68,8 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serviceValue, setServiceValue] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [errors, setErrors] = useState<ContactErrors>({});
+  const [submissionError, setSubmissionError] = useState("");
 
   useSEO({
     title: PAGE_SEO.contact.title,
@@ -93,12 +95,9 @@ export default function ContactPage() {
     return () => clearTimeout(timeout);
   }, []);
 
-  const { register, handleSubmit, formState: { errors }, reset, setValue, trigger } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const onSubmit = async (data: ContactFormData) => {
+  const onSubmit = async (data: ContactFormData, form: HTMLFormElement) => {
     setIsSubmitting(true);
+    setSubmissionError("");
     const start = Date.now();
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 8_000);
@@ -115,20 +114,20 @@ export default function ContactPage() {
       let json: Record<string, unknown> = {};
       const text = await res.text();
       if (text) { try { json = JSON.parse(text); } catch {} }
-      if (res.status === 429) { toast.error("Too many requests — please wait a minute."); return; }
+      if (res.status === 429) { setSubmissionError("Too many requests — please wait a minute."); return; }
       if (!res.ok) throw new Error((json.message as string) ?? "Submission failed.");
       trackLead("contact_form", data.service);
-      reset();
+      form.reset();
       setServiceValue("");
       setLocation("/thank-you");
     } catch (err: unknown) {
       logger.error("Contact form submission failed", err);
       if (err instanceof DOMException && err.name === "AbortError") {
-        toast.error("The request timed out. Please try again or email contact@weraisetech.com.");
+        setSubmissionError("The request timed out. Please try again or email contact@weraisetech.com.");
       } else if (err instanceof TypeError) {
-        toast.error("We couldn't reach the contact service. Please try again or email contact@weraisetech.com.");
+        setSubmissionError("We couldn't reach the contact service. Please try again or email contact@weraisetech.com.");
       } else {
-        toast.error(err instanceof Error ? err.message : "Something went wrong.");
+        setSubmissionError(err instanceof Error ? err.message : "Something went wrong.");
       }
     } finally {
       window.clearTimeout(timeout);
@@ -136,9 +135,26 @@ export default function ContactPage() {
     }
   };
 
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const data: ContactFormData = {
+      name: String(formData.get("name") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim().toLowerCase(),
+      phone: String(formData.get("phone") ?? "").trim(),
+      service: String(formData.get("service") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
+    };
+    const nextErrors = validateContact(data);
+    setErrors(nextErrors);
+    setSubmissionError("");
+    if (Object.keys(nextErrors).length > 0) return;
+    void onSubmit(data, form);
+  };
+
   return (
     <div className="w-full flex flex-col">
-      <Toaster richColors position="top-right" />
       {/* ── Hero ── */}
       <section className="relative overflow-hidden pb-14 pt-16 sm:pb-16 sm:pt-24 lg:pt-28">
         <div className="absolute inset-0 -z-10">
@@ -243,49 +259,50 @@ export default function ContactPage() {
                     Fill out the form below and we'll get back to you within 24 hours.
                   </p>
 
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" data-testid="form-contact">
+                  <form onSubmit={handleFormSubmit} noValidate className="space-y-5" data-testid="form-contact">
+                    {submissionError && (
+                      <div role="alert" aria-live="polite" className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+                        {submissionError}
+                      </div>
+                    )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <Label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Name <span className="text-destructive">*</span></Label>
-                        <Input id="name" placeholder="Your name" data-testid="input-name" {...register("name")} className={errors.name ? "border-destructive" : ""} />
-                        {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
+                        <label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Name <span className="text-destructive">*</span></label>
+                        <Input id="name" name="name" autoComplete="name" required minLength={2} placeholder="Your name" data-testid="input-name" aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} className={errors.name ? "border-destructive" : ""} />
+                        {errors.name && <p id="name-error" className="text-xs text-destructive">{errors.name}</p>}
                       </div>
                       <div className="space-y-1.5">
-                        <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Email <span className="text-destructive">*</span></Label>
-                        <Input id="email" type="email" placeholder="your@email.com" data-testid="input-email" {...register("email")} className={errors.email ? "border-destructive" : ""} />
-                        {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+                        <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Email <span className="text-destructive">*</span></label>
+                        <Input id="email" name="email" type="email" autoComplete="email" required placeholder="your@email.com" data-testid="input-email" aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} className={errors.email ? "border-destructive" : ""} />
+                        {errors.email && <p id="email-error" className="text-xs text-destructive">{errors.email}</p>}
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">WhatsApp <span className="text-destructive">*</span></Label>
-                        <Input id="phone" type="tel" inputMode="tel" autoComplete="tel" required placeholder="+91 12345 67890" data-testid="input-phone" {...register("phone")} className={errors.phone ? "border-destructive" : ""} />
-                        {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
+                        <label htmlFor="phone" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">WhatsApp <span className="text-destructive">*</span></label>
+                        <Input id="phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" required placeholder="+91 12345 67890" data-testid="input-phone" aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "phone-error" : undefined} className={errors.phone ? "border-destructive" : ""} />
+                        {errors.phone && <p id="phone-error" className="text-xs text-destructive">{errors.phone}</p>}
                       </div>
                       <div className="space-y-1.5">
-                        <Label className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Service <span className="text-destructive">*</span></Label>
-                        <Select value={serviceValue} onValueChange={(val) => { setServiceValue(val); setValue("service", val); trigger("service"); }}>
-                          <SelectTrigger data-testid="select-service" className={errors.service ? "border-destructive" : ""}>
-                            <SelectValue placeholder="Select a service" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {services.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-                          </SelectContent>
-                        </Select>
-                        {errors.service && <p className="text-xs text-destructive">{errors.service.message}</p>}
+                        <label htmlFor="service" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Service <span className="text-destructive">*</span></label>
+                        <select id="service" name="service" required value={serviceValue} onChange={(event) => { setServiceValue(event.target.value); setErrors((current) => ({ ...current, service: undefined })); }} data-testid="select-service" aria-invalid={!!errors.service} aria-describedby={errors.service ? "service-error" : undefined} className={`flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm outline-none focus:ring-1 focus:ring-ring ${errors.service ? "border-destructive" : "border-input"}`}>
+                          <option value="" disabled>Select a service</option>
+                          {services.map((service) => <option key={service} value={service}>{service}</option>)}
+                        </select>
+                        {errors.service && <p id="service-error" className="text-xs text-destructive">{errors.service}</p>}
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
-                      <Label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-muted-foreground inline-flex items-center gap-1.5">
+                      <label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-muted-foreground inline-flex items-center gap-1.5">
                         Message <span className="text-destructive">*</span>
                         <span title="A brief description of your project helps us prepare a better response" className="text-muted-foreground">
                           <Info className="w-3 h-3" />
                         </span>
-                      </Label>
-                      <Textarea id="message" placeholder="Tell us about your project, timeline, and goals..." rows={5} data-testid="textarea-message" {...register("message")} className={errors.message ? "border-destructive" : ""} />
-                      {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
+                      </label>
+                      <Textarea id="message" name="message" required minLength={10} placeholder="Tell us about your project, timeline, and goals..." rows={5} data-testid="textarea-message" aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-error" : undefined} className={errors.message ? "border-destructive" : ""} />
+                      {errors.message && <p id="message-error" className="text-xs text-destructive">{errors.message}</p>}
                     </div>
 
                     <Button

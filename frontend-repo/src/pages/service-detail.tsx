@@ -1,6 +1,5 @@
 import { useParams, Link } from "wouter";
-import { useState } from "react";
-import { PopupModal } from "react-calendly";
+import { lazy, Suspense, useState } from "react";
 import {
   ChevronRight, ShoppingCart, Layout, Search, Cloud, PenTool,
   ShoppingBag, Zap, Rocket, Code, ArrowRight, CheckCircle,
@@ -29,6 +28,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+const CalendlyPopup = lazy(() => import("@/components/shared/CalendlyPopup"));
 
 const IconMap: Record<string, any> = {
   ShoppingCart, Layout, Search, Cloud, PenTool, ShoppingBag,
@@ -461,12 +462,9 @@ export default function ServiceDetailPage() {
       </section>
 
       {isCalendlyOpen && (
-        <PopupModal
-          url="https://calendly.com/weraisetech/30min"
-          onModalClose={() => setIsCalendlyOpen(false)}
-          open={isCalendlyOpen}
-          rootElement={document.getElementById("root") || document.body}
-        />
+        <Suspense fallback={null}>
+          <CalendlyPopup onClose={() => setIsCalendlyOpen(false)} />
+        </Suspense>
       )}
     </div>
   );

@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, ChevronDown, Layers, ShoppingCart, ShoppingBag, Search, Cloud, PenTool, Rocket, ArrowRight, Code, Settings, Smartphone, Terminal, PanelLeftClose } from "lucide-react";
 import { GradientButton } from "../shared/GradientButton";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { PopupModal } from "react-calendly";
 import { trackEvent } from "@/lib/analytics";
+
+const CalendlyPopup = lazy(() => import("@/components/shared/CalendlyPopup"));
 
 const NAV_LINKS = [
   { href: "#company", label: "Company", icon: "Building" },
@@ -95,15 +93,26 @@ export function Navbar() {
     setHoveredMenu(null);
   }, [location]);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+      <header
         className={cn(
-          "sticky top-0 z-50 w-full transition-all duration-300 bg-background/60 backdrop-blur-2xl border-b border-transparent",
-          isScrolled && "shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-border/40 bg-background/80 backdrop-blur-3xl"
+          "sticky top-0 z-50 w-full transition-all duration-300 bg-background/95 backdrop-blur-md border-b border-transparent",
+          isScrolled && "shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-border/40 bg-background/95"
         )}
       >
         <Container>
@@ -271,20 +280,16 @@ export function Navbar() {
 
               {/* Mobile Nav Trigger */}
               <div className="lg:hidden">
-                <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                  <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-11 w-11 text-foreground" aria-label="Open navigation menu">
-                      <Menu className="h-6 w-6" />
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent
-                    side="left"
-                    showCloseButton={false}
-                    className="flex w-[76vw] min-w-[264px] max-w-[304px] flex-col gap-0 border-r border-slate-200 bg-white p-0 text-slate-900 shadow-2xl"
-                  >
+                <button type="button" onClick={() => setIsMobileMenuOpen(true)} className="inline-flex h-11 w-11 items-center justify-center rounded-md text-foreground transition hover:bg-muted" aria-label="Open navigation menu" aria-expanded={isMobileMenuOpen}>
+                  <Menu className="h-6 w-6" />
+                </button>
+                {isMobileMenuOpen && (
+                  <div className="fixed inset-0 z-[70] lg:hidden">
+                    <button type="button" className="absolute inset-0 bg-black/45" onClick={() => setIsMobileMenuOpen(false)} aria-label="Close navigation menu" />
+                    <aside role="dialog" aria-modal="true" aria-labelledby="mobile-nav-title" aria-describedby="mobile-nav-description" className="absolute inset-y-0 left-0 flex w-[76vw] min-w-[264px] max-w-[304px] flex-col gap-0 border-r border-slate-200 bg-white p-0 text-slate-900 shadow-2xl">
                     <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-100 px-4">
-                      <SheetTitle className="sr-only">Mobile navigation</SheetTitle>
-                      <SheetDescription className="sr-only">Browse services, company pages, and contact options.</SheetDescription>
+                      <span id="mobile-nav-title" className="sr-only">Mobile navigation</span>
+                      <span id="mobile-nav-description" className="sr-only">Browse services, company pages, and contact options.</span>
                       <Link href="/" className="flex min-w-0 items-center gap-2" aria-label="We Raise Tech home">
                         <span className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-cyan-400/15 via-blue-500/10 to-violet-500/20 ring-1 ring-primary/15">
                           <img src="/we-raise-tech-logo-128.webp" alt="" aria-hidden="true" width={40} height={40} className="h-full w-full scale-105 object-contain" />
@@ -293,11 +298,9 @@ export function Navbar() {
                           We <span className="text-primary">Raise</span> Tech
                         </span>
                       </Link>
-                      <SheetClose asChild>
-                        <button type="button" className="ml-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900" aria-label="Close navigation menu">
-                          <PanelLeftClose className="h-5 w-5" />
-                        </button>
-                      </SheetClose>
+                      <button type="button" onClick={() => setIsMobileMenuOpen(false)} className="ml-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900" aria-label="Close navigation menu">
+                        <PanelLeftClose className="h-5 w-5" />
+                      </button>
                     </div>
 
                     <nav className="min-h-0 flex-1 overflow-y-auto px-4 pb-36 pt-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Mobile navigation">
@@ -356,21 +359,19 @@ export function Navbar() {
                       </button>
                       <p className="mt-3 text-center text-[10px] text-slate-400">Free consultation · Response within 24 hours</p>
                     </div>
-                  </SheetContent>
-                </Sheet>
+                    </aside>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </Container>
-      </motion.header>
+      </header>
       
       {isCalendlyOpen && (
-        <PopupModal
-          url="https://calendly.com/weraisetech/30min"
-          onModalClose={() => setIsCalendlyOpen(false)}
-          open={isCalendlyOpen}
-          rootElement={document.getElementById("root") || document.body}
-        />
+        <Suspense fallback={null}>
+          <CalendlyPopup onClose={() => setIsCalendlyOpen(false)} />
+        </Suspense>
       )}
     </>
   );

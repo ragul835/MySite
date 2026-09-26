@@ -1,4 +1,22 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "./App.tsx";
+@source "./pages";
+@source "./components/layout";
+@source "./components/shared";
+@source "./components/ui/accordion.tsx";
+@source "./components/ui/button.tsx";
+@source "./components/ui/dialog.tsx";
+@source "./components/ui/input.tsx";
+@source "./components/ui/label.tsx";
+@source "./components/ui/select.tsx";
+@source "./components/ui/separator.tsx";
+@source "./components/ui/sheet.tsx";
+@source "./components/ui/skeleton.tsx";
+@source "./components/ui/tabs.tsx";
+@source "./components/ui/textarea.tsx";
+@source "./components/ui/toast.tsx";
+@source "./components/ui/toggle.tsx";
+@source "./components/ui/tooltip.tsx";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
@@ -132,6 +150,14 @@
   }
   .premium-card:hover {
     @apply bg-card/90 border-primary/30 shadow-[0_8px_30px_rgb(0,0,0,0.04)] -translate-y-1;
+  }
+}
+
+/* Skip layout and paint work for sections that are still far below the viewport. */
+@supports (content-visibility: auto) {
+  main section:not(:first-child) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
   }
 }
 
