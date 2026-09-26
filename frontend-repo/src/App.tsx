@@ -3,7 +3,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import { FloatingWhatsApp } from "@/components/shared/FloatingWhatsApp";
-import { useEffect, useLayoutEffect, lazy, Suspense, type ComponentType } from "react";
+import HomePage from "@/pages/home";
+import { useEffect, lazy, Suspense, type ComponentType } from "react";
 import logger from "@/lib/logger";
 import { scheduleAnalytics, trackEvent, trackPageView } from "@/lib/analytics";
 
@@ -33,7 +34,6 @@ const lazyImport = (importFunc: PageLoader) => {
 };
 
 const loaders = {
-  home: () => import("@/pages/home"),
   about: () => import("@/pages/about"),
   services: () => import("@/pages/services"),
   serviceDetail: () => import("@/pages/service-detail"),
@@ -49,7 +49,6 @@ const loaders = {
   notFound: () => import("@/pages/not-found"),
 } satisfies Record<string, PageLoader>;
 
-const HomePage = lazyImport(loaders.home);
 const AboutPage = lazyImport(loaders.about);
 const ServicesPage = lazyImport(loaders.services);
 const ServiceDetailPage = lazyImport(loaders.serviceDetail);
@@ -67,7 +66,7 @@ const NotFound = lazyImport(loaders.notFound);
 const prefetched = new Set<PageLoader>();
 
 function loaderForPath(path: string): PageLoader | undefined {
-  if (path === "/") return loaders.home;
+  if (path === "/") return undefined;
   if (path === "/about") return loaders.about;
   if (path === "/services") return loaders.services;
   if (path.startsWith("/services/")) return loaders.serviceDetail;
@@ -142,13 +141,6 @@ function LoadingFallback() {
   );
 }
 
-function RouteReady() {
-  useLayoutEffect(() => {
-    document.getElementById("app-preload-root")?.remove();
-  }, []);
-  return null;
-}
-
 function Router() {
   return (
     <Layout>
@@ -171,7 +163,6 @@ function Router() {
           <Route path="/blog/:slug" component={BlogPostPage} />
           <Route component={NotFound} />
         </Switch>
-        <RouteReady />
       </Suspense>
     </Layout>
   );

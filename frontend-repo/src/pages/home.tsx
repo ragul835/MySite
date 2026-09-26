@@ -78,13 +78,83 @@ function TechMarquee() {
   );
 }
 
+const deliverySteps = [
+  { label: "Discover", detail: "Goals & scope" },
+  { label: "Design", detail: "UX & architecture" },
+  { label: "Build", detail: "Code & quality" },
+  { label: "Launch", detail: "Release & grow" },
+];
+
+function DeliveryWorkspaceCard() {
+  return (
+    <div className="relative mx-auto w-full max-w-[31rem] animate-slide-in-right lg:ml-auto">
+      <div className="absolute -inset-5 rounded-[2.5rem] bg-gradient-to-br from-violet-500/15 via-blue-400/10 to-cyan-400/15 blur-2xl" />
+      <div className="relative overflow-hidden rounded-[1.75rem] border border-slate-800 bg-slate-950 p-3 text-white shadow-[0_28px_80px_rgba(15,23,42,0.24)] sm:p-4">
+        <div className="pointer-events-none absolute -left-20 top-0 h-48 w-48 rounded-full bg-violet-600/20 blur-[70px]" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-44 w-44 rounded-full bg-cyan-400/15 blur-[70px]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:32px_32px]" />
+
+        <div className="relative rounded-[1.25rem] border border-white/10 bg-slate-900/90 p-5 sm:p-6">
+          <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
+            <div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-violet-300">Delivery workspace</p>
+              <h2 className="mt-1.5 text-lg font-bold text-white">Your product, always in view</h2>
+            </div>
+            <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-2.5 py-1 text-[9px] font-bold text-cyan-200">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-300" />
+              Live
+            </div>
+          </div>
+
+          <div className="relative mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="absolute left-[12.5%] right-[12.5%] top-3 hidden h-px bg-white/10 sm:block" aria-hidden="true">
+              <span className="delivery-rail block h-full bg-gradient-to-r from-cyan-300 via-violet-400 to-cyan-300" />
+            </div>
+            {deliverySteps.map((step, index) => (
+              <div
+                key={step.label}
+                className="delivery-stage relative rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5 sm:border-0 sm:bg-transparent sm:p-0"
+                style={{ animationDelay: `${index * 1.15}s` }}
+              >
+                <span className="delivery-stage-dot relative z-10 flex h-6 w-6 items-center justify-center rounded-full border border-white/20 bg-slate-900 text-[9px] font-extrabold text-slate-300">
+                  <CheckCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                </span>
+                <p className="mt-2 text-[11px] font-bold text-white">{step.label}</p>
+                <p className="mt-0.5 text-[9px] leading-3.5 text-slate-400">{step.detail}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 rounded-xl border border-white/10 bg-black/20 p-3.5">
+            <div className="flex items-center justify-between gap-3 text-[10px]">
+              <span className="font-semibold text-slate-200">Quality checks</span>
+              <span className="text-right text-slate-400">Performance · SEO · Security</span>
+            </div>
+            <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-white/10">
+              <div className="delivery-progress h-full rounded-full bg-gradient-to-r from-violet-500 via-blue-400 to-cyan-300" />
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {["Weekly demos", "Clean handoff", "Launch support"].map((item) => (
+              <div key={item} className="flex min-h-12 items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.035] px-2.5 text-[9px] font-semibold text-slate-300">
+                <CheckCircle className="h-3 w-3 shrink-0 text-cyan-300" />
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── Hero ─── */
 function HeroSection() {
   return (
-    <section className="relative flex min-h-[calc(100svh-5rem)] flex-col items-center justify-center overflow-hidden py-14 sm:py-16 lg:py-20">
-      {/* Background layers */}
+    <section className="relative flex min-h-[calc(100svh-5rem)] items-center overflow-hidden py-12 sm:py-16 lg:py-14">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,hsl(var(--primary)/0.15),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_-10%,hsl(var(--primary)/0.15),transparent)]" />
         <div
           className="absolute inset-0 opacity-[0.025]"
           style={{
@@ -93,117 +163,53 @@ function HeroSection() {
           }}
         />
       </div>
+      <div className="pointer-events-none absolute -left-32 top-1/4 -z-10 h-96 w-96 rounded-full bg-primary/10 blur-[120px] animate-orb-drift" />
+      <div className="pointer-events-none absolute -right-32 bottom-1/4 -z-10 h-96 w-96 rounded-full bg-secondary/10 blur-[120px] animate-orb-drift delay-700" />
 
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-primary/10 blur-[120px] pointer-events-none -z-10 animate-orb-drift" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-secondary/10 blur-[120px] pointer-events-none -z-10 animate-orb-drift delay-700" />
-
-      {/* ── Decorative Floating Elements ── */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10" aria-hidden="true">
-        {/* Top Left Floating Code Block */}
-        <div className="absolute top-[15%] left-[5%] md:left-[10%] animate-float-slow hidden md:block">
-          <div className="premium-card p-4 rounded-xl rotate-[-6deg] opacity-70 scale-90">
-            <div className="flex gap-1.5 mb-3">
-              <div className="w-2 h-2 rounded-full bg-red-400/50" />
-              <div className="w-2 h-2 rounded-full bg-amber-400/50" />
-              <div className="w-2 h-2 rounded-full bg-green-400/50" />
-            </div>
-            <div className="space-y-2">
-              <div className="h-2 w-24 bg-primary/20 rounded-full" />
-              <div className="h-2 w-16 bg-muted-foreground/20 rounded-full ml-4" />
-              <div className="h-2 w-20 bg-secondary/20 rounded-full ml-4" />
+      <Container className="relative z-10 grid w-full items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(27rem,0.92fr)] lg:gap-10 xl:gap-16">
+        <div className="text-center lg:text-left">
+          <div className="relative mb-7 inline-flex animate-fade-in cursor-default group">
+            <div className="absolute -inset-px rounded-full bg-gradient-to-r from-primary via-blue-400 to-secondary opacity-30 blur-md transition-all duration-1000 group-hover:-inset-1 group-hover:opacity-60" />
+            <div className="relative inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-card px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-foreground backdrop-blur-xl sm:gap-2 sm:px-5 sm:text-xs sm:tracking-widest">
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              Web &amp; Custom Software Development
             </div>
           </div>
-        </div>
 
-        {/* Top Right Floating Metric */}
-        <div className="absolute top-[20%] right-[5%] md:right-[15%] animate-float delay-500 hidden md:block">
-          <div className="premium-card p-4 rounded-2xl rotate-[8deg] opacity-80 scale-90 flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center">
-              <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-            </div>
-            <div>
-              <div className="text-sm font-bold text-foreground">99.9%</div>
-              <div className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Uptime</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Left Floating Tech Icon */}
-        <div className="absolute bottom-[25%] left-[10%] md:left-[20%] animate-float delay-1000 hidden md:block">
-          <div className="w-14 h-14 rounded-2xl bg-card/60 backdrop-blur-md border border-border/50 shadow-lg rotate-[-12deg] flex items-center justify-center opacity-60">
-             <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
-               <path d="M12 0l-12 5.5v13l12 5.5 12-5.5v-13z"/>
-             </svg>
-          </div>
-        </div>
-
-        {/* Bottom Right Floating Badge */}
-        <div className="absolute bottom-[20%] right-[10%] md:right-[22%] animate-float-slow delay-300 hidden md:block">
-          <div className="premium-card px-4 py-2 rounded-full rotate-[4deg] opacity-70 scale-95 border-primary/20 bg-primary/5">
-            <span className="text-xs font-bold bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
-              Enterprise Grade
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <Container className="relative z-10 flex flex-col items-center text-center">
-        {/* Badge */}
-        <div className="mb-8 relative inline-flex group cursor-default animate-fade-in">
-          <div className="absolute transition-all duration-1000 opacity-30 -inset-px bg-gradient-to-r from-primary via-blue-400 to-secondary rounded-full blur-md group-hover:opacity-60 group-hover:-inset-1 group-hover:duration-200"></div>
-          <div className="relative inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-card px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-foreground backdrop-blur-xl transition-all duration-200 sm:gap-2 sm:px-5 sm:text-sm sm:tracking-widest">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
-            Web &amp; Custom Software Development
-          </div>
-        </div>
-
-        {/* Headline */}
-        <h1 className="mb-6 max-w-5xl text-4xl font-heading font-extrabold leading-[1.02] tracking-tighter sm:text-6xl md:text-7xl xl:text-8xl">
-          <span className="text-foreground">Digital Products That Help</span>
-          <br />
-          <span className="relative">
+          <h1 className="font-heading text-4xl font-extrabold leading-[1.02] tracking-tighter sm:text-6xl lg:text-[4rem] xl:text-[4.65rem]">
+            <span className="text-foreground">Digital Products That Help</span>{" "}
             <span className="bg-gradient-to-r from-primary via-blue-400 to-secondary bg-clip-text text-transparent animate-gradient">
               Your Business Grow
             </span>
-          </span>
-        </h1>
+          </h1>
 
-        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10">
-          From high-converting websites to custom software, we help startups and growing
-          businesses attract customers, automate operations, and scale with confidence.
-        </p>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0 lg:max-w-xl">
+            From high-converting websites to custom software, we help startups and growing businesses attract customers, automate operations, and scale with confidence.
+          </p>
 
-        {/* CTAs */}
-        <div className="mb-12 flex w-full flex-col items-center gap-4 sm:mb-16 sm:w-auto sm:flex-row">
-          <GradientButton href="/contact#contact-form" className="w-full max-w-xs px-8 py-3.5 text-sm font-semibold sm:w-auto">
-            Start Your Project <ArrowRight className="w-4 h-4 ml-2 inline" />
-          </GradientButton>
-          <Link href="/portfolio" className="w-full max-w-xs sm:w-auto">
-            <span className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border/60 bg-card/40 px-8 py-3.5 text-sm font-semibold text-foreground transition-all hover:bg-card/80 sm:w-auto">
-              View Our Work <ArrowUpRight className="w-4 h-4" />
-            </span>
-          </Link>
+          <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:justify-center lg:justify-start">
+            <GradientButton href="/contact#contact-form" className="w-full max-w-xs px-7 py-3.5 text-sm font-semibold sm:w-auto">
+              Start Your Project <ArrowRight className="ml-2 inline h-4 w-4" />
+            </GradientButton>
+            <Link href="/portfolio" className="w-full max-w-xs sm:w-auto">
+              <span className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border/60 bg-card/40 px-7 py-3.5 text-sm font-semibold text-foreground transition-all hover:bg-card/80 sm:w-auto">
+                View Our Work <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </Link>
+          </div>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-2 lg:justify-start">
+            {["Scalable Architecture", "Security & Performance", "Long-Term Support"].map((item) => (
+              <span key={item} className="inline-flex items-center gap-2 rounded-full border border-border/40 bg-card/40 px-3 py-1.5 text-[11px] font-medium text-muted-foreground backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
 
-        {/* Trust indicators */}
-        <div className="flex flex-wrap justify-center gap-3 mt-2">
-          {["Scalable Architecture", "Security & Performance", "Product-Focused Delivery", "Long-Term Support"].map((item) => (
-            <span key={item} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/40 bg-card/30 text-xs font-medium text-muted-foreground backdrop-blur-sm animate-fade-up">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-              {item}
-            </span>
-          ))}
-        </div>
+        <DeliveryWorkspaceCard />
       </Container>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-        <span className="text-xs text-muted-foreground tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-muted-foreground to-transparent" />
-      </div>
     </section>
   );
 }
