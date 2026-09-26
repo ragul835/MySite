@@ -125,9 +125,9 @@ export default function AboutPage() {
               </ul>
             </AnimateOnScroll>
 
-            {/* Product delivery dashboard */}
+            {/* Company identity visual */}
             <AnimateOnScroll delay={0.2}>
-              <div className="relative mx-auto w-full max-w-[38rem] pb-2 sm:px-8 sm:py-7 lg:px-0">
+              <div className="relative mx-auto w-full max-w-[38rem]">
                 <div className="absolute inset-8 -z-10 rounded-[2.5rem] bg-gradient-to-br from-primary/30 via-blue-400/20 to-secondary/30 blur-3xl" />
 
                 <div className="relative overflow-hidden rounded-[1.75rem] bg-slate-950 p-5 text-white shadow-[0_35px_90px_rgba(30,41,59,0.3)] sm:p-7">
@@ -139,66 +139,62 @@ export default function AboutPage() {
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
                         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-lg shadow-violet-950/40">
-                          <Cpu className="h-5 w-5" aria-hidden="true" />
+                          <Globe className="h-5 w-5" aria-hidden="true" />
                         </span>
                         <div>
-                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-violet-300">Product studio</p>
-                          <p className="mt-0.5 text-sm font-bold text-white sm:text-base">Delivery control center</p>
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-violet-300">We Raise Tech</p>
+                          <p className="mt-0.5 text-sm font-bold text-white sm:text-base">Our engineering DNA</p>
                         </div>
                       </div>
-                      <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-400/10 px-2.5 py-1.5 text-[9px] font-bold text-emerald-300 ring-1 ring-inset ring-emerald-300/20">
-                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" /> Live
+                      <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-cyan-400/10 px-2.5 py-1.5 text-[9px] font-bold text-cyan-200 ring-1 ring-inset ring-cyan-300/20">
+                        <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" /> Remote-first
                       </span>
                     </div>
 
-                    <div className="mt-7 rounded-2xl bg-white/[0.06] p-4 ring-1 ring-inset ring-white/10 sm:p-5">
-                      <div className="flex items-end justify-between gap-4">
-                        <div>
-                          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Current sprint</p>
-                          <h2 className="mt-1 text-lg font-bold text-white sm:text-xl">From brief to scalable build</h2>
+                    <div className="mt-7 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.035] p-5 ring-1 ring-inset ring-white/10 sm:p-6">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300">Technology with purpose</p>
+                      <h2 className="mt-2 max-w-md text-xl font-bold leading-snug text-white sm:text-2xl">
+                        We turn ambitious ideas into dependable digital businesses.
+                      </h2>
+                      <p className="mt-3 max-w-lg text-xs leading-5 text-slate-400 sm:text-sm">
+                        Strategy, design, and engineering work as one team—so every decision supports a real business outcome.
+                      </p>
+                    </div>
+
+                    <div className="mt-3 grid gap-2.5 sm:grid-cols-3">
+                      {[
+                        { Icon: Target, title: "Business-first", detail: "Outcomes over output", color: "text-amber-300" },
+                        { Icon: Cpu, title: "Engineering-led", detail: "Built to perform", color: "text-cyan-300" },
+                        { Icon: Shield, title: "Here for the long run", detail: "Support that stays", color: "text-violet-300" },
+                      ].map(({ Icon, title, detail, color }) => (
+                        <div key={title} className="rounded-xl bg-white/[0.055] p-3.5 ring-1 ring-inset ring-white/[0.08]">
+                          <Icon className={`h-4 w-4 ${color}`} aria-hidden="true" />
+                          <p className="mt-3 text-[11px] font-bold text-white">{title}</p>
+                          <p className="mt-1 text-[9px] leading-4 text-slate-400">{detail}</p>
                         </div>
-                        <span className="rounded-lg bg-violet-400/10 px-2 py-1 text-[10px] font-bold text-violet-200">03 / 04</span>
-                      </div>
-
-                      <div className="mt-6 grid grid-cols-4 gap-2" aria-label="Project delivery phases">
-                        {["Discover", "Design", "Build", "Launch"].map((phase, index) => (
-                          <div key={phase} className="min-w-0">
-                            <div className={`h-1.5 rounded-full ${index < 3 ? "bg-gradient-to-r from-violet-400 to-cyan-400" : "bg-white/10"}`} />
-                            <p className={`mt-2 truncate text-[9px] font-semibold sm:text-[10px] ${index < 3 ? "text-white" : "text-slate-500"}`}>{phase}</p>
-                          </div>
-                        ))}
-                      </div>
+                      ))}
                     </div>
 
-                    <div className="mt-3 grid grid-cols-2 gap-3">
-                      <div className="rounded-2xl bg-white/[0.06] p-4 ring-1 ring-inset ring-white/10">
-                        <Globe className="h-4 w-4 text-cyan-300" aria-hidden="true" />
-                        <p className="mt-3 text-xl font-extrabold text-white sm:text-2xl">24/7</p>
-                        <p className="mt-0.5 text-[10px] font-medium text-slate-400 sm:text-xs">Global collaboration</p>
+                    <div className="mt-4 grid grid-cols-2 gap-2.5 border-t border-white/[0.08] pt-4">
+                      <div className="flex min-w-0 items-center gap-2.5 rounded-xl bg-emerald-400/[0.07] px-3 py-2.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-400/10 text-emerald-300">
+                          <CheckCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-[10px] font-bold text-white sm:text-[11px]">One accountable team</p>
+                          <p className="mt-0.5 truncate text-[8px] text-slate-400 sm:text-[9px]">Shared goals and ownership</p>
+                        </div>
                       </div>
-                      <div className="rounded-2xl bg-white/[0.06] p-4 ring-1 ring-inset ring-white/10">
-                        <Zap className="h-4 w-4 text-violet-300" aria-hidden="true" />
-                        <p className="mt-3 text-xl font-extrabold text-white sm:text-2xl">2–8 wks</p>
-                        <p className="mt-0.5 text-[10px] font-medium text-slate-400 sm:text-xs">Average delivery</p>
+                      <div className="flex min-w-0 items-center gap-2.5 rounded-xl bg-violet-400/[0.07] px-3 py-2.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-violet-400/10 text-violet-300">
+                          <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-[10px] font-bold text-white sm:text-[11px]">Ideas to impact</p>
+                          <p className="mt-0.5 truncate text-[8px] text-slate-400 sm:text-[9px]">Designed around growth</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-0">
-                  <div className="rounded-2xl bg-card/95 p-3.5 shadow-xl ring-1 ring-inset ring-border/50 backdrop-blur-xl sm:absolute sm:-bottom-1 sm:left-0 sm:w-44">
-                    <div className="mb-1.5 flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,.7)] animate-pulse" />
-                      <span className="text-xs font-bold text-foreground">Available now</span>
-                    </div>
-                    <div className="text-[10px] text-muted-foreground sm:text-xs">Taking new projects</div>
-                  </div>
-                  <div className="rounded-2xl bg-card/95 p-3.5 shadow-xl ring-1 ring-inset ring-primary/15 backdrop-blur-xl sm:absolute sm:-right-1 sm:-top-1 sm:w-40">
-                    <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                      <Shield className="h-4 w-4" aria-hidden="true" />
-                    </div>
-                    <div className="text-xs font-bold text-foreground">Built for scale</div>
-                    <div className="mt-0.5 text-[10px] text-muted-foreground">Secure by design</div>
                   </div>
                 </div>
               </div>

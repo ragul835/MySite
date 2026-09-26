@@ -687,6 +687,27 @@
       box-shadow: 0 0 0 rgb(124 58 237 / 0);
     }
   }
+  @keyframes delivery-roadmap-check-cycle {
+    0%, 100% {
+      opacity: 0;
+      transform: translateY(2px) scale(0.55);
+      filter: drop-shadow(0 0 0 rgb(52 211 153 / 0));
+    }
+    3% {
+      opacity: 0;
+      transform: translateY(2px) scale(0.55);
+    }
+    6%, 15% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 0 5px rgb(52 211 153 / 0.55));
+    }
+    22% {
+      opacity: 0;
+      transform: translateY(-1px) scale(0.82);
+      filter: drop-shadow(0 0 0 rgb(52 211 153 / 0));
+    }
+  }
   @keyframes delivery-connector-cycle {
     0%, 8% { transform: scaleX(0); }
     20%, 27% { transform: scaleX(0.33); }
@@ -841,6 +862,11 @@
     animation: delivery-roadmap-icon-cycle 7.2s ease-in-out infinite;
     will-change: color, border-color, background, box-shadow;
   }
+  .delivery-roadmap-check {
+    opacity: 0;
+    animation: delivery-roadmap-check-cycle 7.2s ease-in-out infinite;
+    will-change: transform, opacity, filter;
+  }
   .delivery-assurance-item { animation: delivery-assurance-reveal 0.45s ease-out both; }
   .delivery-quality-panel { animation: delivery-quality-cycle 7.2s ease-in-out infinite; }
   .delivery-quality-title { animation: delivery-quality-copy-cycle 7.2s ease-in-out infinite; }
@@ -854,4 +880,12 @@
   .delay-500 { animation-delay: 500ms; }
   .delay-700 { animation-delay: 700ms; }
   .delay-1000 { animation-delay: 1000ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .delivery-roadmap-check {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }

@@ -230,7 +230,14 @@ function DeliveryWorkspaceCard() {
                         </span>
                         <span className="text-[9px] font-bold tabular-nums text-slate-500 min-[440px]:hidden">0{index + 1}</span>
                       </div>
-                      <p className="mt-2 text-xs font-bold text-white">{step.label}</p>
+                      <div className="mt-2 flex items-center gap-1.5">
+                        <p className="text-xs font-bold text-white">{step.label}</p>
+                        <CheckCircle
+                          className="delivery-roadmap-check h-3 w-3 shrink-0 text-emerald-300"
+                          style={{ animationDelay }}
+                          aria-label={`${step.label} complete`}
+                        />
+                      </div>
                       <p className="mt-0.5 text-[9px] font-medium leading-4 text-slate-400 sm:text-[10px]">{step.detail}</p>
                     </li>
                   );
