@@ -3,11 +3,12 @@ import { Link, useLocation } from "wouter";
 import { Container } from "./Container";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, ChevronDown, Layers, ShoppingCart, Layout, Search, Cloud, PenTool, ShoppingBag, Zap, Rocket, ArrowRight, Code, Settings, Smartphone, Terminal, PanelLeftClose } from "lucide-react";
+import { Menu, ChevronDown, Layers, ShoppingCart, ShoppingBag, Search, Cloud, PenTool, Rocket, ArrowRight, Code, Settings, Smartphone, Terminal, PanelLeftClose } from "lucide-react";
 import { GradientButton } from "../shared/GradientButton";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { PopupModal } from "react-calendly";
+import { trackEvent } from "@/lib/analytics";
 
 const NAV_LINKS = [
   { href: "#company", label: "Company", icon: "Building" },
@@ -18,52 +19,40 @@ const NAV_LINKS = [
 
 const SERVICES_MENU = [
   {
-    title: "E-commerce Developers",
+    title: "E-Commerce Development",
     slug: "e-commerce",
-    description: "We build scalable, conversion-focused e-commerce platforms.",
+    description: "Custom commerce platforms built to convert and scale.",
     icon: "ShoppingCart",
   },
   {
-    title: "Full-Stack Web Developers",
-    slug: "full-stack",
-    description: "Scalable web solutions using modern tech stacks.",
-    icon: "Layout",
+    title: "Shopify Development",
+    slug: "shopify",
+    description: "Custom Shopify stores, themes, apps, and migrations.",
+    icon: "ShoppingBag",
   },
   {
-    title: "SEO Experts",
+    title: "Full-Stack Web Development",
+    slug: "web-development",
+    description: "High-performance websites and custom web applications.",
+    icon: "Code",
+  },
+  {
+    title: "SEO Services",
     slug: "seo",
     description: "Boost your visibility, traffic, and search rankings.",
     icon: "Search",
   },
   {
-    title: "SaaS Development Experts",
+    title: "SaaS Development",
     slug: "saas",
     description: "Build scalable, high-performance SaaS platforms.",
     icon: "Cloud",
   },
   {
-    title: "UI/UX Designers",
+    title: "UI/UX Design",
     slug: "ui-ux",
     description: "Digital experiences that delight and convert users.",
     icon: "PenTool",
-  },
-  {
-    title: "Shopify Development Experts",
-    slug: "shopify",
-    description: "We build fast, scalable, and custom Shopify stores.",
-    icon: "ShoppingBag",
-  },
-  {
-    title: "E-commerce Optimization",
-    slug: "ecommerce-optimization",
-    description: "We improve speed, performance, and conversion rates.",
-    icon: "Zap",
-  },
-  {
-    title: "Web Development",
-    slug: "web-development",
-    description: "Custom web applications and high-performance websites.",
-    icon: "Code",
   },
   {
     title: "Website Maintenance & Support",
@@ -221,7 +210,7 @@ export function Navbar() {
                           <div className="flex-1 p-6 grid grid-cols-2 gap-x-4 gap-y-2 bg-background overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent">
                             {SERVICES_MENU.map((service, idx) => {
                               const IconMap: any = {
-                                ShoppingCart, Layout, Search, Cloud, PenTool, ShoppingBag, Zap, Rocket, Code, Settings, Smartphone, Terminal
+                                ShoppingCart, ShoppingBag, Search, Cloud, PenTool, Rocket, Code, Settings, Smartphone, Terminal
                               };
                               const Icon = IconMap[service.icon];
                               return (
@@ -272,7 +261,7 @@ export function Navbar() {
             <div className="flex items-center justify-end">
               {/* Desktop CTA */}
               <div className="hidden items-center gap-3 lg:flex xl:gap-6">
-                <button onClick={() => setIsCalendlyOpen(true)} className="text-sm font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1 whitespace-nowrap cursor-pointer">
+                <button onClick={() => { trackEvent("calendly_open", { placement: "desktop_nav" }); setIsCalendlyOpen(true); }} className="text-sm font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1 whitespace-nowrap cursor-pointer">
                   Book a Free Call <ArrowRight className="h-4 w-4" />
                 </button>
                 <GradientButton href="/contact#contact-form" className="px-6 py-2 flex items-center gap-1 whitespace-nowrap">
@@ -320,9 +309,9 @@ export function Navbar() {
                       </div>
 
                       <div className="mt-2 space-y-0.5">
-                        {SERVICES_MENU.slice(0, 8).map((service) => {
+                        {SERVICES_MENU.map((service) => {
                           const IconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-                            ShoppingCart, Layout, Search, Cloud, PenTool, ShoppingBag, Zap, Rocket, Code, Settings, Smartphone, Terminal
+                            ShoppingCart, ShoppingBag, Search, Cloud, PenTool, Rocket, Code, Settings, Smartphone, Terminal
                           };
                           const Icon = IconMap[service.icon] ?? Code;
                           return (
@@ -362,7 +351,7 @@ export function Navbar() {
                       <GradientButton href="/contact#contact-form" onClick={() => setIsMobileMenuOpen(false)} className="min-h-11 w-full rounded-xl py-2.5 text-sm">
                         Start a Project <ArrowRight className="h-4 w-4" />
                       </GradientButton>
-                      <button onClick={() => { setIsMobileMenuOpen(false); setIsCalendlyOpen(true); }} className="mt-2 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm cursor-pointer">
+                      <button onClick={() => { trackEvent("calendly_open", { placement: "mobile_nav" }); setIsMobileMenuOpen(false); setIsCalendlyOpen(true); }} className="mt-2 flex min-h-11 w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm cursor-pointer">
                         Book a Free Call <ArrowRight className="h-4 w-4" />
                       </button>
                       <p className="mt-3 text-center text-[10px] text-slate-400">Free consultation · Response within 24 hours</p>

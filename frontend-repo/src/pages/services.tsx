@@ -1,8 +1,8 @@
 import { Link } from "wouter";
 import { useEffect } from "react";
 import {
-  Code2, ShoppingCart, Layers, Palette, Search, ShoppingBag, Gauge,
-  ChevronRight, CheckCircle, ArrowRight, ArrowUpRight, Sparkles, Zap,
+  Code2, ShoppingCart, ShoppingBag, Palette, Search, Gauge,
+  ChevronRight, ArrowRight, ArrowUpRight, Sparkles, Zap,
   Settings, Smartphone, Terminal
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
@@ -10,44 +10,47 @@ import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScro
 import { GradientButton } from "@/components/shared/GradientButton";
 import { useSEO } from "@/hooks/useDocumentTitle";
 import { PAGE_SEO, breadcrumbJsonLd, itemListJsonLd } from "@/lib/seo";
-import { SERVICES } from "@/data/services";
 
 const servicesList = [
   {
     icon: Code2,
-    title: "Web Development",
+    slug: "web-development",
+    title: "Full-Stack Web Development",
     tag: "Popular",
     color: "from-blue-500/20 to-primary/20",
     iconColor: "text-blue-400",
-    whatItIs: "Custom websites engineered for performance, responsiveness, SEO, and business growth.",
+    whatItIs: "Complete frontend and backend web solutions engineered for performance, scalability, SEO, and business growth.",
     benefits: "Establishes a strong digital presence, improves user engagement, and drives conversions.",
     technologiesUsed: "React, Next.js, TypeScript, Tailwind CSS",
     whoNeedsIt: "Businesses looking for a professional, high-performance website.",
   },
   {
     icon: ShoppingCart,
+    slug: "e-commerce",
     title: "E-Commerce Development",
     tag: "High ROI",
     color: "from-green-500/20 to-emerald-500/20",
     iconColor: "text-green-400",
-    whatItIs: "Scalable online stores designed to improve customer experience and increase conversions.",
-    benefits: "Increases sales, provides a smooth shopping experience, and scales with your business.",
-    technologiesUsed: "Next.js, Node.js, Stripe, PostgreSQL",
-    whoNeedsIt: "Retailers and brands wanting to sell products online efficiently.",
+    whatItIs: "Custom storefronts, marketplaces, integrations, and conversion-focused commerce platforms built around your business.",
+    benefits: "Increases sales, improves shopping experiences, and gives your store room to scale.",
+    technologiesUsed: "Next.js, Node.js, Stripe, PostgreSQL, GraphQL",
+    whoNeedsIt: "Retailers and brands that need a tailored online store or marketplace.",
   },
   {
-    icon: Layers,
-    title: "Full-Stack Development",
-    tag: "",
-    color: "from-purple-500/20 to-violet-500/20",
-    iconColor: "text-purple-400",
-    whatItIs: "Modern frontend and backend systems built for scalability, maintainability, and security.",
-    benefits: "Provides a complete, robust solution with seamless frontend and backend integration.",
-    technologiesUsed: "React, Node.js, NestJS, PostgreSQL, TypeScript",
-    whoNeedsIt: "Companies needing complex, custom web applications.",
+    icon: ShoppingBag,
+    slug: "shopify",
+    title: "Shopify Development",
+    tag: "Popular",
+    color: "from-emerald-500/20 to-teal-500/20",
+    iconColor: "text-emerald-400",
+    whatItIs: "Custom Shopify themes, apps, migrations, integrations, and Shopify Plus solutions optimized for speed and sales.",
+    benefits: "Launches faster, simplifies store management, and improves conversion performance on a proven commerce platform.",
+    technologiesUsed: "Shopify Plus, Liquid, Hydrogen, React, GraphQL",
+    whoNeedsIt: "D2C brands and retailers launching, migrating, or scaling a Shopify store.",
   },
   {
     icon: Gauge,
+    slug: "saas",
     title: "SaaS Development",
     tag: "Hot",
     color: "from-orange-500/20 to-amber-500/20",
@@ -59,6 +62,7 @@ const servicesList = [
   },
   {
     icon: Palette,
+    slug: "ui-ux",
     title: "UI/UX Design",
     tag: "",
     color: "from-pink-500/20 to-rose-500/20",
@@ -70,6 +74,7 @@ const servicesList = [
   },
   {
     icon: Search,
+    slug: "seo",
     title: "SEO Services",
     tag: "",
     color: "from-cyan-500/20 to-sky-500/20",
@@ -80,29 +85,8 @@ const servicesList = [
     whoNeedsIt: "Businesses wanting better visibility on search engines.",
   },
   {
-    icon: ShoppingBag,
-    title: "Shopify Development",
-    tag: "",
-    color: "from-teal-500/20 to-green-500/20",
-    iconColor: "text-teal-400",
-    whatItIs: "Custom Shopify stores, theme customization, integrations, and performance optimization.",
-    benefits: "Provides a tailored shopping experience on a robust e-commerce platform.",
-    technologiesUsed: "Shopify Liquid, React, Node.js",
-    whoNeedsIt: "Merchants looking for customized Shopify stores.",
-  },
-  {
-    icon: CheckCircle,
-    title: "E-Commerce Optimization",
-    tag: "",
-    color: "from-indigo-500/20 to-blue-500/20",
-    iconColor: "text-indigo-400",
-    whatItIs: "Performance improvements, Core Web Vitals optimization, conversion enhancements, and speed optimization.",
-    benefits: "Faster load times, better search rankings, and higher conversion rates.",
-    technologiesUsed: "Lighthouse, Next.js, Vercel, Analytics",
-    whoNeedsIt: "E-commerce businesses looking to improve performance and sales.",
-  },
-  {
     icon: Settings,
+    slug: "maintenance-support",
     title: "Website Maintenance & Support",
     tag: "",
     color: "from-slate-500/20 to-zinc-500/20",
@@ -114,6 +98,7 @@ const servicesList = [
   },
   {
     icon: Smartphone,
+    slug: "mobile-app-development",
     title: "Mobile App Development",
     tag: "New",
     color: "from-violet-500/20 to-fuchsia-500/20",
@@ -125,6 +110,7 @@ const servicesList = [
   },
   {
     icon: Terminal,
+    slug: "custom-software-development",
     title: "Custom Software Development",
     tag: "",
     color: "from-amber-500/20 to-yellow-500/20",
@@ -157,10 +143,10 @@ export default function ServicesPage() {
       ]),
       itemListJsonLd(
         "We Raise Tech Software Development Services",
-        SERVICES.map((s) => ({
+        servicesList.map((s) => ({
           name: s.title,
           path: `/services/${s.slug}`,
-          description: s.description,
+          description: s.whatItIs,
         }))
       ),
     ],
@@ -311,10 +297,12 @@ export default function ServicesPage() {
                         </div>
 
                         <div className="mt-6 pt-5 border-t border-border/30 flex items-center justify-between">
-                          <Link href="/contact#contact-form">
-                            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:gap-3 transition-all cursor-pointer">
-                              Get started <ArrowRight className="w-3.5 h-3.5" />
-                            </span>
+                          <Link
+                            href={`/services/${service.slug}`}
+                            className="inline-flex items-center gap-1.5 rounded-sm text-xs font-semibold text-primary transition-all hover:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                            aria-label={`Learn more about ${service.title}`}
+                          >
+                            Learn more <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
                           <span className="text-[10px] text-muted-foreground font-mono">
                             {String(i + 1).padStart(2, "0")} / {String(servicesList.length).padStart(2, "0")}

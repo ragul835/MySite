@@ -11,7 +11,7 @@ export const CONTACT_EMAIL = "contact@weraisetech.com";
 export const CONTACT_PHONE = "+919080163393";
 export const X_URL = "https://x.com/weraisetech";
 export const FACEBOOK_URL = "https://www.facebook.com/share/1CfrkFgdDi/";
-export const INSTAGRAM_URL = "https://www.instagram.com/weraisetech?stkn=bDJla3YxanN2Mmhhand";
+export const INSTAGRAM_URL = "https://www.instagram.com/weraisetech/";
 export const SOCIAL_URLS = [X_URL, FACEBOOK_URL, INSTAGRAM_URL];
 export const LOCALE = "en_US";
 
@@ -276,9 +276,9 @@ export function itemListJsonLd(
 /** Static SEO copy for top-level routes */
 export const PAGE_SEO = {
   home: {
-    title: "Web & Custom Software Development Company | We Raise Tech",
+    title: "Custom Software & Web Development Company | We Raise Tech",
     description:
-      "We Raise Tech builds high-performance websites, custom web applications, scalable software, SaaS platforms, mobile apps, and e-commerce solutions.",
+      "We Raise Tech helps startups and growing businesses launch high-converting websites, SaaS platforms, mobile apps, and custom software built to scale.",
     path: "/",
     keywords: DEFAULT_KEYWORDS,
   },

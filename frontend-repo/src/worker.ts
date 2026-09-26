@@ -20,9 +20,10 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
-    if (productionHosts.has(url.hostname) && url.protocol === "http:") {
+    if (productionHosts.has(url.hostname) && (url.protocol === "http:" || url.hostname === "www.weraisetech.com")) {
       url.protocol = "https:";
-      return Response.redirect(url.toString(), 308);
+      url.hostname = "weraisetech.com";
+      return Response.redirect(url.toString(), 301);
     }
 
     const response = await env.ASSETS.fetch(request);

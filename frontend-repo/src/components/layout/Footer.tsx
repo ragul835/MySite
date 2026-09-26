@@ -3,7 +3,6 @@ import { Container } from "./Container";
 import { Mail, Phone, MapPin, ArrowRight, Sparkles } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
-import { SERVICES } from "@/data/services";
 import { FACEBOOK_URL, INSTAGRAM_URL, X_URL } from "@/lib/seo";
 
 const companyLinks = [
@@ -13,6 +12,18 @@ const companyLinks = [
   { href: "/solutions", label: "Solutions" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
+];
+
+const serviceLinks = [
+  { href: "/services/web-development", label: "Full-Stack Web Development" },
+  { href: "/services/e-commerce", label: "E-Commerce Development" },
+  { href: "/services/shopify", label: "Shopify Development" },
+  { href: "/services/saas", label: "SaaS Development" },
+  { href: "/services/mobile-app-development", label: "Mobile App Development" },
+  { href: "/services/custom-software-development", label: "Custom Software" },
+  { href: "/services/ui-ux", label: "UI/UX Design" },
+  { href: "/services/seo", label: "SEO Services" },
+  { href: "/services/maintenance-support", label: "Website Maintenance" },
 ];
 
 const techLinks = [
@@ -67,8 +78,8 @@ export function Footer() {
       />
 
       <Container className="relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16">
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 gap-12 py-16 md:grid-cols-2 lg:grid-cols-12 lg:gap-8 xl:gap-12">
+          <div className="lg:col-span-3">
             <Link
               href="/"
               aria-label="We Raise Tech home"
@@ -109,7 +120,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="text-sm font-semibold text-white uppercase tracking-widest mb-5">
               Company
             </h3>
@@ -129,27 +140,27 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="lg:col-span-4">
             <h3 className="text-sm font-semibold text-white uppercase tracking-widest mb-5">
               Services
             </h3>
-            <ul className="space-y-3">
-              {SERVICES.map((service) => (
-                <li key={service.slug}>
+            <ul className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
+              {serviceLinks.map((service) => (
+                <li key={service.href}>
                   <Link
-                    href={`/services/${service.slug}`}
-                    data-testid={`link-footer-service-${service.slug}`}
-                    className="text-slate-400 hover:text-primary text-sm transition-colors flex items-center gap-2 group cursor-pointer"
+                    href={service.href}
+                    data-testid={`link-footer-service-${service.href.split("/").pop()}`}
+                    className="group flex items-start gap-2 text-sm leading-5 text-slate-400 transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   >
-                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {service.title}
+                    <ArrowRight className="mt-1 h-3 w-3 shrink-0 opacity-60 transition-transform group-hover:translate-x-0.5 group-hover:opacity-100" />
+                    <span>{service.label}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
+          <div className="lg:col-span-3">
             <h3 className="text-sm font-semibold text-white uppercase tracking-widest mb-5">
               Contact Us
             </h3>

@@ -16,6 +16,7 @@ import { GradientButton } from "@/components/shared/GradientButton";
 import { useSEO } from "@/hooks/useDocumentTitle";
 import { cn } from "@/lib/utils";
 import { SERVICES } from "@/data/services";
+import { trackEvent } from "@/lib/analytics";
 import {
   breadcrumbJsonLd,
   serviceJsonLd,
@@ -134,7 +135,7 @@ export default function ServiceDetailPage() {
                 <GradientButton href="/contact#contact-form" className="px-8 py-3.5 text-sm font-semibold rounded-full shadow-lg shadow-primary/20">
                   Start Your Project Today
                 </GradientButton>
-                <button onClick={() => setIsCalendlyOpen(true)} className="px-6 py-3.5 rounded-full text-foreground hover:text-primary transition-colors text-sm font-semibold flex items-center gap-2 group cursor-pointer">
+                <button onClick={() => { trackEvent("calendly_open", { placement: "service_hero", service: service.slug }); setIsCalendlyOpen(true); }} className="px-6 py-3.5 rounded-full text-foreground hover:text-primary transition-colors text-sm font-semibold flex items-center gap-2 group cursor-pointer">
                   Book a Free Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -223,7 +224,7 @@ export default function ServiceDetailPage() {
                   <GradientButton href="/contact" className="px-6 py-2.5 text-sm font-semibold rounded-lg shadow-md">
                     Let's Build It <ArrowRight className="w-4 h-4 ml-1 inline" />
                   </GradientButton>
-                  <button onClick={() => setIsCalendlyOpen(true)} className="text-foreground hover:text-primary transition-colors text-sm font-semibold flex items-center gap-2 group cursor-pointer">
+                  <button onClick={() => { trackEvent("calendly_open", { placement: "service_body", service: service.slug }); setIsCalendlyOpen(true); }} className="text-foreground hover:text-primary transition-colors text-sm font-semibold flex items-center gap-2 group cursor-pointer">
                     Book a Free Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>

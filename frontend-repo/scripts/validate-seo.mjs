@@ -56,7 +56,8 @@ for (const url of pageUrls) {
   check(/<meta\s+name=["']twitter:card["']/.test(html), `${url}: missing Twitter card`);
   check(html.includes('id="app-loading-shell"'), `${url}: missing branded loading shell`);
   check(html.includes('id="static-seo-content"'), `${url}: missing crawlable static route content`);
-  check(/<noscript>[\s\S]*id="static-seo-content"[\s\S]*<\/noscript>/i.test(html), `${url}: static route content must be inside noscript`);
+  check(/<div id="root">[\s\S]*id="static-seo-content"[\s\S]*<\/div>/i.test(html), `${url}: static route content must be rendered inside the app root`);
+  check(!/<noscript>[\s\S]*id="static-seo-content"[\s\S]*<\/noscript>/i.test(html), `${url}: crawlable route content must not be limited to noscript`);
   check(/<h1>[^<]+<\/h1>/.test(html), `${url}: static route content has no H1`);
 
   const jsonLdBlocks = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
@@ -86,6 +87,10 @@ lastModified.forEach((date) => check(/^\d{4}-\d{2}-\d{2}$/.test(date), `Invalid 
 
 const notFound = await readFile(new URL("404.html", DIST), "utf8");
 check(/name=["']robots["']\s+content=["']noindex, follow["']/.test(notFound), "404 page must be noindex, follow");
+
+const thankYou = await readFile(new URL("thank-you.html", DIST), "utf8");
+check(/name=["']robots["']\s+content=["']noindex, follow["']/.test(thankYou), "Thank-you page must be noindex, follow");
+check(!sitemap.includes(`${SITE_URL}/thank-you`), "Thank-you page must not appear in the sitemap");
 
 warnings.forEach((warning) => console.warn(`SEO warning: ${warning}`));
 if (errors.length) {

@@ -4,7 +4,7 @@ import { Container } from "@/components/layout/Container";
 import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
 import { useSEO } from "@/hooks/useDocumentTitle";
-import { PAGE_SEO, breadcrumbJsonLd, organizationJsonLd } from "@/lib/seo";
+import { PAGE_SEO, breadcrumbJsonLd } from "@/lib/seo";
 
 const coreValues = [
   "Performance and scalability in every solution.",
@@ -69,7 +69,6 @@ export default function AboutPage() {
     path: PAGE_SEO.about.path,
     brandTitle: false,
     jsonLd: [
-      organizationJsonLd(),
       breadcrumbJsonLd([
         { name: "Home", path: "/" },
         { name: "About", path: "/about" },

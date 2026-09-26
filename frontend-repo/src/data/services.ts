@@ -1,6 +1,6 @@
 export const SERVICES = [
   {
-    title: "E-commerce Developers",
+    title: "E-Commerce Development",
     slug: "e-commerce",
     description: "We build scalable, conversion-focused e-commerce platforms.",
     longDescription: "Your online store isn’t just a website — it’s your business in motion. At We Raise Tech, we create e-commerce experiences that convert visitors into loyal customers. From performance-optimized storefronts to flexible integrations and blazing-fast checkouts, we focus on what matters most: driving growth, not just traffic. Whether you’re launching your first shop or scaling to thousands of orders, we build platforms that grow with you.",
@@ -285,7 +285,7 @@ export const SERVICES = [
     ]
   },
   {
-    title: "Shopify Development Experts",
+    title: "Shopify Development",
     slug: "shopify",
     description: "We build fast, scalable, and custom Shopify stores.",
     longDescription: "Maximize your retail potential with our specialized Shopify development services. From completely custom theme designs to complex private app integrations and headless commerce setups, we build Shopify stores that are visually striking, lightning-fast, and optimized to convert browsers into buyers.",

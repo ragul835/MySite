@@ -74,6 +74,11 @@ function validEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+export function validPhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+  return digits.length >= 10 && digits.length <= 15;
+}
+
 async function hashIp(ip: string) {
   const bytes = new TextEncoder().encode(ip);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
@@ -127,22 +132,75 @@ function notificationContent(input: ContactInput) {
   return { html, text };
 }
 
-function userThankYouContent(input: ContactInput) {
-  const html = `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px;">
-      <h2 style="color: #2563eb;">Thank You for Reaching Out!</h2>
-      <p>Hi ${escapeHtml(input.name)},</p>
-      <p>We've received your message regarding <strong>${escapeHtml(input.service)}</strong> and want to thank you for contacting We Raise Tech.</p>
-      <p>Our team is reviewing your inquiry and will get back to you shortly (usually within 24 hours).</p>
-      <p>Here is a copy of your message:</p>
-      <blockquote style="border-left: 4px solid #e5e7eb; padding-left: 15px; color: #4b5563; margin-left: 0; font-style: italic;">
-        ${escapeHtml(input.message).replace(/\n/g, "<br>")}
-      </blockquote>
-      <br/>
-      <p>Best regards,<br/><strong>The We Raise Tech Team</strong></p>
-    </div>
-  `;
-  const text = `Hi ${input.name},\n\nWe've received your message regarding ${input.service} and want to thank you for contacting We Raise Tech.\nOur team is reviewing your inquiry and will get back to you shortly (usually within 24 hours).\n\nHere is a copy of your message:\n${input.message}\n\nBest regards,\nThe We Raise Tech Team`;
+export function userThankYouContent(input: ContactInput) {
+  const safeName = escapeHtml(input.name);
+  const safeService = escapeHtml(input.service);
+  const safeMessage = escapeHtml(input.message).replace(/\n/g, "<br>");
+  const bookingUrl = "https://calendly.com/weraisetech/30min?utm_source=contact_autoresponder&utm_medium=email&utm_campaign=lead_followup";
+  const portfolioUrl = "https://weraisetech.com/portfolio?utm_source=contact_autoresponder&utm_medium=email&utm_campaign=lead_followup";
+  const html = [
+    '<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">We received your project inquiry and will respond within 24 hours.</div>',
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;margin:0;padding:0;background:#f4f7fb;border-collapse:collapse">',
+    '<tr><td align="center" style="padding:28px 12px">',
+    '<table role="presentation" width="620" cellpadding="0" cellspacing="0" style="width:100%;max-width:620px;border-collapse:separate;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(15,23,42,0.08)">',
+    '<tr><td style="padding:24px 32px;background:#0b1220">',
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>',
+    '<td style="vertical-align:middle"><img src="https://weraisetech.com/apple-touch-icon.png" width="48" height="48" alt="We Raise Tech" style="display:block;width:48px;height:48px;border:0;border-radius:12px"></td>',
+    '<td style="padding-left:14px;vertical-align:middle;color:#ffffff;font-family:Arial,sans-serif;font-size:21px;font-weight:700;letter-spacing:-0.3px">We Raise Tech</td>',
+    '<td align="right" style="vertical-align:middle;color:#93c5fd;font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Project inquiry</td>',
+    '</tr></table>',
+    '</td></tr>',
+    '<tr><td style="padding:36px 32px 12px;font-family:Arial,sans-serif;color:#0f172a">',
+    '<div style="display:inline-block;padding:7px 12px;border-radius:999px;background:#ecfdf5;color:#047857;font-size:12px;font-weight:700">✓ Message received</div>',
+    `<h1 style="margin:18px 0 14px;font-size:30px;line-height:1.2;letter-spacing:-0.6px;color:#0f172a">Thanks for reaching out, ${safeName}.</h1>`,
+    '<p style="margin:0;color:#475569;font-size:16px;line-height:1.7">Your inquiry is with our team. A senior team member will review it and reply within <strong style="color:#0f172a">24 hours</strong>.</p>',
+    '</td></tr>',
+    '<tr><td style="padding:18px 32px 8px">',
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:separate;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px">',
+    '<tr><td style="padding:18px 20px;border-bottom:1px solid #e2e8f0;font-family:Arial,sans-serif">',
+    '<div style="margin-bottom:6px;color:#64748b;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Service</div>',
+    `<div style="color:#0f172a;font-size:15px;font-weight:700">${safeService}</div>`,
+    '</td></tr>',
+    '<tr><td style="padding:18px 20px;font-family:Arial,sans-serif">',
+    '<div style="margin-bottom:8px;color:#64748b;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Your message</div>',
+    `<div style="color:#334155;font-size:14px;line-height:1.65">${safeMessage}</div>`,
+    '</td></tr>',
+    '</table>',
+    '</td></tr>',
+    '<tr><td align="center" style="padding:24px 32px 8px;font-family:Arial,sans-serif">',
+    '<p style="margin:0 0 16px;color:#334155;font-size:15px;line-height:1.6">Want to move faster? Choose a convenient time for a free 30-minute discovery call.</p>',
+    `<a href="${bookingUrl}" style="display:inline-block;padding:14px 24px;border-radius:10px;background:#4f46e5;color:#ffffff;font-size:15px;font-weight:700;text-decoration:none">Book your free call →</a>`,
+    `<div style="margin-top:14px"><a href="${portfolioUrl}" style="color:#4f46e5;font-size:13px;font-weight:700;text-decoration:underline">View our recent work</a></div>`,
+    '</td></tr>',
+    '<tr><td style="padding:28px 32px;font-family:Arial,sans-serif">',
+    '<div style="height:1px;background:#e2e8f0;margin-bottom:22px"></div>',
+    '<p style="margin:0;color:#334155;font-size:14px;line-height:1.6">Best regards,<br><strong style="color:#0f172a">The We Raise Tech Team</strong></p>',
+    '<p style="margin:14px 0 0;color:#64748b;font-size:12px;line-height:1.8">Reply to this email or contact us at <a href="mailto:contact@weraisetech.com" style="color:#4f46e5;text-decoration:underline">contact@weraisetech.com</a><br>Call: <a href="tel:+919080163393" style="color:#4f46e5;text-decoration:underline">+91 90801 63393</a> · <a href="https://wa.me/919080163393" style="color:#4f46e5;text-decoration:underline">WhatsApp us</a><br>Web development · SaaS · E-commerce · Custom software</p>',
+    '</td></tr>',
+    '<tr><td align="center" style="padding:18px 24px;background:#f8fafc;border-top:1px solid #e2e8f0;color:#94a3b8;font-family:Arial,sans-serif;font-size:11px;line-height:1.5">© We Raise Tech · India · <a href="https://weraisetech.com" style="color:#64748b;text-decoration:none">weraisetech.com</a></td></tr>',
+    '</table>',
+    '<p style="margin:16px 0 0;color:#94a3b8;font-family:Arial,sans-serif;font-size:11px;line-height:1.5;text-align:center">You received this confirmation because an inquiry was submitted using your email address.</p>',
+    '</td></tr>',
+    '</table>',
+  ].join("");
+  const text = [
+    `Thanks for reaching out, ${input.name}.`,
+    "",
+    "We received your project inquiry. A senior team member will review it and reply within 24 hours.",
+    "",
+    `Service: ${input.service}`,
+    "Your message:",
+    input.message,
+    "",
+    `Book your free 30-minute call: ${bookingUrl}`,
+    `View our recent work: ${portfolioUrl}`,
+    "",
+    "Best regards,",
+    "The We Raise Tech Team",
+    "contact@weraisetech.com",
+    "Call / WhatsApp: +91 90801 63393",
+    "https://weraisetech.com",
+  ].join("\n");
   return { html, text };
 }
 
@@ -155,7 +213,7 @@ async function sendThankYouEmail(input: ContactInput, env: Env, submissionId: st
         to: input.email,
         from: { email: "contact@weraisetech.com", name: "We Raise Tech" },
         replyTo: env.ADMIN_EMAIL ?? "contact@weraisetech.com",
-        subject: "Thank you for contacting We Raise Tech",
+        subject: "We received your inquiry — We Raise Tech",
         html,
         text,
       });
@@ -172,13 +230,14 @@ async function sendThankYouEmail(input: ContactInput, env: Env, submissionId: st
     const payload = JSON.stringify({
       from: env.CONTACT_FROM_EMAIL,
       to: [input.email],
-      subject: "Thank you for contacting We Raise Tech",
+      reply_to: env.ADMIN_EMAIL ?? "contact@weraisetech.com",
+      subject: "We received your inquiry — We Raise Tech",
       html,
       text,
     });
 
     try {
-      await fetch(RESEND_URL, {
+      const result = await fetch(RESEND_URL, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${env.RESEND_API_KEY}`,
@@ -188,6 +247,10 @@ async function sendThankYouEmail(input: ContactInput, env: Env, submissionId: st
         body: payload,
         signal: AbortSignal.timeout(RESEND_TIMEOUT_MS),
       });
+      if (!result.ok) {
+        const requestId = result.headers.get("x-request-id") ?? "unavailable";
+        throw new Error(`Email provider rejected thank-you email (status=${result.status}, requestId=${requestId})`);
+      }
     } catch (error) {
       console.error("Resend thank you email failed", {
         submissionId,
@@ -252,33 +315,37 @@ export async function sendNotification(input: ContactInput, env: Env, submission
 }
 
 export async function deliverContactNotification(input: ContactInput, env: Env, submissionId: string) {
-  // Await the "Thank you" email to ensure Cloudflare doesn't terminate the worker prematurely
-  await sendThankYouEmail(input, env, submissionId).catch((err) => console.error("Thank you email failed", err));
+  const thankYouEmail = sendThankYouEmail(input, env, submissionId)
+    .catch((err) => console.error("Thank you email failed", err));
 
-  if (env.EMAIL) {
-    try {
-      const { html, text } = notificationContent(input);
-      const result = await env.EMAIL.send({
-        to: env.ADMIN_EMAIL ?? "weraisetech@gmail.com",
-        from: { email: "contact@weraisetech.com", name: "We Raise Tech" },
-        replyTo: input.email,
-        subject: `New contact request: ${input.service}`,
-        html,
-        text,
-      });
-      return { provider: "cloudflare" as const, messageId: result.messageId };
-    } catch (error) {
-      console.error("Cloudflare contact notification failed; using Resend fallback", {
-        submissionId,
-        error: error instanceof Error ? error.message : "Unknown provider error",
-      });
+  try {
+    if (env.EMAIL) {
+      try {
+        const { html, text } = notificationContent(input);
+        const result = await env.EMAIL.send({
+          to: env.ADMIN_EMAIL ?? "weraisetech@gmail.com",
+          from: { email: "contact@weraisetech.com", name: "We Raise Tech" },
+          replyTo: input.email,
+          subject: `New contact request: ${input.service}`,
+          html,
+          text,
+        });
+        return { provider: "cloudflare" as const, messageId: result.messageId };
+      } catch (error) {
+        console.error("Cloudflare contact notification failed; using Resend fallback", {
+          submissionId,
+          error: error instanceof Error ? error.message : "Unknown provider error",
+        });
+      }
     }
-  }
 
-  return {
-    provider: "resend" as const,
-    messageId: await sendNotification(input, env, submissionId),
-  };
+    return {
+      provider: "resend" as const,
+      messageId: await sendNotification(input, env, submissionId),
+    };
+  } finally {
+    await thankYouEmail;
+  }
 }
 
 function deliveryStatus(event: string) {
@@ -353,46 +420,13 @@ async function reconcilePendingDeliveries(env: Env) {
   }
 }
 
-async function handleContact(request: Request, env: Env, context: ExecutionContext) {
-  if (request.headers.get("content-length") && Number(request.headers.get("content-length")) > 32_000) {
-    return response({ message: "Request body is too large." }, 413);
-  }
-  let body: Partial<ContactInput>;
-  try {
-    body = await request.json();
-  } catch {
-    return response({ message: "Invalid JSON body." }, 400);
-  }
-  const input: ContactInput = {
-    name: cleanText(body.name, 120),
-    email: cleanText(body.email, 320).toLowerCase(),
-    phone: cleanText(body.phone, 30),
-    service: cleanText(body.service, 100),
-    message: cleanText(body.message, 5_000),
-    website: cleanText(body.website, 200),
-  };
-  if (input.website) return response({ message: "Message received." }, 202);
-  if (input.name.length < 2 || !validEmail(input.email) || input.service.length < 1 || input.message.length < 10) {
-    return response({ message: "Please check the submitted fields." }, 400);
-  }
-
-  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
-  const ipHash = await hashIp(ip);
-  const now = Date.now();
-  const recent = await env.DB.prepare("SELECT last_submitted_at FROM contact_rate_limits WHERE ip_hash = ?1")
-    .bind(ipHash).first<{ last_submitted_at: number }>();
-  if (recent && now - recent.last_submitted_at < 60_000) {
-    return response({ message: "Too many requests. Please wait a minute." }, 429);
-  }
-
-  const results = await env.DB.batch([
-    env.DB.prepare("INSERT INTO contact_submissions (name, email, phone, service, message) VALUES (?1, ?2, ?3, ?4, ?5)")
-      .bind(input.name, input.email, input.phone, input.service, input.message),
-    env.DB.prepare("INSERT INTO contact_rate_limits (ip_hash, last_submitted_at) VALUES (?1, ?2) ON CONFLICT(ip_hash) DO UPDATE SET last_submitted_at = excluded.last_submitted_at")
-      .bind(ipHash, now),
-  ]);
-  const insertedId = results[0]?.meta.last_row_id;
-  const submissionId = String(insertedId ?? crypto.randomUUID());
+async function processContactDelivery(
+  input: ContactInput,
+  env: Env,
+  context: ExecutionContext,
+  submissionId: string,
+  insertedId: number | undefined,
+) {
   try {
     const delivery = await deliverContactNotification(input, env, submissionId);
     if (insertedId != null) {
@@ -417,7 +451,50 @@ async function handleContact(request: Request, env: Env, context: ExecutionConte
       error: error instanceof Error ? error.message : "Unknown provider error",
     });
   }
-  return response({ message: "Message sent successfully. We'll be in touch within 24 hours." }, 201);
+}
+
+export async function handleContact(request: Request, env: Env, context: ExecutionContext) {
+  if (request.headers.get("content-length") && Number(request.headers.get("content-length")) > 32_000) {
+    return response({ message: "Request body is too large." }, 413);
+  }
+  let body: Partial<ContactInput>;
+  try {
+    body = await request.json();
+  } catch {
+    return response({ message: "Invalid JSON body." }, 400);
+  }
+  const input: ContactInput = {
+    name: cleanText(body.name, 120),
+    email: cleanText(body.email, 320).toLowerCase(),
+    phone: cleanText(body.phone, 30),
+    service: cleanText(body.service, 100),
+    message: cleanText(body.message, 5_000),
+    website: cleanText(body.website, 200),
+  };
+  if (input.website) return response({ message: "Message received." }, 202);
+  if (input.name.length < 2 || !validEmail(input.email) || !validPhone(input.phone) || input.service.length < 1 || input.message.length < 10) {
+    return response({ message: "Please check the submitted fields." }, 400);
+  }
+
+  const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+  const ipHash = await hashIp(ip);
+  const now = Date.now();
+  const recent = await env.DB.prepare("SELECT last_submitted_at FROM contact_rate_limits WHERE ip_hash = ?1")
+    .bind(ipHash).first<{ last_submitted_at: number }>();
+  if (recent && now - recent.last_submitted_at < 60_000) {
+    return response({ message: "Too many requests. Please wait a minute." }, 429);
+  }
+
+  const results = await env.DB.batch([
+    env.DB.prepare("INSERT INTO contact_submissions (name, email, phone, service, message) VALUES (?1, ?2, ?3, ?4, ?5)")
+      .bind(input.name, input.email, input.phone, input.service, input.message),
+    env.DB.prepare("INSERT INTO contact_rate_limits (ip_hash, last_submitted_at) VALUES (?1, ?2) ON CONFLICT(ip_hash) DO UPDATE SET last_submitted_at = excluded.last_submitted_at")
+      .bind(ipHash, now),
+  ]);
+  const insertedId = results[0]?.meta.last_row_id;
+  const submissionId = String(insertedId ?? crypto.randomUUID());
+  context.waitUntil(processContactDelivery(input, env, context, submissionId, insertedId));
+  return response({ message: "Message received successfully. We'll be in touch within 24 hours." }, 202);
 }
 
 export default {

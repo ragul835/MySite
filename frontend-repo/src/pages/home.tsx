@@ -22,23 +22,20 @@ import { GradientButton } from "@/components/shared/GradientButton";
 import { useSEO } from "@/hooks/useDocumentTitle";
 import {
   PAGE_SEO,
-  organizationJsonLd,
-  websiteJsonLd,
-  professionalServiceJsonLd,
   faqJsonLd,
 } from "@/lib/seo";
 
 /* ─── Data ─── */
 const services = [
-  { icon: Code2, title: "Web Development", description: "Custom websites engineered for performance, responsiveness, SEO, and business growth.", tag: "Popular" },
-  { icon: ShoppingCart, title: "E-Commerce", description: "Scalable online stores designed to improve customer experience and increase conversions.", tag: "" },
-  { icon: Layers, title: "Full-Stack Apps", description: "Modern frontend and backend systems built for scalability, maintainability, and security.", tag: "" },
-  { icon: Zap, title: "SaaS Platforms", description: "Subscription-based software platforms designed to support long-term growth and business operations.", tag: "Hot" },
-  { icon: Palette, title: "UI/UX Design", description: "User-focused digital experiences that improve engagement, usability, and conversions.", tag: "" },
-  { icon: Search, title: "SEO Services", description: "Technical and on-page optimization strategies that improve visibility and search rankings.", tag: "" },
-  { icon: Settings, title: "Website Maintenance & Support", description: "Keep your website secure, fast, and up-to-date with proactive monitoring and expert support.", tag: "" },
-  { icon: Smartphone, title: "Mobile App Development", description: "High-performance iOS and Android applications built for engagement and scale.", tag: "New" },
-  { icon: Terminal, title: "Custom Software Development", description: "Tailor-made software solutions that automate workflows and solve complex business problems.", tag: "" },
+  { icon: Code2, slug: "web-development", title: "Full-Stack Web Development", description: "Complete frontend and backend web solutions engineered for performance, scalability, SEO, and business growth.", tag: "Popular" },
+  { icon: ShoppingCart, slug: "e-commerce", title: "E-Commerce Development", description: "Custom online stores, marketplaces, integrations, and conversion-focused commerce platforms built to scale.", tag: "High ROI" },
+  { icon: ShoppingBag, slug: "shopify", title: "Shopify Development", description: "Fast, conversion-focused Shopify stores with custom themes, apps, migrations, and Shopify Plus support.", tag: "Popular" },
+  { icon: Zap, slug: "saas", title: "SaaS Platforms", description: "Subscription-based software platforms designed to support long-term growth and business operations.", tag: "Hot" },
+  { icon: Palette, slug: "ui-ux", title: "UI/UX Design", description: "User-focused digital experiences that improve engagement, usability, and conversions.", tag: "" },
+  { icon: Search, slug: "seo", title: "SEO Services", description: "Technical and on-page optimization strategies that improve visibility and search rankings.", tag: "" },
+  { icon: Settings, slug: "maintenance-support", title: "Website Maintenance & Support", description: "Keep your website secure, fast, and up-to-date with proactive monitoring and expert support.", tag: "" },
+  { icon: Smartphone, slug: "mobile-app-development", title: "Mobile App Development", description: "High-performance iOS and Android applications built for engagement and scale.", tag: "New" },
+  { icon: Terminal, slug: "custom-software-development", title: "Custom Software Development", description: "Tailor-made software solutions that automate workflows and solve complex business problems.", tag: "" },
 ];
 
 const techCategories = [
@@ -192,18 +189,18 @@ function HeroSection() {
 
         {/* Headline */}
         <h1 className="mb-6 max-w-5xl text-4xl font-heading font-extrabold leading-[1.02] tracking-tighter sm:text-6xl md:text-7xl xl:text-8xl">
-          <span className="text-foreground">We Build Websites &amp;</span>
+          <span className="text-foreground">Digital Products That Help</span>
           <br />
           <span className="relative">
             <span className="bg-gradient-to-r from-primary via-blue-400 to-secondary bg-clip-text text-transparent animate-gradient">
-              Custom Software That Scales
+              Your Business Grow
             </span>
           </span>
         </h1>
 
         <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10">
-          From high-performance websites and custom web applications to SaaS, mobile, and
-          e-commerce platforms, we build secure digital products that grow with your business.
+          From high-converting websites to custom software, we help startups and growing
+          businesses attract customers, automate operations, and scale with confidence.
         </p>
 
         {/* CTAs */}
@@ -268,7 +265,12 @@ function ServicesSection() {
               const Icon = service.icon;
               return (
                 <AnimatedItem key={service.title}>
-                  <div className="premium-card p-7 group cursor-default overflow-hidden h-full">
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    aria-label={`Learn more about ${service.title}`}
+                  >
+                  <div className="premium-card p-7 group cursor-pointer overflow-hidden h-full">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                     
                     {service.tag && (
@@ -283,10 +285,11 @@ function ServicesSection() {
                     <h3 className="text-base font-heading font-bold text-foreground mb-2.5">{service.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
 
-                    <div className="mt-5 flex items-center gap-1.5 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="mt-5 flex items-center gap-1.5 text-xs font-semibold text-primary transition-all duration-300 group-hover:gap-3">
                       Learn more <ArrowRight className="w-3.5 h-3.5" />
                     </div>
                   </div>
+                  </Link>
                 </AnimatedItem>
               );
             })}
@@ -615,9 +618,6 @@ export default function HomePage() {
     keywords: [...PAGE_SEO.home.keywords],
     brandTitle: false,
     jsonLd: [
-      organizationJsonLd(),
-      websiteJsonLd(),
-      professionalServiceJsonLd(),
       faqJsonLd(
         faqData.map((f) => ({ question: f.question, answer: f.answer }))
       ),

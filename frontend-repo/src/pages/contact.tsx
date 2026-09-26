@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -18,25 +18,39 @@ import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScro
 import logger from "@/lib/logger";
 import { useSEO } from "@/hooks/useDocumentTitle";
 import { PAGE_SEO, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { trackEvent, trackLead } from "@/lib/analytics";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(10, "Please enter a valid WhatsApp number"),
+  phone: z.string().trim().refine(
+    (value) => {
+      const digits = value.replace(/\D/g, "");
+      return digits.length >= 10 && digits.length <= 15;
+    },
+    "Please enter a valid WhatsApp number",
+  ),
   service: z.string().min(1, "Please select a service"),
-  message: z.string().min(1, "Please enter a message"),
+  message: z.string().min(10, "Please add at least 10 characters"),
 });
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const services = [
-  "Full-Stack Development", "E-Commerce Development", "SaaS Development",
-  "UI/UX Design", "SEO Services", "Shopify Development", "E-Commerce Optimization",
-  "Website Maintenance & Support", "Mobile App Development", "Custom Software Development", "Other",
+  "Full-Stack Web Development",
+  "E-Commerce Development",
+  "Shopify Development",
+  "SaaS Development",
+  "Mobile App Development",
+  "Custom Software",
+  "UI/UX Design",
+  "SEO",
+  "Website Maintenance",
+  "Other",
 ];
 
 const contactInfo = [
   { icon: Mail, label: "Email", value: "contact@weraisetech.com", href: "mailto:contact@weraisetech.com" },
-  { icon: Phone, label: "WhatsApp", value: "+91 9080163393", href: "tel:+919080163393" },
+  { icon: Phone, label: "WhatsApp", value: "+91 9080163393", href: "https://wa.me/919080163393?text=Hi%20We%20Raise%20Tech%2C%20I%27d%20like%20to%20discuss%20a%20project." },
   { icon: MapPin, label: "Location", value: "India", href: null },
   { icon: Clock, label: "Response Time", value: "Within 24 hours", href: null },
 ];
@@ -50,6 +64,7 @@ const faqData = [
 ];
 
 export default function ContactPage() {
+  const [, setLocation] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serviceValue, setServiceValue] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -86,7 +101,7 @@ export default function ContactPage() {
     setIsSubmitting(true);
     const start = Date.now();
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 15_000);
+    const timeout = window.setTimeout(() => controller.abort(), 8_000);
     try {
       logger.info("Submitting contact form", { service: data.service });
       const API_BASE = import.meta.env.VITE_API_URL || "";
@@ -102,9 +117,10 @@ export default function ContactPage() {
       if (text) { try { json = JSON.parse(text); } catch {} }
       if (res.status === 429) { toast.error("Too many requests — please wait a minute."); return; }
       if (!res.ok) throw new Error((json.message as string) ?? "Submission failed.");
-      toast.success((json.message as string) ?? "Message sent! We'll be in touch within 24 hours.");
+      trackLead("contact_form", data.service);
       reset();
       setServiceValue("");
+      setLocation("/thank-you");
     } catch (err: unknown) {
       logger.error("Contact form submission failed", err);
       if (err instanceof DOMException && err.name === "AbortError") {
@@ -186,7 +202,14 @@ export default function ContactPage() {
                       </div>
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">{info.label}</p>
                       {info.href ? (
-                        <a href={info.href} data-testid={`link-contact-${info.label.toLowerCase()}`} className="break-words text-sm font-medium text-foreground transition-colors hover:text-primary">
+                        <a
+                          href={info.href}
+                          target={info.label === "WhatsApp" ? "_blank" : undefined}
+                          rel={info.label === "WhatsApp" ? "noopener noreferrer" : undefined}
+                          onClick={() => trackEvent("contact_click", { contact_method: info.label.toLowerCase(), placement: "contact_info" })}
+                          data-testid={`link-contact-${info.label.toLowerCase()}`}
+                          className="break-words text-sm font-medium text-foreground transition-colors hover:text-primary"
+                        >
                           {info.value}
                         </a>
                       ) : (
@@ -237,7 +260,7 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
                         <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-widest text-muted-foreground">WhatsApp <span className="text-destructive">*</span></Label>
-                        <Input id="phone" type="tel" placeholder="+91 12345 67890" data-testid="input-phone" {...register("phone")} className={errors.phone ? "border-destructive" : ""} />
+                        <Input id="phone" type="tel" inputMode="tel" autoComplete="tel" required placeholder="+91 12345 67890" data-testid="input-phone" {...register("phone")} className={errors.phone ? "border-destructive" : ""} />
                         {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
                       </div>
                       <div className="space-y-1.5">
@@ -293,7 +316,7 @@ export default function ContactPage() {
               <div className="premium-card p-6">
                 <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Prefer direct contact?</p>
                 <p className="text-sm leading-relaxed text-muted-foreground">Email our team with your goals, timeline, and preferred technology stack.</p>
-                <a href="mailto:contact@weraisetech.com" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+                <a href="mailto:contact@weraisetech.com" onClick={() => trackEvent("contact_click", { contact_method: "email", placement: "contact_sidebar" })} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
                   <Mail className="h-4 w-4" aria-hidden="true" /> contact@weraisetech.com
                 </a>
               </div>

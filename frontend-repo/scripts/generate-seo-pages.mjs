@@ -5,7 +5,7 @@ const DIST_DIR = new URL("../dist/", import.meta.url);
 const PUBLIC_DIR = new URL("../public/", import.meta.url);
 const SITE_URL = "https://weraisetech.com";
 const SITE_NAME = "We Raise Tech";
-const SITE_LAST_MODIFIED = "2026-09-20";
+const SITE_LAST_MODIFIED = "2026-09-26";
 const DEFAULT_IMAGE = "/opengraph.png";
 const DEFAULT_IMAGE_WIDTH = 1730;
 const DEFAULT_IMAGE_HEIGHT = 909;
@@ -14,9 +14,10 @@ const DEFAULT_IMAGE_TYPE = "image/png";
 const coreRoutes = [
   {
     path: "/",
-    title: "Web & Custom Software Development Company | We Raise Tech",
+    title: "Custom Software & Web Development Company | We Raise Tech",
+    heading: "Digital Products That Help Your Business Grow",
     description:
-      "We Raise Tech builds high-performance websites, custom web applications, scalable software, SaaS platforms, mobile apps, and e-commerce solutions.",
+      "We Raise Tech helps startups and growing businesses launch high-converting websites, SaaS platforms, mobile apps, and custom software built to scale.",
   },
   {
     path: "/about",
@@ -82,12 +83,12 @@ const coreRoutes = [
 ];
 
 const services = [
-  ["e-commerce", "E-commerce Developers", "We build scalable, conversion-focused e-commerce platforms."],
+  ["e-commerce", "E-Commerce Development", "We build scalable, conversion-focused e-commerce platforms."],
   ["full-stack", "Full-Stack Web Developers", "Scalable web solutions using modern technology stacks."],
   ["seo", "SEO Experts", "Boost your visibility, qualified traffic, and organic search performance."],
   ["saas", "SaaS Development Experts", "Build scalable, high-performance SaaS platforms."],
   ["ui-ux", "UI/UX Designers", "Digital experiences that delight users and support conversion."],
-  ["shopify", "Shopify Development Experts", "We build fast, scalable, and custom Shopify stores."],
+  ["shopify", "Shopify Development", "We build fast, scalable, and custom Shopify stores."],
   ["ecommerce-optimization", "E-commerce Optimization", "We improve store speed, performance, and conversion rates."],
   ["web-development", "Web Development", "Custom web applications and high-performance websites."],
   ["maintenance-support", "Website Maintenance & Support", "Keep your website secure, fast, and up to date."],
@@ -156,6 +157,13 @@ function withSeoDefaults(route) {
 }
 
 const routes = [...coreRoutes, ...services, ...articles].map(withSeoDefaults);
+const noindexRoutes = [
+  withSeoDefaults({
+    path: "/thank-you",
+    title: "Thank You | We Raise Tech",
+    description: "Your project inquiry has been received by We Raise Tech.",
+  }),
+];
 
 function escapeHtml(value) {
   return value
@@ -192,6 +200,7 @@ function replaceAlternate(html, hreflang, href) {
 
 function routeJsonLd(route) {
   const url = absoluteUrl(route.path);
+  const displayName = route.heading || route.name || route.title.replace(` | ${SITE_NAME}`, "");
   const breadcrumbItems = route.path
     .split("/")
     .filter(Boolean)
@@ -205,7 +214,7 @@ function routeJsonLd(route) {
   const page = {
     "@type": route.kind === "article" ? "Article" : route.kind === "service" ? "Service" : route.kind === "case-study" ? "CreativeWork" : "WebPage",
     "@id": `${url}#primary`,
-    name: route.title,
+    name: displayName,
     description: route.description,
     url,
     inLanguage: "en",
@@ -264,7 +273,7 @@ function routeJsonLd(route) {
 }
 
 function staticRouteContent(route) {
-  const heading = route.heading || route.title.replace(` | ${SITE_NAME}`, "");
+  const heading = route.heading || route.name || route.title.replace(` | ${SITE_NAME}`, "");
   const segments = route.path.split("/").filter(Boolean);
   const breadcrumbs = [
     `<a href="/">Home</a>`,
@@ -279,51 +288,89 @@ function staticRouteContent(route) {
     ? `<p><time datetime="${route.published}">Published ${route.published}</time></p>`
     : "";
 
-  const noScriptContent = `<main id="static-seo-content" style="max-width:72rem;margin:0 auto;padding:4rem 1.5rem;font-family:system-ui,sans-serif;line-height:1.6">
+  const staticContent = `<main id="static-seo-content">
         <nav aria-label="Breadcrumb">${breadcrumbs}</nav>
+        <span class="static-eyebrow">Web &amp; Software Development</span>
         <h1>${escapeHtml(heading)}</h1>
         <p>${escapeHtml(route.description)}</p>
         ${articleDate}
-        <p><a href="/services">Explore our services</a> · <a href="/portfolio">View our portfolio</a> · <a href="/contact">Start a project</a></p>
+        <p class="static-actions"><a class="static-primary" href="/contact">Start a project</a><a href="/services">Explore our services</a><a href="/portfolio">View our portfolio</a></p>
       </main>`;
 
   return `<style>
-      @keyframes static-loader-spin { to { transform: rotate(360deg); } }
+      @keyframes static-loader-progress {
+        0% { transform: translateX(-100%); }
+        55% { transform: translateX(-15%); }
+        100% { transform: translateX(100%); }
+      }
       #app-loading-shell {
         min-height: 100svh;
+        overflow: hidden;
+        background: #fafbff;
+        color: #20202a;
+        font-family: Outfit, system-ui, sans-serif;
+        position: relative;
+      }
+      #app-loading-shell::before {
+        content: "";
+        position: fixed;
+        z-index: 2;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #7c3aed, #2563eb, #06b6d4);
+        animation: static-loader-progress 1.4s ease-in-out infinite;
+      }
+      #static-shell-header {
+        height: 5rem;
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 1rem;
-        background: #fff;
-        color: #0f172a;
-        font-family: Outfit, system-ui, sans-serif;
+        border-bottom: 1px solid #e8eaf1;
+        background: rgba(255,255,255,.9);
       }
-      #app-loading-shell img { width: 5rem; height: 5rem; object-fit: contain; }
-      #app-loading-shell .loader-ring {
-        width: 1.5rem;
-        height: 1.5rem;
-        border: 2px solid rgba(59, 130, 246, 0.18);
-        border-top-color: #3b82f6;
-        border-radius: 9999px;
-        animation: static-loader-spin 0.75s linear infinite;
+      #static-shell-header > div {
+        width: min(100% - 2rem, 74rem);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: .75rem;
       }
-      @media (prefers-color-scheme: dark) {
-        #app-loading-shell { background: #080b12; color: #f8fafc; }
+      #static-shell-header img { width: 3rem; height: 3rem; object-fit: contain; }
+      #static-shell-header strong { font-size: 1.25rem; letter-spacing: -.035em; }
+      #static-shell-header strong span { color: #2563eb; }
+      #static-seo-content {
+        width: min(100% - 2rem, 56rem);
+        min-height: calc(100svh - 5rem);
+        margin: 0 auto;
+        padding: clamp(4rem, 10vh, 7rem) 0 5rem;
+        text-align: center;
+        line-height: 1.6;
+      }
+      #static-seo-content nav { margin-bottom: 2rem; font-size: .75rem; text-transform: capitalize; color: #6b7280; }
+      #static-seo-content nav a { color: inherit; text-decoration: none; }
+      #static-seo-content .static-eyebrow { display: block; margin-bottom: 1rem; color: #6d28d9; font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; }
+      #static-seo-content h1 { max-width: 50rem; margin: 0 auto 1.25rem; font-family: 'Plus Jakarta Sans', Outfit, system-ui, sans-serif; font-size: clamp(2.5rem, 7vw, 4.75rem); line-height: 1.02; letter-spacing: -.055em; }
+      #static-seo-content > p:not(.static-actions) { max-width: 44rem; margin: .75rem auto; color: #667085; font-size: clamp(1rem, 2vw, 1.18rem); }
+      #static-seo-content .static-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .75rem 1.25rem; margin: 2rem auto 0; }
+      #static-seo-content .static-actions a { color: #6d28d9; font-weight: 700; text-decoration: none; }
+      #static-seo-content .static-actions .static-primary { padding: .85rem 1.25rem; border-radius: .75rem; color: #fff; background: linear-gradient(100deg, #7c3aed, #2563eb, #06b6d4); box-shadow: 0 10px 28px rgba(79,70,229,.2); }
+      @media (max-width: 640px) {
+        #static-seo-content { padding-top: 3.5rem; }
+        #static-seo-content h1 { font-size: clamp(2.35rem, 12vw, 3.3rem); }
+        #static-seo-content .static-actions { flex-direction: column; }
       }
       @media (prefers-reduced-motion: reduce) {
-        #app-loading-shell .loader-ring { animation-duration: 1.5s; }
+        #app-loading-shell::before { animation: none; }
       }
     </style>
-    <div id="app-loading-shell" role="status" aria-label="Loading We Raise Tech">
-      <img src="/we-raise-tech-logo-128.webp" alt="" width="80" height="80" fetchpriority="high" />
-      <span class="loader-ring" aria-hidden="true"></span>
+    <div id="app-loading-shell" aria-busy="true" aria-label="Loading We Raise Tech">
+      <header id="static-shell-header"><div>
+        <img src="/we-raise-tech-logo-128.webp" alt="" width="48" height="48" fetchpriority="high" />
+        <strong>We <span>Raise</span> Tech</strong>
+      </div></header>
+      ${staticContent}
     </div>
-    <noscript>
-      <style>#app-loading-shell { display: none !important; }</style>
-      ${noScriptContent}
-    </noscript>`;
+    <noscript><style>#app-loading-shell::before { display: none !important; }</style></noscript>`;
 }
 
 function renderRoute(shell, route, { noindex = false } = {}) {
@@ -387,6 +434,14 @@ for (const route of routes) {
   await writeFile(target, renderRoute(shell, route), "utf8");
 }
 
+for (const route of noindexRoutes) {
+  if (seen.has(route.path)) throw new Error(`Duplicate SEO route: ${route.path}`);
+  seen.add(route.path);
+  const target = outputPath(route.path);
+  await mkdir(dirname(target), { recursive: true });
+  await writeFile(target, renderRoute(shell, route, { noindex: true }), "utf8");
+}
+
 const notFound = withSeoDefaults({
   path: "/404",
   title: "Page Not Found | We Raise Tech",
@@ -403,7 +458,7 @@ ${routes
     <lastmod>${route.lastModified}</lastmod>${route.image ? `
     <image:image>
       <image:loc>${escapeXml(`${SITE_URL}${route.image}`)}</image:loc>
-      <image:title>${escapeXml(route.heading || route.title.replace(` | ${SITE_NAME}`, ""))}</image:title>
+      <image:title>${escapeXml(route.heading || route.name || route.title.replace(` | ${SITE_NAME}`, ""))}</image:title>
     </image:image>` : ""}
   </url>`
   )
@@ -413,4 +468,4 @@ ${routes
 await writeFile(new URL("sitemap.xml", DIST_DIR), sitemap, "utf8");
 await writeFile(new URL("sitemap.xml", PUBLIC_DIR), sitemap, "utf8");
 
-console.log(`Generated SEO HTML for ${routes.length} routes, 404.html, and sitemap.xml.`);
+console.log(`Generated SEO HTML for ${routes.length} indexable routes, ${noindexRoutes.length} noindex routes, 404.html, and sitemap.xml.`);

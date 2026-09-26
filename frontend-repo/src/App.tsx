@@ -3,8 +3,10 @@ import { AnimatePresence, motion, LazyMotion, domAnimation } from "framer-motion
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
+import { FloatingWhatsApp } from "@/components/shared/FloatingWhatsApp";
 import { useEffect, lazy, Suspense } from "react";
 import logger from "@/lib/logger";
+import { initializeAnalytics, trackEvent, trackPageView } from "@/lib/analytics";
 // Eagerly bundled (not lazy): this is the landing route most visits hit first.
 // Loading it through Suspense meant the tiny fallback spinner got replaced by
 // ~10,000px of real content in one frame once the chunk arrived, moving the
@@ -38,6 +40,7 @@ const ServicesPage = lazyImport(() => import("@/pages/services"));
 const ServiceDetailPage = lazyImport(() => import("@/pages/service-detail"));
 const SolutionsPage = lazyImport(() => import("@/pages/solutions"));
 const ContactPage = lazyImport(() => import("@/pages/contact"));
+const ThankYouPage = lazyImport(() => import("@/pages/thank-you"));
 const PrivacyPage = lazyImport(() => import("@/pages/privacy"));
 const TermsPage = lazyImport(() => import("@/pages/terms"));
 const BlogPage = lazyImport(() => import("@/pages/blog"));
@@ -49,7 +52,9 @@ const NotFound = lazyImport(() => import("@/pages/not-found"));
 function RouteLogger() {
   const [location] = useLocation();
   useEffect(() => {
+    initializeAnalytics();
     logger.route(location);
+    trackPageView(location);
     // Scroll to top on route change (unless navigating to a hash)
     if (!window.location.hash) {
       window.scrollTo({ top: 0, behavior: "instant" });
@@ -68,6 +73,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 }
@@ -106,6 +112,7 @@ function Router() {
                 <Route path="/services/:slug" component={ServiceDetailPage} />
                 <Route path="/solutions" component={SolutionsPage} />
                 <Route path="/contact" component={ContactPage} />
+                <Route path="/thank-you" component={ThankYouPage} />
                 <Route path="/privacy" component={PrivacyPage} />
                 <Route path="/terms" component={TermsPage} />
                 <Route path="/blog" component={BlogPage} />
@@ -121,6 +128,18 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    initializeAnalytics();
+    const handleCalendlyMessage = (event: MessageEvent) => {
+      if (event.origin !== "https://calendly.com") return;
+      if ((event.data as { event?: string } | null)?.event === "calendly.event_scheduled") {
+        trackEvent("calendly_booking_complete", { lead_source: "calendly" });
+      }
+    };
+    window.addEventListener("message", handleCalendlyMessage);
+    return () => window.removeEventListener("message", handleCalendlyMessage);
+  }, []);
+
   return (
     <ErrorBoundary>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
