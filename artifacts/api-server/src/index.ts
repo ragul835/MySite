@@ -3,6 +3,7 @@ import { logger } from "./lib/logger";
 import { pool, runMigrations } from "@workspace/db";
 import { validateRuntimeConfig } from "./config";
 import path from "node:path";
+import { startContactMaintenance } from "./lib/contact-delivery";
 
 validateRuntimeConfig();
 
@@ -35,11 +36,13 @@ const server = app.listen(port, (err) => {
 
   logger.info({ port }, "Server listening");
 });
+const stopContactMaintenance = startContactMaintenance();
 
 let shuttingDown = false;
 async function shutdown(signal: string) {
   if (shuttingDown) return;
   shuttingDown = true;
+  stopContactMaintenance();
   logger.info({ signal }, "Shutting down");
 
   const forceExit = setTimeout(() => process.exit(1), 10_000).unref();

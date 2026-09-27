@@ -13,8 +13,13 @@ export function allowedOrigins(): string[] {
     } catch {
       throw new Error(`Invalid FRONTEND_URL origin: "${origin}"`);
     }
-    if (!['http:', 'https:'].includes(parsed.protocol) || parsed.origin !== origin) {
-      throw new Error(`FRONTEND_URL must contain only http(s) origins: "${origin}"`);
+    if (
+      !["http:", "https:"].includes(parsed.protocol) ||
+      parsed.origin !== origin
+    ) {
+      throw new Error(
+        `FRONTEND_URL must contain only http(s) origins: "${origin}"`,
+      );
     }
   }
 
@@ -36,6 +41,15 @@ export function validateRuntimeConfig() {
         "ADMIN_EMAIL and CONTACT_FROM_EMAIL are required when RESEND_API_KEY is set",
       );
     }
+  }
+
+  if (process.env.ADMIN_API_TOKEN && process.env.ADMIN_API_TOKEN.length < 32) {
+    throw new Error("ADMIN_API_TOKEN must be at least 32 characters");
+  }
+
+  const retentionDays = Number(process.env.CONTACT_RETENTION_DAYS ?? 1_095);
+  if (!Number.isInteger(retentionDays) || retentionDays < 30) {
+    throw new Error("CONTACT_RETENTION_DAYS must be an integer of at least 30");
   }
 }
 

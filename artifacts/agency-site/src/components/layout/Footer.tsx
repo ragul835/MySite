@@ -32,10 +32,13 @@ export function Footer() {
   const year = new Date().getFullYear();
   const [, setLocation] = useLocation();
 
-  const handleHashLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleHashLink = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     e.preventDefault();
-    const [path, hash] = href.split('#');
-    
+    const [path, hash] = href.split("#");
+
     if (path && window.location.pathname !== path) {
       setLocation(href);
     } else if (hash) {
@@ -56,7 +59,8 @@ export function Footer() {
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
+          backgroundImage:
+            "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
           backgroundSize: "32px 32px",
         }}
       />
@@ -80,11 +84,16 @@ export function Footer() {
                 />
               </span>
               <span className="whitespace-nowrap text-2xl font-extrabold tracking-[-0.04em] text-white">
-                We <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">Raise</span> Tech
+                We{" "}
+                <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">
+                  Raise
+                </span>{" "}
+                Tech
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              Building reliable digital solutions with modern technology, clean engineering practices, and a commitment to long-term success.
+              Building reliable digital solutions with modern technology, clean
+              engineering practices, and a commitment to long-term success.
             </p>
           </div>
 
@@ -139,13 +148,19 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <a href="mailto:contact@weraisetech.com" className="inline-flex min-h-11 items-center transition-colors hover:text-primary md:min-h-0">
+                <a
+                  href="mailto:contact@weraisetech.com"
+                  className="inline-flex min-h-11 items-center transition-colors hover:text-primary md:min-h-0"
+                >
                   contact@weraisetech.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <a href="tel:+919080163393" className="inline-flex min-h-11 items-center transition-colors hover:text-primary md:min-h-0">
+                <a
+                  href="tel:+919080163393"
+                  className="inline-flex min-h-11 items-center transition-colors hover:text-primary md:min-h-0"
+                >
                   +91 9080163393
                 </a>
               </li>

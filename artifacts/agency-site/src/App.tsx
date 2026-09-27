@@ -1,6 +1,5 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { AnimatePresence, motion } from "framer-motion";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/layout/Navbar";
@@ -8,6 +7,8 @@ import { Footer } from "@/components/layout/Footer";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import { useEffect, lazy, Suspense } from "react";
 import logger from "@/lib/logger";
+import { trackPageView } from "@/lib/analytics";
+import { AnalyticsConsent } from "@/components/shared/AnalyticsConsent";
 
 const HomePage = lazy(() => import("@/pages/home"));
 const AboutPage = lazy(() => import("@/pages/about"));
@@ -20,12 +21,11 @@ const BlogPage = lazy(() => import("@/pages/blog"));
 const BlogPostPage = lazy(() => import("@/pages/blog-post"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
-const queryClient = new QueryClient();
-
 function RouteLogger() {
   const [location] = useLocation();
   useEffect(() => {
     logger.route(location);
+    queueMicrotask(() => trackPageView(location));
     // Scroll to top on route change (unless navigating to a hash)
     if (!window.location.hash) {
       window.scrollTo({ top: 0, behavior: "instant" });
@@ -46,25 +46,34 @@ function Layout({ children }: { children: React.ReactNode }) {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-[50vh] flex items-center justify-center">
-      <div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+    <div
+      className="min-h-[50vh] flex items-center justify-center"
+      role="status"
+      aria-live="polite"
+    >
+      <div
+        className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin"
+        aria-hidden="true"
+      />
+      <span className="sr-only">Loading page</span>
     </div>
   );
 }
 
 function Router() {
   const [location] = useLocation();
-  
+  const reduceMotion = useReducedMotion();
+
   return (
     <Layout>
       <RouteLogger />
       <AnimatePresence mode="wait">
         <motion.div
           key={location}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          exit={{ opacity: 0, y: reduceMotion ? 0 : -20 }}
+          transition={{ duration: reduceMotion ? 0 : 0.3, ease: "easeOut" }}
           className="flex-1 flex flex-col"
         >
           <Suspense fallback={<LoadingFallback />}>
@@ -90,14 +99,13 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <Router />
-          </WouterRouter>
-          <Toaster richColors position="top-right" />
-        </TooltipProvider>
-      </QueryClientProvider>
+      <TooltipProvider>
+        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+          <Router />
+        </WouterRouter>
+        <Toaster richColors position="top-right" />
+        <AnalyticsConsent />
+      </TooltipProvider>
     </ErrorBoundary>
   );
 }

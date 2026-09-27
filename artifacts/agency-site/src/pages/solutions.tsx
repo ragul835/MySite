@@ -1,62 +1,80 @@
 import { Link } from "wouter";
-import { ChevronRight, Search, Map, PenTool, Code2, CheckCircle, Rocket, HeartHandshake, ArrowRight } from "lucide-react";
+import {
+  ChevronRight,
+  Search,
+  Map,
+  PenTool,
+  Code2,
+  CheckCircle,
+  Rocket,
+  HeartHandshake,
+  ArrowRight,
+} from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
+import {
+  AnimateOnScroll,
+  AnimatedItem,
+} from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-
-
 
 const steps = [
   {
     icon: Search,
     step: "01",
     title: "Discovery",
-    description: "We audit your requirements, constraints, and goals. No assumptions — just deep listening and sharp questions.",
+    description:
+      "We audit your requirements, constraints, and goals. No assumptions — just deep listening and sharp questions.",
   },
   {
     icon: Map,
     step: "02",
     title: "Planning",
-    description: "Creating a detailed roadmap and project architecture to ensure smooth execution from start to finish.",
+    description:
+      "Creating a detailed roadmap and project architecture to ensure smooth execution from start to finish.",
   },
   {
     icon: PenTool,
     step: "03",
     title: "Design",
-    description: "Architecture, wireframes, and a clear technical spec. You approve before a single line of production code is written.",
+    description:
+      "Architecture, wireframes, and a clear technical spec. You approve before a single line of production code is written.",
   },
   {
     icon: Code2,
     step: "04",
     title: "Development",
-    description: "Iterative sprints with weekly demos. You see real progress, real software — not slide decks.",
+    description:
+      "Iterative sprints with weekly demos. You see real progress, real software — not slide decks.",
   },
   {
     icon: CheckCircle,
     step: "05",
     title: "Testing",
-    description: "Rigorous QA and automated testing to ensure everything works perfectly across all devices and scenarios.",
+    description:
+      "Rigorous QA and automated testing to ensure everything works perfectly across all devices and scenarios.",
   },
   {
     icon: Rocket,
     step: "06",
     title: "Deployment",
-    description: "Zero-downtime launches, monitoring setup, and a smooth transition to the live environment.",
+    description:
+      "Zero-downtime launches, monitoring setup, and a smooth transition to the live environment.",
   },
   {
     icon: HeartHandshake,
     step: "07",
     title: "Support",
-    description: "Providing ongoing maintenance, monitoring, and updates. We ship — and we stay to support your growth.",
+    description:
+      "Providing ongoing maintenance, monitoring, and updates. We ship — and we stay to support your growth.",
   },
 ];
 
 export default function SolutionsPage() {
   useDocumentTitle(
     "Solutions & Capabilities | We Raise Tech",
-    "Custom digital solutions engineered for scale and performance. Discover our process: Discovery, Design, Development, and Deployment."
+    "Custom digital solutions engineered for scale and performance. Discover our process: Discovery, Design, Development, and Deployment.",
   );
 
   return (
@@ -64,12 +82,13 @@ export default function SolutionsPage() {
       {/* Hero Banner */}
       <section className="relative overflow-hidden border-b border-border/30 pb-16 pt-16 sm:pb-20 sm:pt-24 lg:pb-24 lg:pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 via-transparent to-background" />
-        
+
         {/* Premium Grid Overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -78,49 +97,55 @@ export default function SolutionsPage() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
             className="absolute top-[-20%] left-[10%] w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
-            style={{ background: "radial-gradient(circle, hsl(270 81% 60%) 0%, transparent 70%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, hsl(270 81% 60%) 0%, transparent 70%)",
+            }}
           />
         </div>
 
         <Container className="relative z-10">
           <AnimateOnScroll>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/10 backdrop-blur-sm text-primary text-sm font-medium mb-8">
-              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+              <Link href="/" className="hover:text-primary transition-colors">
+                Home
+              </Link>
               <ChevronRight className="w-3.5 h-3.5" />
               <span>Solutions</span>
             </div>
             <div className="max-w-4xl">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground">
-                Our <span className="text-transparent bg-clip-text bg-gradient-to-br from-secondary via-primary/80 to-primary relative">
+                Our{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-secondary via-primary/80 to-primary relative">
                   Capabilities
                   <span className="absolute -inset-x-4 -inset-y-2 bg-secondary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed border-l-4 border-secondary/30 pl-6 max-w-2xl">
-                Custom digital solutions engineered for scale and performance, tailored precisely to your business needs.
+                Custom digital solutions engineered for scale and performance,
+                tailored precisely to your business needs.
               </p>
             </div>
           </AnimateOnScroll>
         </Container>
       </section>
 
-
-
       {/* Process Section - Premium Redesign */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
         <div className="absolute -left-40 top-40 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none opacity-60" />
         <div className="absolute -right-40 bottom-40 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[120px] pointer-events-none opacity-60" />
-        
+
         {/* Subtle grid pattern */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
             backgroundSize: "40px 40px",
           }}
         />
-        
+
         <Container className="relative z-10">
           <AnimateOnScroll>
             <SectionHeader
@@ -145,19 +170,19 @@ export default function SolutionsPage() {
                   )}
 
                   {/* Icon & Number Side */}
-                  <div className={`w-full md:w-1/2 flex justify-center relative order-1 ${isEven ? 'md:justify-start md:order-2' : 'md:justify-end'}`}>
+                  <div
+                    className={`w-full md:w-1/2 flex justify-center relative order-1 ${isEven ? "md:justify-start md:order-2" : "md:justify-end"}`}
+                  >
                     <div className="relative">
                       {/* Massive background number */}
                       <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[12rem] md:text-[16rem] font-black text-primary/5 select-none pointer-events-none font-heading">
                         {step.step}
                       </span>
-                      
-                      <div
-                        className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-card/60 backdrop-blur-xl border border-border/50 shadow-2xl flex items-center justify-center overflow-hidden group"
-                      >
+
+                      <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-card/60 backdrop-blur-xl border border-border/50 shadow-2xl flex items-center justify-center overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         <Icon className="w-12 h-12 text-primary relative z-10" />
-                        
+
                         {/* Glowing orb behind icon */}
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                           <div className="w-16 h-16 bg-primary/20 blur-xl rounded-full" />
@@ -167,14 +192,20 @@ export default function SolutionsPage() {
                   </div>
 
                   {/* Content Side */}
-                  <div className={`w-full md:w-1/2 order-2 text-center ${isEven ? 'md:order-1 md:text-right' : 'md:text-left'}`}>
-                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-bold tracking-wider mb-4 mx-auto ${isEven ? 'md:ml-auto md:mr-0' : 'md:mr-auto md:ml-0'}`}>
+                  <div
+                    className={`w-full md:w-1/2 order-2 text-center ${isEven ? "md:order-1 md:text-right" : "md:text-left"}`}
+                  >
+                    <div
+                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-bold tracking-wider mb-4 mx-auto ${isEven ? "md:ml-auto md:mr-0" : "md:mr-auto md:ml-0"}`}
+                    >
                       STEP {step.step}
                     </div>
                     <h3 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
                       {step.title}
                     </h3>
-                    <p className={`text-muted-foreground text-lg leading-relaxed max-w-md mx-auto ${isEven ? 'md:ml-auto md:mr-0' : 'md:mr-auto md:ml-0'}`}>
+                    <p
+                      className={`text-muted-foreground text-lg leading-relaxed max-w-md mx-auto ${isEven ? "md:ml-auto md:mr-0" : "md:mr-auto md:ml-0"}`}
+                    >
                       {step.description}
                     </p>
                   </div>
@@ -197,7 +228,9 @@ export default function SolutionsPage() {
                 Industries We Serve
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                We apply core software engineering principles across diverse verticals, solving domain-specific challenges with universal technical excellence.
+                We apply core software engineering principles across diverse
+                verticals, solving domain-specific challenges with universal
+                technical excellence.
               </p>
             </div>
           </AnimateOnScroll>
@@ -206,20 +239,24 @@ export default function SolutionsPage() {
             {[
               {
                 name: "SaaS & Startups",
-                description: "Rapid iteration, multi-tenant architectures, and scalable billing systems built for exponential user growth.",
+                description:
+                  "Rapid iteration, multi-tenant architectures, and scalable billing systems built for exponential user growth.",
               },
               {
                 name: "E-Commerce & Retail",
-                description: "High-conversion, lightning-fast headless storefronts and custom inventory management platforms.",
+                description:
+                  "High-conversion, lightning-fast headless storefronts and custom inventory management platforms.",
               },
               {
                 name: "FinTech & Financial",
-                description: "Secure, high-throughput systems designed to handle financial data and transactions with zero margin for error.",
+                description:
+                  "Secure, high-throughput systems designed to handle financial data and transactions with zero margin for error.",
               },
               {
                 name: "Healthcare & MedTech",
-                description: "Data-dense applications that prioritize patient privacy, complex provider workflows, and strict compliance.",
-              }
+                description:
+                  "Data-dense applications that prioritize patient privacy, complex provider workflows, and strict compliance.",
+              },
             ].map((industry) => (
               <AnimateOnScroll key={industry.name}>
                 <div className="p-8 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors group h-full">
@@ -242,13 +279,17 @@ export default function SolutionsPage() {
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
-            backgroundImage: "radial-gradient(circle, hsl(0 0% 98%) 1px, transparent 1px)",
+            backgroundImage:
+              "radial-gradient(circle, hsl(0 0% 98%) 1px, transparent 1px)",
             backgroundSize: "40px 40px",
           }}
         />
         <div
           className="absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
+          style={{
+            background:
+              "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)",
+          }}
         />
 
         <Container className="relative z-10 text-center">
@@ -263,11 +304,16 @@ export default function SolutionsPage() {
               </span>
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
-              Every great product starts with a conversation. Tell us about your project and we'll respond within 24 hours.
+              Every great product starts with a conversation. Tell us about your
+              project and we'll respond within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <GradientButton href="/contact#contact-form" className="px-12 py-4 text-base">
-                Start a Conversation <ArrowRight className="w-5 h-5 ml-2 inline-block" />
+              <GradientButton
+                href="/contact#contact-form"
+                className="px-12 py-4 text-base"
+              >
+                Start a Conversation{" "}
+                <ArrowRight className="w-5 h-5 ml-2 inline-block" />
               </GradientButton>
               <a
                 href="mailto:contact@weraisetech.com"

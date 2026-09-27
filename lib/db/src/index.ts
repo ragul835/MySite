@@ -23,7 +23,10 @@ export const pool = new Pool({
   connectionTimeoutMillis: 5_000,
   ssl:
     process.env.DB_SSL === "true"
-      ? { rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== "false" }
+      ? {
+          rejectUnauthorized:
+            process.env.DB_SSL_REJECT_UNAUTHORIZED !== "false",
+        }
       : undefined,
 });
 export const db = drizzle(pool, { schema });

@@ -37,7 +37,12 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
-      "@assets": path.resolve(import.meta.dirname, "..", "..", "attached_assets"),
+      "@assets": path.resolve(
+        import.meta.dirname,
+        "..",
+        "..",
+        "attached_assets",
+      ),
     },
     dedupe: ["react", "react-dom"],
   },
@@ -50,10 +55,12 @@ export default defineConfig({
         manualChunks(id) {
           if (!id.includes("node_modules")) return;
           if (id.includes("framer-motion")) return "motion-vendor";
-          if (id.includes("lucide-react") || id.includes("react-icons")) return "icons-vendor";
+          if (id.includes("lucide-react") || id.includes("react-icons"))
+            return "icons-vendor";
           if (id.includes("@radix-ui")) return "ui-vendor";
           if (id.includes("@tanstack")) return "query-vendor";
-          if (id.includes("react") || id.includes("scheduler")) return "react-vendor";
+          if (id.includes("react") || id.includes("scheduler"))
+            return "react-vendor";
         },
       },
     },

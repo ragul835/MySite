@@ -5,7 +5,16 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { Calendar, Clock, ArrowRight, Tag, Search, CheckCircle, TrendingUp, Users } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  ArrowRight,
+  Tag,
+  Search,
+  CheckCircle,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 
 interface BlogPost {
   slug: string;
@@ -22,101 +31,124 @@ interface BlogPost {
 const blogPosts: BlogPost[] = [
   {
     slug: "top-web-development-trends-2026",
-    title: "Top Web Development Trends in 2026: What Leading IT Companies Are Building",
-    excerpt: "Discover the cutting-edge web development trends shaping 2026. From AI-integrated apps to performance-first architectures, learn what your business needs to stay competitive.",
+    title:
+      "Top Web Development Trends in 2026: What Leading IT Companies Are Building",
+    excerpt:
+      "Discover the cutting-edge web development trends shaping 2026. From AI-integrated apps to performance-first architectures, learn what your business needs to stay competitive.",
     date: "July 8, 2026",
     readTime: "12 min",
     category: "Web Development",
     tags: ["web development", "trends 2026", "IT company"],
-    metaDescription: "Explore the top web development trends in 2026 including AI integration, edge computing, and performance optimization. Expert insights from We Raise Tech.",
+    metaDescription:
+      "Explore the top web development trends in 2026 including AI integration, edge computing, and performance optimization. Expert insights from We Raise Tech.",
     image: "web-development-trends-2026.jpg",
   },
   {
     slug: "scalable-saas-development-guide",
-    title: "Scalable SaaS Development Guide: Build Products That Grow With Your Business",
-    excerpt: "A comprehensive guide to building scalable SaaS applications. Learn architecture patterns, multi-tenancy strategies, and tech stacks used by successful IT companies.",
+    title:
+      "Scalable SaaS Development Guide: Build Products That Grow With Your Business",
+    excerpt:
+      "A comprehensive guide to building scalable SaaS applications. Learn architecture patterns, multi-tenancy strategies, and tech stacks used by successful IT companies.",
     date: "July 5, 2026",
     readTime: "15 min",
     category: "SaaS Development",
     tags: ["SaaS", "scalability", "software development"],
-    metaDescription: "Learn how to build scalable SaaS applications with proven strategies from an experienced IT company. Multi-tenancy, architecture, and growth tips included.",
+    metaDescription:
+      "Learn how to build scalable SaaS applications with proven strategies from an experienced IT company. Multi-tenancy, architecture, and growth tips included.",
     image: "scalable-saas-development.jpg",
   },
   {
     slug: "ecommerce-development-best-practices",
-    title: "Ecommerce Development Best Practices to Maximize Conversions in 2026",
-    excerpt: "Boost your online sales with proven ecommerce development strategies. Speed, UX, SEO, payments, and mobile optimization tactics used by top digital agencies.",
+    title:
+      "Ecommerce Development Best Practices to Maximize Conversions in 2026",
+    excerpt:
+      "Boost your online sales with proven ecommerce development strategies. Speed, UX, SEO, payments, and mobile optimization tactics used by top digital agencies.",
     date: "July 3, 2026",
     readTime: "11 min",
     category: "E-Commerce",
     tags: ["ecommerce", "conversion optimization", "shopify"],
-    metaDescription: "Master ecommerce development best practices for 2026. Discover how an IT company optimizes stores for speed, SEO, and conversions that drive real revenue.",
+    metaDescription:
+      "Master ecommerce development best practices for 2026. Discover how an IT company optimizes stores for speed, SEO, and conversions that drive real revenue.",
     image: "ecommerce-development.jpg",
   },
   {
     slug: "technical-seo-guide-for-it-companies",
     title: "Technical SEO Guide for Modern Websites: An IT Company Perspective",
-    excerpt: "Technical SEO is the foundation of organic growth. This in-depth guide covers Core Web Vitals, structured data, crawlability, and more for high-performing web apps.",
+    excerpt:
+      "Technical SEO is the foundation of organic growth. This in-depth guide covers Core Web Vitals, structured data, crawlability, and more for high-performing web apps.",
     date: "July 1, 2026",
     readTime: "14 min",
     category: "SEO",
     tags: ["technical SEO", "web performance", "IT services"],
-    metaDescription: "Technical SEO guide from a leading IT company. Improve rankings with Core Web Vitals, schema, mobile-first indexing, and modern optimization techniques.",
+    metaDescription:
+      "Technical SEO guide from a leading IT company. Improve rankings with Core Web Vitals, schema, mobile-first indexing, and modern optimization techniques.",
     image: "technical-seo.jpg",
   },
   {
     slug: "ui-ux-design-for-business-growth",
-    title: "How Professional UI/UX Design Drives 3x Business Growth and Conversions",
-    excerpt: "Great design isn't just pretty pixels. Learn the measurable business impact of professional UI/UX design and how top IT companies turn interfaces into growth engines.",
+    title:
+      "How Professional UI/UX Design Drives 3x Business Growth and Conversions",
+    excerpt:
+      "Great design isn't just pretty pixels. Learn the measurable business impact of professional UI/UX design and how top IT companies turn interfaces into growth engines.",
     date: "June 28, 2026",
     readTime: "10 min",
     category: "UI/UX Design",
     tags: ["UI/UX", "conversion rate", "user experience"],
-    metaDescription: "See how professional UI/UX design from an IT company can dramatically increase conversions, reduce bounce rates, and fuel sustainable business growth.",
+    metaDescription:
+      "See how professional UI/UX design from an IT company can dramatically increase conversions, reduce bounce rates, and fuel sustainable business growth.",
     image: "ui-ux-design.jpg",
   },
   {
     slug: "shopify-development-vs-custom-solutions",
-    title: "Shopify Development vs Custom Ecommerce: Choosing the Right Solution",
-    excerpt: "Confused between Shopify and custom development? We break down the pros, cons, costs, and when to choose each option for your business from an expert IT company.",
+    title:
+      "Shopify Development vs Custom Ecommerce: Choosing the Right Solution",
+    excerpt:
+      "Confused between Shopify and custom development? We break down the pros, cons, costs, and when to choose each option for your business from an expert IT company.",
     date: "June 25, 2026",
     readTime: "13 min",
     category: "E-Commerce",
     tags: ["shopify", "custom development", "ecommerce platform"],
-    metaDescription: "Shopify vs custom ecommerce development: detailed comparison by a top IT company. Find the best fit for your budget, scale, and unique business requirements.",
+    metaDescription:
+      "Shopify vs custom ecommerce development: detailed comparison by a top IT company. Find the best fit for your budget, scale, and unique business requirements.",
     image: "shopify-vs-custom.jpg",
   },
   {
     slug: "website-maintenance-support-guide",
     title: "Website Maintenance & Support: Why Ongoing Care Protects Revenue",
-    excerpt: "Launches are only the start. Learn how proactive website maintenance, security patches, and support keep your site fast, secure, and converting.",
+    excerpt:
+      "Launches are only the start. Learn how proactive website maintenance, security patches, and support keep your site fast, secure, and converting.",
     date: "July 12, 2026",
     readTime: "11 min",
     category: "Website Maintenance",
     tags: ["website maintenance", "support", "security", "uptime"],
-    metaDescription: "Why website maintenance and support matter after launch. Security, speed, backups, and response plans from We Raise Tech.",
+    metaDescription:
+      "Why website maintenance and support matter after launch. Security, speed, backups, and response plans from We Raise Tech.",
     image: "technical-seo.jpg",
   },
   {
     slug: "mobile-app-development-guide-2026",
     title: "Mobile App Development in 2026: Native vs Cross-Platform Decisions",
-    excerpt: "Build the right mobile product for iOS and Android. Compare native and cross-platform approaches, costs, and when each path makes business sense.",
+    excerpt:
+      "Build the right mobile product for iOS and Android. Compare native and cross-platform approaches, costs, and when each path makes business sense.",
     date: "July 14, 2026",
     readTime: "13 min",
     category: "Mobile App Development",
     tags: ["mobile app", "React Native", "Flutter", "iOS", "Android"],
-    metaDescription: "Mobile app development guide for 2026. Native vs cross-platform, stacks, timelines, and launch strategy from We Raise Tech.",
+    metaDescription:
+      "Mobile app development guide for 2026. Native vs cross-platform, stacks, timelines, and launch strategy from We Raise Tech.",
     image: "ui-ux-design.jpg",
   },
   {
     slug: "custom-software-development-when-to-build",
     title: "Custom Software Development: When Off-the-Shelf Tools Stop Working",
-    excerpt: "Know when to invest in custom software. We cover ROI signals, architecture choices, and how bespoke systems automate unique business workflows.",
+    excerpt:
+      "Know when to invest in custom software. We cover ROI signals, architecture choices, and how bespoke systems automate unique business workflows.",
     date: "July 16, 2026",
     readTime: "12 min",
     category: "Custom Software",
     tags: ["custom software", "enterprise", "automation", "integrations"],
-    metaDescription: "When custom software development beats SaaS tools. ROI, process automation, integrations, and ownership insights from We Raise Tech.",
+    metaDescription:
+      "When custom software development beats SaaS tools. ROI, process automation, integrations, and ownership insights from We Raise Tech.",
     image: "scalable-saas-development.jpg",
   },
 ];
@@ -136,7 +168,7 @@ const categories = [
 export default function BlogPage() {
   useDocumentTitle(
     "Blog | We Raise Tech — Insights on Web, Mobile, SaaS & Custom Software",
-    "Expert articles from We Raise Tech on web development, mobile apps, custom software, website maintenance, SaaS, ecommerce, SEO, and modern engineering."
+    "Expert articles from We Raise Tech on web development, mobile apps, custom software, website maintenance, SaaS, ecommerce, SEO, and modern engineering.",
   );
 
   const [activeCategory, setActiveCategory] = useState("All");
@@ -144,12 +176,15 @@ export default function BlogPage() {
 
   const filteredPosts = blogPosts
     .filter((post) => {
-      const matchesCategory = activeCategory === "All" || post.category === activeCategory;
+      const matchesCategory =
+        activeCategory === "All" || post.category === activeCategory;
       const matchesSearch =
         searchQuery === "" ||
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        post.tags.some((tag) =>
+          tag.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
       return matchesCategory && matchesSearch;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -166,10 +201,14 @@ export default function BlogPage() {
                 EXPERT GUIDES • 2026
               </div>
               <h1 className="text-5xl md:text-[56px] font-heading font-black tracking-[-1.8px] leading-[1.05] mb-5">
-                Insights from the<br />engineering team
+                Insights from the
+                <br />
+                engineering team
               </h1>
               <p className="text-[17px] text-muted-foreground max-w-xl mx-auto leading-relaxed">
-                Practical, in-depth articles on modern web development, SaaS architecture, ecommerce, technical SEO, and building products that actually scale.
+                Practical, in-depth articles on modern web development, SaaS
+                architecture, ecommerce, technical SEO, and building products
+                that actually scale.
               </p>
             </div>
           </AnimateOnScroll>
@@ -186,6 +225,7 @@ export default function BlogPage() {
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
+                  aria-pressed={activeCategory === category}
                   className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
                     activeCategory === category
                       ? "bg-primary text-primary-foreground shadow"
@@ -202,6 +242,7 @@ export default function BlogPage() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
                 type="text"
+                aria-label="Search articles"
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -217,7 +258,9 @@ export default function BlogPage() {
         <Container>
           {filteredPosts.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">No articles found matching your criteria.</p>
+              <p className="text-muted-foreground text-lg">
+                No articles found matching your criteria.
+              </p>
               <button
                 onClick={() => {
                   setActiveCategory("All");
@@ -232,13 +275,16 @@ export default function BlogPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.map((post, index) => (
                 <AnimateOnScroll key={post.slug} delay={index * 0.03}>
-                  <Link href={`/blog/${post.slug}`} className="group block h-full">
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="group block h-full"
+                  >
                     <article className="bg-card border border-border/60 rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:-translate-y-0.5">
                       {/* Card Header Image - optimized visibility */}
                       <div className="relative h-48 md:h-52 overflow-hidden bg-muted rounded-t-2xl">
-                        <img 
-                          src={`/blog/${post.image}`} 
-                          alt={post.title} 
+                        <img
+                          src={`/blog/${post.image}`}
+                          alt={post.title}
                           className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out transform-gpu will-change-transform"
                           loading="lazy"
                           decoding="async"
@@ -253,7 +299,7 @@ export default function BlogPage() {
                           <Clock className="h-3 w-3" /> {post.readTime}
                         </div>
                       </div>
-                      
+
                       <div className="p-6 md:p-7 flex-1 flex flex-col">
                         <div className="flex items-center gap-2 text-[12px] text-muted-foreground mb-3">
                           <div className="flex items-center gap-1">
@@ -272,7 +318,7 @@ export default function BlogPage() {
 
                         <div className="mt-auto pt-3 border-t border-border/40">
                           <div className="inline-flex items-center text-sm font-semibold text-primary group-hover:gap-2 gap-1.5 transition-all">
-                            Read full article 
+                            Read full article
                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                           </div>
                         </div>
@@ -287,9 +333,16 @@ export default function BlogPage() {
           {/* Professional "What makes our content different" section - fills space meaningfully */}
           <div className="mt-16 border-t border-border/40 pt-16">
             <div className="text-center mb-10">
-              <div className="inline text-xs font-semibold tracking-[1.5px] text-primary bg-primary/10 px-3 py-1 rounded-full">FROM THE BUILDERS</div>
-              <h2 className="mt-3 text-3xl md:text-4xl font-heading font-bold tracking-tight">What makes our insights different</h2>
-              <p className="mt-2 text-muted-foreground max-w-md mx-auto">We don’t write theory. We share patterns that actually work in production.</p>
+              <div className="inline text-xs font-semibold tracking-[1.5px] text-primary bg-primary/10 px-3 py-1 rounded-full">
+                FROM THE BUILDERS
+              </div>
+              <h2 className="mt-3 text-3xl md:text-4xl font-heading font-bold tracking-tight">
+                What makes our insights different
+              </h2>
+              <p className="mt-2 text-muted-foreground max-w-md mx-auto">
+                We don’t write theory. We share patterns that actually work in
+                production.
+              </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -297,37 +350,65 @@ export default function BlogPage() {
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <CheckCircle className="h-5 w-5 text-primary" />
                 </div>
-                <h4 className="font-semibold text-lg mb-2">Built by practitioners</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">Every article is written by engineers who are actively shipping scalable web apps, SaaS platforms, and high-converting ecommerce experiences for real clients.</p>
+                <h4 className="font-semibold text-lg mb-2">
+                  Built by practitioners
+                </h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Every article is written by engineers who are actively
+                  shipping scalable web apps, SaaS platforms, and
+                  high-converting ecommerce experiences for real clients.
+                </p>
               </div>
 
               <div className="bg-card border border-border/60 rounded-2xl p-6">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
-                <h4 className="font-semibold text-lg mb-2">Focused on what scales</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">We skip the hype. You’ll find battle-tested approaches that work from early traction to thousands of users and enterprise requirements.</p>
+                <h4 className="font-semibold text-lg mb-2">
+                  Focused on what scales
+                </h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  We skip the hype. You’ll find battle-tested approaches that
+                  work from early traction to thousands of users and enterprise
+                  requirements.
+                </p>
               </div>
 
               <div className="bg-card border border-border/60 rounded-2xl p-6">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <Users className="h-5 w-5 text-primary" />
                 </div>
-                <h4 className="font-semibold text-lg mb-2">2026 realities, not 2023 advice</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">AI integration, edge performance, composable architecture, and modern SEO — we cover what actually moves the needle for ambitious companies right now.</p>
+                <h4 className="font-semibold text-lg mb-2">
+                  2026 realities, not 2023 advice
+                </h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  AI integration, edge performance, composable architecture, and
+                  modern SEO — we cover what actually moves the needle for
+                  ambitious companies right now.
+                </p>
               </div>
             </div>
           </div>
 
           {/* CTA Section - more prominent */}
           <div className="mt-16 text-center bg-muted/30 border border-border/40 rounded-3xl py-14 px-6">
-            <h3 className="text-3xl md:text-4xl font-heading font-bold mb-3 tracking-tight">Ready to build something that lasts?</h3>
+            <h3 className="text-3xl md:text-4xl font-heading font-bold mb-3 tracking-tight">
+              Ready to build something that lasts?
+            </h3>
             <p className="text-muted-foreground max-w-md mx-auto mb-8 text-[15px]">
-              Let’s discuss how We Raise Tech can help you apply these patterns to your next web, SaaS, or ecommerce project.
+              Let’s discuss how We Raise Tech can help you apply these patterns
+              to your next web, SaaS, or ecommerce project.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <GradientButton href="/contact#contact-form">Start a conversation</GradientButton>
-              <Link href="/services" className="inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-border text-sm font-medium hover:bg-muted transition">Explore our services</Link>
+              <GradientButton href="/contact#contact-form">
+                Start a conversation
+              </GradientButton>
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-border text-sm font-medium hover:bg-muted transition"
+              >
+                Explore our services
+              </Link>
             </div>
           </div>
         </Container>

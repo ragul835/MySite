@@ -53,11 +53,16 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'"],
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        scriptSrc: ["'self'", "https://www.googletagmanager.com"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "https:"],
-        fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
-        connectSrc: ["'self'", ...origins],
+        fontSrc: ["'self'", "data:"],
+        connectSrc: [
+          "'self'",
+          ...origins,
+          "https://www.google-analytics.com",
+          "https://region1.google-analytics.com",
+        ],
       },
     },
   }),
@@ -109,6 +114,14 @@ if (staticDir && existsSync(staticDir)) {
       return;
     }
     res.setHeader("Cache-Control", "no-cache");
+    const routePath = decodeURIComponent(req.path).replace(/^\/+|\/+$/g, "");
+    if (routePath && !routePath.includes("..")) {
+      const prerendered = path.join(staticDir, routePath, "index.html");
+      if (existsSync(prerendered)) {
+        res.sendFile(prerendered);
+        return;
+      }
+    }
     res.sendFile(path.join(staticDir, "index.html"));
   });
 }
@@ -127,7 +140,8 @@ app.use(
         ? Number(error.status)
         : 500;
     res.status(Number.isInteger(status) && status >= 400 ? status : 500).json({
-      message: status === 413 ? "Request body is too large" : "Internal server error",
+      message:
+        status === 413 ? "Request body is too large" : "Internal server error",
     });
   },
 );

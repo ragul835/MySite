@@ -20,7 +20,9 @@ async function availablePort() {
 async function waitUntilReady(baseUrl, child) {
   for (let attempt = 0; attempt < 50; attempt += 1) {
     if (child.exitCode !== null) {
-      throw new Error(`API server exited during startup with ${child.exitCode}`);
+      throw new Error(
+        `API server exited during startup with ${child.exitCode}`,
+      );
     }
     try {
       const response = await fetch(`${baseUrl}/api/healthz`);
@@ -38,23 +40,42 @@ test("production API contract and safety middleware", async (t) => {
   const baseUrl = `http://127.0.0.1:${port}`;
   const staticDir = await mkdtemp(path.join(tmpdir(), "waygrow-api-test-"));
   await mkdir(path.join(staticDir, "assets"));
-  await writeFile(path.join(staticDir, "index.html"), "<!doctype html><title>Test SPA</title>");
-  await writeFile(path.join(staticDir, "robots.txt"), "User-agent: *\nAllow: /\n");
-  await writeFile(path.join(staticDir, "assets", "app-abc123.js"), "export default true;");
-  const child = spawn(process.execPath, ["--enable-source-maps", "dist/index.mjs"], {
-    cwd: new URL("..", import.meta.url),
-    env: {
-      ...process.env,
-      NODE_ENV: "production",
-      PORT: String(port),
-      DATABASE_URL: "postgresql://test:test@127.0.0.1:1/test?connect_timeout=1",
-      FRONTEND_URL: "https://www.example.com",
-      TRUST_PROXY_HOPS: "0",
-      RUN_MIGRATIONS: "false",
-      STATIC_DIR: staticDir,
+  await mkdir(path.join(staticDir, "services"));
+  await writeFile(
+    path.join(staticDir, "index.html"),
+    "<!doctype html><title>Test SPA</title>",
+  );
+  await writeFile(
+    path.join(staticDir, "robots.txt"),
+    "User-agent: *\nAllow: /\n",
+  );
+  await writeFile(
+    path.join(staticDir, "assets", "app-abc123.js"),
+    "export default true;",
+  );
+  await writeFile(
+    path.join(staticDir, "services", "index.html"),
+    "<!doctype html><title>Services SEO</title>",
+  );
+  const child = spawn(
+    process.execPath,
+    ["--enable-source-maps", "dist/index.mjs"],
+    {
+      cwd: new URL("..", import.meta.url),
+      env: {
+        ...process.env,
+        NODE_ENV: "production",
+        PORT: String(port),
+        DATABASE_URL:
+          "postgresql://test:test@127.0.0.1:1/test?connect_timeout=1",
+        FRONTEND_URL: "https://www.example.com",
+        TRUST_PROXY_HOPS: "0",
+        RUN_MIGRATIONS: "false",
+        STATIC_DIR: staticDir,
+      },
+      stdio: ["ignore", "pipe", "pipe"],
     },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+  );
 
   let diagnostics = "";
   child.stdout.on("data", (chunk) => (diagnostics += chunk));
@@ -68,12 +89,15 @@ test("production API contract and safety middleware", async (t) => {
         headers: { Origin: "https://www.example.com" },
       });
       assert.equal(response.status, 200);
-      assert.equal(response.headers.get("access-control-allow-origin"), "https://www.example.com");
+      assert.equal(
+        response.headers.get("access-control-allow-origin"),
+        "https://www.example.com",
+      );
       assert.equal(response.headers.get("x-content-type-options"), "nosniff");
       assert.equal(response.headers.get("x-powered-by"), null);
       assert.match(
         response.headers.get("content-security-policy") ?? "",
-        /style-src[^;]*https:\/\/fonts\.googleapis\.com/,
+        /script-src[^;]*https:\/\/www\.googletagmanager\.com/,
       );
     });
 
@@ -85,14 +109,17 @@ test("production API contract and safety middleware", async (t) => {
       assert.equal(response.headers.get("access-control-allow-origin"), null);
     });
 
-    await t.test("invalid contact input is rejected before database access", async () => {
-      const response = await fetch(`${baseUrl}/api/v1/contact`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email: "not-an-email" }),
-      });
-      assert.equal(response.status, 400);
-    });
+    await t.test(
+      "invalid contact input is rejected before database access",
+      async () => {
+        const response = await fetch(`${baseUrl}/api/v1/contact`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ email: "not-an-email" }),
+        });
+        assert.equal(response.status, 400);
+      },
+    );
 
     await t.test("honeypot submissions are discarded", async () => {
       const response = await fetch(`${baseUrl}/api/v1/contact`, {
@@ -119,28 +146,64 @@ test("production API contract and safety middleware", async (t) => {
       assert.equal(response.status, 413);
     });
 
-    await t.test("readiness fails when the database is unavailable", async () => {
-      const response = await fetch(`${baseUrl}/api/readyz`);
-      assert.equal(response.status, 503);
-    });
+    await t.test(
+      "readiness fails when the database is unavailable",
+      async () => {
+        const response = await fetch(`${baseUrl}/api/readyz`);
+        assert.equal(response.status, 503);
+      },
+    );
 
-    await t.test("SPA navigation is not cached across deployments", async () => {
-      const response = await fetch(`${baseUrl}/services`, {
-        headers: { Accept: "text/html" },
-      });
-      assert.equal(response.status, 200);
-      assert.equal(response.headers.get("cache-control"), "no-cache");
-      assert.match(await response.text(), /Test SPA/);
-    });
+    await t.test(
+      "internal delivery status is hidden when no admin token is configured",
+      async () => {
+        const response = await fetch(
+          `${baseUrl}/api/internal/contact-delivery`,
+        );
+        assert.equal(response.status, 404);
+      },
+    );
+
+    await t.test(
+      "prerendered navigation is served and not cached across deployments",
+      async () => {
+        const response = await fetch(`${baseUrl}/services`, {
+          headers: { Accept: "text/html" },
+        });
+        assert.equal(response.status, 200);
+        assert.equal(response.headers.get("cache-control"), "no-cache");
+        assert.match(await response.text(), /Services SEO/);
+      },
+    );
+
+    await t.test(
+      "unknown client routes fall back to the SPA shell",
+      async () => {
+        const response = await fetch(`${baseUrl}/not-a-real-route`, {
+          headers: { Accept: "text/html" },
+        });
+        assert.equal(response.status, 200);
+        assert.match(await response.text(), /Test SPA/);
+      },
+    );
 
     await t.test("only fingerprinted build assets are immutable", async () => {
       const asset = await fetch(`${baseUrl}/assets/app-abc123.js`);
-      assert.match(asset.headers.get("cache-control") ?? "", /max-age=31536000/);
+      assert.match(
+        asset.headers.get("cache-control") ?? "",
+        /max-age=31536000/,
+      );
       assert.match(asset.headers.get("cache-control") ?? "", /immutable/);
 
       const publicFile = await fetch(`${baseUrl}/robots.txt`);
-      assert.match(publicFile.headers.get("cache-control") ?? "", /max-age=3600/);
-      assert.doesNotMatch(publicFile.headers.get("cache-control") ?? "", /immutable/);
+      assert.match(
+        publicFile.headers.get("cache-control") ?? "",
+        /max-age=3600/,
+      );
+      assert.doesNotMatch(
+        publicFile.headers.get("cache-control") ?? "",
+        /immutable/,
+      );
     });
   } finally {
     child.kill("SIGTERM");

@@ -34,11 +34,14 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="w-16 h-16 rounded-2xl bg-destructive/10 flex items-center justify-center mb-6">
               <AlertTriangle className="w-8 h-8 text-destructive" />
             </div>
-            <h1 className="text-3xl font-heading font-bold mb-4">Something went wrong</h1>
+            <h1 className="text-3xl font-heading font-bold mb-4">
+              Something went wrong
+            </h1>
             <p className="text-muted-foreground mb-8">
-              An unexpected error occurred. Refresh the page, or contact us if the problem continues.
+              An unexpected error occurred. Refresh the page, or contact us if
+              the problem continues.
             </p>
-            <GradientButton 
+            <GradientButton
               onClick={() => window.location.reload()}
               className="w-full"
             >

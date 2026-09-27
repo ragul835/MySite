@@ -1,8 +1,18 @@
 import { Link } from "wouter";
 import { useEffect } from "react";
 import {
-  Code2, ShoppingCart, Layers, Palette, Search, ShoppingBag, Gauge,
-  ChevronRight, CheckCircle, Settings, Smartphone, Terminal
+  Code2,
+  ShoppingCart,
+  Layers,
+  Palette,
+  Search,
+  ShoppingBag,
+  Gauge,
+  ChevronRight,
+  CheckCircle,
+  Settings,
+  Smartphone,
+  Terminal,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
@@ -14,48 +24,63 @@ const servicesList = [
   {
     icon: Code2,
     title: "Web Development",
-    whatItIs: "Custom business websites engineered for performance, security, and scalability.",
-    benefits: "Establishes a strong digital presence, improves user engagement, and drives conversions.",
+    whatItIs:
+      "Custom business websites engineered for performance, security, and scalability.",
+    benefits:
+      "Establishes a strong digital presence, improves user engagement, and drives conversions.",
     technologiesUsed: "React, Next.js, HTML/CSS, TypeScript",
-    whoNeedsIt: "Businesses looking for a professional, high-performance website.",
+    whoNeedsIt:
+      "Businesses looking for a professional, high-performance website.",
   },
   {
     icon: ShoppingCart,
     title: "E-Commerce Development",
-    whatItIs: "High-converting online stores with seamless payment flows and mobile-first design.",
-    benefits: "Increases sales, provides a smooth shopping experience, and scales with your business.",
+    whatItIs:
+      "High-converting online stores with seamless payment flows and mobile-first design.",
+    benefits:
+      "Increases sales, provides a smooth shopping experience, and scales with your business.",
     technologiesUsed: "Next.js, Node.js, Stripe, PostgreSQL",
-    whoNeedsIt: "Retailers and brands wanting to sell products online efficiently.",
+    whoNeedsIt:
+      "Retailers and brands wanting to sell products online efficiently.",
   },
   {
     icon: Layers,
     title: "Full Stack Development",
-    whatItIs: "End-to-end web applications built with modern frameworks and battle-tested architectures.",
-    benefits: "Provides a complete, robust solution with seamless frontend and backend integration.",
+    whatItIs:
+      "End-to-end web applications built with modern frameworks and battle-tested architectures.",
+    benefits:
+      "Provides a complete, robust solution with seamless frontend and backend integration.",
     technologiesUsed: "React, Node.js, PostgreSQL, TypeScript",
     whoNeedsIt: "Companies needing complex, custom web applications.",
   },
   {
     icon: Gauge,
     title: "SaaS Development",
-    whatItIs: "Multi-tenant platforms and subscription systems built to scale from day one.",
-    benefits: "Creates reliable recurring revenue streams with scalable infrastructure.",
+    whatItIs:
+      "Multi-tenant platforms and subscription systems built to scale from day one.",
+    benefits:
+      "Creates reliable recurring revenue streams with scalable infrastructure.",
     technologiesUsed: "Next.js, NestJS, AWS, MongoDB",
-    whoNeedsIt: "Startups and enterprises building subscription-based software.",
+    whoNeedsIt:
+      "Startups and enterprises building subscription-based software.",
   },
   {
     icon: Palette,
     title: "UI/UX Design",
-    whatItIs: "Interfaces that are as beautiful as they are intuitive — designed to convert.",
-    benefits: "Enhances user satisfaction, reduces bounce rates, and strengthens brand identity.",
+    whatItIs:
+      "Interfaces that are as beautiful as they are intuitive — designed to convert.",
+    benefits:
+      "Enhances user satisfaction, reduces bounce rates, and strengthens brand identity.",
     technologiesUsed: "Figma, Framer, Tailwind CSS",
     whoNeedsIt: "Any product that needs a modern, user-friendly interface.",
   },
   {
     icon: Search,
     title: "SEO Optimization",
-    whatItIs: "Technical and on-page SEO that drives qualified traffic and measurable growth.",
-    benefits: "Improves search engine rankings, increases organic traffic, and lowers acquisition costs.",
+    whatItIs:
+      "Technical and on-page SEO that drives qualified traffic and measurable growth.",
+    benefits:
+      "Improves search engine rankings, increases organic traffic, and lowers acquisition costs.",
     technologiesUsed: "Google Search Console, Lighthouse, Next.js SEO",
     whoNeedsIt: "Businesses wanting better visibility on Google.",
   },
@@ -63,32 +88,40 @@ const servicesList = [
     icon: ShoppingBag,
     title: "Shopify Development",
     whatItIs: "Custom Shopify themes and apps that turn browsers into buyers.",
-    benefits: "Provides a tailored shopping experience on a robust e-commerce platform.",
+    benefits:
+      "Provides a tailored shopping experience on a robust e-commerce platform.",
     technologiesUsed: "Shopify Liquid, React, Node.js",
     whoNeedsIt: "Merchants looking for customized Shopify stores.",
   },
   {
     icon: Settings,
     title: "Website Maintenance & Support",
-    whatItIs: "Ongoing security monitoring, updates, backups, and performance care for your site.",
-    benefits: "Reduced downtime, stronger security, and consistent performance.",
+    whatItIs:
+      "Ongoing security monitoring, updates, backups, and performance care for your site.",
+    benefits:
+      "Reduced downtime, stronger security, and consistent performance.",
     technologiesUsed: "Uptime monitoring, Cloudflare, ManageWP, AWS Backup",
-    whoNeedsIt: "Businesses that want peace of mind knowing their website is maintained.",
+    whoNeedsIt:
+      "Businesses that want peace of mind knowing their website is maintained.",
   },
   {
     icon: Smartphone,
     title: "Mobile App Development",
-    whatItIs: "Native and cross-platform iOS and Android apps built for speed and engagement.",
-    benefits: "Reach users on their primary devices and grow retention with push and offline features.",
+    whatItIs:
+      "Native and cross-platform iOS and Android apps built for speed and engagement.",
+    benefits:
+      "Reach users on their primary devices and grow retention with push and offline features.",
     technologiesUsed: "React Native, Flutter, Swift, Kotlin, Firebase",
     whoNeedsIt: "Startups and enterprises launching mobile-first products.",
   },
   {
     icon: Terminal,
     title: "Custom Software Development",
-    whatItIs: "Bespoke software built around your workflows, integrations, and operations.",
-    benefits: "Perfect fit for unique processes with full ownership of the source code.",
-    technologiesUsed: "Node.js, Python, Java, PostgreSQL, Docker, AWS",
+    whatItIs:
+      "Bespoke software built around your workflows, integrations, and operations.",
+    benefits:
+      "Perfect fit for unique processes with full ownership of the source code.",
+    technologiesUsed: "Node.js, Python, Java, PostgreSQL, AWS",
     whoNeedsIt: "Organizations that need more than off-the-shelf SaaS tools.",
   },
 ];
@@ -96,7 +129,7 @@ const servicesList = [
 export default function ServicesPage() {
   useDocumentTitle(
     "Services | We Raise Tech",
-    "Full-stack development, SaaS platforms, mobile apps, custom software, website maintenance, e-commerce, UI/UX, SEO, and Shopify — everything under one roof."
+    "Full-stack development, SaaS platforms, mobile apps, custom software, website maintenance, e-commerce, UI/UX, SEO, and Shopify — everything under one roof.",
   );
 
   useEffect(() => {
@@ -117,12 +150,13 @@ export default function ServicesPage() {
       {/* Hero Banner */}
       <section className="relative overflow-hidden border-b border-border/30 pb-16 pt-16 sm:pb-20 sm:pt-24 lg:pb-24 lg:pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-background" />
-        
+
         {/* Premium Grid Overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -131,26 +165,33 @@ export default function ServicesPage() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
             className="absolute top-[-20%] right-[10%] w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
-            style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)",
+            }}
           />
         </div>
 
         <Container className="relative z-10">
           <AnimateOnScroll>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/10 backdrop-blur-sm text-primary text-sm font-medium mb-8">
-              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+              <Link href="/" className="hover:text-primary transition-colors">
+                Home
+              </Link>
               <ChevronRight className="w-3.5 h-3.5" />
               <span>Services</span>
             </div>
             <div className="max-w-4xl">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground">
-                Our <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary via-primary/80 to-secondary relative">
+                Our{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary via-primary/80 to-secondary relative">
                   Services
                   <span className="absolute -inset-x-4 -inset-y-2 bg-primary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed border-l-4 border-primary/30 pl-6 max-w-2xl">
-                Everything you need to build, launch, and scale a digital product — under one roof.
+                Everything you need to build, launch, and scale a digital
+                product — under one roof.
               </p>
             </div>
           </AnimateOnScroll>
@@ -183,20 +224,36 @@ export default function ServicesPage() {
                       </h2>
                       <div className="space-y-4">
                         <div>
-                          <h3 className="font-semibold text-foreground mb-1">What It Is</h3>
-                          <p className="text-muted-foreground text-sm">{service.whatItIs}</p>
+                          <h3 className="font-semibold text-foreground mb-1">
+                            What It Is
+                          </h3>
+                          <p className="text-muted-foreground text-sm">
+                            {service.whatItIs}
+                          </p>
                         </div>
                         <div>
-                          <h3 className="font-semibold text-foreground mb-1">Benefits</h3>
-                          <p className="text-muted-foreground text-sm">{service.benefits}</p>
+                          <h3 className="font-semibold text-foreground mb-1">
+                            Benefits
+                          </h3>
+                          <p className="text-muted-foreground text-sm">
+                            {service.benefits}
+                          </p>
                         </div>
                         <div>
-                          <h3 className="font-semibold text-foreground mb-1">Technologies Used</h3>
-                          <p className="text-muted-foreground text-sm">{service.technologiesUsed}</p>
+                          <h3 className="font-semibold text-foreground mb-1">
+                            Technologies Used
+                          </h3>
+                          <p className="text-muted-foreground text-sm">
+                            {service.technologiesUsed}
+                          </p>
                         </div>
                         <div>
-                          <h3 className="font-semibold text-foreground mb-1">Who Needs It</h3>
-                          <p className="text-muted-foreground text-sm">{service.whoNeedsIt}</p>
+                          <h3 className="font-semibold text-foreground mb-1">
+                            Who Needs It
+                          </h3>
+                          <p className="text-muted-foreground text-sm">
+                            {service.whoNeedsIt}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -206,26 +263,32 @@ export default function ServicesPage() {
                       <div className="h-72 w-full relative flex items-center justify-center perspective-[1000px]">
                         {/* Background Glow */}
                         <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-secondary/5 rounded-3xl blur-2xl" />
-                        
+
                         {/* Interactive Stack */}
                         <div
                           className="relative w-48 h-48"
                           style={{ transformStyle: "preserve-3d" }}
                         >
                           {/* Back Card */}
-                          <div 
+                          <div
                             className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/10 shadow-xl backdrop-blur-sm"
-                            style={{ transform: "translateZ(-30px) scale(0.9)", opacity: 0.6 }}
+                            style={{
+                              transform: "translateZ(-30px) scale(0.9)",
+                              opacity: 0.6,
+                            }}
                           />
-                          
+
                           {/* Middle Card */}
-                          <div 
+                          <div
                             className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/30 to-secondary/30 border border-primary/20 shadow-xl backdrop-blur-md"
-                            style={{ transform: "translateZ(0px) scale(0.95)", opacity: 0.8 }}
+                            style={{
+                              transform: "translateZ(0px) scale(0.95)",
+                              opacity: 0.8,
+                            }}
                           />
-                          
+
                           {/* Front Main Card */}
-                          <div 
+                          <div
                             className="absolute inset-0 rounded-2xl bg-card/80 border border-primary/30 shadow-2xl backdrop-blur-xl flex flex-col items-center justify-center p-6 gap-4"
                             style={{ transform: "translateZ(30px)" }}
                           >
@@ -257,9 +320,13 @@ export default function ServicesPage() {
               Have a project in mind?
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-lg mx-auto">
-              Let's talk. We'll help you figure out the right approach and give you an honest estimate.
+              Let's talk. We'll help you figure out the right approach and give
+              you an honest estimate.
             </p>
-            <GradientButton href="/contact#contact-form" className="px-12 py-4 text-base">
+            <GradientButton
+              href="/contact#contact-form"
+              className="px-12 py-4 text-base"
+            >
               Start a Conversation
             </GradientButton>
           </AnimateOnScroll>
