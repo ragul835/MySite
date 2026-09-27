@@ -1,378 +1,222 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
-# ==========================================
-# Advanced Project Management Script
-# ==========================================
+PROJECT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+RUN_DIR="$PROJECT_DIR/.run"
+PID_FILE="$RUN_DIR/server.pid"
+LOG_FILE="$RUN_DIR/server.log"
+ENV_FILE="$PROJECT_DIR/.env"
 
-# Configuration
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKEND_DIR="$PROJECT_DIR/backend-repo"
-FRONTEND_DIR="$PROJECT_DIR/frontend-repo"
-PID_FILE="$BACKEND_DIR/.backend.pid"
-FRONTEND_PID_FILE="$FRONTEND_DIR/.frontend.pid"
+cd "$PROJECT_DIR"
 
-# Colors for output
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+info() { printf '[manage] %s\n' "$*"; }
+error() { printf '[manage] ERROR: %s\n' "$*" >&2; }
 
-# Load environment variables if .env exists
-if [ -f "$PROJECT_DIR/.env" ]; then
-    export $(grep -v '^#' "$PROJECT_DIR/.env" | xargs)
-fi
-
-# Ports
-BACKEND_PORT=${BACKEND_PORT:-5001}
-FRONTEND_PORT=${PORT:-3000}
-
-function echo_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
-function echo_error() { echo -e "${RED}[ERROR]${NC} $1"; }
-function echo_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
-function echo_step() { echo -e "${CYAN}==>${NC} ${BLUE}$1${NC}"; }
-
-function check_port() {
-    local port=$1
-    if command -v lsof &> /dev/null; then
-        if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null ; then
-            return 0 # Port is in use
-        fi
-    elif command -v netstat &> /dev/null; then
-        if netstat -tuln | grep -q ":$port " ; then
-            return 0
-        fi
-    fi
-    return 1 # Port is free
+http_ok() {
+  local url="$1"
+  if command -v curl >/dev/null 2>&1; then
+    curl --silent --fail --max-time 2 "$url" >/dev/null
+  else
+    node --input-type=module -e 'try { const r = await fetch(process.argv[1], { signal: AbortSignal.timeout(2000) }); process.exit(r.ok ? 0 : 1); } catch { process.exit(1); }' "$url"
+  fi
 }
 
-function free_port() {
-    local port=$1
-    if check_port $port; then
-        echo_warn "Port $port is in use. Attempting to free it..."
-        if command -v lsof &> /dev/null; then
-            local pid=$(lsof -Pi :$port -sTCP:LISTEN -t)
-            if [ ! -z "$pid" ]; then
-                kill -9 $pid 2>/dev/null || sudo kill -9 $pid 2>/dev/null
-                echo_info "Killed process $pid on port $port."
-            fi
-        elif command -v fuser &> /dev/null; then
-            fuser -k -n tcp $port 2>/dev/null || sudo fuser -k -n tcp $port 2>/dev/null
-            echo_info "Killed process on port $port using fuser."
-        fi
-        sleep 1
-    fi
+usage() {
+  cat <<'EOF'
+Usage: ./manage.sh [command]
+
+Commands:
+  start      Build the production site and start the combined site/API server
+  start-all  Alias for start (the production site and API run together)
+  build      Typecheck and build the production site/API
+  install    Install locked workspace dependencies
+  stop       Stop the server started by this script
+  restart    Stop, rebuild, and start
+  status     Show process and HTTP health status
+  logs       Follow the server log (Ctrl+C to return)
+  help       Show this help
+
+With no command, opens the interactive management menu.
+EOF
 }
 
-function install_dependencies() {
-    echo_step "Checking System Dependencies"
-    
-    if ! command -v npm &> /dev/null; then
-        echo_warn "npm not found. Installing..."
-        if command -v apt-get &> /dev/null; then
-            sudo apt-get update && sudo apt-get install -y npm
-        else
-            echo_error "Install Node.js manually."
-        fi
-    fi
-
-    echo_step "Installing Backend Dependencies"
-    cd "$BACKEND_DIR" || exit 1
-    npm install
-
-    echo_step "Installing Frontend Dependencies"
-    cd "$FRONTEND_DIR" || exit 1
-    npm install
+require_runtime() {
+  command -v node >/dev/null 2>&1 || {
+    error "Node.js 24 or newer is required."
+    return 1
+  }
+  local node_major
+  node_major="$(node -p 'Number(process.versions.node.split(".")[0])')"
+  if (( node_major < 24 )); then
+    error "Node.js 24 or newer is required; found $(node --version)."
+    return 1
+  fi
 }
 
-function build() {
-    install_dependencies
-    
-    echo_step "Typechecking Frontend"
-    cd "$FRONTEND_DIR" || exit 1
-    if ! npm run typecheck; then
-        echo_warn "Frontend typecheck warnings found (continuing build...)"
-    fi
-
-    echo_step "Building Frontend"
-    if ! npm run build; then
-        echo_error "Frontend build failed."
-        exit 1
-    fi
-
-    echo_step "Building Backend"
-    cd "$BACKEND_DIR" || exit 1
-    npx prisma generate
-    if npm run build; then
-        echo_info "Backend build successful."
-    else
-        echo_error "Backend build failed."
-        exit 1
-    fi
+read_port() {
+  local port="5001"
+  if [[ -f "$ENV_FILE" ]]; then
+    local configured
+    configured="$(sed -nE 's/^PORT=([0-9]+)[[:space:]]*$/\1/p' "$ENV_FILE" | tail -n 1)"
+    [[ -z "$configured" ]] || port="$configured"
+  fi
+  printf '%s' "$port"
 }
 
-function start_backend() {
-    echo_step "Starting Backend"
-    
-    if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
-        echo_warn "Backend is already running (PID: $(cat "$PID_FILE"))."
-        return
+server_pid() {
+  [[ -f "$PID_FILE" ]] || return 1
+  local pid
+  pid="$(<"$PID_FILE")"
+  [[ "$pid" =~ ^[0-9]+$ ]] || return 1
+  kill -0 "$pid" 2>/dev/null || return 1
+  local command_line
+  command_line="$(ps -p "$pid" -o args= 2>/dev/null)" || return 1
+  [[ "$command_line" == *"artifacts/api-server/dist/index.mjs"* ]] || return 1
+  printf '%s' "$pid"
+}
+
+build() {
+  require_runtime || return
+  command -v pnpm >/dev/null 2>&1 || {
+    error "pnpm is required. Enable Corepack and install the version listed in package.json/README.md."
+    return 1
+  }
+  info "Building the production site and API..."
+  pnpm run build
+}
+
+install() {
+  command -v corepack >/dev/null 2>&1 || {
+    error "Corepack is required to install the pinned pnpm version."
+    return 1
+  }
+  corepack enable
+  corepack pnpm install --frozen-lockfile
+}
+
+start() {
+  require_runtime || return
+  [[ -f "$ENV_FILE" ]] || {
+    error "Missing .env. Copy .env.example to .env and set DATABASE_URL to your PostgreSQL database."
+    return 1
+  }
+
+  if pid="$(server_pid)"; then
+    info "Already running (PID $pid) at http://localhost:$(read_port)"
+    return 0
+  fi
+
+  build || return
+  mkdir -p "$RUN_DIR"
+  rm -f "$PID_FILE"
+  info "Starting the combined website and API..."
+  nohup node --env-file=.env --enable-source-maps artifacts/api-server/dist/index.mjs \
+    >>"$LOG_FILE" 2>&1 < /dev/null &
+  local pid=$!
+  printf '%s\n' "$pid" > "$PID_FILE"
+
+  local url="http://127.0.0.1:$(read_port)/api/healthz"
+  for _ in {1..30}; do
+    if ! kill -0 "$pid" 2>/dev/null; then
+      rm -f "$PID_FILE"
+      error "Server exited during startup. Check logs with ./manage.sh logs"
+      return 1
     fi
-    
-    if check_port $BACKEND_PORT; then
-        echo_error "Port $BACKEND_PORT is already in use by another process."
-        echo_error "Please run './manage.sh stop' or free the port first."
-        exit 1
+    if http_ok "$url"; then
+      info "Running at http://localhost:$(read_port) (PID $pid)"
+      info "Health: $url"
+      info "Logs: $LOG_FILE"
+      return 0
     fi
+    sleep 1
+  done
 
-    cd "$BACKEND_DIR" || exit 1
-    
-    if [ ! -f "dist/index.js" ]; then
-        echo_error "No dist/index.js found. Please run './manage.sh build' first."
-        exit 1
-    fi
-
-    PORT=$BACKEND_PORT nohup node dist/index.js > backend.log 2>&1 &
-    local PID=$!
-    echo $PID > "$PID_FILE"
-    echo_info "Backend started on port $BACKEND_PORT (PID: $PID)."
-    echo_info "Logs: backend-repo/backend.log"
+  error "Server did not become healthy within 30 seconds. Check ./manage.sh logs"
+  if kill -0 "$pid" 2>/dev/null; then
+    kill -TERM "$pid" 2>/dev/null || true
+  fi
+  rm -f "$PID_FILE"
+  return 1
 }
 
-function start_frontend() {
-    echo_step "Starting Frontend"
-    
-    if [ -f "$FRONTEND_PID_FILE" ] && kill -0 $(cat "$FRONTEND_PID_FILE") 2>/dev/null; then
-        echo_warn "Frontend is already running (PID: $(cat "$FRONTEND_PID_FILE"))."
-        return
-    fi
-    
-    if check_port $FRONTEND_PORT; then
-        echo_error "Port $FRONTEND_PORT is already in use."
-        echo_error "Please run './manage.sh stop' or free the port first."
-        exit 1
-    fi
+stop() {
+  local pid
+  if ! pid="$(server_pid)"; then
+    rm -f "$PID_FILE"
+    info "Server is not running."
+    return 0
+  fi
 
-    cd "$FRONTEND_DIR" || exit 1
-    export PORT=$FRONTEND_PORT
-    export BASE_PATH=${BASE_PATH:-"/"}
-    
-    nohup npm run dev > frontend.log 2>&1 &
-    local PID=$!
-    echo $PID > "$FRONTEND_PID_FILE"
-    echo_info "Frontend started on port $FRONTEND_PORT (PID: $PID)."
-    echo_info "Logs: frontend-repo/frontend.log"
+  info "Stopping server (PID $pid)..."
+  kill -TERM "$pid"
+  for _ in {1..10}; do
+    kill -0 "$pid" 2>/dev/null || break
+    sleep 1
+  done
+  if kill -0 "$pid" 2>/dev/null; then
+    error "Server did not stop after SIGTERM; leaving it running for safety."
+    return 1
+  fi
+  rm -f "$PID_FILE"
+  info "Stopped."
 }
 
-function start_all() {
-    start_backend
-    sleep 2
-    start_frontend
-    echo_step "All services started successfully!"
+status() {
+  local port pid
+  port="$(read_port)"
+  if pid="$(server_pid)"; then
+    info "Process running (PID $pid)."
+  else
+    info "Process stopped."
+  fi
+  if http_ok "http://127.0.0.1:$port/api/healthz"; then
+    info "HTTP health check passed at http://localhost:$port/api/healthz"
+  else
+    info "HTTP health check unavailable at http://localhost:$port/api/healthz"
+  fi
 }
 
-function stop_backend() {
-    echo_step "Stopping Backend"
-    if [ -f "$PID_FILE" ]; then
-        local PID=$(cat "$PID_FILE")
-        if kill -0 $PID 2>/dev/null; then
-            echo_info "Stopping backend (PID: $PID)..."
-            kill $PID 2>/dev/null
-            sleep 1
-            kill -9 $PID 2>/dev/null || true
-            echo_info "Backend stopped."
-        fi
-        rm -f "$PID_FILE"
-    else
-        local PID=$(pgrep -f "node dist/index.js")
-        if [ ! -z "$PID" ]; then
-            echo_info "Found backend process without PID file. Stopping..."
-            kill $PID 2>/dev/null || kill -9 $PID 2>/dev/null
-        fi
-    fi
-    free_port $BACKEND_PORT
-}
-
-function stop_frontend() {
-    echo_step "Stopping Frontend"
-    if [ -f "$FRONTEND_PID_FILE" ]; then
-        local PID=$(cat "$FRONTEND_PID_FILE")
-        if kill -0 $PID 2>/dev/null; then
-            echo_info "Stopping frontend (PID: $PID)..."
-            pkill -P $PID 2>/dev/null || true
-            kill $PID 2>/dev/null || kill -9 $PID 2>/dev/null
-            echo_info "Frontend stopped."
-        fi
-        rm -f "$FRONTEND_PID_FILE"
-    else
-         local PID=$(pgrep -f "vite --config vite.config.ts")
-         if [ ! -z "$PID" ]; then
-             echo_info "Found frontend vite process without PID file. Stopping..."
-             kill $PID 2>/dev/null || kill -9 $PID 2>/dev/null
-         fi
-    fi
-    free_port $FRONTEND_PORT
-}
-
-function stop() {
-    stop_backend
-    stop_frontend
-}
-
-function restart() { stop; sleep 2; start_all; }
-
-function status() {
-    echo_step "Service Status"
-    
-    # Backend
-    if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
-        echo_info "Backend:  RUNNING (PID: $(cat "$PID_FILE"), Port: $BACKEND_PORT)"
-    elif pgrep -f "node dist/index.js" >/dev/null; then
-        echo_warn "Backend:  RUNNING (PID file missing)"
-    else
-        echo_info "Backend:  STOPPED"
-    fi
-
-    # Frontend
-    if [ -f "$FRONTEND_PID_FILE" ] && kill -0 $(cat "$FRONTEND_PID_FILE") 2>/dev/null; then
-        echo_info "Frontend: RUNNING (PID: $(cat "$FRONTEND_PID_FILE"), Port: $FRONTEND_PORT)"
-    elif pgrep -f "vite.*--host" >/dev/null; then
-        echo_warn "Frontend: RUNNING (PID file missing)"
-    else
-        echo_info "Frontend: STOPPED"
-    fi
-}
-
-function clean() {
-    echo_step "Cleaning Project Files"
-    echo_info "Removing node_modules, target directories, and logs..."
-    rm -rf "$BACKEND_DIR/node_modules" "$BACKEND_DIR/dist"
-    rm -rf "$FRONTEND_DIR/node_modules" "$FRONTEND_DIR/dist"
-    rm -f "$FRONTEND_DIR/frontend.log" "$BACKEND_DIR/backend.log"
-    rm -f "$PID_FILE" "$FRONTEND_PID_FILE"
-    echo_info "Clean complete."
-}
-
-function show_logs() {
-    echo_step "Tailing Logs (Press Ctrl+C to stop)"
-    
-    local log_files=()
-    [ -f "$BACKEND_DIR/backend.log" ] && log_files+=("$BACKEND_DIR/backend.log")
-    [ -f "$FRONTEND_DIR/frontend.log" ] && log_files+=("$FRONTEND_DIR/frontend.log")
-    
-    if [ ${#log_files[@]} -eq 0 ]; then
-        echo_error "No log files found."
-        return
-    fi
-    
-    tail -f "${log_files[@]}"
-}
-
-function pull() {
-    echo_step "Git Pull"
-    cd "$PROJECT_DIR" || exit 1
-    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    if [ -n "$branch" ]; then
-        git pull origin "$branch" && echo_info "Pulled from $branch" || echo_error "Pull failed"
-    else
-        echo_error "Not a git repo."
-    fi
-}
-
-function push() {
-    echo_step "Git Push"
-    cd "$PROJECT_DIR" || exit 1
-    read -p "Commit message (default 'Update'): " msg
-    msg=${msg:-"Update"}
-    git add .
-    git commit -m "$msg"
-    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    if [ -n "$branch" ]; then
-        git push origin "$branch" && echo_info "Pushed to $branch" || echo_error "Push failed"
-    else
-        echo_error "Not a git repo or no commits."
-    fi
-}
-
-function show_help() {
-    echo -e "${YELLOW}Usage: ./manage.sh [command]${NC}"
-    echo ""
-    echo "Commands:"
-    echo "  build          - Install deps and build both frontend & backend"
-    echo "  start          - Start the backend only"
-    echo "  start-frontend - Start the frontend only"
-    echo "  start-all      - Start backend and frontend"
-    echo "  stop           - Stop all running services (frontend, backend)"
-    echo "  stop-backend   - Stop the backend only"
-    echo "  stop-frontend  - Stop the frontend only"
-    echo "  restart        - Stop and restart all services"
-    echo "  status         - Show status of services"
-    echo "  clean          - Remove build artifacts, node_modules, and logs"
-    echo "  logs           - Tail frontend and backend logs simultaneously"
-    echo "  pull           - Quick git pull"
-    echo "  push           - Quick git add, commit, and push"
-    echo "  help           - Show this help message"
-}
-
-function interactive_menu() {
-    while true; do
-        echo -e "\n${YELLOW}=== Advanced Management Menu ===${NC}"
-        echo "1) Build everything"
-        echo "2) Start Backend only"
-        echo "3) Start Frontend only"
-        echo "4) Start ALL services"
-        echo "5) Stop Backend only"
-        echo "6) Stop Frontend only"
-        echo "7) Stop ALL services"
-        echo "8) Restart ALL services"
-        echo "9) Show Status"
-        echo "10) View combined Logs"
-        echo "11) Clean project (Danger)"
-        echo "12) Pull from Git"
-        echo "13) Push to Git"
-        echo "0) Exit"
-        read -p "Select an option [0-13]: " OPTION
-        echo ""
-        
-        case $OPTION in
-            1) build ;;
-            2) start_backend ;;
-            3) start_frontend ;;
-            4) start_all ;;
-            5) stop_backend ;;
-            6) stop_frontend ;;
-            7) stop ;;
-            8) restart ;;
-            9) status ;;
-            10) show_logs ;;
-            11) clean ;;
-            12) pull ;;
-            13) push ;;
-            0) echo_info "Exiting..."; break ;;
-            *) echo_error "Invalid option." ;;
-        esac
-    done
-}
-
-if [ $# -eq 0 ]; then
-    interactive_menu
-else
-    case "$1" in
-        build) build ;;
-        start) start_backend ;;
-        start-frontend) start_frontend ;;
-        start-all) start_all ;;
-        stop) stop ;;
-        stop-backend) stop_backend ;;
-        stop-frontend) stop_frontend ;;
-        restart) restart ;;
-        status) status ;;
-        clean) clean ;;
-        logs) show_logs ;;
-        pull) pull ;;
-        push) push ;;
-        help|--help|-h) show_help ;;
-        *) show_help; exit 1 ;;
+interactive_menu() {
+  while true; do
+    printf '\nWe Raise Tech project manager\n'
+    printf '  1) Install dependencies\n'
+    printf '  2) Build production app\n'
+    printf '  3) Start production app\n'
+    printf '  4) Restart production app\n'
+    printf '  5) Stop production app\n'
+    printf '  6) Show status\n'
+    printf '  7) View logs\n'
+    printf '  0) Exit\n'
+    read -r -p 'Choose an action: ' choice || return 0
+    case "$choice" in
+      1) install ;;
+      2) build ;;
+      3) start ;;
+      4) stop; start ;;
+      5) stop ;;
+      6) status ;;
+      7)
+        if [[ -f "$LOG_FILE" ]]; then tail -n 80 -f "$LOG_FILE"; else error "No server log yet. Start the project first."; fi
+        ;;
+      0) return 0 ;;
+      *) error "Choose one of the listed options." ;;
     esac
-fi
+  done
+}
+
+case "${1:-menu}" in
+  start) start ;;
+  start-all) start ;;
+  build) build ;;
+  install) install ;;
+  stop) stop ;;
+  restart) stop; start ;;
+  status) status ;;
+  logs)
+    [[ -f "$LOG_FILE" ]] || { error "No server log yet. Start the project first."; exit 1; }
+    tail -f "$LOG_FILE"
+    ;;
+  help|--help|-h) usage ;;
+  menu) interactive_menu ;;
+  *) usage >&2; exit 2 ;;
+esac

@@ -2,7 +2,12 @@ import { z } from "zod";
 
 export const ContactSubmissionRequest = z.object({
   name: z.string().trim().min(2).max(120),
-  email: z.string().trim().email().max(320).transform((value) => value.toLowerCase()),
+  email: z
+    .string()
+    .trim()
+    .email()
+    .max(320)
+    .transform((value) => value.toLowerCase()),
   phone: z.string().trim().max(30).optional().default(""),
   service: z.string().trim().min(1).max(100),
   message: z.string().trim().min(10).max(5_000),

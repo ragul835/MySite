@@ -1,9 +1,18 @@
 import { Link } from "wouter";
-import { ChevronRight, Shield, Mail, Globe, Lock, Users, FileText, Calendar } from "lucide-react";
+import {
+  ChevronRight,
+  Shield,
+  Mail,
+  Globe,
+  Lock,
+  Users,
+  FileText,
+  Calendar,
+} from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
-const lastUpdated = "July 8, 2026";
+const lastUpdated = "September 27, 2026";
 
 const sections = [
   {
@@ -11,7 +20,7 @@ const sections = [
     title: "1. Introduction",
     content: `We Raise Tech ("we," "us," or "our") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website (weraisetech.com), use our services, or communicate with us.
 
-This policy applies to all visitors, users, and others who access the site or engage our IT services including web development, full-stack development, e-commerce solutions, SaaS platforms, UI/UX design, SEO, and Shopify development. It covers both local clients in India and international clients worldwide.`
+This policy applies to all visitors, users, and others who access the site or engage our IT services including web development, full-stack development, e-commerce solutions, SaaS platforms, UI/UX design, SEO, and Shopify development. It covers both local clients in India and international clients worldwide.`,
   },
   {
     id: "information-we-collect",
@@ -29,7 +38,7 @@ Automatically Collected Information:
 • Cookies and similar tracking technologies (see Cookies section below).
 
 Client Project Data:
-• Source code, designs, content, credentials, and third-party API keys you share with us during project execution. We treat all client data as strictly confidential.`
+• Source code, designs, content, credentials, and third-party API keys you share with us during project execution. We treat all client data as strictly confidential.`,
   },
   {
     id: "how-we-use",
@@ -43,19 +52,19 @@ Client Project Data:
 • To comply with legal obligations, enforce our agreements, prevent fraud, and protect the rights of We Raise Tech and our clients.
 • For analytics and research to understand how visitors use our site and improve offerings.
 
-We process personal data on the following legal bases (where applicable): consent, performance of a contract, legitimate interests, and legal obligations.`
+We process personal data on the following legal bases (where applicable): consent, performance of a contract, legitimate interests, and legal obligations.`,
   },
   {
     id: "cookies",
     title: "4. Cookies and Tracking Technologies",
-    content: `We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and remember preferences.
+    content: `We use local storage to remember your analytics choice. Google Analytics loads only after you select “Accept” in the analytics notice; declining leaves analytics disabled.
 
 Types of cookies we use:
 • Essential cookies: Required for core site functionality (navigation, form submissions).
-• Analytics cookies: Help us understand visitor behavior (e.g., Google Analytics).
-• Preference cookies: Remember choices such as language or theme preferences.
+• Analytics cookies: Optional Google Analytics cookies that help us understand visitor behavior after consent.
+• Preference storage: Remembers whether you accepted or declined optional analytics.
 
-You can control cookies through your browser settings. Disabling certain cookies may affect site functionality. For more information, review your browser's cookie management tools.`
+You can decline optional analytics without affecting core site functionality. You can also clear this preference through your browser's site-data controls.`,
   },
   {
     id: "sharing",
@@ -68,7 +77,7 @@ You can control cookies through your browser settings. Disabling certain cookies
 • Business Transfers: In connection with a merger, acquisition, or sale of assets, subject to confidentiality protections.
 • With Your Consent: When you explicitly authorize us to share specific information.
 
-Client project data and source materials are never shared with third parties except as strictly necessary to deliver the agreed services (e.g., hosting setup) and always under appropriate safeguards.`
+Client project data and source materials are never shared with third parties except as strictly necessary to deliver the agreed services (e.g., hosting setup) and always under appropriate safeguards.`,
   },
   {
     id: "data-security",
@@ -80,7 +89,7 @@ Client project data and source materials are never shared with third parties exc
 • Secure development practices and regular security reviews.
 • Use of reputable, compliant infrastructure providers.
 
-While we strive to use commercially acceptable means to protect your data, no method of transmission over the internet or electronic storage is 100% secure. We cannot guarantee absolute security.`
+While we strive to use commercially acceptable means to protect your data, no method of transmission over the internet or electronic storage is 100% secure. We cannot guarantee absolute security.`,
   },
   {
     id: "data-retention",
@@ -91,7 +100,7 @@ While we strive to use commercially acceptable means to protect your data, no me
 • Project deliverables and source code: Retained according to the terms of our service agreements (typically provided to you upon project completion).
 • Analytics data: Anonymized or aggregated where possible; raw logs are retained for a limited period.
 
-You may request deletion of your personal data (subject to legal and contractual obligations).`
+You may request deletion of your personal data (subject to legal and contractual obligations).`,
   },
   {
     id: "your-rights",
@@ -108,26 +117,26 @@ You may request deletion of your personal data (subject to legal and contractual
 
 For residents of the European Economic Area (GDPR), California (CCPA/CPRA), or India (Digital Personal Data Protection Act 2023), additional rights may apply.
 
-To exercise any of these rights, please contact us using the details below. We will respond within the timeframes required by applicable law (typically 30 days). We may require verification of your identity.`
+To exercise any of these rights, please contact us using the details below. We will respond within the timeframes required by applicable law (typically 30 days). We may require verification of your identity.`,
   },
   {
     id: "international",
     title: "9. International Data Transfers",
     content: `We Raise Tech is based in India. If you are located outside India, your information may be transferred to, processed, and stored in India or other countries where our service providers operate.
 
-We take appropriate steps to ensure that your personal data receives an adequate level of protection in accordance with this Privacy Policy and applicable data protection laws, including through the use of Standard Contractual Clauses or equivalent safeguards where required.`
+We take appropriate steps to ensure that your personal data receives an adequate level of protection in accordance with this Privacy Policy and applicable data protection laws, including through the use of Standard Contractual Clauses or equivalent safeguards where required.`,
   },
   {
     id: "childrens-privacy",
     title: "10. Children's Privacy",
-    content: `Our services and website are not directed to children under the age of 13 (or the applicable age of digital consent in your jurisdiction). We do not knowingly collect personal information from children. If you believe we have inadvertently collected such data, please contact us immediately so we can take appropriate action.`
+    content: `Our services and website are not directed to children under the age of 13 (or the applicable age of digital consent in your jurisdiction). We do not knowingly collect personal information from children. If you believe we have inadvertently collected such data, please contact us immediately so we can take appropriate action.`,
   },
   {
     id: "changes",
     title: "11. Changes to This Privacy Policy",
     content: `We may update this Privacy Policy from time to time to reflect changes in our practices, services, or legal requirements. The "Last Updated" date at the top of this page indicates when the policy was last revised.
 
-We encourage you to review this page periodically. Material changes will be communicated via email (if we have your contact information) or by prominent notice on our website.`
+We encourage you to review this page periodically. Material changes will be communicated via email (if we have your contact information) or by prominent notice on our website.`,
   },
   {
     id: "contact",
@@ -139,14 +148,14 @@ Email: contact@weraisetech.com
 Phone / WhatsApp: +91 9080163393
 Location: India
 
-We take privacy seriously and will respond promptly to all legitimate inquiries.`
-  }
+We take privacy seriously and will respond promptly to all legitimate inquiries.`,
+  },
 ];
 
 export default function PrivacyPolicy() {
   useDocumentTitle(
     "Privacy Policy | We Raise Tech",
-    "Learn how We Raise Tech collects, uses, and protects your personal data. Privacy Policy for our web development, SaaS, e-commerce, and digital services."
+    "Learn how We Raise Tech collects, uses, and protects your personal data. Privacy Policy for our web development, SaaS, e-commerce, and digital services.",
   );
 
   return (
@@ -158,7 +167,8 @@ export default function PrivacyPolicy() {
           <div
             className="absolute inset-0 opacity-[0.02]"
             style={{
-              backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground)) 1px,transparent 1px)",
+              backgroundImage:
+                "linear-gradient(hsl(var(--foreground)) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground)) 1px,transparent 1px)",
               backgroundSize: "64px 64px",
             }}
           />
@@ -166,7 +176,9 @@ export default function PrivacyPolicy() {
 
         <Container>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/40 bg-card/30 text-xs text-muted-foreground mb-8 backdrop-blur-sm">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+            <Link href="/" className="hover:text-primary transition-colors">
+              Home
+            </Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-foreground font-medium">Legal</span>
             <ChevronRight className="w-3 h-3" />
@@ -182,7 +194,8 @@ export default function PrivacyPolicy() {
               Privacy Policy
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl">
-              How we collect, use, and protect your information when you engage with We Raise Tech.
+              How we collect, use, and protect your information when you engage
+              with We Raise Tech.
             </p>
 
             <div className="flex items-center gap-4 mt-8 text-sm text-muted-foreground">
@@ -230,18 +243,25 @@ export default function PrivacyPolicy() {
                     {section.title}
                   </h2>
                   <div className="prose prose-neutral dark:prose-invert max-w-none text-[15px] leading-relaxed text-muted-foreground">
-                    {section.content.split('\n\n').map((paragraph, pIndex) => {
-                      if (paragraph.startsWith('•')) {
-                        const items = paragraph.split('\n').filter(Boolean);
+                    {section.content.split("\n\n").map((paragraph, pIndex) => {
+                      if (paragraph.startsWith("•")) {
+                        const items = paragraph.split("\n").filter(Boolean);
                         return (
-                          <ul key={pIndex} className="list-disc pl-6 space-y-1.5 my-4">
+                          <ul
+                            key={pIndex}
+                            className="list-disc pl-6 space-y-1.5 my-4"
+                          >
                             {items.map((item, i) => (
-                              <li key={i}>{item.replace(/^•\s*/, '')}</li>
+                              <li key={i}>{item.replace(/^•\s*/, "")}</li>
                             ))}
                           </ul>
                         );
                       }
-                      return <p key={pIndex} className="mb-4">{paragraph}</p>;
+                      return (
+                        <p key={pIndex} className="mb-4">
+                          {paragraph}
+                        </p>
+                      );
                     })}
                   </div>
                 </div>
@@ -253,19 +273,23 @@ export default function PrivacyPolicy() {
               <div className="flex items-start gap-3 text-sm text-muted-foreground bg-muted/40 p-5 rounded-xl">
                 <Lock className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground mb-1">Important Notice</p>
+                  <p className="font-medium text-foreground mb-1">
+                    Privacy requests
+                  </p>
                   <p>
-                    This Privacy Policy is provided as a professional template. Laws vary by jurisdiction. 
-                    We recommend consulting with a qualified legal professional to ensure full compliance 
-                    for your specific business operations and client base.
+                    To access, correct, export, or delete personal information
+                    associated with an inquiry, contact us using the details
+                    below.
                   </p>
                 </div>
               </div>
 
               <div className="mt-8 text-center">
-                <p className="text-sm text-muted-foreground mb-4">Questions about your data?</p>
-                <Link 
-                  href="/contact" 
+                <p className="text-sm text-muted-foreground mb-4">
+                  Questions about your data?
+                </p>
+                <Link
+                  href="/contact"
                   className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
                 >
                   Contact our team <Mail className="w-4 h-4" />

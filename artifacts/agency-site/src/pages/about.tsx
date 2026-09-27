@@ -1,10 +1,20 @@
 import { useRef, useEffect } from "react";
 import { useInView, useSpring, useTransform, motion } from "framer-motion";
 import { Link } from "wouter";
-import { CheckCircle, ChevronRight, Shield, Zap, Target, Cpu } from "lucide-react";
+import {
+  CheckCircle,
+  ChevronRight,
+  Shield,
+  Zap,
+  Target,
+  Cpu,
+} from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
+import {
+  AnimateOnScroll,
+  AnimatedItem,
+} from "@/components/shared/AnimateOnScroll";
 import { GradientButton } from "@/components/shared/GradientButton";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
@@ -21,31 +31,33 @@ const valueCards = [
   {
     icon: Shield,
     title: "Quality",
-    description: "Code is read far more often than it's written. We optimize for clarity, consistency, and long-term team velocity.",
+    description:
+      "Code is read far more often than it's written. We optimize for clarity, consistency, and long-term team velocity.",
   },
   {
     icon: Target,
     title: "Transparency",
-    description: "Clear communication, regular updates, and honest assessments without runaround.",
+    description:
+      "Clear communication, regular updates, and honest assessments without runaround.",
   },
   {
     icon: Zap,
     title: "Innovation",
-    description: "We use modern tools and battle-tested architectures to build solutions that scale.",
+    description:
+      "We use modern tools and battle-tested architectures to build solutions that scale.",
   },
   {
     icon: CheckCircle,
     title: "Reliability",
-    description: "We ship working products, handle DevOps efficiently, and provide ongoing support.",
+    description:
+      "We ship working products, handle DevOps efficiently, and provide ongoing support.",
   },
 ];
-
-
 
 export default function AboutPage() {
   useDocumentTitle(
     "About Us | We Raise Tech",
-    "An elite, focused engineering team that punches above its weight class. Learn about our mission, values, and engineering philosophy."
+    "An elite, focused engineering team that punches above its weight class. Learn about our mission, values, and engineering philosophy.",
   );
 
   return (
@@ -53,12 +65,13 @@ export default function AboutPage() {
       {/* Hero Banner */}
       <section className="relative overflow-hidden border-b border-border/30 pb-16 pt-16 sm:pb-20 sm:pt-24 lg:pb-24 lg:pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-background" />
-        
+
         {/* Premium Grid Overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -67,26 +80,36 @@ export default function AboutPage() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
             className="absolute top-[-20%] right-[10%] w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
-            style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)",
+            }}
           />
         </div>
 
         <Container className="relative z-10">
           <AnimateOnScroll>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/10 backdrop-blur-sm text-primary text-sm font-medium mb-8">
-              <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">Home</Link>
+              <Link
+                href="/"
+                className="hover:text-primary transition-colors flex items-center gap-1"
+              >
+                Home
+              </Link>
               <ChevronRight className="w-3.5 h-3.5" />
               <span>About Us</span>
             </div>
             <div className="max-w-4xl">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tighter leading-[1.05] mb-8 text-foreground">
-                About <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary via-primary/80 to-secondary relative">
+                About{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-primary via-primary/80 to-secondary relative">
                   Us
                   <span className="absolute -inset-x-4 -inset-y-2 bg-primary/20 blur-3xl opacity-0 animate-[pulse_4s_ease-in-out_infinite] mix-blend-screen -z-10" />
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed border-l-4 border-primary/30 pl-6 max-w-2xl">
-                An elite, focused engineering team that punches well above its weight class.
+                An elite, focused engineering team that punches well above its
+                weight class.
               </p>
             </div>
           </AnimateOnScroll>
@@ -106,7 +129,11 @@ export default function AboutPage() {
                   Lean engineering for businesses that move fast
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
-                  We believe great software is the result of clear thinking, disciplined execution, and an obsessive focus on what actually matters. We're not here to build monuments — we're here to ship products that work, products that scale, and products that your customers love.
+                  We believe great software is the result of clear thinking,
+                  disciplined execution, and an obsessive focus on what actually
+                  matters. We're not here to build monuments — we're here to
+                  ship products that work, products that scale, and products
+                  that your customers love.
                 </p>
                 <ul className="space-y-4">
                   {coreValues.map((value) => (
@@ -123,13 +150,11 @@ export default function AboutPage() {
               {/* Premium Floating Architecture Visual */}
               <div className="relative h-96 lg:h-[500px] w-full flex items-center justify-center">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-secondary/10 rounded-full blur-3xl opacity-50" />
-                
+
                 {/* Main Central Card */}
-                <div 
-                  className="relative z-20 w-64 h-80 rounded-2xl bg-card/80 backdrop-blur-xl border border-border/60 shadow-2xl p-6 flex flex-col justify-between overflow-hidden"
-                >
+                <div className="relative z-20 w-64 h-80 rounded-2xl bg-card/80 backdrop-blur-xl border border-border/60 shadow-2xl p-6 flex flex-col justify-between overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl -mr-10 -mt-10" />
-                  
+
                   <div>
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex gap-1.5">
@@ -148,12 +173,14 @@ export default function AboutPage() {
                       <div className="h-2 w-4/6 bg-border/50 rounded-full" />
                     </div>
                   </div>
-                  
+
                   <div className="mt-auto space-y-4">
                     <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
                       <div className="flex items-center gap-2 mb-2">
                         <Shield className="w-4 h-4 text-primary" />
-                        <span className="text-xs font-semibold text-primary">System Core</span>
+                        <span className="text-xs font-semibold text-primary">
+                          System Core
+                        </span>
                       </div>
                       <div className="h-1.5 w-full bg-primary/20 rounded-full overflow-hidden">
                         <div className="h-full w-3/4 bg-primary rounded-full" />
@@ -163,9 +190,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* Floating Left Card */}
-                <div 
-                  className="absolute left-0 lg:left-4 z-10 w-48 h-56 rounded-2xl bg-card/60 backdrop-blur-md border border-border/40 shadow-xl p-5"
-                >
+                <div className="absolute left-0 lg:left-4 z-10 w-48 h-56 rounded-2xl bg-card/60 backdrop-blur-md border border-border/40 shadow-xl p-5">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
                       <Zap className="w-4 h-4 text-secondary" />
@@ -174,22 +199,29 @@ export default function AboutPage() {
                   </div>
                   <div className="space-y-2 mt-8">
                     {[...Array(5)].map((_, i) => (
-                      <div key={i} className={`h-1.5 rounded-full ${i % 2 === 0 ? 'bg-secondary/40 w-full' : 'bg-border/40 w-4/5'}`} />
+                      <div
+                        key={i}
+                        className={`h-1.5 rounded-full ${i % 2 === 0 ? "bg-secondary/40 w-full" : "bg-border/40 w-4/5"}`}
+                      />
                     ))}
                   </div>
                 </div>
 
                 {/* Floating Right Card */}
-                <div 
-                  className="absolute right-0 lg:right-4 z-30 w-52 h-48 rounded-2xl bg-card/60 backdrop-blur-md border border-border/40 shadow-xl p-5"
-                >
+                <div className="absolute right-0 lg:right-4 z-30 w-52 h-48 rounded-2xl bg-card/60 backdrop-blur-md border border-border/40 shadow-xl p-5">
                   <div className="w-full h-24 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/10 mb-4 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle, hsl(217 91% 60% / 0.4) 1px, transparent 1px)", backgroundSize: "10px 10px" }} />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        backgroundImage:
+                          "radial-gradient(circle, hsl(217 91% 60% / 0.4) 1px, transparent 1px)",
+                        backgroundSize: "10px 10px",
+                      }}
+                    />
                     <Target className="w-8 h-8 text-primary relative z-10" />
                   </div>
                   <div className="h-2 w-24 bg-border/60 rounded-full mx-auto" />
                 </div>
-                
               </div>
             </AnimateOnScroll>
           </div>
@@ -208,7 +240,12 @@ export default function AboutPage() {
                 To be the most trusted engineering partner globally
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
-                We envision a future where businesses of all sizes can access premium software engineering without the overhead of building massive in-house teams. By focusing on scalable architectures, stunning designs, and modern performance standards, we empower companies to turn their visions into reality smoothly and efficiently.
+                We envision a future where businesses of all sizes can access
+                premium software engineering without the overhead of building
+                massive in-house teams. By focusing on scalable architectures,
+                stunning designs, and modern performance standards, we empower
+                companies to turn their visions into reality smoothly and
+                efficiently.
               </p>
             </div>
           </AnimateOnScroll>
@@ -257,18 +294,17 @@ export default function AboutPage() {
       {/* Technologies Section */}
       <TechStackSection />
 
-
-
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden border-t border-border/20">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-primary/10 to-background pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] pointer-events-none opacity-50" />
-        
+
         {/* Subtle grid pattern */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)",
             backgroundSize: "40px 40px",
           }}
         />
@@ -277,12 +313,20 @@ export default function AboutPage() {
           <AnimateOnScroll>
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground tracking-tight">
-                Ready to build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">extraordinary?</span>
+                Ready to build something{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                  extraordinary?
+                </span>
               </h2>
               <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-                Let's discuss how our engineering team can help bring your vision to life. No strings attached, just an honest conversation about your product.
+                Let's discuss how our engineering team can help bring your
+                vision to life. No strings attached, just an honest conversation
+                about your product.
               </p>
-              <GradientButton href="/contact#contact-form" className="px-12 py-5 text-lg font-semibold shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all">
+              <GradientButton
+                href="/contact#contact-form"
+                className="px-12 py-5 text-lg font-semibold shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all"
+              >
                 Work With Us
               </GradientButton>
             </div>

@@ -14,7 +14,10 @@ export default function NotFound() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
           className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-15 blur-[100px]"
-          style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
+          style={{
+            background:
+              "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)",
+          }}
         />
       </div>
 
@@ -35,7 +38,8 @@ export default function NotFound() {
           Page Not Found
         </h1>
         <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-md mx-auto">
-          The page you're looking for doesn't exist or has been moved. Let's get you back on track.
+          The page you're looking for doesn't exist or has been moved. Let's get
+          you back on track.
         </p>
 
         <GradientButton href="/" className="px-10 py-4 text-base">

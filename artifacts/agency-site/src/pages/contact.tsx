@@ -4,28 +4,38 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import {
-  Mail, Phone, MapPin, Send, Info, Plus, Minus
-} from "lucide-react";
+import { Mail, Phone, MapPin, Send, Info, Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Container } from "@/components/layout/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { AnimateOnScroll, AnimatedItem } from "@/components/shared/AnimateOnScroll";
+import {
+  AnimateOnScroll,
+  AnimatedItem,
+} from "@/components/shared/AnimateOnScroll";
 import logger from "@/lib/logger";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+import { trackLead } from "@/lib/analytics";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(120),
   email: z.string().trim().email("Please enter a valid email address").max(320),
-  phone: z.string().trim().min(10, "Please enter a valid WhatsApp number").max(30),
+  phone: z.string().trim().max(30).optional(),
   service: z.string().trim().min(1, "Please select a service").max(100),
-  message: z.string().trim().min(10, "Please provide a little more detail").max(5000),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Please provide a little more detail")
+    .max(5000),
   website: z.string().max(200).optional(),
 });
 
@@ -146,7 +156,11 @@ function ContactFAQAccordionItem({
                 : "bg-muted/60 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
             }`}
           >
-            {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+            {isOpen ? (
+              <Minus className="w-4 h-4" />
+            ) : (
+              <Plus className="w-4 h-4" />
+            )}
           </span>
         </button>
 
@@ -204,13 +218,13 @@ function ContactFAQSection() {
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const [serviceValue, setServiceValue] = useState("");
 
   useDocumentTitle(
     "Contact Us | We Raise Tech",
-    "Get in touch with We Raise Tech. Tell us about your project and we'll respond within 24 hours with a clear plan and honest assessment."
+    "Get in touch with We Raise Tech. Tell us about your project and we'll respond within 24 hours with a clear plan and honest assessment.",
   );
-
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -253,22 +267,39 @@ export default function ContactPage() {
       let json: Record<string, unknown> = {};
       const text = await res.text();
       if (text) {
-        try { json = JSON.parse(text); } catch { /* empty or non-JSON body */ }
+        try {
+          json = JSON.parse(text);
+        } catch {
+          /* empty or non-JSON body */
+        }
       }
 
       if (res.status === 429) {
-        toast.error("Too many requests — please wait a minute and try again.");
+        toast.error(
+          "Too many requests — please wait up to an hour and try again.",
+        );
+        trackLead("failed", data.service);
         return;
       }
       if (!res.ok) {
-        throw new Error((json.message as string) ?? "Submission failed. Please try again.");
+        throw new Error(
+          (json.message as string) ?? "Submission failed. Please try again.",
+        );
       }
-      toast.success((json.message as string) ?? "Message sent! We'll be in touch within 24 hours.");
+      toast.success(
+        (json.message as string) ??
+          "Message sent! We'll be in touch within 24 hours.",
+      );
+      trackLead("submitted", data.service);
       reset();
       setServiceValue("");
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.";
       logger.error("Contact form submission failed", err);
+      trackLead("failed", data.service);
       toast.error(message);
     } finally {
       setIsSubmitting(false);
@@ -280,16 +311,22 @@ export default function ContactPage() {
       {/* Hero Banner */}
       <section className="relative overflow-hidden border-b border-border/30 py-20 sm:py-24 lg:py-32">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-        
+
         {/* Massive Glowing Orbs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
             className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full opacity-20 blur-3xl"
-            style={{ background: "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, hsl(217 91% 60%) 0%, transparent 70%)",
+            }}
           />
           <div
             className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
-            style={{ background: "radial-gradient(circle, hsl(221 83% 53%) 0%, transparent 70%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, hsl(221 83% 53%) 0%, transparent 70%)",
+            }}
           />
         </div>
 
@@ -301,30 +338,30 @@ export default function ContactPage() {
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   We are currently taking new clients
                 </div>
-                
+
                 <h1 className="text-6xl md:text-8xl font-heading font-bold text-foreground tracking-tight leading-tight mb-8">
                   Let's Build <br />
-                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Together.</span>
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Together.
+                  </span>
                 </h1>
-                
+
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-lg border-l-4 border-primary/30 pl-6">
-                  Tell us about your project, your constraints, and your goals. We respond to every inquiry within 24 hours — no sales scripts, no runaround.
+                  Tell us about your project, your constraints, and your goals.
+                  We respond to every inquiry within 24 hours — no sales
+                  scripts, no runaround.
                 </p>
               </div>
-              
+
               <div className="hidden lg:flex justify-end">
                 {/* Floating Decorative Contact Visual */}
-                <div 
-                  className="relative w-80 h-80 rounded-3xl bg-card/40 border border-white/10 backdrop-blur-2xl shadow-2xl flex items-center justify-center overflow-hidden"
-                >
+                <div className="relative w-80 h-80 rounded-3xl bg-card/40 border border-white/10 backdrop-blur-2xl shadow-2xl flex items-center justify-center overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent" />
                   <div className="w-32 h-32 rounded-full bg-primary/20 blur-2xl absolute" />
                   <Mail className="w-24 h-24 text-primary relative z-10 drop-shadow-xl" />
-                  
+
                   {/* Floating elements */}
-                  <div 
-                    className="absolute top-12 right-12 w-12 h-12 rounded-xl bg-secondary/20 border border-secondary/30 backdrop-blur-md flex items-center justify-center"
-                  >
+                  <div className="absolute top-12 right-12 w-12 h-12 rounded-xl bg-secondary/20 border border-secondary/30 backdrop-blur-md flex items-center justify-center">
                     <Send className="w-5 h-5 text-secondary" />
                   </div>
                 </div>
@@ -335,11 +372,14 @@ export default function ContactPage() {
       </section>
 
       {/* Two-column */}
-      <section id="contact-form" className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24">
+      <section
+        id="contact-form"
+        className="relative scroll-mt-24 overflow-hidden py-16 sm:py-20 lg:py-24"
+      >
         {/* Background Gradients */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.05),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--secondary)/0.05),transparent_50%)] pointer-events-none" />
-        
+
         <Container className="relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24">
             {/* Contact Form */}
@@ -347,130 +387,225 @@ export default function ContactPage() {
               <div className="relative overflow-hidden rounded-3xl border border-border/40 bg-card/40 p-6 shadow-2xl backdrop-blur-xl sm:p-8 md:p-10">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none" />
                 <div className="relative z-10">
-                  <h2 className="text-3xl font-heading font-extrabold text-foreground mb-3 tracking-tight">Send us a message</h2>
+                  <h2 className="text-3xl font-heading font-extrabold text-foreground mb-3 tracking-tight">
+                    Send us a message
+                  </h2>
                   <p className="text-muted-foreground text-base mb-10 leading-relaxed max-w-md">
-                    Fill out the form below and our team will get back to you within 24 hours to discuss your vision.
+                    Fill out the form below and our team will get back to you
+                    within 24 hours to discuss your vision.
                   </p>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" data-testid="form-contact">
-                  <input
-                    type="text"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                    className="absolute -left-[9999px] h-px w-px opacity-0"
-                    {...register("website")}
-                  />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name <span className="text-destructive">*</span></Label>
-                      <Input
-                        id="name"
-                        placeholder="Your name"
-                        data-testid="input-name"
-                        {...register("name")}
-                        className={errors.name ? "border-destructive" : ""}
-                      />
-                      {errors.name && (
-                        <p className="text-xs text-destructive">{errors.name.message}</p>
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email <span className="text-destructive">*</span></Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your@email.com"
-                        data-testid="input-email"
-                        {...register("email")}
-                        className={errors.email ? "border-destructive" : ""}
-                      />
-                      {errors.email && (
-                        <p className="text-xs text-destructive">{errors.email.message}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">WhatsApp Number <span className="text-destructive">*</span></Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+91 12345 67890"
-                        data-testid="input-phone"
-                        {...register("phone")}
-                        className={errors.phone ? "border-destructive" : ""}
-                      />
-                      {errors.phone && (
-                        <p className="text-xs text-destructive">{errors.phone.message}</p>
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Service Interest <span className="text-destructive">*</span></Label>
-                      <Select
-                        value={serviceValue}
-                        onValueChange={(val) => {
-                          setServiceValue(val);
-                          setValue("service", val);
-                          trigger("service");
-                        }}
-                      >
-                        <SelectTrigger data-testid="select-service" className={errors.service ? "border-destructive" : ""}>
-                          <SelectValue placeholder="Select a service" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {services.map((s) => (
-                            <SelectItem key={s} value={s}>{s}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.service && (
-                        <p className="text-xs text-destructive">{errors.service.message}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message" className="inline-flex items-center gap-1.5">
-                      Message <span className="text-destructive">*</span>
-                      <span className="text-muted-foreground" title="A brief description of your project helps us prepare a better response">
-                        <Info className="w-3.5 h-3.5" />
-                      </span>
-                    </Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Tell us about your project..."
-                      rows={5}
-                      data-testid="textarea-message"
-                      {...register("message")}
-                      className={errors.message ? "border-destructive" : ""}
-                    />
-                    {errors.message && (
-                      <p className="text-xs text-destructive">{errors.message.message}</p>
+                  <form
+                    onSubmit={handleSubmit(onSubmit, () =>
+                      trackLead("failed", serviceValue || undefined),
                     )}
-                  </div>
+                    onFocus={() => {
+                      if (!hasStarted) {
+                        setHasStarted(true);
+                        trackLead("started", serviceValue || undefined);
+                      }
+                    }}
+                    className="space-y-6"
+                    data-testid="form-contact"
+                    noValidate
+                  >
+                    <input
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="absolute -left-[9999px] h-px w-px opacity-0"
+                      {...register("website")}
+                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">
+                          Name <span className="text-destructive">*</span>
+                        </Label>
+                        <Input
+                          id="name"
+                          placeholder="Your name"
+                          data-testid="input-name"
+                          aria-invalid={Boolean(errors.name)}
+                          aria-describedby={
+                            errors.name ? "name-error" : undefined
+                          }
+                          {...register("name")}
+                          className={errors.name ? "border-destructive" : ""}
+                        />
+                        {errors.name && (
+                          <p
+                            id="name-error"
+                            role="alert"
+                            className="text-xs text-destructive"
+                          >
+                            {errors.name.message}
+                          </p>
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email">
+                          Email <span className="text-destructive">*</span>
+                        </Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="your@email.com"
+                          data-testid="input-email"
+                          aria-invalid={Boolean(errors.email)}
+                          aria-describedby={
+                            errors.email ? "email-error" : undefined
+                          }
+                          {...register("email")}
+                          className={errors.email ? "border-destructive" : ""}
+                        />
+                        {errors.email && (
+                          <p
+                            id="email-error"
+                            role="alert"
+                            className="text-xs text-destructive"
+                          >
+                            {errors.email.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
 
-                  <div>
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      data-testid="button-submit-contact"
-                      className="w-full py-7 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-lg shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all hover:-translate-y-0.5"
-                    >
-                      {isSubmitting ? (
-                        <div className="flex items-center gap-3">
-                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Sending securely...
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          <Send className="w-5 h-5" />
-                          Send Message
-                        </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">
+                          WhatsApp Number{" "}
+                          <span className="text-muted-foreground">
+                            (optional)
+                          </span>
+                        </Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          placeholder="+91 12345 67890"
+                          data-testid="input-phone"
+                          aria-invalid={Boolean(errors.phone)}
+                          aria-describedby={
+                            errors.phone ? "phone-error" : undefined
+                          }
+                          {...register("phone")}
+                          className={errors.phone ? "border-destructive" : ""}
+                        />
+                        {errors.phone && (
+                          <p
+                            id="phone-error"
+                            role="alert"
+                            className="text-xs text-destructive"
+                          >
+                            {errors.phone.message}
+                          </p>
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="service">
+                          Service Interest{" "}
+                          <span className="text-destructive">*</span>
+                        </Label>
+                        <Select
+                          value={serviceValue}
+                          onValueChange={(val) => {
+                            setServiceValue(val);
+                            setValue("service", val);
+                            trigger("service");
+                          }}
+                        >
+                          <SelectTrigger
+                            id="service"
+                            data-testid="select-service"
+                            aria-invalid={Boolean(errors.service)}
+                            aria-describedby={
+                              errors.service ? "service-error" : undefined
+                            }
+                            className={
+                              errors.service ? "border-destructive" : ""
+                            }
+                          >
+                            <SelectValue placeholder="Select a service" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {services.map((s) => (
+                              <SelectItem key={s} value={s}>
+                                {s}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.service && (
+                          <p
+                            id="service-error"
+                            role="alert"
+                            className="text-xs text-destructive"
+                          >
+                            {errors.service.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="message"
+                        className="inline-flex items-center gap-1.5"
+                      >
+                        Message <span className="text-destructive">*</span>
+                        <span
+                          className="text-muted-foreground"
+                          title="A brief description of your project helps us prepare a better response"
+                        >
+                          <Info className="w-3.5 h-3.5" />
+                        </span>
+                      </Label>
+                      <Textarea
+                        id="message"
+                        placeholder="Tell us about your project..."
+                        rows={5}
+                        data-testid="textarea-message"
+                        aria-invalid={Boolean(errors.message)}
+                        aria-describedby={
+                          errors.message ? "message-error" : undefined
+                        }
+                        {...register("message")}
+                        className={errors.message ? "border-destructive" : ""}
+                      />
+                      {errors.message && (
+                        <p
+                          id="message-error"
+                          role="alert"
+                          className="text-xs text-destructive"
+                        >
+                          {errors.message.message}
+                        </p>
                       )}
-                    </Button>
-                  </div>
+                    </div>
+
+                    <div>
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        data-testid="button-submit-contact"
+                        className="w-full py-7 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-lg shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all hover:-translate-y-0.5"
+                      >
+                        {isSubmitting ? (
+                          <div className="flex items-center gap-3">
+                            <div
+                              className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"
+                              aria-hidden="true"
+                            />
+                            Sending securely...
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <Send className="w-5 h-5" />
+                            Send Message
+                          </div>
+                        )}
+                      </Button>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -484,7 +619,8 @@ export default function ContactPage() {
                     Let's talk directly
                   </h2>
                   <p className="text-muted-foreground text-base leading-relaxed">
-                    Prefer a more direct conversation? We're reachable on all of these channels and always ready to help.
+                    Prefer a more direct conversation? We're reachable on all of
+                    these channels and always ready to help.
                   </p>
                 </div>
 
@@ -500,7 +636,9 @@ export default function ContactPage() {
                           <Icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground mb-0.5">{info.label}</p>
+                          <p className="text-xs text-muted-foreground mb-0.5">
+                            {info.label}
+                          </p>
                           {info.href ? (
                             <a
                               href={info.href}
@@ -510,7 +648,9 @@ export default function ContactPage() {
                               {info.value}
                             </a>
                           ) : (
-                            <p className="text-sm font-medium text-foreground">{info.value}</p>
+                            <p className="text-sm font-medium text-foreground">
+                              {info.value}
+                            </p>
                           )}
                         </div>
                       </div>
@@ -521,23 +661,28 @@ export default function ContactPage() {
                 {/* Premium Animated Response Widget */}
                 <div className="relative h-40 rounded-2xl overflow-hidden bg-card/60 backdrop-blur-xl border border-border/50 shadow-lg group flex items-center justify-center">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   <div className="relative z-10 flex flex-col items-center gap-4">
                     <div className="relative flex items-center justify-center">
                       {/* Animated Radar Rings Centered on Dot */}
                       <div className="absolute w-24 h-24 rounded-full border border-primary/30 animate-[ping_3s_ease-out_infinite] pointer-events-none" />
                       <div className="absolute w-16 h-16 rounded-full border border-primary/40 animate-[ping_3s_ease-out_infinite_1s] pointer-events-none" />
-                      
+
                       <div className="w-12 h-12 rounded-full bg-background border border-border/50 shadow-md flex items-center justify-center relative z-10">
                         <div className="absolute inset-0 rounded-full bg-primary/20 blur-md animate-pulse" />
                         <div className="w-2.5 h-2.5 rounded-full bg-primary animate-ping absolute" />
                         <div className="w-2.5 h-2.5 rounded-full bg-primary relative z-10" />
                       </div>
                     </div>
-                    
+
                     <div className="text-center relative z-10 bg-background/80 px-4 py-1 rounded-full backdrop-blur-md border border-border/50">
-                      <p className="text-sm font-semibold text-foreground">Guaranteed Response</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">Within <span className="text-primary font-bold">24 Hours</span></p>
+                      <p className="text-sm font-semibold text-foreground">
+                        Guaranteed Response
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Within{" "}
+                        <span className="text-primary font-bold">24 Hours</span>
+                      </p>
                     </div>
                   </div>
                 </div>

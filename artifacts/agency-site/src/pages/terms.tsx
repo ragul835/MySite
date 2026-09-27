@@ -1,9 +1,18 @@
 import { Link } from "wouter";
-import { ChevronRight, Scale, Mail, Globe, FileText, Calendar, AlertTriangle, Users } from "lucide-react";
+import {
+  ChevronRight,
+  Scale,
+  Mail,
+  Globe,
+  FileText,
+  Calendar,
+  AlertTriangle,
+  Users,
+} from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
-const lastUpdated = "July 8, 2026";
+const lastUpdated = "September 27, 2026";
 
 const sections = [
   {
@@ -13,7 +22,7 @@ const sections = [
 
 These Terms constitute a legally binding agreement between you (the "Client") and We Raise Tech ("we," "us," or "our"). They govern your use of our website and all professional services we provide, including but not limited to:
 
-Web Development, Full-Stack Development, E-Commerce Solutions, SaaS Platform Development, UI/UX Design, SEO Services, Shopify Development, Website Maintenance & Support, Mobile App Development, Custom Software Development, and related consulting.`
+Web Development, Full-Stack Development, E-Commerce Solutions, SaaS Platform Development, UI/UX Design, SEO Services, Shopify Development, Website Maintenance & Support, Mobile App Development, Custom Software Development, and related consulting.`,
   },
   {
     id: "services",
@@ -28,7 +37,7 @@ Web Development, Full-Stack Development, E-Commerce Solutions, SaaS Platform Dev
 • Technical SEO audits, on-page optimization, and content strategy
 • Ongoing maintenance, support, and performance optimization
 
-All services are delivered on a project basis or via retainer agreements as outlined in separate statements of work (SOWs), proposals, or contracts. Estimates and timelines provided are good-faith projections and may be adjusted based on scope changes or unforeseen technical challenges.`
+All services are delivered on a project basis or via retainer agreements as outlined in separate statements of work (SOWs), proposals, or contracts. Estimates and timelines provided are good-faith projections and may be adjusted based on scope changes or unforeseen technical challenges.`,
   },
   {
     id: "client-responsibilities",
@@ -41,7 +50,7 @@ All services are delivered on a project basis or via retainer agreements as outl
 • Ensure you have all necessary rights to any materials, trademarks, images, copy, or third-party content you provide.
 • Comply with all applicable laws in your jurisdiction.
 
-You are solely responsible for the accuracy of information supplied to us and for obtaining any required licenses or permissions for third-party assets used in your project.`
+You are solely responsible for the accuracy of information supplied to us and for obtaining any required licenses or permissions for third-party assets used in your project.`,
   },
   {
     id: "intellectual-property",
@@ -54,7 +63,7 @@ You are solely responsible for the accuracy of information supplied to us and fo
 
 You grant We Raise Tech a non-exclusive license to use anonymized project outcomes, screenshots, and case studies for marketing and portfolio purposes unless you explicitly request otherwise in writing.
 
-Third-party libraries, open-source components, and platform services (Shopify, Stripe, etc.) remain subject to their respective license terms.`
+Third-party libraries, open-source components, and platform services (Shopify, Stripe, etc.) remain subject to their respective license terms.`,
   },
   {
     id: "confidentiality",
@@ -68,7 +77,7 @@ We Raise Tech will:
 
 This obligation does not apply to information that: (a) is or becomes publicly available through no fault of ours; (b) was rightfully known prior to disclosure; (c) is independently developed; or (d) is required to be disclosed by law.
 
-Project source code, business strategies, credentials, and customer data are treated as highly confidential.`
+Project source code, business strategies, credentials, and customer data are treated as highly confidential.`,
   },
   {
     id: "payments",
@@ -82,7 +91,7 @@ General terms:
 • Late payments may result in suspension of work and accrual of reasonable interest.
 • All prices are exclusive of applicable taxes (GST in India or VAT/sales tax as required).
 
-Scope changes requested after project kickoff will be documented and may result in additional fees and timeline adjustments. We will seek written approval before proceeding with significant changes.`
+Scope changes requested after project kickoff will be documented and may result in additional fees and timeline adjustments. We will seek written approval before proceeding with significant changes.`,
   },
   {
     id: "warranties",
@@ -96,7 +105,7 @@ Specific disclaimers:
 • Third-party platforms (Shopify, payment gateways, hosting): We are not responsible for outages, policy changes, or limitations imposed by those providers.
 • Security: While we implement industry-standard protections, we cannot guarantee that your systems will be completely immune to all threats.
 
-Limitation of Liability: To the maximum extent permitted by law, We Raise Tech's total liability arising out of or related to any engagement shall not exceed the total fees actually paid by you to We Raise Tech for the specific project giving rise to the claim. In no event shall we be liable for indirect, incidental, special, consequential, or punitive damages, including lost profits, data loss, or business interruption, regardless of the cause.`
+Limitation of Liability: To the maximum extent permitted by law, We Raise Tech's total liability arising out of or related to any engagement shall not exceed the total fees actually paid by you to We Raise Tech for the specific project giving rise to the claim. In no event shall we be liable for indirect, incidental, special, consequential, or punitive damages, including lost profits, data loss, or business interruption, regardless of the cause.`,
   },
   {
     id: "project-delivery",
@@ -108,7 +117,7 @@ Limitation of Liability: To the maximum extent permitted by law, We Raise Tech's
 • Upon final delivery and payment, you are responsible for ongoing hosting, maintenance, backups, and security unless a separate support agreement is in place.
 • We provide a limited post-launch support window (typically 14–30 days) for critical bugs related to our deliverables.
 
-For long-term maintenance, performance monitoring, or feature development, we offer retainer or support packages.`
+For long-term maintenance, performance monitoring, or feature development, we offer retainer or support packages.`,
   },
   {
     id: "termination",
@@ -121,16 +130,16 @@ For long-term maintenance, performance monitoring, or feature development, we of
 Upon termination:
 • You will receive all deliverables for which payment has been made.
 • We Raise Tech may retain copies of work product as required for legal or archival purposes.
-• Provisions that by their nature should survive (IP, confidentiality, limitation of liability, governing law) shall survive termination.`
+• Provisions that by their nature should survive (IP, confidentiality, limitation of liability, governing law) shall survive termination.`,
   },
   {
     id: "governing-law",
     title: "10. Governing Law & Dispute Resolution",
     content: `These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law principles.
 
-Any dispute arising out of or relating to these Terms or our services shall first be attempted to be resolved through good-faith negotiation. If negotiation fails, disputes shall be subject to the exclusive jurisdiction of the courts located in [Your City/State, India — update as needed].
+Any dispute arising out of or relating to these Terms or our services shall first be attempted to be resolved through good-faith negotiation. If negotiation fails, the dispute shall be subject to the jurisdiction of the competent courts in India, unless a signed client agreement specifies a different forum.
 
-For international clients, we are willing to discuss alternative dispute resolution mechanisms (arbitration or mediation) on a case-by-case basis as part of the service agreement.`
+For international clients, we are willing to discuss alternative dispute resolution mechanisms (arbitration or mediation) on a case-by-case basis as part of the service agreement.`,
   },
   {
     id: "indemnification",
@@ -140,7 +149,7 @@ For international clients, we are willing to discuss alternative dispute resolut
 • Your use of the deliverables or website
 • Content or materials you provided
 • Your violation of these Terms or applicable law
-• Infringement of third-party rights resulting from materials supplied by you`
+• Infringement of third-party rights resulting from materials supplied by you`,
   },
   {
     id: "miscellaneous",
@@ -152,7 +161,7 @@ For international clients, we are willing to discuss alternative dispute resolut
 • Force Majeure: Neither party is liable for delays caused by events beyond reasonable control (natural disasters, pandemics, government actions, internet outages, etc.).
 • Updates: We may update these Terms. Continued use after changes constitutes acceptance of the revised Terms. The date at the top indicates the latest revision.
 
-If any conflict exists between these website Terms and a signed client agreement, the signed agreement shall control.`
+If any conflict exists between these website Terms and a signed client agreement, the signed agreement shall control.`,
   },
   {
     id: "contact",
@@ -164,14 +173,14 @@ Email: contact@weraisetech.com
 Phone / WhatsApp: +91 9080163393
 Location: India
 
-We are committed to clear communication and fair dealings with all our clients, both local and global.`
-  }
+We are committed to clear communication and fair dealings with all our clients, both local and global.`,
+  },
 ];
 
 export default function TermsAndConditions() {
   useDocumentTitle(
     "Terms & Conditions | We Raise Tech",
-    "Read the Terms & Conditions for We Raise Tech services — web development, full-stack, e-commerce, SaaS, UI/UX, SEO, and Shopify development."
+    "Read the Terms & Conditions for We Raise Tech services — web development, full-stack, e-commerce, SaaS, UI/UX, SEO, and Shopify development.",
   );
 
   return (
@@ -183,7 +192,8 @@ export default function TermsAndConditions() {
           <div
             className="absolute inset-0 opacity-[0.02]"
             style={{
-              backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground)) 1px,transparent 1px)",
+              backgroundImage:
+                "linear-gradient(hsl(var(--foreground)) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground)) 1px,transparent 1px)",
               backgroundSize: "64px 64px",
             }}
           />
@@ -191,11 +201,15 @@ export default function TermsAndConditions() {
 
         <Container>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/40 bg-card/30 text-xs text-muted-foreground mb-8 backdrop-blur-sm">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+            <Link href="/" className="hover:text-primary transition-colors">
+              Home
+            </Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-foreground font-medium">Legal</span>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-foreground font-medium">Terms &amp; Conditions</span>
+            <span className="text-foreground font-medium">
+              Terms &amp; Conditions
+            </span>
           </div>
 
           <div className="max-w-4xl">
@@ -207,7 +221,8 @@ export default function TermsAndConditions() {
               Terms &amp; Conditions
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl">
-              The rules governing the use of our website and professional IT services.
+              The rules governing the use of our website and professional IT
+              services.
             </p>
 
             <div className="flex items-center gap-4 mt-8 text-sm text-muted-foreground">
@@ -233,10 +248,13 @@ export default function TermsAndConditions() {
             <div className="mb-10 p-5 rounded-2xl border border-amber-500/30 bg-amber-500/5 flex gap-3">
               <AlertTriangle className="w-5 h-5 text-amber-500 mt-0.5 shrink-0" />
               <div className="text-sm">
-                <p className="font-semibold text-foreground mb-1">Professional Services Agreement</p>
+                <p className="font-semibold text-foreground mb-1">
+                  Professional Services Agreement
+                </p>
                 <p className="text-muted-foreground">
-                  These Terms apply to website usage and form the baseline for our client engagements. 
-                  Specific projects are also governed by detailed proposals and service agreements.
+                  These Terms apply to website usage and form the baseline for
+                  our client engagements. Specific projects are also governed by
+                  detailed proposals and service agreements.
                 </p>
               </div>
             </div>
@@ -267,18 +285,25 @@ export default function TermsAndConditions() {
                     {section.title}
                   </h2>
                   <div className="prose prose-neutral dark:prose-invert max-w-none text-[15px] leading-relaxed text-muted-foreground">
-                    {section.content.split('\n\n').map((paragraph, pIndex) => {
-                      if (paragraph.startsWith('•')) {
-                        const items = paragraph.split('\n').filter(Boolean);
+                    {section.content.split("\n\n").map((paragraph, pIndex) => {
+                      if (paragraph.startsWith("•")) {
+                        const items = paragraph.split("\n").filter(Boolean);
                         return (
-                          <ul key={pIndex} className="list-disc pl-6 space-y-1.5 my-4">
+                          <ul
+                            key={pIndex}
+                            className="list-disc pl-6 space-y-1.5 my-4"
+                          >
                             {items.map((item, i) => (
-                              <li key={i}>{item.replace(/^•\s*/, '')}</li>
+                              <li key={i}>{item.replace(/^•\s*/, "")}</li>
                             ))}
                           </ul>
                         );
                       }
-                      return <p key={pIndex} className="mb-4">{paragraph}</p>;
+                      return (
+                        <p key={pIndex} className="mb-4">
+                          {paragraph}
+                        </p>
+                      );
                     })}
                   </div>
                 </div>
@@ -290,19 +315,23 @@ export default function TermsAndConditions() {
               <div className="flex items-start gap-3 text-sm text-muted-foreground bg-muted/40 p-5 rounded-xl">
                 <Users className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground mb-1">Legal Disclaimer</p>
+                  <p className="font-medium text-foreground mb-1">
+                    Contract priority
+                  </p>
                   <p>
-                    These Terms &amp; Conditions are provided as a comprehensive professional template suitable for an IT services company. 
-                    They should be reviewed and customized by a qualified attorney licensed in your jurisdiction to address your specific 
-                    operational needs, risk profile, and client contracts.
+                    A signed proposal, statement of work, or client agreement
+                    takes priority over these website terms where the documents
+                    conflict.
                   </p>
                 </div>
               </div>
 
               <div className="mt-8 text-center">
-                <p className="text-sm text-muted-foreground mb-4">Ready to start a project or have questions?</p>
-                <Link 
-                  href="/contact" 
+                <p className="text-sm text-muted-foreground mb-4">
+                  Ready to start a project or have questions?
+                </p>
+                <Link
+                  href="/contact"
                   className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
                 >
                   Get in touch <Mail className="w-4 h-4" />

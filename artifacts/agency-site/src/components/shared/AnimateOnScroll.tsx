@@ -28,7 +28,12 @@ const itemVariants: Variants = {
   },
 };
 
-export function AnimateOnScroll({ children, className, stagger = false, delay = 0 }: AnimateOnScrollProps) {
+export function AnimateOnScroll({
+  children,
+  className,
+  stagger = false,
+  delay = 0,
+}: AnimateOnScrollProps) {
   if (stagger) {
     return (
       <motion.div
@@ -55,7 +60,13 @@ export function AnimateOnScroll({ children, className, stagger = false, delay = 
   );
 }
 
-export function AnimatedItem({ children, className }: { children: React.ReactNode; className?: string }) {
+export function AnimatedItem({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <motion.div variants={itemVariants} className={className}>
       {children}

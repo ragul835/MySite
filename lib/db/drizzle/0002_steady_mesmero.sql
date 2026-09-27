@@ -1,0 +1,2 @@
+CREATE INDEX "contact_notification_retry_idx" ON "contact_submissions" USING btree ("notification_status","notification_next_attempt_at");--> statement-breakpoint
+CREATE INDEX "contact_submission_retention_idx" ON "contact_submissions" USING btree ("created_at");
