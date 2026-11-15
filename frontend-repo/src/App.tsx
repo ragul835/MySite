@@ -47,6 +47,7 @@ const loaders = {
   portfolio: () => import("@/pages/portfolio"),
   caseStudy: () => import("@/pages/samosasheet-case-study"),
   yogaCaseStudy: () => import("@/pages/shakthi-yoga-case-study"),
+  auraCaseStudy: () => import("@/pages/aura-architecture-case-study"),
   notFound: () => import("@/pages/not-found"),
 } satisfies Record<string, PageLoader>;
 
@@ -63,6 +64,7 @@ const BlogPostPage = lazyImport(loaders.blogPost);
 const PortfolioPage = lazyImport(loaders.portfolio);
 const SamosaSheetCaseStudyPage = lazyImport(loaders.caseStudy);
 const ShakthiYogaCaseStudyPage = lazyImport(loaders.yogaCaseStudy);
+const AuraArchitectureCaseStudyPage = lazyImport(loaders.auraCaseStudy);
 const NotFound = lazyImport(loaders.notFound);
 
 const prefetched = new Set<PageLoader>();
@@ -82,6 +84,7 @@ function loaderForPath(path: string): PageLoader | undefined {
   if (path === "/portfolio") return loaders.portfolio;
   if (path === "/portfolio/samosasheet") return loaders.caseStudy;
   if (path === "/portfolio/shakthi-yoga") return loaders.yogaCaseStudy;
+  if (path === "/portfolio/aura-architecture") return loaders.auraCaseStudy;
   return loaders.notFound;
 }
 
@@ -155,6 +158,7 @@ function Router() {
           <Route path="/about" component={AboutPage} />
           <Route path="/portfolio/samosasheet" component={SamosaSheetCaseStudyPage} />
           <Route path="/portfolio/shakthi-yoga" component={ShakthiYogaCaseStudyPage} />
+          <Route path="/portfolio/aura-architecture" component={AuraArchitectureCaseStudyPage} />
           <Route path="/portfolio" component={PortfolioPage} />
           <Route path="/services" component={ServicesPage} />
           <Route path="/services/:slug" component={ServiceDetailPage} />
