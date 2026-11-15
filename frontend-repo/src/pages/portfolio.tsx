@@ -83,6 +83,27 @@ const caseStudies: CaseStudy[] = [
     liveUrl: "https://samosasheet.com/",
   },
   {
+    id: "velura-ecommerce",
+    title: "VELURA — Fashion E-Commerce Platform",
+    client: "VELURA",
+    industry: "Fashion & Apparel",
+    category: "E-Commerce",
+    badgeClass: "bg-emerald-700 text-white",
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS", "REST API"],
+    description:
+      "A full-stack fashion e-commerce platform with a 54-product catalog, category filtering, cart and checkout, and a full account dashboard — built for a premium shopping experience.",
+    keyResults: [
+      { text: "54 products across 6 categories with ratings and discount badges" },
+      { text: "Full cart → checkout flow with pre-filled account details" },
+      { text: "5-tab account dashboard covering settings, orders, and billing" },
+    ],
+    year: "2026",
+    image: "/portfolio/velura/screenshots/home.webp",
+    icon: Package,
+    featured: false,
+    href: "/portfolio/velura",
+  },
+  {
     id: "aura-architecture-studio",
     title: "AURA Architecture Studio — UI/UX Design",
     client: "AURA Architecture Studio",
