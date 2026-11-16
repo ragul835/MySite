@@ -53,6 +53,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://weraisetech.com/portfolio/flowdesk</loc>
+    <lastmod>2026-11-16</lastmod>
+    <image:image>
+      <image:loc>https://weraisetech.com/portfolio/flowdesk/og.jpg</image:loc>
+      <image:title>FlowDesk SaaS Project Management Platform</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://weraisetech.com/blog</loc>
     <lastmod>2026-09-26</lastmod>
   </url>

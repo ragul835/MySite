@@ -13,6 +13,7 @@ We Raise Tech specializes in React/Next.js frontends, Node.js/NestJS/Java/Python
 - [Shakthi Yoga Case Study](https://weraisetech.com/portfolio/shakthi-yoga): Full-stack yoga studio platform with student portal, class booking, passes, payments, and admin panel.
 - [AURA Architecture Case Study](https://weraisetech.com/portfolio/aura-architecture): Premium multi-page website for an architecture, interior, and exterior design studio in India.
 - [VELURA Case Study](https://weraisetech.com/portfolio/velura): Full-stack fashion e-commerce platform with catalog, cart, checkout, and account management.
+- [FlowDesk Case Study](https://weraisetech.com/portfolio/flowdesk): SaaS project management platform with Kanban boards, real-time sync, role-based access, and analytics.
 
 ## Services
 

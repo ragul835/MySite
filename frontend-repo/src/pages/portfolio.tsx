@@ -10,6 +10,7 @@ import {
   Zap,
   Star,
   Plus,
+  KanbanSquare,
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
@@ -124,9 +125,30 @@ const caseStudies: CaseStudy[] = [
     featured: false,
     href: "/portfolio/aura-architecture",
   },
+  {
+    id: "flowdesk-saas",
+    title: "FlowDesk — SaaS Project Management Platform",
+    client: "FlowDesk",
+    industry: "Productivity & Collaboration",
+    category: "SaaS",
+    badgeClass: "bg-indigo-600 text-white",
+    tags: ["React", "TypeScript", "Node.js", "WebSockets", "PostgreSQL", "Tailwind CSS"],
+    description:
+      "A multi-tenant SaaS project management app with Kanban boards, real-time sync over WebSockets, Owner / Admin / Member roles, and an analytics dashboard for team workload and progress.",
+    keyResults: [
+      { text: "Kanban boards with priority, assignee, and due-date tracking" },
+      { text: "Real-time updates and live presence across every teammate" },
+      { text: "Role-based access with completion-rate and workload analytics" },
+    ],
+    year: "2026",
+    image: "/portfolio/flowdesk/screenshots/dashboard.webp",
+    icon: KanbanSquare,
+    featured: false,
+    href: "/portfolio/flowdesk",
+  },
 ];
 
-const CATEGORIES = ["All", "Web Development", "Full-Stack Development", "E-Commerce", "UI/UX Design"] as const;
+const CATEGORIES = ["All", "SaaS", "Web Development", "Full-Stack Development", "E-Commerce", "UI/UX Design"] as const;
 
 const STATS = [
   { icon: Package, value: "50+", label: "Products Delivered" },
@@ -136,7 +158,7 @@ const STATS = [
 ];
 
 const FAQ_LEFT = [
-  { q: "What types of projects do you showcase in your portfolio?", a: "We showcase a range of web development, full-stack, e-commerce, and UI/UX projects across multiple industries including food, yoga, fashion, and fintech." },
+  { q: "What types of projects do you showcase in your portfolio?", a: "We showcase a range of SaaS, web development, full-stack, e-commerce, and UI/UX projects across multiple industries including food, yoga, fashion, and fintech." },
   { q: "Can I see case studies similar to my industry?", a: "Yes — use the category filter above to narrow projects. If you don't see your exact niche, reach out and we'll walk you through relevant work over a call." },
   { q: "How do you highlight project results in your portfolio?", a: "Each project shows the real problem, what we built, and measurable results — not just pretty screenshots. We focus on outcomes like load times, booking flows, and conversion impact." },
   { q: "Can I contact your team for a consultation after viewing a case study?", a: "Absolutely. Every project page has a direct CTA to book a free consultation or start a conversation about your project." },
