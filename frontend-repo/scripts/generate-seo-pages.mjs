@@ -29,6 +29,7 @@ function routeModulePath(path) {
   if (path === "/portfolio/shakthi-yoga") return "src/pages/shakthi-yoga-case-study.tsx";
   if (path === "/portfolio/aura-architecture") return "src/pages/aura-architecture-case-study.tsx";
   if (path === "/portfolio/velura") return "src/pages/velura-case-study.tsx";
+  if (path === "/portfolio/flowdesk") return "src/pages/flowdesk-case-study.tsx";
   if (path === "/portfolio") return "src/pages/portfolio.tsx";
   return "src/pages/not-found.tsx";
 }
@@ -121,6 +122,18 @@ const coreRoutes = [
     heading: "VELURA Fashion E-Commerce Platform",
     clientName: "VELURA",
     lastModified: "2026-11-15",
+  },
+  {
+    path: "/portfolio/flowdesk",
+    title: "FlowDesk SaaS Project Management Case Study | We Raise Tech",
+    description:
+      "How We Raise Tech built FlowDesk, a SaaS project management platform with Kanban boards, real-time sync, role-based access, and team analytics.",
+    image: "/portfolio/flowdesk/og.jpg",
+    ...CASE_STUDY_IMAGE,
+    kind: "case-study",
+    heading: "FlowDesk SaaS Project Management Platform",
+    clientName: "FlowDesk",
+    lastModified: "2026-11-16",
   },
   {
     path: "/blog",
