@@ -18,14 +18,38 @@
   </url>
   <url>
     <loc>https://weraisetech.com/portfolio</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://weraisetech.com/portfolio/samosasheet</loc>
     <lastmod>2026-09-26</lastmod>
     <image:image>
-      <image:loc>https://weraisetech.com/portfolio/samosasheet/samosa-sheets-rectangular-premium-hero-v3.webp</image:loc>
-      <image:title>SamosaSheet Website Case Study</image:title>
+      <image:loc>https://weraisetech.com/portfolio/samosasheet/og.jpg</image:loc>
+      <image:title>SamosaSheet Website for Karpagam Foods</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/portfolio/shakthi-yoga</loc>
+    <lastmod>2026-11-12</lastmod>
+    <image:image>
+      <image:loc>https://weraisetech.com/portfolio/shakthi-yoga/og.jpg</image:loc>
+      <image:title>Shakthi Yoga Studio Management Platform</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/portfolio/aura-architecture</loc>
+    <lastmod>2026-11-15</lastmod>
+    <image:image>
+      <image:loc>https://weraisetech.com/portfolio/aura-architecture/og.jpg</image:loc>
+      <image:title>AURA Architecture Studio Website</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://weraisetech.com/portfolio/velura</loc>
+    <lastmod>2026-11-15</lastmod>
+    <image:image>
+      <image:loc>https://weraisetech.com/portfolio/velura/og.jpg</image:loc>
+      <image:title>VELURA Fashion E-Commerce Platform</image:title>
     </image:image>
   </url>
   <url>

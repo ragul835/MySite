@@ -19,6 +19,7 @@ import { useSEO } from "@/hooks/useDocumentTitle";
 import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/seo";
 
 const PROJECT_PATH = "/portfolio/shakthi-yoga";
+const SOCIAL_IMAGE = "/portfolio/shakthi-yoga/og.jpg";
 const SCREENSHOT_PATH = "/portfolio/shakthi-yoga/screenshots";
 const PROJECT_IMAGE = `${SCREENSHOT_PATH}/home-full.jpg`;
 const SITE_SCREENSHOT = `${SCREENSHOT_PATH}/home-thumb.jpg`;
@@ -159,11 +160,11 @@ export default function ShakthiYogaCaseStudyPage() {
   useSEO({
     title: "Shakthi Yoga Studio Platform Case Study | We Raise Tech",
     description:
-      "See how We Raise Tech built Shakthi Yoga — a full-stack yoga studio platform with a marketing site, student portal, and admin panel for classes, passes, payments, and attendance.",
+      "How We Raise Tech built Shakthi Yoga: a full-stack yoga studio platform with student portal, class booking, passes, payments, and an admin panel.",
     path: PROJECT_PATH,
-    image: PROJECT_IMAGE,
-    imageWidth: 1400,
-    imageHeight: 3810,
+    image: SOCIAL_IMAGE,
+    imageWidth: 1200,
+    imageHeight: 630,
     imageType: "image/jpeg",
     brandTitle: false,
     keywords: [
@@ -210,7 +211,7 @@ export default function ShakthiYogaCaseStudyPage() {
                 Full-stack platform · 2026
               </div>
               <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                Shakthi Yoga
+                Shakthi Yoga{" "}
                 <span className="mt-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   one platform to run the whole studio.
                 </span>

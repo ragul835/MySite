@@ -6,10 +6,11 @@ const PUBLIC_DIR = new URL("../public/", import.meta.url);
 const SITE_URL = "https://weraisetech.com";
 const SITE_NAME = "We Raise Tech";
 const SITE_LAST_MODIFIED = "2026-09-26";
-const DEFAULT_IMAGE = "/opengraph.png";
-const DEFAULT_IMAGE_WIDTH = 1730;
-const DEFAULT_IMAGE_HEIGHT = 909;
-const DEFAULT_IMAGE_TYPE = "image/png";
+const DEFAULT_IMAGE = "/opengraph.jpg";
+const DEFAULT_IMAGE_WIDTH = 1200;
+const DEFAULT_IMAGE_HEIGHT = 630;
+const DEFAULT_IMAGE_TYPE = "image/jpeg";
+const CASE_STUDY_IMAGE = { imageWidth: 1200, imageHeight: 630, imageType: "image/jpeg" };
 const manifest = JSON.parse(await readFile(new URL(".vite/manifest.json", DIST_DIR), "utf8"));
 
 function routeModulePath(path) {
@@ -25,6 +26,9 @@ function routeModulePath(path) {
   if (path === "/blog") return "src/pages/blog.tsx";
   if (path.startsWith("/blog/")) return "src/pages/blog-post.tsx";
   if (path === "/portfolio/samosasheet") return "src/pages/samosasheet-case-study.tsx";
+  if (path === "/portfolio/shakthi-yoga") return "src/pages/shakthi-yoga-case-study.tsx";
+  if (path === "/portfolio/aura-architecture") return "src/pages/aura-architecture-case-study.tsx";
+  if (path === "/portfolio/velura") return "src/pages/velura-case-study.tsx";
   if (path === "/portfolio") return "src/pages/portfolio.tsx";
   return "src/pages/not-found.tsx";
 }
@@ -39,16 +43,16 @@ function routeModulePreload(path) {
 const coreRoutes = [
   {
     path: "/",
-    title: "Custom Software & Web Development Company | We Raise Tech",
+    title: "We Raise Tech | Custom Software & Web Development Company",
     heading: "Digital Products That Help Your Business Grow",
     description:
-      "We Raise Tech helps startups and growing businesses launch high-converting websites, SaaS platforms, mobile apps, and custom software built to scale.",
+      "We Raise Tech (WeRaiseTech) builds high-converting websites, SaaS platforms, mobile apps, and custom software for startups and growing businesses.",
   },
   {
     path: "/about",
     title: "About We Raise Tech | Software Engineering Company",
     description:
-      "Learn about We Raise Tech — a product-focused engineering team delivering web, mobile, SaaS, and custom software with transparent process and long-term support.",
+      "Learn about We Raise Tech (WeRaiseTech), a product-focused team building web, mobile, SaaS, and custom software with a transparent process.",
   },
   {
     path: "/services",
@@ -67,19 +71,56 @@ const coreRoutes = [
     title: "Portfolio & Case Studies | We Raise Tech Client Projects",
     description:
       "Explore We Raise Tech case studies across web, mobile, SaaS, e-commerce, SEO, UI/UX, Shopify, maintenance, and custom software.",
+    lastModified: "2026-11-15",
   },
   {
     path: "/portfolio/samosasheet",
     title: "SamosaSheet Website Case Study | We Raise Tech",
     description:
       "See how We Raise Tech built SamosaSheet, a responsive, search-ready product catalog and enquiry website for Karpagam Foods in Chennai.",
-    image: "/portfolio/samosasheet/samosa-sheets-rectangular-premium-hero-v3.webp",
-    imageWidth: 1672,
-    imageHeight: 941,
-    imageType: "image/webp",
+    image: "/portfolio/samosasheet/og.jpg",
+    ...CASE_STUDY_IMAGE,
     kind: "case-study",
+    heading: "SamosaSheet Website for Karpagam Foods",
     clientName: "Karpagam Foods",
     clientUrl: "https://samosasheet.com/",
+    lastModified: "2026-09-26",
+  },
+  {
+    path: "/portfolio/shakthi-yoga",
+    title: "Shakthi Yoga Studio Platform Case Study | We Raise Tech",
+    description:
+      "How We Raise Tech built Shakthi Yoga: a full-stack yoga studio platform with student portal, class booking, passes, payments, and an admin panel.",
+    image: "/portfolio/shakthi-yoga/og.jpg",
+    ...CASE_STUDY_IMAGE,
+    kind: "case-study",
+    heading: "Shakthi Yoga Studio Management Platform",
+    clientName: "Shakthi Yoga",
+    lastModified: "2026-11-12",
+  },
+  {
+    path: "/portfolio/aura-architecture",
+    title: "AURA Architecture Website Case Study | We Raise Tech",
+    description:
+      "How We Raise Tech designed and built a premium multi-page website for AURA, an architecture, interior, and exterior design studio in India.",
+    image: "/portfolio/aura-architecture/og.jpg",
+    ...CASE_STUDY_IMAGE,
+    kind: "case-study",
+    heading: "AURA Architecture Studio Website",
+    clientName: "AURA Architecture Studio",
+    lastModified: "2026-11-15",
+  },
+  {
+    path: "/portfolio/velura",
+    title: "VELURA Fashion E-Commerce Case Study | We Raise Tech",
+    description:
+      "How We Raise Tech built VELURA, a full-stack fashion e-commerce platform with product catalog, cart, checkout, and customer account management.",
+    image: "/portfolio/velura/og.jpg",
+    ...CASE_STUDY_IMAGE,
+    kind: "case-study",
+    heading: "VELURA Fashion E-Commerce Platform",
+    clientName: "VELURA",
+    lastModified: "2026-11-15",
   },
   {
     path: "/blog",
@@ -223,6 +264,18 @@ function replaceAlternate(html, hreflang, href) {
   return pattern.test(html) ? html.replace(pattern, tag) : html.replace("</head>", `    ${tag}\n  </head>`);
 }
 
+const COLLECTION_PATHS = new Set(["/services", "/portfolio", "/blog"]);
+
+function pageSchemaType(route) {
+  if (route.kind === "article") return "Article";
+  if (route.kind === "service") return "Service";
+  if (route.kind === "case-study") return "CreativeWork";
+  if (route.path === "/about") return "AboutPage";
+  if (route.path === "/contact") return "ContactPage";
+  if (COLLECTION_PATHS.has(route.path)) return "CollectionPage";
+  return "WebPage";
+}
+
 function routeJsonLd(route) {
   const url = absoluteUrl(route.path);
   const displayName = route.heading || route.name || route.title.replace(` | ${SITE_NAME}`, "");
@@ -237,7 +290,7 @@ function routeJsonLd(route) {
     }));
 
   const page = {
-    "@type": route.kind === "article" ? "Article" : route.kind === "service" ? "Service" : route.kind === "case-study" ? "CreativeWork" : "WebPage",
+    "@type": pageSchemaType(route),
     "@id": `${url}#primary`,
     name: displayName,
     description: route.description,
@@ -269,9 +322,10 @@ function routeJsonLd(route) {
     page.about = {
       "@type": "Organization",
       name: route.clientName,
-      url: route.clientUrl,
+      ...(route.clientUrl ? { url: route.clientUrl } : {}),
     };
     page.dateCreated = "2026";
+    page.headline = displayName;
     page.dateModified = route.lastModified;
     page.mainEntityOfPage = url;
   } else {
@@ -315,11 +369,12 @@ function staticRouteContent(route) {
 
   const staticContent = `<main id="static-seo-content">
         <nav aria-label="Breadcrumb">${breadcrumbs}</nav>
-        <span class="static-eyebrow">Web &amp; Software Development</span>
+        <span class="static-eyebrow">${route.path === "/" ? "We Raise Tech" : "Web &amp; Software Development"}</span>
         <h1>${escapeHtml(heading)}</h1>
         <p>${escapeHtml(route.description)}</p>
         ${articleDate}
         <p class="static-actions"><a class="static-primary" href="/contact">Start a project</a><a href="/services">Explore our services</a><a href="/portfolio">View our portfolio</a></p>
+        <p class="static-brand">We Raise Tech (WeRaiseTech) · weraisetech.com</p>
       </main>`;
 
   return `<style>
@@ -385,6 +440,7 @@ function staticRouteContent(route) {
       #static-seo-content h1 { max-width: 50rem; margin: 0 auto 1.25rem; font-family: 'Plus Jakarta Sans', Outfit, system-ui, sans-serif; font-size: clamp(2.5rem, 7vw, 4.75rem); line-height: 1.02; letter-spacing: -.055em; }
       #static-seo-content > p:not(.static-actions) { max-width: 44rem; margin: .75rem auto; color: #667085; font-size: clamp(1rem, 2vw, 1.18rem); }
       #static-seo-content .static-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .75rem 1.25rem; margin: 2rem auto 0; }
+      #static-seo-content .static-brand { margin-top: 3rem; color: #98a2b3; font-size: .8rem; }
       #static-seo-content .static-actions a { color: #6d28d9; font-weight: 700; text-decoration: none; }
       #static-seo-content .static-actions .static-primary { padding: .85rem 1.25rem; border-radius: .75rem; color: #fff; background: linear-gradient(100deg, #7c3aed, #2563eb, #06b6d4); box-shadow: 0 10px 28px rgba(79,70,229,.2); }
       @media (max-width: 640px) {
@@ -431,6 +487,7 @@ function renderRoute(shell, route, { noindex = false } = {}) {
   html = replaceMeta(html, "name", "twitter:image", image);
   html = replaceMeta(html, "name", "twitter:image:alt", route.title);
   html = replaceMeta(html, "name", "twitter:url", canonical);
+  html = replaceMeta(html, "name", "twitter:site", "@weraisetech");
   html = removeMeta(html, "name", "keywords");
   html = html.replace(/<link\s+rel=["']canonical["'][^>]*>/i, `<link rel="canonical" href="${canonical}" />`);
   html = replaceAlternate(html, "en", canonical);

@@ -20,6 +20,7 @@ import { useSEO } from "@/hooks/useDocumentTitle";
 import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/seo";
 
 const PROJECT_PATH = "/portfolio/aura-architecture";
+const SOCIAL_IMAGE = "/portfolio/aura-architecture/og.jpg";
 const SCREENSHOT_PATH = "/portfolio/aura-architecture/screenshots";
 const PROJECT_IMAGE = `${SCREENSHOT_PATH}/home.webp`;
 
@@ -146,11 +147,14 @@ export default function AuraArchitectureCaseStudyPage() {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
   useSEO({
-    title: "AURA Architecture Studio — UI/UX Design Case Study | We Raise Tech",
+    title: "AURA Architecture Website Case Study | We Raise Tech",
     description:
-      "See how We Raise Tech designed and built the AURA Architecture Studio website — a premium dark-themed multi-page site for an architecture, interior, and exterior design practice in India.",
+      "How We Raise Tech designed and built a premium multi-page website for AURA, an architecture, interior, and exterior design studio in India.",
     path: PROJECT_PATH,
-    image: PROJECT_IMAGE,
+    image: SOCIAL_IMAGE,
+    imageWidth: 1200,
+    imageHeight: 630,
+    imageType: "image/jpeg",
     brandTitle: false,
     keywords: [
       "AURA Architecture Studio case study",
@@ -198,7 +202,7 @@ export default function AuraArchitectureCaseStudyPage() {
                 UI/UX Design · 2026
               </div>
               <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                AURA Architecture
+                AURA Architecture{" "}
                 <span className="mt-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   a property designed end to end.
                 </span>

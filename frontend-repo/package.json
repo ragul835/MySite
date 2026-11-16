@@ -9,7 +9,8 @@
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "seo:validate": "node scripts/validate-seo.mjs",
-    "deploy": "npm run build && wrangler deploy --config wrangler.jsonc",
+    "deploy": "npm run build && wrangler deploy --config wrangler.jsonc && npm run seo:indexnow",
+    "seo:indexnow": "node scripts/indexnow.mjs",
     "preview": "npm run build && wrangler dev --config wrangler.jsonc"
   },
   "devDependencies": {

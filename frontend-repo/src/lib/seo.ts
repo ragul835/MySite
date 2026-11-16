@@ -3,10 +3,12 @@
 export const SITE_URL = "https://weraisetech.com";
 export const SITE_NAME = "We Raise Tech";
 export const SITE_LEGAL_NAME = "We Raise Tech";
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph.png`;
-export const DEFAULT_OG_IMAGE_WIDTH = 1730;
-export const DEFAULT_OG_IMAGE_HEIGHT = 909;
-export const DEFAULT_OG_IMAGE_TYPE = "image/png";
+export const BRAND_ALTERNATE_NAMES = ["WeRaiseTech", "We Raise Tech Software", "weraisetech.com"];
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph.jpg`;
+export const DEFAULT_OG_IMAGE_WIDTH = 1200;
+export const DEFAULT_OG_IMAGE_HEIGHT = 630;
+export const DEFAULT_OG_IMAGE_TYPE = "image/jpeg";
+export const TWITTER_HANDLE = "@weraisetech";
 export const CONTACT_EMAIL = "contact@weraisetech.com";
 export const CONTACT_PHONE = "+919080163393";
 export const X_URL = "https://x.com/weraisetech";
@@ -60,6 +62,7 @@ export function organizationJsonLd() {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
+    alternateName: BRAND_ALTERNATE_NAMES,
     legalName: SITE_LEGAL_NAME,
     url: SITE_URL,
     logo: {
@@ -102,7 +105,7 @@ export function websiteJsonLd() {
     "@id": `${SITE_URL}/#website`,
     url: SITE_URL,
     name: SITE_NAME,
-    alternateName: "WeRaiseTech",
+    alternateName: BRAND_ALTERNATE_NAMES,
     description:
       "Custom software development for scalable web applications, mobile apps, SaaS platforms, e-commerce systems, and digital products by We Raise Tech.",
     publisher: { "@id": `${SITE_URL}/#organization` },
@@ -192,7 +195,7 @@ export function caseStudyJsonLd(input: {
     about: {
       "@type": "Organization",
       name: input.clientName,
-      url: input.clientUrl,
+      ...(input.clientUrl ? { url: input.clientUrl } : {}),
     },
     dateCreated: input.dateCreated,
     inLanguage: "en",
@@ -276,16 +279,16 @@ export function itemListJsonLd(
 /** Static SEO copy for top-level routes */
 export const PAGE_SEO = {
   home: {
-    title: "Custom Software & Web Development Company | We Raise Tech",
+    title: "We Raise Tech | Custom Software & Web Development Company",
     description:
-      "We Raise Tech helps startups and growing businesses launch high-converting websites, SaaS platforms, mobile apps, and custom software built to scale.",
+      "We Raise Tech (WeRaiseTech) builds high-converting websites, SaaS platforms, mobile apps, and custom software for startups and growing businesses.",
     path: "/",
     keywords: DEFAULT_KEYWORDS,
   },
   about: {
     title: "About We Raise Tech | Software Engineering Company",
     description:
-      "Learn about We Raise Tech — a product-focused engineering team delivering web, mobile, SaaS, and custom software with transparent process and long-term support.",
+      "Learn about We Raise Tech (WeRaiseTech), a product-focused team building web, mobile, SaaS, and custom software with a transparent process.",
     path: "/about",
   },
   services: {

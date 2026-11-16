@@ -113,7 +113,7 @@ export default function AboutPage() {
                 </span>
               </h1>
               <p className="mb-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Your technology partner for building reliable, scalable digital solutions — from startups to growing enterprises.
+                We Raise Tech (also known as WeRaiseTech) is your technology partner for building reliable, scalable digital solutions — from startups to growing enterprises.
               </p>
               <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 {coreValues.map((v) => (

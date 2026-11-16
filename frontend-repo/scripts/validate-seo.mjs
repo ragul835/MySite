@@ -79,6 +79,38 @@ for (const url of pageUrls) {
   descriptions.set(description, url);
 }
 
+// Every static client route must be pre-rendered and listed, otherwise the
+// Worker serves 404.html with HTTP 404 for a page that works in the browser.
+const NOINDEX_PATHS = new Set(["/thank-you"]);
+const appSource = await readFile(new URL("../src/App.tsx", import.meta.url), "utf8");
+const appRoutes = [...appSource.matchAll(/<Route\s+path="([^"]+)"/g)]
+  .map((match) => match[1])
+  .filter((path) => !path.includes(":"));
+check(appRoutes.length > 0, "Could not read any static routes from src/App.tsx");
+for (const path of appRoutes) {
+  const url = path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
+  try {
+    await access(new URL(outputFile(url), DIST));
+  } catch {
+    errors.push(`${path}: route exists in App.tsx but has no pre-rendered HTML (add it to scripts/generate-seo-pages.mjs)`);
+  }
+  if (!NOINDEX_PATHS.has(path)) check(pageUrls.includes(url), `${path}: route exists in App.tsx but is missing from sitemap.xml`);
+}
+
+// Social images referenced by pages must exist in the build.
+for (const url of pageUrls) {
+  let html;
+  try { html = await readFile(new URL(outputFile(url), DIST), "utf8"); } catch { continue; }
+  const image = capture(html, /<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i);
+  if (image.startsWith(SITE_URL)) {
+    try {
+      await access(new URL(`.${new URL(image).pathname}`, DIST));
+    } catch {
+      errors.push(`${url}: og:image ${image} is not in the build output`);
+    }
+  }
+}
+
 const robots = await readFile(new URL("robots.txt", DIST), "utf8");
 check(robots.includes(`Sitemap: ${SITE_URL}/sitemap.xml`), "robots.txt does not reference the production sitemap");
 

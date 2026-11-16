@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import {
   SITE_NAME,
   LOCALE,
+  TWITTER_HANDLE,
   DEFAULT_OG_IMAGE_WIDTH,
   DEFAULT_OG_IMAGE_HEIGHT,
   DEFAULT_OG_IMAGE_TYPE,
@@ -180,6 +181,7 @@ export function useSEO(config: SEOConfig) {
     setMeta("name", "twitter:image", ogImage);
     setMeta("name", "twitter:image:alt", finalTitle);
     setMeta("name", "twitter:url", canonical);
+    setMeta("name", "twitter:site", TWITTER_HANDLE);
 
     if (type === "article") {
       if (publishedTime) setMeta("property", "article:published_time", publishedTime);

@@ -20,6 +20,7 @@ import { useSEO } from "@/hooks/useDocumentTitle";
 import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/seo";
 
 const PROJECT_PATH = "/portfolio/velura";
+const SOCIAL_IMAGE = "/portfolio/velura/og.jpg";
 const SCREENSHOT_PATH = "/portfolio/velura/screenshots";
 const PROJECT_IMAGE = `${SCREENSHOT_PATH}/home.webp`;
 
@@ -163,11 +164,14 @@ export default function VeluraCaseStudyPage() {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
   useSEO({
-    title: "VELURA E-Commerce Platform — Case Study | We Raise Tech",
+    title: "VELURA Fashion E-Commerce Case Study | We Raise Tech",
     description:
-      "See how We Raise Tech designed and built VELURA, a full-stack fashion e-commerce platform with a curated product catalog, cart, checkout, and complete account management.",
+      "How We Raise Tech built VELURA, a full-stack fashion e-commerce platform with product catalog, cart, checkout, and customer account management.",
     path: PROJECT_PATH,
-    image: PROJECT_IMAGE,
+    image: SOCIAL_IMAGE,
+    imageWidth: 1200,
+    imageHeight: 630,
+    imageType: "image/jpeg",
     brandTitle: false,
     keywords: [
       "VELURA e-commerce case study",
@@ -215,7 +219,7 @@ export default function VeluraCaseStudyPage() {
                 E-Commerce · 2026
               </div>
               <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                VELURA
+                VELURA{" "}
                 <span className="mt-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   premium fashion, end to end.
                 </span>

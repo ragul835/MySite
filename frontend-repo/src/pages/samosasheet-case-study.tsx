@@ -20,6 +20,7 @@ import { useSEO } from "@/hooks/useDocumentTitle";
 import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/seo";
 
 const PROJECT_PATH = "/portfolio/samosasheet";
+const SOCIAL_IMAGE = "/portfolio/samosasheet/og.jpg";
 const PROJECT_IMAGE = "/portfolio/samosasheet/samosa-sheets-rectangular-premium-hero-v3.webp";
 const SCREENSHOT_PATH = "/portfolio/samosasheet/screenshots";
 const SITE_SCREENSHOT = `${SCREENSHOT_PATH}/homepage-thumb.webp`;
@@ -133,10 +134,10 @@ export default function SamosaSheetCaseStudyPage() {
     description:
       "See how We Raise Tech built SamosaSheet, a responsive, search-ready product catalog and enquiry website for Karpagam Foods in Chennai.",
     path: PROJECT_PATH,
-    image: PROJECT_IMAGE,
-    imageWidth: 1672,
-    imageHeight: 941,
-    imageType: "image/webp",
+    image: SOCIAL_IMAGE,
+    imageWidth: 1200,
+    imageHeight: 630,
+    imageType: "image/jpeg",
     brandTitle: false,
     keywords: [
       "SamosaSheet case study",
@@ -183,7 +184,7 @@ export default function SamosaSheetCaseStudyPage() {
                 Live client project · 2026
               </div>
               <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                SamosaSheet
+                SamosaSheet{" "}
                 <span className="mt-2 block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   product discovery made simple.
                 </span>

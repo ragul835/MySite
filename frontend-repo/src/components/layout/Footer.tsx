@@ -99,7 +99,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              We Raise Tech is a software engineering company for web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance.
+              We Raise Tech (WeRaiseTech) is a software engineering company for web development, mobile apps, SaaS, e-commerce, custom software, SEO, UI/UX, and website maintenance.
             </p>
             <div className="flex flex-wrap gap-2" aria-label="We Raise Tech social media links">
               {socialLinks.map(({ href, label, testId }) => (
@@ -199,7 +199,7 @@ export function Footer() {
         <Container>
           <div className="flex flex-col items-center justify-between gap-4 py-6 text-center sm:flex-row sm:text-left">
             <p className="text-xs text-slate-500">
-              &copy; {year} We Raise Tech. All rights reserved.
+              &copy; {year} We Raise Tech (WeRaiseTech · weraisetech.com). All rights reserved.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:justify-end">
               {legalLinks.map((link) => (

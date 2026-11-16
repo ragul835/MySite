@@ -311,7 +311,7 @@ function HeroSection() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0 lg:max-w-xl">
-            From high-converting websites to custom software, we help startups and growing businesses attract customers, automate operations, and scale with confidence.
+            We Raise Tech builds everything from high-converting websites to custom software, helping startups and growing businesses attract customers, automate operations, and scale with confidence.
           </p>
 
           <div className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:justify-center lg:justify-start">
