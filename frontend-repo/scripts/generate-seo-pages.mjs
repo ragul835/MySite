@@ -31,6 +31,7 @@ function routeModulePath(path) {
   if (path === "/portfolio/velura") return "src/pages/velura-case-study.tsx";
   if (path === "/portfolio/flowdesk") return "src/pages/flowdesk-case-study.tsx";
   if (path === "/portfolio/stockpilot") return "src/pages/stockpilot-case-study.tsx";
+  if (path === "/portfolio/fitpulse") return "src/pages/fitpulse-case-study.tsx";
   if (path === "/portfolio") return "src/pages/portfolio.tsx";
   return "src/pages/not-found.tsx";
 }
@@ -146,6 +147,18 @@ const coreRoutes = [
     kind: "case-study",
     heading: "StockPilot SaaS Inventory & Order Management Platform",
     clientName: "StockPilot",
+    lastModified: "2026-11-17",
+  },
+  {
+    path: "/portfolio/fitpulse",
+    title: "FitPulse Fitness Tracking App Case Study | We Raise Tech",
+    description:
+      "How We Raise Tech built FitPulse, a mobile-first fitness app with workout logging, activity and water tracking, weekly goals, achievements, and a friends leaderboard.",
+    image: "/portfolio/fitpulse/og.jpg",
+    ...CASE_STUDY_IMAGE,
+    kind: "case-study",
+    heading: "FitPulse Fitness Tracking App",
+    clientName: "FitPulse",
     lastModified: "2026-11-17",
   },
   {

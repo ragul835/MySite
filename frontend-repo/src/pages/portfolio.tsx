@@ -12,6 +12,7 @@ import {
   Plus,
   KanbanSquare,
   Boxes,
+  Dumbbell,
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
@@ -168,9 +169,30 @@ const caseStudies: CaseStudy[] = [
     featured: false,
     href: "/portfolio/stockpilot",
   },
+  {
+    id: "fitpulse-app",
+    title: "FitPulse — Fitness Tracking App",
+    client: "FitPulse",
+    industry: "Health & Fitness",
+    category: "App",
+    badgeClass: "bg-rose-600 text-white",
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Recharts", "Tailwind CSS"],
+    description:
+      "A mobile-first fitness app with workout logging, activity rings, water tracking, weekly goals, achievement badges, a friends leaderboard, and weight trends.",
+    keyResults: [
+      { text: "7 activity types with auto-estimated calories by intensity" },
+      { text: "Weekly goals, streaks, and 11 bronze-to-gold badges" },
+      { text: "Friends leaderboard and weight trend toward goal" },
+    ],
+    year: "2026",
+    image: "/portfolio/fitpulse/screenshots/home.webp",
+    icon: Dumbbell,
+    featured: false,
+    href: "/portfolio/fitpulse",
+  },
 ];
 
-const CATEGORIES = ["All", "SaaS", "Web Development", "Full-Stack Development", "E-Commerce", "UI/UX Design"] as const;
+const CATEGORIES = ["All", "SaaS", "App", "Web Development", "Full-Stack Development", "E-Commerce", "UI/UX Design"] as const;
 
 const STATS = [
   { icon: Package, value: "50+", label: "Products Delivered" },

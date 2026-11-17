@@ -69,6 +69,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://weraisetech.com/portfolio/fitpulse</loc>
+    <lastmod>2026-11-17</lastmod>
+    <image:image>
+      <image:loc>https://weraisetech.com/portfolio/fitpulse/og.jpg</image:loc>
+      <image:title>FitPulse Fitness Tracking App</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://weraisetech.com/blog</loc>
     <lastmod>2026-09-26</lastmod>
   </url>
