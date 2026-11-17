@@ -14,6 +14,7 @@ We Raise Tech specializes in React/Next.js frontends, Node.js/NestJS/Java/Python
 - [AURA Architecture Case Study](https://weraisetech.com/portfolio/aura-architecture): Premium multi-page website for an architecture, interior, and exterior design studio in India.
 - [VELURA Case Study](https://weraisetech.com/portfolio/velura): Full-stack fashion e-commerce platform with catalog, cart, checkout, and account management.
 - [FlowDesk Case Study](https://weraisetech.com/portfolio/flowdesk): SaaS project management platform with Kanban boards, real-time sync, role-based access, and analytics.
+- [StockPilot Case Study](https://weraisetech.com/portfolio/stockpilot): SaaS inventory and order management platform with multi-warehouse stock, purchase orders, reorder alerts, and barcode lookup.
 
 ## Services
 

@@ -30,6 +30,7 @@ function routeModulePath(path) {
   if (path === "/portfolio/aura-architecture") return "src/pages/aura-architecture-case-study.tsx";
   if (path === "/portfolio/velura") return "src/pages/velura-case-study.tsx";
   if (path === "/portfolio/flowdesk") return "src/pages/flowdesk-case-study.tsx";
+  if (path === "/portfolio/stockpilot") return "src/pages/stockpilot-case-study.tsx";
   if (path === "/portfolio") return "src/pages/portfolio.tsx";
   return "src/pages/not-found.tsx";
 }
@@ -134,6 +135,18 @@ const coreRoutes = [
     heading: "FlowDesk SaaS Project Management Platform",
     clientName: "FlowDesk",
     lastModified: "2026-11-16",
+  },
+  {
+    path: "/portfolio/stockpilot",
+    title: "StockPilot SaaS Inventory Management Case Study | We Raise Tech",
+    description:
+      "How We Raise Tech built StockPilot, a SaaS inventory and order management platform with multi-warehouse stock, purchase orders, reorder alerts, and barcode lookup.",
+    image: "/portfolio/stockpilot/og.jpg",
+    ...CASE_STUDY_IMAGE,
+    kind: "case-study",
+    heading: "StockPilot SaaS Inventory & Order Management Platform",
+    clientName: "StockPilot",
+    lastModified: "2026-11-17",
   },
   {
     path: "/blog",

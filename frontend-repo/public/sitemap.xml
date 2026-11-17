@@ -61,6 +61,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://weraisetech.com/portfolio/stockpilot</loc>
+    <lastmod>2026-11-17</lastmod>
+    <image:image>
+      <image:loc>https://weraisetech.com/portfolio/stockpilot/og.jpg</image:loc>
+      <image:title>StockPilot SaaS Inventory &amp; Order Management Platform</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://weraisetech.com/blog</loc>
     <lastmod>2026-09-26</lastmod>
   </url>

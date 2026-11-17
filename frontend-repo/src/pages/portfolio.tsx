@@ -11,6 +11,7 @@ import {
   Star,
   Plus,
   KanbanSquare,
+  Boxes,
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
@@ -145,6 +146,27 @@ const caseStudies: CaseStudy[] = [
     icon: KanbanSquare,
     featured: false,
     href: "/portfolio/flowdesk",
+  },
+  {
+    id: "stockpilot-saas",
+    title: "StockPilot — SaaS Inventory & Order Management",
+    client: "StockPilot",
+    industry: "Retail & Wholesale Operations",
+    category: "SaaS",
+    badgeClass: "bg-indigo-600 text-white",
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "Tailwind CSS"],
+    description:
+      "A SaaS inventory and order management platform with multi-warehouse stock tracking, purchase orders, supplier management, reorder alerts, barcode lookup, and an audited stock history.",
+    keyResults: [
+      { text: "Multi-warehouse stock with live inventory value at cost and retail" },
+      { text: "Purchase order flow from Draft to Ordered to Received into stock" },
+      { text: "Automatic low-stock reorder alerts and full movement audit trail" },
+    ],
+    year: "2026",
+    image: "/portfolio/stockpilot/screenshots/dashboard.webp",
+    icon: Boxes,
+    featured: false,
+    href: "/portfolio/stockpilot",
   },
 ];
 
