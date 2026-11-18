@@ -408,34 +408,10 @@ export default function FlowDeskCaseStudyPage() {
           </DialogTitle>
           {selectedImage && (
             <div className="flex flex-col">
-              <div className="flex items-center justify-between border-b border-border px-5 py-3">
+              <div className="border-b border-border px-5 py-3 pr-12">
                 <p className="text-sm font-semibold text-foreground">{selectedImage.title}</p>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const idx = gallery.findIndex((g) => g.src === selectedImage.src);
-                      setSelectedImage(gallery[(idx - 1 + gallery.length) % gallery.length]);
-                    }}
-                    className="rounded-lg border border-border p-2 text-muted-foreground hover:text-foreground transition"
-                    aria-label="Previous screenshot"
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const idx = gallery.findIndex((g) => g.src === selectedImage.src);
-                      setSelectedImage(gallery[(idx + 1) % gallery.length]);
-                    }}
-                    className="rounded-lg border border-border p-2 text-muted-foreground hover:text-foreground transition"
-                    aria-label="Next screenshot"
-                  >
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-                </div>
               </div>
-              <div className="max-h-[80vh] overflow-y-auto">
+              <div className="max-h-[70vh] overflow-y-auto">
                 <img
                   src={selectedImage.src}
                   alt={selectedImage.alt}
@@ -443,6 +419,33 @@ export default function FlowDeskCaseStudyPage() {
                   loading="lazy"
                   decoding="async"
                 />
+              </div>
+              <div className="flex items-center justify-between gap-3 border-t border-border px-5 py-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const idx = gallery.findIndex((g) => g.src === selectedImage.src);
+                    setSelectedImage(gallery[(idx - 1 + gallery.length) % gallery.length]);
+                  }}
+                  className="rounded-lg border border-border p-2.5 text-muted-foreground hover:text-foreground transition"
+                  aria-label="Previous screenshot"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                </button>
+                <span className="text-xs font-medium text-muted-foreground tabular-nums">
+                  {gallery.findIndex((g) => g.src === selectedImage.src) + 1} / {gallery.length}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const idx = gallery.findIndex((g) => g.src === selectedImage.src);
+                    setSelectedImage(gallery[(idx + 1) % gallery.length]);
+                  }}
+                  className="rounded-lg border border-border p-2.5 text-muted-foreground hover:text-foreground transition"
+                  aria-label="Next screenshot"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </button>
               </div>
             </div>
           )}
