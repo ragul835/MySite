@@ -23,7 +23,7 @@ import { breadcrumbJsonLd, caseStudyJsonLd } from "@/lib/seo";
 const PROJECT_PATH = "/portfolio/fitpulse";
 const SOCIAL_IMAGE = "/portfolio/fitpulse/og.jpg";
 const SCREENSHOT_PATH = "/portfolio/fitpulse/screenshots";
-const PROJECT_IMAGE = `${SCREENSHOT_PATH}/dashboard.webp`;
+const PROJECT_IMAGE = `${SCREENSHOT_PATH}/home.webp`;
 
 type GalleryImage = {
   src: string;
@@ -34,27 +34,30 @@ type GalleryImage = {
   height: number;
 };
 
-const shot = (file: string, title: string, alt: string, width: number, height: number): GalleryImage => ({
+const shot = (file: string, title: string, alt: string): GalleryImage => ({
   src: `${SCREENSHOT_PATH}/${file}`,
   thumbnail: `${SCREENSHOT_PATH}/${file}`,
   title,
   alt,
-  width,
-  height,
+  width: 800,
+  height: 1784,
 });
 
 const gallery: GalleryImage[] = [
-  shot("home.webp", "Home", "FitPulse home screen with steps, calories, and active-minute rings, water intake, streak, workout and distance stats, weekly steps chart, and recent workouts", 1288, 961),
-  shot("workouts.webp", "Workouts", "FitPulse workouts list with activity-type filters, intensity badges, duration, distance, date, and calories per workout", 1288, 961),
-  shot("log-workout.webp", "Log Workout", "FitPulse log workout form with activity type, title, duration, auto-estimated calories, distance, and intensity", 1288, 961),
-  shot("activity.webp", "Activity", "FitPulse activity screen with today's steps, calories, active minutes and distance, quick step logging, water tracker, and 7 / 30-day charts", 1288, 961),
-  shot("goals.webp", "Goals", "FitPulse goals screen with weekly step, calorie, distance, and workout targets and progress bars", 1288, 961),
-  shot("profile.webp", "Profile", "FitPulse profile with body stats, BMI, weight trend chart against goal weight, and links to achievements and leaderboard", 1288, 961),
-  shot("achievements.webp", "Achievements", "FitPulse achievements screen with bronze, silver, and gold badges, unlocked count, and progress toward locked badges", 1288, 961),
-  shot("leaderboard.webp", "Leaderboard", "FitPulse weekly steps leaderboard ranking friends with medals and active minutes", 1288, 961),
-  shot("sign-in.webp", "Sign In", "FitPulse sign in screen with email and password", 1288, 961),
-  shot("sign-up.webp", "Sign Up", "FitPulse sign up screen with name, email, and password", 1288, 961),
+  shot("home.webp", "Home", "FitPulse home screen with steps, calories, and active-minute rings, water intake, streak, workout and distance stats, weekly steps chart, and recent workouts"),
+  shot("workouts.webp", "Workouts", "FitPulse workouts list with totals, activity-type filters, intensity badges, duration, distance, date, and calories per workout"),
+  shot("log-workout.webp", "Log Workout", "FitPulse log workout form with activity type, title, duration, auto-estimated calories, distance, and intensity"),
+  shot("activity.webp", "Activity", "FitPulse activity screen with today's steps, calories, active minutes and distance, quick step logging, water tracker, and 7 / 30-day charts"),
+  shot("goals.webp", "Goals", "FitPulse goals screen with weekly step, distance, calorie, and workout targets and progress bars"),
+  shot("new-goal.webp", "New Goal", "FitPulse new goal sheet with title, metric choice, target, and daily or weekly period"),
+  shot("profile.webp", "Profile", "FitPulse profile with body stats, BMI, weight trend chart against goal weight, and links to achievements and leaderboard"),
+  shot("achievements.webp", "Achievements", "FitPulse achievements screen with bronze, silver, and gold badges, unlocked count, and progress toward locked badges"),
+  shot("leaderboard.webp", "Leaderboard", "FitPulse weekly steps leaderboard ranking friends with medals and active minutes"),
+  shot("sign-in.webp", "Sign In", "FitPulse sign in screen with email and password"),
+  shot("sign-up.webp", "Sign Up", "FitPulse sign up screen with name, email, and password"),
 ];
+
+const heroShots = [gallery[1], gallery[0], gallery[3]];
 
 const capabilities = [
   {
@@ -120,7 +123,7 @@ const techStack = [
 ];
 
 const keyResults = [
-  { label: "App screens", value: "10" },
+  { label: "App screens", value: "11" },
   { label: "Activity types", value: "7" },
   { label: "Badges to unlock", value: "11" },
   { label: "Goal metrics", value: "4" },
@@ -203,18 +206,27 @@ export default function FitPulseCaseStudyPage() {
               </div>
             </AnimateOnScroll>
 
-            {/* Hero screenshot — dashboard */}
+            {/* Hero screenshots — three phone screens */}
             <AnimateOnScroll>
-              <div className="mx-auto overflow-hidden rounded-2xl border border-border shadow-2xl">
-                <img
-                  src={gallery[0].thumbnail}
-                  alt="FitPulse home screen preview"
-                  width={gallery[0].width}
-                  height={gallery[0].height}
-                  className="h-auto max-h-[480px] w-full object-cover object-top"
-                  loading="eager"
-                  decoding="async"
-                />
+              <div className="mx-auto flex max-w-xl items-center justify-center gap-3 sm:gap-5">
+                {heroShots.map((img, i) => (
+                  <div
+                    key={img.src}
+                    className={`overflow-hidden rounded-[1.25rem] border border-border bg-background shadow-2xl ${
+                      i === 1 ? "w-[38%]" : "w-[31%] opacity-95"
+                    }`}
+                  >
+                    <img
+                      src={img.thumbnail}
+                      alt={`FitPulse ${img.title} screen preview`}
+                      width={img.width}
+                      height={img.height}
+                      className="h-auto w-full"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </div>
+                ))}
               </div>
             </AnimateOnScroll>
           </div>
@@ -304,12 +316,12 @@ export default function FitPulseCaseStudyPage() {
       <section className="border-t border-border py-16 md:py-20">
         <Container>
           <AnimateOnScroll>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Page by page</p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary">Screen by screen</p>
             <h2 className="mb-10 text-3xl font-extrabold tracking-tight sm:text-4xl">
               Every screen, every flow
             </h2>
           </AnimateOnScroll>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {gallery.map((img) => (
               <AnimateOnScroll key={img.title}>
                 <button
@@ -321,7 +333,7 @@ export default function FitPulseCaseStudyPage() {
                   <img
                     src={img.thumbnail}
                     alt={img.alt}
-                    className="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="aspect-[9/16] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
                     loading="lazy"
                     decoding="async"
                   />
@@ -416,40 +428,16 @@ export default function FitPulseCaseStudyPage() {
 
       {/* ── Lightbox ── */}
       <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
-        <DialogContent className="max-w-5xl p-0 overflow-hidden bg-background">
+        <DialogContent className="max-w-md p-0 overflow-hidden bg-background">
           <DialogTitle className="sr-only">
             {selectedImage?.title ?? "Screenshot"} — FitPulse
           </DialogTitle>
           {selectedImage && (
             <div className="flex flex-col">
-              <div className="flex items-center justify-between border-b border-border px-5 py-3">
+              <div className="border-b border-border px-5 py-3 pr-12">
                 <p className="text-sm font-semibold text-foreground">{selectedImage.title}</p>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const idx = gallery.findIndex((g) => g.src === selectedImage.src);
-                      setSelectedImage(gallery[(idx - 1 + gallery.length) % gallery.length]);
-                    }}
-                    className="rounded-lg border border-border p-2 text-muted-foreground hover:text-foreground transition"
-                    aria-label="Previous screenshot"
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const idx = gallery.findIndex((g) => g.src === selectedImage.src);
-                      setSelectedImage(gallery[(idx + 1) % gallery.length]);
-                    }}
-                    className="rounded-lg border border-border p-2 text-muted-foreground hover:text-foreground transition"
-                    aria-label="Next screenshot"
-                  >
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-                </div>
               </div>
-              <div className="max-h-[80vh] overflow-y-auto">
+              <div className="max-h-[70vh] overflow-y-auto">
                 <img
                   src={selectedImage.src}
                   alt={selectedImage.alt}
@@ -457,6 +445,33 @@ export default function FitPulseCaseStudyPage() {
                   loading="lazy"
                   decoding="async"
                 />
+              </div>
+              <div className="flex items-center justify-between gap-3 border-t border-border px-5 py-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const idx = gallery.findIndex((g) => g.src === selectedImage.src);
+                    setSelectedImage(gallery[(idx - 1 + gallery.length) % gallery.length]);
+                  }}
+                  className="rounded-lg border border-border p-2.5 text-muted-foreground hover:text-foreground transition"
+                  aria-label="Previous screenshot"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                </button>
+                <span className="text-xs font-medium text-muted-foreground tabular-nums">
+                  {gallery.findIndex((g) => g.src === selectedImage.src) + 1} / {gallery.length}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const idx = gallery.findIndex((g) => g.src === selectedImage.src);
+                    setSelectedImage(gallery[(idx + 1) % gallery.length]);
+                  }}
+                  className="rounded-lg border border-border p-2.5 text-muted-foreground hover:text-foreground transition"
+                  aria-label="Next screenshot"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </button>
               </div>
             </div>
           )}

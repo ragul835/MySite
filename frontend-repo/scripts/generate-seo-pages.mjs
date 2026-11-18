@@ -162,6 +162,18 @@ const coreRoutes = [
     lastModified: "2026-11-17",
   },
   {
+    path: "/portfolio/walletwise",
+    title: "WalletWise Personal Finance App Case Study | We Raise Tech",
+    description:
+      "How We Raise Tech built WalletWise, a mobile-first personal finance app with multi-account net worth, expense tracking, category budgets, and spending charts.",
+    image: "/portfolio/walletwise/og.jpg",
+    ...CASE_STUDY_IMAGE,
+    kind: "case-study",
+    heading: "WalletWise Personal Finance App",
+    clientName: "WalletWise",
+    lastModified: "2026-11-18",
+  },
+  {
     path: "/blog",
     title: "Software Development Blog & Guides | We Raise Tech",
     description:

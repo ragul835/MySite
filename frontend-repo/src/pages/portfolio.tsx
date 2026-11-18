@@ -13,6 +13,7 @@ import {
   KanbanSquare,
   Boxes,
   Dumbbell,
+  Wallet,
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
@@ -185,10 +186,31 @@ const caseStudies: CaseStudy[] = [
       { text: "Friends leaderboard and weight trend toward goal" },
     ],
     year: "2026",
-    image: "/portfolio/fitpulse/screenshots/home.webp",
+    image: "/portfolio/fitpulse/cover.webp",
     icon: Dumbbell,
     featured: false,
     href: "/portfolio/fitpulse",
+  },
+  {
+    id: "walletwise-app",
+    title: "WalletWise — Personal Finance App",
+    client: "WalletWise",
+    industry: "Personal Finance",
+    category: "App",
+    badgeClass: "bg-rose-600 text-white",
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Recharts", "Tailwind CSS"],
+    description:
+      "A mobile-first personal finance app with net worth across accounts, quick expense and income logging, a searchable activity feed, category budgets, and spending charts.",
+    keyResults: [
+      { text: "Checking, savings, credit, and cash accounts in one net worth" },
+      { text: "Monthly category budgets with near-limit and over-budget alerts" },
+      { text: "Spending donut and six-month income vs spending chart" },
+    ],
+    year: "2026",
+    image: "/portfolio/walletwise/cover.webp",
+    icon: Wallet,
+    featured: false,
+    href: "/portfolio/walletwise",
   },
 ];
 

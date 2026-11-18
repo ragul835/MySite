@@ -77,6 +77,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://weraisetech.com/portfolio/walletwise</loc>
+    <lastmod>2026-11-18</lastmod>
+    <image:image>
+      <image:loc>https://weraisetech.com/portfolio/walletwise/og.jpg</image:loc>
+      <image:title>WalletWise Personal Finance App</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://weraisetech.com/blog</loc>
     <lastmod>2026-09-26</lastmod>
   </url>

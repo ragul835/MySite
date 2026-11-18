@@ -16,6 +16,7 @@ We Raise Tech specializes in React/Next.js frontends, Node.js/NestJS/Java/Python
 - [FlowDesk Case Study](https://weraisetech.com/portfolio/flowdesk): SaaS project management platform with Kanban boards, real-time sync, role-based access, and analytics.
 - [StockPilot Case Study](https://weraisetech.com/portfolio/stockpilot): SaaS inventory and order management platform with multi-warehouse stock, purchase orders, reorder alerts, and barcode lookup.
 - [FitPulse Case Study](https://weraisetech.com/portfolio/fitpulse): Mobile-first fitness tracking app with workout logging, activity and water tracking, weekly goals, achievements, and a friends leaderboard.
+- [WalletWise Case Study](https://weraisetech.com/portfolio/walletwise): Mobile-first personal finance app with net worth tracking, multiple accounts, expense and income logging, category budgets, and spending charts.
 
 ## Services
 
